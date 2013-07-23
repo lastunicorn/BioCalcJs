@@ -87,16 +87,8 @@
         
 		biorhythmView.setBiorhythms(biorhythmShapes);
 		
-		for (var i = 0; i < biorhythmShapes.length; i++) {
-		    var shape = biorhythmShapes[i];
-            var $legendItem = $(".bioLegendItem[data-biorhythm='" + shape.getName() + "']");
-            var $colorElement = $legendItem.find(".bioLegendColor");
-            var color = shape.getColor();
-            $colorElement.css('background-color', color);
-            var $labelElement = $legendItem.find(".bioLegendLabel");
-            $labelElement.text(shape.getBiorhythm().getName());
-        }
-		
+		var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
+		biorhythmLegend.populate();
 	}
 	
 	function onBiorhythmViewFirstDayChanged() {

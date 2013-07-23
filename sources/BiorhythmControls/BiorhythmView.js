@@ -4,7 +4,7 @@ lu.biorhythmControls = lu.biorhythmControls || {};
 lu.biorhythmControls.BiorhythmView = function(id) {
 	
 	var canvas;
-	var biorhythms;
+	var biorhythms = [];
 	var totalDays = 30;
 	var xDayIndex = 0;
 	
@@ -49,7 +49,17 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 
     // #endregion
 
-    	
+    var biorhythmAddedEvent = new lu.Event();
+	
+	this.subscribeToBiorhythmAdded = function (eventHandler) {
+		biorhythmAddedEvent.subscribe(eventHandler);
+	}
+
+    var biorhythmRemovedEvent = new lu.Event();
+	
+	this.subscribeToBiorhythmRemoved = function (eventHandler) {
+		biorhythmRemovedEvent.subscribe(eventHandler);
+	}
 	// --------------------------------------------------------------------------
 	// Functions - "private"
 	// --------------------------------------------------------------------------
@@ -65,7 +75,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 			
 			areDayNumbersVisible: true,
 			areWeekDaysVisible: true,
-			dayNumbersPosition: lu.DayLabelPosition.aboveMiddle,
+			dayNumbersPosition: lu.DayLabelPosition.top,
 			weekDaysPosition: lu.DayLabelPosition.bottom,
 			areSundaysEmphasized: true,
 			
@@ -77,6 +87,30 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 		
 		painter.paint(rawPaintData, canvas);
 	}
+
+    function addBiorhythm(biorhythmShape) {
+        biorhythms.push(biorhythmShape);
+	    
+        biorhythmShape.subscribeToNameChanged(onBiorhithmShapeChanged);
+        biorhythmShape.subscribeToBirthdayChanged(onBiorhithmShapeChanged);
+        biorhythmShape.subscribeToBiorhythmChanged(onBiorhithmShapeChanged);
+        biorhythmShape.subscribeToColorChanged(onBiorhithmShapeChanged);
+        biorhythmShape.subscribeToIsVisibleChanged(onBiorhithmShapeChanged);
+        biorhythmShape.subscribeToLineWidthChanged(onBiorhithmShapeChanged);
+        biorhythmShape.subscribeToLineStyleChanged(onBiorhithmShapeChanged);
+    }
+    
+    function removeAllBiorhythms() {
+        for (var i = 0; i < biorhythms.length; i++) {
+            removeBiorhythmAt(i);
+        }
+    }
+    
+    function removeBiorhythmAt(index) {
+        // todo: unsubscribe from events
+        
+        biorhythms.splice(index, 1);
+    }
 
 	// --------------------------------------------------------------------------
 	// Functions - Event Handlers
@@ -160,25 +194,34 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-	function setBiorhythms(value) {
-		biorhythms = value;
+	this.setBiorhythms = function (value) {
+	    
+		removeAllBiorhythms();
 
-		for (var i = 0; i < biorhythms.length; i++) {
-            biorhythms[i].subscribeToNameChanged(onBiorhithmShapeChanged);
-            biorhythms[i].subscribeToBirthdayChanged(onBiorhithmShapeChanged);
-            biorhythms[i].subscribeToBiorhythmChanged(onBiorhithmShapeChanged);
-            biorhythms[i].subscribeToColorChanged(onBiorhithmShapeChanged);
-            biorhythms[i].subscribeToIsVisibleChanged(onBiorhithmShapeChanged);
-            biorhythms[i].subscribeToLineWidthChanged(onBiorhithmShapeChanged);
-            biorhythms[i].subscribeToLineStyleChanged(onBiorhithmShapeChanged);
+		for (var i = 0; i < value.length; i++) {
+		    addBiorhythm(value[i]);
 		}
 		
 		paint();
 	}
 
+    this.getBiorhythms = function() {
+        var list = [];
+
+        for (var i = 0; i < biorhythms.length; i++) {
+            list.push(biorhythms[i]);
+        }
+        
+        return list;
+    }
+
 	this.getPaintCount = function() {
         return painter.getPaintCount();
 	};
+	
+	this.addBiorhythm = function (biorhythmShape) {
+	    
+	}
 
 	// --------------------------------------------------------------------------
 	// Initializer
@@ -199,6 +242,4 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 		
 		painter = new lu.biorhythmControls.common.painting.BiorhythmViewPainter();
 	}());
-	
-	this.setBiorhythms = setBiorhythms;
 };

@@ -8,37 +8,39 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
     var nextCalculator;
     var rawPaintData;
     var canvas;
+    var textHeight;
     
 	// --------------------------------------------------------------------------
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-    function setNext(calculator) {
-        if (typeof(calculator) === "object" && typeof(calculator.calculate) === "function") {
-            nextCalculator = calculator;
-        }
-    }
-    
     function calculate(data, canvasElement) {
         rawPaintData = data;
         canvas = canvasElement;
         
-        var calculatedData = calculateDayLabels();
-        callNext();
+        calculateTextSize();
         
-        return calculatedData;
+        return calculateDayLabels();
     }
     
 	// --------------------------------------------------------------------------
 	// Functions - "private"
 	// --------------------------------------------------------------------------
-	
-    function callNext() {
-        if (nextCalculator) {
-            nextCalculator.calculate(rawPaintData, canvas);
-        }
+    
+    function calculateTextSize() {
+        var textSize = lu.TextUtil.measureText({
+            text: "0jf",
+            font: rawPaintData.font
+        });
+        
+        var textSizeEmphasized = lu.TextUtil.measureText({
+            text: "0jf",
+            font: rawPaintData.sundaysFont
+        });
+        
+        textHeight = Math.max(textSize[1], textSizeEmphasized[1]);
     }
-
+	
     function calculateDayLabels() {
         var areDayNumbersVisible = rawPaintData.areDayNumbersVisible;
         var areWeekDaysVisible = rawPaintData.areWeekDaysVisible &&
@@ -59,9 +61,9 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
                 dayLabelsPaintData.push(calculateDayNumberPaintInfo(i, day));
             }
 
-            //if (areWeekDaysVisible) {
-            //    dayLabelsPaintData.push(calculateWeekDayPaintInfo(day, size, i));
-            //}
+            if (areWeekDaysVisible) {
+                dayLabelsPaintData.push(calculateWeekDayPaintInfo(day, i));
+            }
 
             day.setDate(day.getDate() + 1);
         }
@@ -78,7 +80,7 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
     function calculateDayNumberPaintInfo(i, day) {
         var location = calculateDayNumberLocation(i, rawPaintData.dayNumbersPosition);
 
-        var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 6;
+        var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 0;
         
         return {
             text: day.getDate().toString(),
@@ -87,22 +89,21 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
         };
     }
 
-        /*private DayLabelPaintData CalculateWeekDayPaintInfo(DateTime day, SizeF size, int i)
-        {
-            PointF location = CalculateDayNumberLocation(i, rawPaintData.WeekDaysPosition);
+    function calculateWeekDayPaintInfo(day, i) {
+        var location = calculateDayNumberLocation(i, rawPaintData.weekDaysPosition);
 
-            bool isEmphasized = rawPaintData.AreSundaysEmphasized && day.DayOfWeek == DayOfWeek.Sunday;
-            return new DayLabelPaintData
-                {
-                    Text = weekDaysNamesProvider.GetWeekDayName(day.DayOfWeek),
-                    Rectangle = new RectangleF(location, size),
-                    IsEmphasized = isEmphasized
-                };
-        }*/
+        var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 0;
+
+        return {
+            text: day.getDay().toString(),
+            location: location,
+            isEmphasized: isEmphasized
+        };
+    }
 
     function calculateDayNumberLocation(index, position) {
         var xStep = (canvas.width) / rawPaintData.totalDays;
-        var daysFontHeight = 8;
+        var daysFontHeight = (textHeight + 3) / 2;
         
         switch (position) {
             case lu.DayLabelPosition.top:
@@ -124,6 +125,5 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
 	// Initializer
 	// --------------------------------------------------------------------------
 	
-    this.setNext = setNext;
     this.calculate = calculate;
 };

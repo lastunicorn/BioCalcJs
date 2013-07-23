@@ -13,31 +13,17 @@ lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function(
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-    function setNext(calculator) {
-        if (typeof(calculator) === "object" && typeof(calculator.calculate) === "function") {
-            nextCalculator = calculator;
-        }
-    }
-    
     function calculate(data, canvasElement) {
         rawPaintData = data;
         canvas = canvasElement;
         
-        var calculatedData = calculateGridLines();
-        callNext();
-        return calculatedData;
+        return calculateGridLines();
     }
     
 	// --------------------------------------------------------------------------
 	// Functions - "private"
 	// --------------------------------------------------------------------------
 	
-    function callNext() {
-        if (nextCalculator) {
-            nextCalculator.calculate(rawPaintData, canvas);
-        }
-    }
-
     function calculateGridLines() {
         if (!rawPaintData.isGridVisible) {
             return {
@@ -83,6 +69,5 @@ lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function(
 	// Initializer
 	// --------------------------------------------------------------------------
 	
-    this.setNext = setNext;
     this.calculate = calculate;
 };

@@ -34,6 +34,9 @@
         <script type="text/javascript" src="../BiorhythmControls/Common/BiorhythmModel/CommonBiorhythmShapes.js"></script>
         
         <script type="text/javascript" src="../BiorhythmControls/Common/Painting/BiorhythmViewPainter.js"></script>
+        <script type="text/javascript" src="../BiorhythmControls/Common/Painting/GridLinesPainter.js"></script>
+        <script type="text/javascript" src="../BiorhythmControls/Common/Painting/BiorhythmCurvesPainter.js"></script>
+        <script type="text/javascript" src="../BiorhythmControls/Common/Painting/DayLabelsPainter.js"></script>
         
         <script type="text/javascript" src="../BiorhythmControls/Common/PaintDataCalculation/PaintDataCalculator.js"></script>
         <script type="text/javascript" src="../BiorhythmControls/Common/PaintDataCalculation/BiorhythmCurvesCalculator.js"></script>
@@ -46,10 +49,12 @@
         <script type="text/javascript" src="../BiorhythmControls/Common/Event.js"></script>
         <script type="text/javascript" src="../BiorhythmControls/Common/MouseButton.js"></script>
         <script type="text/javascript" src="../BiorhythmControls/Common/DayLabelPosition.js"></script>
+        <script type="text/javascript" src="../BiorhythmControls/Common/TextUtil.js"></script>
         
         <script type="text/javascript" src="../BiorhythmControls/BiorhythmView.js"></script>
         
         <script type="text/javascript" src="BioCalc.js"></script>
+        <script type="text/javascript" src="BiorhythmLegend.js"></script>
         
         <link rel="stylesheet" type="text/css" href="BioCalc.css" />
     </head>
@@ -59,25 +64,8 @@
             <div id="bioCanvasContainer">
                 <canvas id="bioCanvas" width="900" height="200" tabindex="1"></canvas>
             </div>
-            <div id="bioLegend">
-                <div class="bioLegendItem" data-biorhythm="Intuitive Shape">
-                    <div class="bioLegendColor"></div>
-                    <div class="bioLegendLabel"></div>
-                </div>
-                <div class="bioLegendItem" data-biorhythm="Intellectual Shape">
-                    <div class="bioLegendColor"></div>
-                    <div class="bioLegendLabel"></div>
-                </div>
-                <div class="bioLegendItem" data-biorhythm="Emotional Shape">
-                    <div class="bioLegendColor"></div>
-                    <div class="bioLegendLabel"></div>
-                </div>
-                <div class="bioLegendItem" data-biorhythm="Physical Shape">
-                    <div class="bioLegendColor"></div>
-                    <div class="bioLegendLabel"></div>
-                </div>
-                <div class="clear"></div>
-            </div>
+            <div id="bioLegend"></div>
+            <div class="clear"></div>
             <table>
                 <tbody>
                     <tr>

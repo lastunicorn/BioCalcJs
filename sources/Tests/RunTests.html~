@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>QUnit Tests</title>
+        
+        <script type="text/javascript" src="ExternalTools/qUnit/qunit-1.12.0.js"></script>
+        <link rel="stylesheet" href="ExternalTools/qUnit/qunit-1.12.0.css">
+        
+        <script type="text/javascript" src="../BiorhythmControls/BiorhythmView.js"></script>
+        <script type="text/javascript" src="UnitTests/BiorhythmViewTests.js"></script>
+    </head>
+    <body>
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+    </body>
+</html>

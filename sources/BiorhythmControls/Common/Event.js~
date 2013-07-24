@@ -19,5 +19,5 @@ lu.Event = function() {
 	}
 
 	this.subscribe = subscribe;
-	this.raise = raise;
+	this.raiseEvent = raiseEvent;
 };

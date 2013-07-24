@@ -24,7 +24,7 @@ lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
 		}
 	
 		name = value;
-		nameChangedEvent.raise();
+		nameChangedEvent.raiseEvent();
 	}
 	
 	this.getName = getName;
@@ -52,7 +52,7 @@ lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
 		}
 	
 		birthday = value;
-		birthdayChangedEvent.raise();
+		birthdayChangedEvent.raiseEvent();
 	}
 	
 	this.getBirthday = getBirthday;
@@ -80,7 +80,7 @@ lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
 		}
 	
 		biorhythm = value;
-		biorhythmChangedEvent.raise();
+		biorhythmChangedEvent.raiseEvent();
 	}
 	
 	this.getBiorhythm = getBiorhythm;
@@ -108,7 +108,7 @@ lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
 		}
 	
 		color = value;
-		colorChangedEvent.raise();
+		colorChangedEvent.raiseEvent();
 	}
 	
 	this.getColor = getColor;
@@ -136,7 +136,7 @@ lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
 		}
 	
 		isVisible = value;
-		isVisibleChangedEvent.raise();
+		isVisibleChangedEvent.raiseEvent();
 	}
 	
 	this.getIsVisible = getIsVisible;
@@ -164,7 +164,7 @@ lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
 		}
 	
 		lineWidth = value;
-		lineWidthChangedEvent.raise();
+		lineWidthChangedEvent.raiseEvent();
 	}
 	
 	this.getLineWidth = getLineWidth;
@@ -192,7 +192,7 @@ lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
 		}
 	
 		lineStyle = value;
-		lineStyleChangedEvent.raise();
+		lineStyleChangedEvent.raiseEvent();
 	}
 	
 	this.getLineStyle = getLineStyle;

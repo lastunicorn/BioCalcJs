@@ -70,6 +70,5 @@ h1
 
 #button1
 {
-    /*display: none;/**/
-    /*display: none;/**/
+    display: none;
 }

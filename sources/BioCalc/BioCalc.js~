@@ -53,6 +53,7 @@
         
         $("#button1").on("click", function () {
             //alert(biorhythmView.getPaintCount());
+            biorhythmView.setFont("20px Arialss");
         });
         
 		biorhythmView = new lu.biorhythmControls.BiorhythmView("bioCanvas"); 

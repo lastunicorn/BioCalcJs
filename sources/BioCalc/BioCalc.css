@@ -9,6 +9,15 @@ h1
     font-weight: bold;
 }
 
+#version
+{
+	text-align: right;
+	margin: 3px 0;
+	color: #a0a0a0;
+	display: inline;
+	font-size: 10px; 
+}
+
 #pageContainer
 {
     width: 900px;
@@ -70,6 +79,5 @@ h1
 
 #button1
 {
-    /*display: none;/**/
-    /*display: none;/**/
+    display: none;/**/
 }

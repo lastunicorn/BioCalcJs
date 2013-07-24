@@ -14,31 +14,17 @@ lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = fun
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-    function setNext(calculator) {
-        if (typeof(calculator) === "object" && typeof(calculator.calculate) === "function") {
-            nextCalculator = calculator;
-        }
-    }
-    
-    function calculate(data, canvasElement) {
+    this.calculate = function(data, canvasElement) {
         rawPaintData = data;
         canvas = canvasElement;
         
-        var calculatedData = calculateBiorhythms();
-        callNext();
-        return calculatedData;
-    }
+        return calculateBiorhythms();
+    };
     
 	// --------------------------------------------------------------------------
 	// Functions - "private"
 	// --------------------------------------------------------------------------
 	
-    function callNext() {
-        if (nextCalculator) {
-            nextCalculator.calculate(rawPaintData, canvas);
-        }
-    }
-    
     function calculateBiorhythms() {
 		var values = [];
 		var points;
@@ -47,7 +33,7 @@ lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = fun
 			if(!rawPaintData.biorhythmShapes[i].getIsVisible()){
 				continue;
 			}
-		
+
             var biorhythm = rawPaintData.biorhythmShapes[i].getBiorhythm();
             var birthday = rawPaintData.biorhythmShapes[i].getBirthday(); 
 			points = calculateBiorhythmPoints(biorhythm, birthday);
@@ -59,7 +45,7 @@ lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = fun
 				lineStyle: rawPaintData.biorhythmShapes[i].getLineStyle()
 			});
 		}
-	
+
 		return values;
 	}
 
@@ -84,11 +70,4 @@ lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = fun
 
 		return points;
 	}
-    
-	// --------------------------------------------------------------------------
-	// Initializer
-	// --------------------------------------------------------------------------
-	
-    this.setNext = setNext;
-    this.calculate = calculate;
 };

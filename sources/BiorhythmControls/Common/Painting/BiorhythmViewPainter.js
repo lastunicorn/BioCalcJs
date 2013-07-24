@@ -17,7 +17,7 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
     // Functions - "public"
     // --------------------------------------------------------------------------
     
-    function paint(data, canvasElement) {
+    this.paint = function(data, canvasElement) {
         paintCount++;
         rawPaintData = data;
         canvas = canvasElement;
@@ -26,7 +26,7 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
         var dataToPaint = paintDataCalculator.calculate(rawPaintData, canvas);
         
         paintAll(dataToPaint);
-    }
+    };
     
     // --------------------------------------------------------------------------
     // Functions - "private"
@@ -41,6 +41,9 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
             var gridLinesPainter = new lu.biorhythmControls.common.painting.GridLinesPainter();
             gridLinesPainter.paint(context, dataToPaint.gridLines);
             
+            var todayPainter = new lu.biorhythmControls.common.painting.TodayPainter();
+            todayPainter.paint(context, dataToPaint.todayMarker);
+            
             var biorhythmCurvesPainter = new lu.biorhythmControls.common.painting.BiorhythmCurvesPainter();
             biorhythmCurvesPainter.paint(context, dataToPaint.biorhythms);
             
@@ -53,10 +56,4 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
         context.fillStyle = "#ffffff";
         context.fillRect(0, 0, canvas.width, canvas.height);
     }
-    
-    // --------------------------------------------------------------------------
-    // Initializer
-    // --------------------------------------------------------------------------
-    
-    this.paint = paint;
 };

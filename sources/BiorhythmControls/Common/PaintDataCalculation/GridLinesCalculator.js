@@ -5,7 +5,6 @@ lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.p
 
 lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function() {
     
-    var nextCalculator;
     var rawPaintData;
     var canvas;
     
@@ -13,7 +12,7 @@ lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function(
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-    function calculate(data, canvasElement) {
+    this.calculate = function(data, canvasElement) {
         rawPaintData = data;
         canvas = canvasElement;
         
@@ -61,10 +60,4 @@ lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function(
 
         return new lu.Line(startPoint, endPoint);
     }
-    
-	// --------------------------------------------------------------------------
-	// Initializer
-	// --------------------------------------------------------------------------
-	
-    this.calculate = calculate;
 };

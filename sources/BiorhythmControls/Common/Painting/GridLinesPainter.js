@@ -12,7 +12,7 @@ lu.biorhythmControls.common.painting.GridLinesPainter = function() {
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 
-    function paint(context, data) {
+    this.paint = function(context, data) {
         paintContext = context;
         dataToPaint = data;
         
@@ -23,7 +23,7 @@ lu.biorhythmControls.common.painting.GridLinesPainter = function() {
         }
    
         paintGrid();
-    }
+    };
 
 	// --------------------------------------------------------------------------
 	// Functions - "private"
@@ -56,10 +56,4 @@ lu.biorhythmControls.common.painting.GridLinesPainter = function() {
 			paintContext.setLineDash(linePattern);
 		}		
 	}
-	
-	// --------------------------------------------------------------------------
-	// Initializer
-	// --------------------------------------------------------------------------
-	
-	this.paint = paint;
 };

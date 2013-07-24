@@ -199,7 +199,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     return font
   };
   this.subscribeToFontChanged = fontChangedEvent.subscribe;
-  var sundaysFont = "12px Arial";
+  var sundaysFont = "italic 12px Arial";
   var sundaysFontChangedEvent = new lu.Event;
   this.setSundaysFont = function(value) {
     sundaysFont = value;
@@ -210,10 +210,20 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     return sundaysFont
   };
   this.subscribeToSundaysFontChanged = sundaysFontChangedEvent.subscribe;
-  var sundaysFont = "italic 12px Arial";
+  var todayBackColor = "#ffe4b5";
+  var todayBackColorChangedEvent = new lu.Event;
+  this.setTodayBackColor = function(value) {
+    todayBackColor = value;
+    todayBackColorChangedEvent.raise();
+    paint()
+  };
+  this.getTodayBackColor = function() {
+    return todayBackColor
+  };
+  this.subscribeToTodayBackColorChanged = todayBackColorChangedEvent.subscribe;
   var painter;
   function paint() {
-    var rawPaintData = {biorhythmShapes:biorhythms, firstDay:firstDay, totalDays:totalDays, xDayIndex:xDayIndex, gridColor:gridColor, isGridVisible:isGridVisible, areDayNumbersVisible:areDayNumbersVisible, areWeekDaysVisible:areWeekDaysVisible, dayNumbersPosition:dayNumbersPosition, weekDaysPosition:weekDaysPosition, areSundaysEmphasized:areSundaysEmphasized, foreColor:foreColor, sundaysColor:sundaysColor, font:font, sundaysFont:sundaysFont};
+    var rawPaintData = {biorhythmShapes:biorhythms, firstDay:firstDay, totalDays:totalDays, xDayIndex:xDayIndex, gridColor:gridColor, isGridVisible:isGridVisible, todayBackColor:todayBackColor, areDayNumbersVisible:areDayNumbersVisible, areWeekDaysVisible:areWeekDaysVisible, dayNumbersPosition:dayNumbersPosition, weekDaysPosition:weekDaysPosition, areSundaysEmphasized:areSundaysEmphasized, foreColor:foreColor, sundaysColor:sundaysColor, font:font, sundaysFont:sundaysFont};
     painter.paint(rawPaintData, canvas)
   }
   this.getPaintCount = function() {
@@ -426,23 +436,11 @@ lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = fun
   var rawPaintData;
   var canvas;
   var margin = 10;
-  function setNext(calculator) {
-    if(typeof calculator === "object" && typeof calculator.calculate === "function") {
-      nextCalculator = calculator
-    }
-  }
-  function calculate(data, canvasElement) {
+  this.calculate = function(data, canvasElement) {
     rawPaintData = data;
     canvas = canvasElement;
-    var calculatedData = calculateBiorhythms();
-    callNext();
-    return calculatedData
-  }
-  function callNext() {
-    if(nextCalculator) {
-      nextCalculator.calculate(rawPaintData, canvas)
-    }
-  }
+    return calculateBiorhythms()
+  };
   function calculateBiorhythms() {
     var values = [];
     var points;
@@ -472,8 +470,6 @@ lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = fun
     }
     return points
   }
-  this.setNext = setNext;
-  this.calculate = calculate
 };
 var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
@@ -567,6 +563,23 @@ lu.Line = function(startPoint, endPoint) {
   };
   this.toString = function() {
     return startPoint.toString() + " - " + endPoint.toString()
+  }
+};
+lu.Rectangle = function(left, top, width, height) {
+  this.getLeft = function() {
+    return left
+  };
+  this.getTop = function() {
+    return top
+  };
+  this.getWidth = function() {
+    return width
+  };
+  this.getHeight = function() {
+    return height
+  };
+  this.toString = function() {
+    return"[" + left.toString() + ", " + top.toString() + "] w=" + width.toString() + "; h=" + height.toString()
   }
 };
 var lu = lu || {};
@@ -857,12 +870,12 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
   var rawPaintData;
   var canvas;
   var textHeight;
-  function calculate(data, canvasElement) {
+  this.calculate = function(data, canvasElement) {
     rawPaintData = data;
     canvas = canvasElement;
     calculateTextSize();
     return calculateDayLabels()
-  }
+  };
   function calculateTextSize() {
     var textSize = lu.TextUtil.measureText({text:"0jf", font:rawPaintData.font});
     var textSizeEmphasized = lu.TextUtil.measureText({text:"0jf", font:rawPaintData.sundaysFont});
@@ -914,21 +927,19 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
         return new lu.Point(xStep * index + xStep / 2, canvas.height - daysFontHeight)
     }
   }
-  this.calculate = calculate
 };
 var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
 lu.biorhythmControls.common = lu.biorhythmControls.common || {};
 lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
 lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function() {
-  var nextCalculator;
   var rawPaintData;
   var canvas;
-  function calculate(data, canvasElement) {
+  this.calculate = function(data, canvasElement) {
     rawPaintData = data;
     canvas = canvasElement;
     return calculateGridLines()
-  }
+  };
   function calculateGridLines() {
     if(!rawPaintData.isGridVisible) {
       return null
@@ -954,7 +965,6 @@ lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function(
     var endPoint = new lu.Point(canvas.width, canvas.height / 2);
     return new lu.Line(startPoint, endPoint)
   }
-  this.calculate = calculate
 };
 var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
@@ -964,15 +974,51 @@ lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function(
   var biorhythmCurvesCalculator;
   var gridLinesCalculator;
   var dayLabelsCalculator;
-  function calculate(data, canvasElement) {
-    return{biorhythms:biorhythmCurvesCalculator.calculate(data, canvasElement), gridLines:gridLinesCalculator.calculate(data, canvasElement), dayLabels:dayLabelsCalculator.calculate(data, canvasElement)}
-  }
+  var todayCalculator;
+  this.calculate = function(data, canvasElement) {
+    return{biorhythms:biorhythmCurvesCalculator.calculate(data, canvasElement), gridLines:gridLinesCalculator.calculate(data, canvasElement), dayLabels:dayLabelsCalculator.calculate(data, canvasElement), todayMarker:todayCalculator.calculate(data, canvasElement)}
+  };
   (function initialize() {
     biorhythmCurvesCalculator = new lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator;
     gridLinesCalculator = new lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator;
-    dayLabelsCalculator = new lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator
-  })();
-  this.calculate = calculate
+    dayLabelsCalculator = new lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator;
+    todayCalculator = new lu.biorhythmControls.common.paintDataCalculation.TodayCalculator
+  })()
+};
+var lu = lu || {};
+lu.biorhythmControls = lu.biorhythmControls || {};
+lu.biorhythmControls.common = lu.biorhythmControls.common || {};
+lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
+lu.biorhythmControls.common.paintDataCalculation.TodayCalculator = function() {
+  var rawPaintData;
+  var canvas;
+  this.calculate = function(data, canvasElement) {
+    rawPaintData = data;
+    canvas = canvasElement;
+    return calculateTodayRectangle()
+  };
+  function calculateTodayRectangle() {
+    var todayIndex = calculateTodayIndex();
+    var todayIsVisible = todayIndex >= 0 && todayIndex < rawPaintData.totalDays;
+    if(!todayIsVisible) {
+      return null
+    }
+    var xStep = canvas.width / rawPaintData.totalDays;
+    var x = todayIndex * xStep;
+    var y = 0;
+    var width = xStep;
+    var height = canvas.height;
+    return{rectangle:new lu.Rectangle(x, y, width, height), color:rawPaintData.todayBackColor}
+  }
+  function calculateTodayIndex() {
+    var today = getDateComponent(new Date);
+    var firstDay = getDateComponent(rawPaintData.firstDay);
+    var todayIndexInMiliseconds = today - firstDay;
+    return Math.floor(todayIndexInMiliseconds / 1E3 / 60 / 60 / 24)
+  }
+  function getDateComponent(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+  }
 };
 var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
@@ -985,20 +1031,22 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
   this.getPaintCount = function() {
     return paintCount
   };
-  function paint(data, canvasElement) {
+  this.paint = function(data, canvasElement) {
     paintCount++;
     rawPaintData = data;
     canvas = canvasElement;
     var paintDataCalculator = new lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator;
     var dataToPaint = paintDataCalculator.calculate(rawPaintData, canvas);
     paintAll(dataToPaint)
-  }
+  };
   function paintAll(dataToPaint) {
     if(canvas.getContext) {
       var context = canvas.getContext("2d");
       clearCanvas(context);
       var gridLinesPainter = new lu.biorhythmControls.common.painting.GridLinesPainter;
       gridLinesPainter.paint(context, dataToPaint.gridLines);
+      var todayPainter = new lu.biorhythmControls.common.painting.TodayPainter;
+      todayPainter.paint(context, dataToPaint.todayMarker);
       var biorhythmCurvesPainter = new lu.biorhythmControls.common.painting.BiorhythmCurvesPainter;
       biorhythmCurvesPainter.paint(context, dataToPaint.biorhythms);
       var dayLabelsPainter = new lu.biorhythmControls.common.painting.DayLabelsPainter;
@@ -1009,7 +1057,6 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
     context.fillStyle = "#ffffff";
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
-  this.paint = paint
 };
 var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
@@ -1050,7 +1097,7 @@ lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {
 lu.biorhythmControls.common.painting.GridLinesPainter = function() {
   var paintContext;
   var dataToPaint;
-  function paint(context, data) {
+  this.paint = function(context, data) {
     paintContext = context;
     dataToPaint = data;
     var isGridVisible = dataToPaint && dataToPaint.lines && dataToPaint.lines.length > 0;
@@ -1058,7 +1105,7 @@ lu.biorhythmControls.common.painting.GridLinesPainter = function() {
       return
     }
     paintGrid()
-  }
+  };
   function paintGrid() {
     paintContext.strokeStyle = dataToPaint.color;
     paintContext.lineWidth = 1;
@@ -1082,7 +1129,29 @@ lu.biorhythmControls.common.painting.GridLinesPainter = function() {
       paintContext.setLineDash(linePattern)
     }
   }
-  this.paint = paint
+};
+var lu = lu || {};
+lu.biorhythmControls = lu.biorhythmControls || {};
+lu.biorhythmControls.common = lu.biorhythmControls.common || {};
+lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
+lu.biorhythmControls.common.painting.TodayPainter = function() {
+  var paintContext;
+  var dataToPaint;
+  this.paint = function(context, data) {
+    paintContext = context;
+    dataToPaint = data;
+    if(!dataToPaint) {
+      return
+    }
+    paintTodayRectangle()
+  };
+  function paintTodayRectangle() {
+    var rect = dataToPaint.rectangle;
+    paintContext.beginPath();
+    paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
+    paintContext.fillStyle = dataToPaint.color;
+    paintContext.fill()
+  }
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};

@@ -405,7 +405,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	// SundaysFont
 	// --------------------------------------------------------------------------
 	
-	var sundaysFont = "12px Arial";
+	var sundaysFont = "italic 12px Arial";
     var sundaysFontChangedEvent = new lu.Event();
     
     this.setSundaysFont = function (value) {
@@ -422,9 +422,31 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	this.subscribeToSundaysFontChanged = sundaysFontChangedEvent.subscribe;
 	
 	// #endregion
+    
+    // #region TodayBackColor
+    
+	// --------------------------------------------------------------------------
+	// TodayBackColor
+	// --------------------------------------------------------------------------
 	
-	var sundaysFont = "italic 12px Arial";
-
+	var todayBackColor = "#ffe4b5"; // Moccasin
+    var todayBackColorChangedEvent = new lu.Event();
+    
+    this.setTodayBackColor = function (value) {
+        todayBackColor = value;
+        
+        todayBackColorChangedEvent.raise();
+        paint();
+    };
+    
+    this.getTodayBackColor = function () {
+        return todayBackColor;
+    };
+	
+	this.subscribeToTodayBackColorChanged = todayBackColorChangedEvent.subscribe;
+	
+	// #endregion
+	
     // #region Paint
 
 	// --------------------------------------------------------------------------
@@ -441,6 +463,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 			xDayIndex: xDayIndex,
 			gridColor: gridColor,
 			isGridVisible: isGridVisible,
+			todayBackColor: todayBackColor,
 			
 			areDayNumbersVisible: areDayNumbersVisible,
 			areWeekDaysVisible: areWeekDaysVisible,

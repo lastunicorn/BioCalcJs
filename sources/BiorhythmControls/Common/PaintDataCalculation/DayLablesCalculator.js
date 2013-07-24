@@ -14,7 +14,7 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-    function calculate(data, canvasElement) {
+    this.calculate = function (data, canvasElement) {
         rawPaintData = data;
         canvas = canvasElement;
         
@@ -120,10 +120,4 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
                 return new lu.Point(xStep * index + xStep / 2, canvas.height - daysFontHeight);
         }
     }
-    
-	// --------------------------------------------------------------------------
-	// Initializer
-	// --------------------------------------------------------------------------
-	
-    this.calculate = calculate;
 };

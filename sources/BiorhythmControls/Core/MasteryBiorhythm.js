@@ -6,13 +6,13 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.MasteryBiorhythm = function() {
 	var biorhythm;
 	
-	function getName() {
+	this.getName = function() {
 		return "Mastery";
-	}
+	};
 
-	function getValue(dayIndex) {
+	this.getValue = function(dayIndex) {
 		return biorhythm.getValue(dayIndex);
-	}
+	};
 	
 	(function initialize() {
 		var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm();
@@ -20,7 +20,4 @@ lu.bioControls.core.biorhythms.MasteryBiorhythm = function() {
 		
 		biorhythm = new lu.bioControls.core.biorhythms.AverageBiorhythm(physicalBiorhythm, intellectualBiorhythm);
 	}());
-
-	this.getName = getName;
-	this.getValue = getValue;
 };

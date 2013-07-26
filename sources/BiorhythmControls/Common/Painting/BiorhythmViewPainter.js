@@ -30,8 +30,8 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
 
             clearCanvas(context);
 
-            var todayPainter = new lu.biorhythmControls.common.painting.TodayPainter();
-            todayPainter.paint(context, dataToPaint.todayMarker);
+            var todayMarkerPainter = new lu.biorhythmControls.common.painting.TodayMarkerPainter();
+            todayMarkerPainter.paint(context, dataToPaint.todayMarker);
 
             var gridLinesPainter = new lu.biorhythmControls.common.painting.GridLinesPainter();
             gridLinesPainter.paint(context, dataToPaint.gridLines);
@@ -41,6 +41,9 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
 
             var dayLabelsPainter = new lu.biorhythmControls.common.painting.DayLabelsPainter();
             dayLabelsPainter.paint(context, dataToPaint.dayLabels);
+            
+            var xDayMarkerPainter = new lu.biorhythmControls.common.painting.XDayMarkerPainter();
+            xDayMarkerPainter.paint(context, dataToPaint.xDayMarker);
         }
     }
 

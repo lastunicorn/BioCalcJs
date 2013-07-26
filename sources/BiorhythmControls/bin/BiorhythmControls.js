@@ -86,7 +86,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     return totalDays
   };
   this.subscribeToTotalDaysChanged = totalDaysChangedEvent.subscribe;
-  var xDayIndex = 0;
+  var xDayIndex = 7;
   var xDayIndexChangedEvent = new lu.Event;
   this.setXDayIndex = function(value) {
     xDayIndex = value;
@@ -218,9 +218,43 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     return todayBackColor
   };
   this.subscribeToTodayBackColorChanged = todayBackColorChangedEvent.subscribe;
+  var isXDayVisible = true;
+  var isXDayVisibleChangedEvent = new lu.Event;
+  this.setXDayVisibility = function(value) {
+    isXDayVisible = value;
+    isXDayVisibleChangedEvent.raise();
+    paint()
+  };
+  this.getXDayVisibility = function() {
+    return isXDayVisible
+  };
+  this.subscribeToXDayVisibilityChanged = isXDayVisibleChangedEvent.subscribe;
+  var xDayBorderColor = "#000000";
+  var isXDayBorderColorChangedEvent = new lu.Event;
+  this.setXDayBorderColor = function(value) {
+    xDayBorderColor = value;
+    isXDayBorderColorChangedEvent.raise();
+    paint()
+  };
+  this.getXDayBorderColor = function() {
+    return xDayBorderColor
+  };
+  this.subscribeToXDayBorderColorChanged = isXDayBorderColorChangedEvent.subscribe;
+  var xDayBorderWidth = 2;
+  var isXDayBorderWidthChangedEvent = new lu.Event;
+  this.setXDayBorderWidth = function(value) {
+    xDayBorderWidth = value;
+    isXDayBorderWidthChangedEvent.raise();
+    paint()
+  };
+  this.getXDayBorderWidth = function() {
+    return xDayBorderWidth
+  };
+  this.subscribeToXDayBorderWidthChanged = isXDayBorderWidthChangedEvent.subscribe;
   var painter = null;
   function paint() {
-    var rawPaintData = {biorhythmShapes:biorhythms, firstDay:firstDay, totalDays:totalDays, xDayIndex:xDayIndex, gridColor:gridColor, isGridVisible:isGridVisible, todayBackColor:todayBackColor, areDayNumbersVisible:areDayNumbersVisible, areWeekDaysVisible:areWeekDaysVisible, dayNumbersPosition:dayNumbersPosition, weekDaysPosition:weekDaysPosition, areSundaysEmphasized:areSundaysEmphasized, foreColor:foreColor, sundaysColor:sundaysColor, font:font, sundaysFont:sundaysFont};
+    var rawPaintData = {biorhythmShapes:biorhythms, firstDay:firstDay, totalDays:totalDays, xDayIndex:xDayIndex, isXDayVisible:isXDayVisible, xDayBorderColor:xDayBorderColor, xDayBorderWidth:xDayBorderWidth, gridColor:gridColor, isGridVisible:isGridVisible, todayBackColor:todayBackColor, areDayNumbersVisible:areDayNumbersVisible, areWeekDaysVisible:areWeekDaysVisible, dayNumbersPosition:dayNumbersPosition, weekDaysPosition:weekDaysPosition, areSundaysEmphasized:areSundaysEmphasized, foreColor:foreColor, 
+    sundaysColor:sundaysColor, font:font, sundaysFont:sundaysFont};
     painter.paint(rawPaintData, canvas)
   }
   this.getPaintCount = function() {
@@ -512,10 +546,9 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
-  function getValue(dayIndex) {
+  this.getValue = function(dayIndex) {
     return(biorhythmA.getValue(dayIndex) + biorhythmB.getValue(dayIndex)) / 2
   }
-  this.getValue = getValue
 };
 var lu = lu || {};
 lu.Event = function() {
@@ -937,22 +970,24 @@ lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function(
   var biorhythmCurvesCalculator;
   var gridLinesCalculator;
   var dayLabelsCalculator;
-  var todayCalculator;
+  var todayMarkerCalculator;
+  var xDayMarkerCalculator;
   this.calculate = function(data, canvasElement) {
-    return{biorhythms:biorhythmCurvesCalculator.calculate(data, canvasElement), gridLines:gridLinesCalculator.calculate(data, canvasElement), dayLabels:dayLabelsCalculator.calculate(data, canvasElement), todayMarker:todayCalculator.calculate(data, canvasElement)}
+    return{biorhythms:biorhythmCurvesCalculator.calculate(data, canvasElement), gridLines:gridLinesCalculator.calculate(data, canvasElement), dayLabels:dayLabelsCalculator.calculate(data, canvasElement), todayMarker:todayMarkerCalculator.calculate(data, canvasElement), xDayMarker:xDayMarkerCalculator.calculate(data, canvasElement)}
   };
   (function initialize() {
     biorhythmCurvesCalculator = new lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator;
     gridLinesCalculator = new lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator;
     dayLabelsCalculator = new lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator;
-    todayCalculator = new lu.biorhythmControls.common.paintDataCalculation.TodayCalculator
+    todayMarkerCalculator = new lu.biorhythmControls.common.paintDataCalculation.TodayMarkerCalculator;
+    xDayMarkerCalculator = new lu.biorhythmControls.common.paintDataCalculation.XDayMarkerCalculator
   })()
 };
 var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
 lu.biorhythmControls.common = lu.biorhythmControls.common || {};
 lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
-lu.biorhythmControls.common.paintDataCalculation.TodayCalculator = function() {
+lu.biorhythmControls.common.paintDataCalculation.TodayMarkerCalculator = function() {
   var rawPaintData;
   var canvas;
   this.calculate = function(data, canvasElement) {
@@ -986,6 +1021,30 @@ lu.biorhythmControls.common.paintDataCalculation.TodayCalculator = function() {
 var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
 lu.biorhythmControls.common = lu.biorhythmControls.common || {};
+lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
+lu.biorhythmControls.common.paintDataCalculation.XDayMarkerCalculator = function() {
+  var rawPaintData;
+  var canvas;
+  this.calculate = function(data, canvasElement) {
+    rawPaintData = data;
+    canvas = canvasElement;
+    return calculateXDayMarker()
+  };
+  function calculateXDayMarker() {
+    if(!rawPaintData.isXDayVisible) {
+      return null
+    }
+    var xStep = canvas.width / rawPaintData.totalDays;
+    var x = xStep * rawPaintData.xDayIndex;
+    var y = 0;
+    var width = xStep;
+    var height = canvas.height;
+    return{rectangle:new lu.Rectangle(x, y, width, height), lineColor:rawPaintData.xDayBorderColor, lineWidth:rawPaintData.xDayBorderWidth}
+  }
+};
+var lu = lu || {};
+lu.biorhythmControls = lu.biorhythmControls || {};
+lu.biorhythmControls.common = lu.biorhythmControls.common || {};
 lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
 lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
   var rawPaintData = null;
@@ -1006,14 +1065,16 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
     if(canvas.getContext) {
       var context = canvas.getContext("2d");
       clearCanvas(context);
-      var todayPainter = new lu.biorhythmControls.common.painting.TodayPainter;
-      todayPainter.paint(context, dataToPaint.todayMarker);
+      var todayMarkerPainter = new lu.biorhythmControls.common.painting.TodayMarkerPainter;
+      todayMarkerPainter.paint(context, dataToPaint.todayMarker);
       var gridLinesPainter = new lu.biorhythmControls.common.painting.GridLinesPainter;
       gridLinesPainter.paint(context, dataToPaint.gridLines);
       var biorhythmCurvesPainter = new lu.biorhythmControls.common.painting.BiorhythmCurvesPainter;
       biorhythmCurvesPainter.paint(context, dataToPaint.biorhythms);
       var dayLabelsPainter = new lu.biorhythmControls.common.painting.DayLabelsPainter;
-      dayLabelsPainter.paint(context, dataToPaint.dayLabels)
+      dayLabelsPainter.paint(context, dataToPaint.dayLabels);
+      var xDayMarkerPainter = new lu.biorhythmControls.common.painting.XDayMarkerPainter;
+      xDayMarkerPainter.paint(context, dataToPaint.xDayMarker)
     }
   }
   function clearCanvas(context) {
@@ -1096,7 +1157,7 @@ var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
 lu.biorhythmControls.common = lu.biorhythmControls.common || {};
 lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
-lu.biorhythmControls.common.painting.TodayPainter = function() {
+lu.biorhythmControls.common.painting.TodayMarkerPainter = function() {
   var paintContext = null;
   var dataToPaint = null;
   this.paint = function(context, data) {
@@ -1105,9 +1166,9 @@ lu.biorhythmControls.common.painting.TodayPainter = function() {
     if(!dataToPaint) {
       return
     }
-    paintTodayRectangle()
+    paintTodayMarker()
   };
-  function paintTodayRectangle() {
+  function paintTodayMarker() {
     var rect = dataToPaint.rectangle;
     paintContext.beginPath();
     paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
@@ -1116,27 +1177,51 @@ lu.biorhythmControls.common.painting.TodayPainter = function() {
   }
 };
 var lu = lu || {};
+lu.biorhythmControls = lu.biorhythmControls || {};
+lu.biorhythmControls.common = lu.biorhythmControls.common || {};
+lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
+lu.biorhythmControls.common.painting.XDayMarkerPainter = function() {
+  var paintContext = null;
+  var dataToPaint = null;
+  this.paint = function(context, data) {
+    paintContext = context;
+    dataToPaint = data;
+    if(!dataToPaint) {
+      return
+    }
+    paintXDayMarker()
+  };
+  function paintXDayMarker() {
+    if(!dataToPaint) {
+      return
+    }
+    var rect = dataToPaint.rectangle;
+    paintContext.beginPath();
+    paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
+    paintContext.strokeStyle = dataToPaint.lineColor;
+    paintContext.lineWidth = dataToPaint.lineWidth;
+    paintContext.stroke()
+  }
+};
+var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.EmotionalBiorhythm = function() {
   var biorhythm;
-  function getName() {
+  this.getName = function() {
     return"Emotional"
-  }
-  function getPeriodLength() {
+  };
+  this.getPeriodLength = function() {
     return biorhythm.getPeriodLength()
-  }
-  function getValue(dayIndex) {
+  };
+  this.getValue = function(dayIndex) {
     return biorhythm.getValue(dayIndex)
-  }
+  };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm;
     biorhythm.setPeriodLength(28)
-  })();
-  this.getName = getName;
-  this.getPeriodLength = getPeriodLength;
-  this.getValue = getValue
+  })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -1144,22 +1229,19 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.EstheticBiorhythm = function() {
   var biorhythm;
-  function getName() {
+  this.getName = function() {
     return"Esthetic"
-  }
-  function getPeriodLength() {
+  };
+  this.getPeriodLength = function() {
     return biorhythm.getPeriodLength()
-  }
-  function getValue(dayIndex) {
+  };
+  this.getValue = function(dayIndex) {
     return biorhythm.getValue(dayIndex)
-  }
+  };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm;
     biorhythm.setPeriodLength(43)
-  })();
-  this.getName = getName;
-  this.getPeriodLength = getPeriodLength;
-  this.getValue = getValue
+  })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -1167,22 +1249,19 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.IntellectualBiorhythm = function() {
   var biorhythm;
-  function getName() {
+  this.getName = function() {
     return"Intellectual"
-  }
-  function getPeriodLength() {
+  };
+  this.getPeriodLength = function() {
     return biorhythm.getPeriodLength()
-  }
-  function getValue(dayIndex) {
+  };
+  this.getValue = function(dayIndex) {
     return biorhythm.getValue(dayIndex)
-  }
+  };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm;
     biorhythm.setPeriodLength(33)
-  })();
-  this.getName = getName;
-  this.getPeriodLength = getPeriodLength;
-  this.getValue = getValue
+  })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -1190,22 +1269,19 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.IntuitiveBiorhythm = function() {
   var biorhythm;
-  function getName() {
+  this.getName = function() {
     return"Intuitive"
-  }
-  function getPeriodLength() {
+  };
+  this.getPeriodLength = function() {
     return biorhythm.getPeriodLength()
-  }
-  function getValue(dayIndex) {
+  };
+  this.getValue = function(dayIndex) {
     return biorhythm.getValue(dayIndex)
-  }
+  };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm;
     biorhythm.setPeriodLength(38)
-  })();
-  this.getName = getName;
-  this.getPeriodLength = getPeriodLength;
-  this.getValue = getValue
+  })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -1213,19 +1289,17 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.MasteryBiorhythm = function() {
   var biorhythm;
-  function getName() {
+  this.getName = function() {
     return"Mastery"
-  }
-  function getValue(dayIndex) {
+  };
+  this.getValue = function(dayIndex) {
     return biorhythm.getValue(dayIndex)
-  }
+  };
   (function initialize() {
     var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm;
     var intellectualBiorhythm = new lu.bioControls.core.biorhythms.IntellectualBiorhythm;
     biorhythm = new lu.bioControls.core.biorhythms.AverageBiorhythm(physicalBiorhythm, intellectualBiorhythm)
-  })();
-  this.getName = getName;
-  this.getValue = getValue
+  })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};

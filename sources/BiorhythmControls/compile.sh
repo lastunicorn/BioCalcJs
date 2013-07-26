@@ -32,5 +32,5 @@ java -jar "$COMPILER_FILE" --js *.js --js Common/*.js --js Common/BiorhythmModel
 
 echo
 
-read -n1 -r -p "Press any key to continue..."
-echo
+#read -n1 -r -p "Press any key to continue..."
+#echo

@@ -3,7 +3,7 @@ lu.biorhythmControls = lu.biorhythmControls || {};
 lu.biorhythmControls.common = lu.biorhythmControls.common || {};
 lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
 
-lu.biorhythmControls.common.painting.TodayPainter = function() {
+lu.biorhythmControls.common.painting.XDayMarkerPainter = function() {
 
     var paintContext = null;
     var dataToPaint = null;
@@ -16,15 +16,20 @@ lu.biorhythmControls.common.painting.TodayPainter = function() {
             return;
         }
 
-        paintTodayRectangle();
+        paintXDayMarker();
     };
 
-    function paintTodayRectangle() {
+    function paintXDayMarker() {
+        if (!dataToPaint) {
+            return;
+        }
+
         var rect = dataToPaint.rectangle;
 
         paintContext.beginPath();
         paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
-        paintContext.fillStyle = dataToPaint.color;
-        paintContext.fill();
+        paintContext.strokeStyle = dataToPaint.lineColor;
+        paintContext.lineWidth = dataToPaint.lineWidth;
+        paintContext.stroke();
     }
 };

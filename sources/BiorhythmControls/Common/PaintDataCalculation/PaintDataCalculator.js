@@ -8,7 +8,8 @@ lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function(
     var biorhythmCurvesCalculator;
     var gridLinesCalculator;
     var dayLabelsCalculator;
-    var todayCalculator;
+    var todayMarkerCalculator;
+    var xDayMarkerCalculator;
 
 	// --------------------------------------------------------------------------
 	// Functions - "public"
@@ -19,7 +20,8 @@ lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function(
             biorhythms: biorhythmCurvesCalculator.calculate(data, canvasElement),
             gridLines: gridLinesCalculator.calculate(data, canvasElement),
             dayLabels: dayLabelsCalculator.calculate(data, canvasElement),
-            todayMarker: todayCalculator.calculate(data, canvasElement)
+            todayMarker: todayMarkerCalculator.calculate(data, canvasElement),
+            xDayMarker: xDayMarkerCalculator.calculate(data, canvasElement)
         };
     };
     
@@ -31,6 +33,7 @@ lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function(
         biorhythmCurvesCalculator = new lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator();
         gridLinesCalculator = new lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator();
         dayLabelsCalculator = new lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator();
-        todayCalculator = new lu.biorhythmControls.common.paintDataCalculation.TodayCalculator();
+        todayMarkerCalculator = new lu.biorhythmControls.common.paintDataCalculation.TodayMarkerCalculator();
+        xDayMarkerCalculator = new lu.biorhythmControls.common.paintDataCalculation.XDayMarkerCalculator();
     }());
 };

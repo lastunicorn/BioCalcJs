@@ -162,7 +162,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	// XDayIndex
 	// --------------------------------------------------------------------------
 	
-	var xDayIndex = 0;
+	var xDayIndex = 7;
     var xDayIndexChangedEvent = new lu.Event();
     
     this.setXDayIndex = function (value) {
@@ -443,6 +443,78 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	this.subscribeToTodayBackColorChanged = todayBackColorChangedEvent.subscribe;
 	
 	// #endregion
+    
+    // #region IsXDayVisible
+    
+	// --------------------------------------------------------------------------
+	// IsXDayVisible
+	// --------------------------------------------------------------------------
+	
+	var isXDayVisible = true;
+    var isXDayVisibleChangedEvent = new lu.Event();
+    
+    this.setXDayVisibility = function (value) {
+        isXDayVisible = value;
+        
+        isXDayVisibleChangedEvent.raise();
+        paint();
+    };
+    
+    this.getXDayVisibility = function () {
+        return isXDayVisible;
+    };
+	
+	this.subscribeToXDayVisibilityChanged = isXDayVisibleChangedEvent.subscribe;
+	
+	// #endregion
+	
+    // #region XDayBorderColor
+    
+	// --------------------------------------------------------------------------
+	// XDayBorderColor
+	// --------------------------------------------------------------------------
+	
+	var xDayBorderColor = "#000000"; // Black
+    var isXDayBorderColorChangedEvent = new lu.Event();
+    
+    this.setXDayBorderColor = function (value) {
+        xDayBorderColor = value;
+        
+        isXDayBorderColorChangedEvent.raise();
+        paint();
+    };
+    
+    this.getXDayBorderColor = function () {
+        return xDayBorderColor;
+    };
+	
+	this.subscribeToXDayBorderColorChanged = isXDayBorderColorChangedEvent.subscribe;
+	
+	// #endregion
+	
+    // #region XDayBorderWidth
+    
+	// --------------------------------------------------------------------------
+	// XDayBorderWidth
+	// --------------------------------------------------------------------------
+	
+	var xDayBorderWidth = 2;
+    var isXDayBorderWidthChangedEvent = new lu.Event();
+    
+    this.setXDayBorderWidth = function (value) {
+        xDayBorderWidth = value;
+        
+        isXDayBorderWidthChangedEvent.raise();
+        paint();
+    };
+    
+    this.getXDayBorderWidth = function () {
+        return xDayBorderWidth;
+    };
+	
+	this.subscribeToXDayBorderWidthChanged = isXDayBorderWidthChangedEvent.subscribe;
+	
+	// #endregion
 	
     // #region Paint
 
@@ -458,6 +530,9 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 			firstDay: firstDay,
 			totalDays: totalDays,
 			xDayIndex: xDayIndex,
+			isXDayVisible: isXDayVisible,
+			xDayBorderColor: xDayBorderColor,
+			xDayBorderWidth: xDayBorderWidth,
 			gridColor: gridColor,
 			isGridVisible: isGridVisible,
 			todayBackColor: todayBackColor,

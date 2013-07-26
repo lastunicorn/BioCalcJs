@@ -55,7 +55,8 @@
             //alert(biorhythmView.getPaintCount());
         });
         
-		biorhythmView = new lu.biorhythmControls.BiorhythmView("bioCanvas"); 
+		biorhythmView = new lu.biorhythmControls.BiorhythmView("bioCanvas");
+		biorhythmView.setXDayVisibility(false); 
 		
 		generateBiorhythms();
 		biorhythmShapes = commonBiorhythmShapes.getAll();

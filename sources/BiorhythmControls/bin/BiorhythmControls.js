@@ -544,6 +544,23 @@ lu.Line = function(startPoint, endPoint) {
     return startPoint.toString() + " - " + endPoint.toString()
   }
 };
+var lu = lu || {};
+lu.LineStyle = {solid:0, dash:1, dot:2, dashDot:3, dashDotDot:4};
+var lu = lu || {};
+lu.MouseButton = {none:0, left:1, middle:2, right:3};
+var lu = lu || {};
+lu.Point = function(x, y) {
+  this.getX = function getX() {
+    return x
+  };
+  this.getY = function getY() {
+    return y
+  };
+  this.toString = function() {
+    return"[" + x + "; " + y + "]"
+  }
+};
+var lu = lu || {};
 lu.Rectangle = function(left, top, width, height) {
   this.getLeft = function() {
     return left
@@ -559,22 +576,6 @@ lu.Rectangle = function(left, top, width, height) {
   };
   this.toString = function() {
     return"[" + left.toString() + ", " + top.toString() + "] w=" + width.toString() + "; h=" + height.toString()
-  }
-};
-var lu = lu || {};
-lu.LineStyle = {solid:0, dash:1, dot:2, dashDot:3, dashDotDot:4};
-var lu = lu || {};
-lu.MouseButton = {none:0, left:1, middle:2, right:3};
-var lu = lu || {};
-lu.Point = function(x, y) {
-  this.getX = function getX() {
-    return x
-  };
-  this.getY = function getY() {
-    return y
-  };
-  this.toString = function() {
-    return"[" + x + "; " + y + "]"
   }
 };
 var lu = lu || {};

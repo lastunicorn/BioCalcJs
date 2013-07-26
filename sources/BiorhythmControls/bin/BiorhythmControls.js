@@ -269,7 +269,9 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     buttonPressed = lu.MouseButton.none
   }
   function onWheel(evt) {
-    incrementFirstDay(-evt.deltaY)
+    evt.preventDefault();
+    var delta = evt.detail ? evt.detail : evt.wheelDelta / -120;
+    incrementFirstDay(delta)
   }
   function onKeyDown(evt) {
     if(evt.keyCode === 17) {
@@ -282,12 +284,13 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     }
   }
   (function initialize() {
+    var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
     canvas = document.getElementById(id);
     canvas.addEventListener("mousemove", onMouseMove, false);
     canvas.addEventListener("mousedown", onMouseDown, false);
     canvas.addEventListener("mouseup", onMouseUp, false);
     canvas.addEventListener("mouseout", onMouseOut, false);
-    canvas.addEventListener("wheel", onWheel, false);
+    canvas.addEventListener(mouseWheelEventName, onWheel, false);
     canvas.addEventListener("keydown", onKeyDown, false);
     canvas.addEventListener("keyup", onKeyUp, false);
     painter = new lu.biorhythmControls.common.painting.BiorhythmViewPainter

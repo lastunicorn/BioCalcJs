@@ -546,7 +546,10 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	}
 
 	function onWheel(evt) {
-	    incrementFirstDay(-evt.deltaY);
+		evt.preventDefault();
+		
+		var delta = evt.detail ? evt.detail : evt.wheelDelta / (-120);
+	    incrementFirstDay(delta);
 	}
 
     function onKeyDown(evt) {
@@ -568,6 +571,8 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	// --------------------------------------------------------------------------
 	
 	(function initialize() {
+		var mouseWheelEventName=(/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel"; //FF doesn't recognize mousewheel as of FF3.x
+  
 		canvas = document.getElementById(id);
 		canvas.addEventListener('mousemove', onMouseMove, false);
 		
@@ -575,7 +580,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 		canvas.addEventListener('mouseup', onMouseUp, false);
 		
 		canvas.addEventListener('mouseout', onMouseOut, false);
-		canvas.addEventListener('wheel', onWheel, false);
+		canvas.addEventListener(mouseWheelEventName, onWheel, false);
 		
 		canvas.addEventListener('keydown', onKeyDown, false);
 		canvas.addEventListener('keyup', onKeyUp, false);

@@ -11,7 +11,7 @@ lu.Line = function (startPoint, endPoint) {
 	
 	this.toString = function() {
 		return startPoint.toString() + " - " + endPoint.toString();
-	}
+	};
 };
 
 lu.Rectangle = function (left, top, width, height) {
@@ -33,5 +33,5 @@ lu.Rectangle = function (left, top, width, height) {
 	
 	this.toString = function() {
 		return "[" + left.toString() + ", " + top.toString() + "] w=" + width.toString() + "; h=" + height.toString();
-	}
+	};
 };

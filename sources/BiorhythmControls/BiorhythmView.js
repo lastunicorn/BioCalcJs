@@ -3,11 +3,8 @@ lu.biorhythmControls = lu.biorhythmControls || {};
 
 lu.biorhythmControls.BiorhythmView = function(id) {
 	
-	var canvas;
+	var canvas = null;
 	
-	var moveStepLength;
-	var ctrlPressed;
-	var buttonPressed;
 	var currentDayIndex = 0;
 	
 	// #region Biorhythms
@@ -18,9 +15,15 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	
 	var biorhythms = [];
 
+    var biorhythmAddedEvent = new lu.Event();
+    this.subscribeToBiorhythmAdded = biorhythmAddedEvent.subscribe;
+
+    var biorhythmRemovedEvent = new lu.Event();
+    this.subscribeToBiorhythmRemoved = biorhythmRemovedEvent.subscribe;
+
 	this.addBiorhythm = function (biorhythmShape) {
 	    addBiorhythm(biorhythmShape);
-	}
+	};
 	
 	this.setBiorhythms = function (value) {
 	    
@@ -72,12 +75,6 @@ lu.biorhythmControls.BiorhythmView = function(id) {
         
         biorhythms.splice(index, 1);
     }
-
-    var biorhythmAddedEvent = new lu.Event();
-	this.subscribeToBiorhythmAdded = biorhythmAddedEvent.subscribe;
-
-    var biorhythmRemovedEvent = new lu.Event();
-	this.subscribeToBiorhythmRemoved = biorhythmRemovedEvent.subscribe;
     
     // #endregion
     
@@ -453,7 +450,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	// Paint
 	// --------------------------------------------------------------------------
 		
-	var painter;
+	var painter = null;
 	
 	function paint() {
 		var rawPaintData = {
@@ -489,6 +486,10 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	// --------------------------------------------------------------------------
 	// Scrolling
 	// --------------------------------------------------------------------------
+	
+    var moveStepLength = 0;
+    var ctrlPressed = false;
+    var buttonPressed = lu.MouseButton.none;
 	
 	function onMouseDown(evt) {
 		if (evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {

@@ -10,7 +10,7 @@
 	function generateBiorhythms() {
 		commonBiorhythmShapes = new lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes();
 
-		commonBiorhythmShapes.getPhysicalShape().setIsVisible(true);		
+		commonBiorhythmShapes.getPhysicalShape().setIsVisible(true);	
 		commonBiorhythmShapes.getEmotionalShape().setIsVisible(true);
 		commonBiorhythmShapes.getIntellectualShape().setIsVisible(true);
 		commonBiorhythmShapes.getIntuitiveShape().setIsVisible(true);

@@ -21,7 +21,7 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
         calculateTextSize();
         
         return calculateDayLabels();
-    }
+    };
     
 	// --------------------------------------------------------------------------
 	// Functions - "private"

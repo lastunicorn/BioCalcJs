@@ -5,200 +5,172 @@ lu.biorhythmControls.common.biorhythmModel = lu.biorhythmControls.common.biorhyt
 
 lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
 
-	// #region Name
+    // #region Name
 
-	var name = "New Biorhythm Shape";
-	var nameChangedEvent = new lu.Event();
-	
-	function subscribeToNameChanged(eventHandler) {
-		nameChangedEvent.subscribe(eventHandler);
-	}
-	
-	function getName() {
-		return name;
-	}
+    var name = "New Biorhythm Shape";
+    var nameChangedEvent = new lu.Event();
 
-	function setName(value) {
-		if(value === name){
-			return;
-		}
-	
-		name = value;
-		nameChangedEvent.raise();
-	}
-	
-	this.getName = getName;
-	this.setName = setName;
-	this.subscribeToNameChanged = subscribeToNameChanged;
+    this.subscribeToNameChanged = function(eventHandler) {
+        nameChangedEvent.subscribe(eventHandler);
+    };
 
-	// #endregion
+    this.getName = function() {
+        return name;
+    };
 
-	// #region Birthday
+    this.setName = function(value) {
+        if (value === name) {
+            return;
+        }
 
-	var birthday = Date(80, 05, 13);
-	var birthdayChangedEvent = new lu.Event();
-	
-	function subscribeToBirthdayChanged(eventHandler) {
-		birthdayChangedEvent.subscribe(eventHandler);
-	}
-	
-	function getBirthday() {
-		return birthday;
-	}
+        name = value;
+        nameChangedEvent.raise();
+    };
 
-	function setBirthday(value) {
-		if(value === birthday){
-			return;
-		}
-	
-		birthday = value;
-		birthdayChangedEvent.raise();
-	}
-	
-	this.getBirthday = getBirthday;
-	this.setBirthday = setBirthday;
-	this.subscribeToBirthdayChanged = subscribeToBirthdayChanged;
+    // #endregion
 
-	// #endregion
+    // #region Birthday
 
-	// #region Biorhythm
+    var birthday = Date(80, 05, 13);
+    var birthdayChangedEvent = new lu.Event();
 
-	var biorhythm = null;
-	var biorhythmChangedEvent = new lu.Event();
-	
-	function subscribeToBiorhythmChanged(eventHandler) {
-		biorhythmChangedEvent.subscribe(eventHandler);
-	}
-	
-	function getBiorhythm() {
-		return biorhythm;
-	}
+    this.subscribeToBirthdayChanged = function(eventHandler) {
+        birthdayChangedEvent.subscribe(eventHandler);
+    };
 
-	function setBiorhythm(value) {
-		if(value === biorhythm){
-			return;
-		}
-	
-		biorhythm = value;
-		biorhythmChangedEvent.raise();
-	}
-	
-	this.getBiorhythm = getBiorhythm;
-	this.setBiorhythm = setBiorhythm;
-	this.subscribeToBiorhythmChanged = subscribeToBiorhythmChanged;
+    this.getBirthday = function() {
+        return birthday;
+    };
 
-	// #endregion
+    this.setBirthday = function(value) {
+        if (value === birthday) {
+            return;
+        }
 
-	// #region Color
+        birthday = value;
+        birthdayChangedEvent.raise();
+    };
 
-	var color = null;
-	var colorChangedEvent = new lu.Event();
-	
-	function subscribeToColorChanged(eventHandler) {
-		colorChangedEvent.subscribe(eventHandler);
-	}
-	
-	function getColor() {
-		return color;
-	}
+    // #endregion
 
-	function setColor(value) {
-		if(value === color){
-			return;
-		}
-	
-		color = value;
-		colorChangedEvent.raise();
-	}
-	
-	this.getColor = getColor;
-	this.setColor = setColor;
-	this.subscribeToColorChanged = subscribeToColorChanged;
+    // #region Biorhythm
 
-	// #endregion
+    var biorhythm = null;
+    var biorhythmChangedEvent = new lu.Event();
 
-	// #region IsVisible
+    this.subscribeToBiorhythmChanged = function(eventHandler) {
+        biorhythmChangedEvent.subscribe(eventHandler);
+    };
 
-	var isVisible = true;
-	var isVisibleChangedEvent = new lu.Event();
-	
-	function subscribeToIsVisibleChanged(eventHandler) {
-		isVisibleChangedEvent.subscribe(eventHandler);
-	}
-	
-	function getIsVisible() {
-		return isVisible;
-	}
+    this.getBiorhythm = function() {
+        return biorhythm;
+    };
 
-	function setIsVisible(value) {
-		if(value === isVisible){
-			return;
-		}
-	
-		isVisible = value;
-		isVisibleChangedEvent.raise();
-	}
-	
-	this.getIsVisible = getIsVisible;
-	this.setIsVisible = setIsVisible;
-	this.subscribeToIsVisibleChanged = subscribeToIsVisibleChanged;
+    this.setBiorhythm = function(value) {
+        if (value === biorhythm) {
+            return;
+        }
 
-	// #endregion
+        biorhythm = value;
+        biorhythmChangedEvent.raise();
+    };
 
-	// #region LineWidth
+    // #endregion
 
-	var lineWidth = 1;
-	var lineWidthChangedEvent = new lu.Event();
-	
-	function subscribeToLineWidthChanged(eventHandler) {
-		lineWidthChangedEvent.subscribe(eventHandler);
-	}
-	
-	function getLineWidth() {
-		return lineWidth;
-	}
+    // #region Color
 
-	function setLineWidth(value) {
-		if(value === lineWidth){
-			return;
-		}
-	
-		lineWidth = value;
-		lineWidthChangedEvent.raise();
-	}
-	
-	this.getLineWidth = getLineWidth;
-	this.setLineWidth = setLineWidth;
-	this.subscribeToLineWidthChanged = subscribeToLineWidthChanged;
+    var color = null;
+    var colorChangedEvent = new lu.Event();
 
-	// #endregion
+    this.subscribeToColorChanged = function(eventHandler) {
+        colorChangedEvent.subscribe(eventHandler);
+    };
 
-	// #region LineStyle
+    this.getColor = function() {
+        return color;
+    };
 
-	var lineStyle = lu.LineStyle.solid;
-	var lineStyleChangedEvent = new lu.Event();
-	
-	function subscribeToLineStyleChanged(eventHandler) {
-		lineStyleChangedEvent.subscribe(eventHandler);
-	}
-	
-	function getLineStyle() {
-		return lineStyle;
-	}
+    this.setColor = function(value) {
+        if (value === color) {
+            return;
+        }
 
-	function setLineStyle(value) {
-		if(value === lineStyle){
-			return;
-		}
-	
-		lineStyle = value;
-		lineStyleChangedEvent.raise();
-	}
-	
-	this.getLineStyle = getLineStyle;
-	this.setLineStyle = setLineStyle;
-	this.subscribeToLineStyleChanged = subscribeToLineStyleChanged;
+        color = value;
+        colorChangedEvent.raise();
+    };
 
-	// #endregion
-	
+    // #endregion
+
+    // #region IsVisible
+
+    var isVisible = true;
+    var isVisibleChangedEvent = new lu.Event();
+
+    this.subscribeToIsVisibleChanged = function(eventHandler) {
+        isVisibleChangedEvent.subscribe(eventHandler);
+    };
+
+    this.getIsVisible = function() {
+        return isVisible;
+    };
+
+    this.setIsVisible = function(value) {
+        if (value === isVisible) {
+            return;
+        }
+
+        isVisible = value;
+        isVisibleChangedEvent.raise();
+    };
+
+    // #endregion
+
+    // #region LineWidth
+
+    var lineWidth = 1;
+    var lineWidthChangedEvent = new lu.Event();
+
+    this.subscribeToLineWidthChanged = function(eventHandler) {
+        lineWidthChangedEvent.subscribe(eventHandler);
+    };
+
+    this.getLineWidth = function() {
+        return lineWidth;
+    };
+
+    this.setLineWidth = function(value) {
+        if (value === lineWidth) {
+            return;
+        }
+
+        lineWidth = value;
+        lineWidthChangedEvent.raise();
+    };
+
+    // #endregion
+
+    // #region LineStyle
+
+    var lineStyle = lu.LineStyle.solid;
+    var lineStyleChangedEvent = new lu.Event();
+
+    this.subscribeToLineStyleChanged = function(eventHandler) {
+        lineStyleChangedEvent.subscribe(eventHandler);
+    };
+
+    this.getLineStyle = function() {
+        return lineStyle;
+    };
+
+    this.setLineStyle = function(value) {
+        if (value === lineStyle) {
+            return;
+        }
+
+        lineStyle = value;
+        lineStyleChangedEvent.raise();
+    };
+
+    // #endregion
+
 };

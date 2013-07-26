@@ -1,23 +1,20 @@
-var lu = lu || {}
+var lu = lu || {};
 
 lu.Event = function() {
 
-	var eventHandlers = [];
-	
-	function subscribe(eventHandler) {
-		if (typeof(eventHandler) !== "function"){
-			return;
-		}
-		
-		eventHandlers.push(eventHandler);
-	}
+    var eventHandlers = [];
 
-	function raise() {
-		for (var i = 0; i < eventHandlers.length; i++) {
-			eventHandlers[i]();
-		}
-	}
+    this.subscribe = function(eventHandler) {
+        if (typeof (eventHandler) !== "function") {
+            return;
+        }
 
-	this.subscribe = subscribe;
-	this.raise = raise;
+        eventHandlers.push(eventHandler);
+    };
+
+    this.raise = function() {
+        for ( var i = 0; i < eventHandlers.length; i++) {
+            eventHandlers[i]();
+        }
+    };
 };

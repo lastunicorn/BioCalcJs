@@ -1,4 +1,4 @@
-var lu = lu || {}
+var lu = lu || {};
 
 lu.MouseButton = {
 	none: 0,

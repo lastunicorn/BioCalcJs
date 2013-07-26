@@ -17,7 +17,7 @@ lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function(
         canvas = canvasElement;
         
         return calculateGridLines();
-    }
+    };
     
 	// --------------------------------------------------------------------------
 	// Functions - "private"

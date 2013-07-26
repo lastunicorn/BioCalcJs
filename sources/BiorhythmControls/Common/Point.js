@@ -11,5 +11,5 @@ lu.Point = function (x, y) {
 	
 	this.toString = function() {
 		return "[" + x + "; " + y + "]";
-	}
+	};
 };

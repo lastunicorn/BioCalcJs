@@ -2373,8 +2373,17 @@
 				right	= $(window).width() + $(window).scrollLeft();
 				height	= that.dialog.outerHeight();
 				width	= that.dialog.outerWidth();
-				x		= offset.left;
-				y		= offset.top + that.element.outerHeight();
+				
+				var leftSpace = offset.left;
+				var rightSpace = right - offset.left - that.element.outerWidth();
+				
+				if (leftSpace < rightSpace) {
+				    x		= offset.left;
+				    y		= offset.top + that.element.outerHeight();
+			    } else {
+                    x		= offset.left + that.element.outerWidth() - width;
+				    y		= offset.top + that.element.outerHeight();
+			    }
 
 				if (x + width > right) {
 					x = Math.max(0, right - width);

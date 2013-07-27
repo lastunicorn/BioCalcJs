@@ -15,9 +15,9 @@
 		commonBiorhythmShapes.getIntellectualShape().setIsVisible(true);
 		commonBiorhythmShapes.getIntuitiveShape().setIsVisible(true);
 		
-		commonBiorhythmShapes.getPassionShape().setIsVisible(false);
-		commonBiorhythmShapes.getMasteryShape().setIsVisible(false);
-		commonBiorhythmShapes.getWisdomShape().setIsVisible(false);
+		commonBiorhythmShapes.getPassionShape().setIsVisible(true);
+		commonBiorhythmShapes.getMasteryShape().setIsVisible(true);
+		commonBiorhythmShapes.getWisdomShape().setIsVisible(true);
 		
 		commonBiorhythmShapes.getPerceptionShape().setIsVisible(false);
 		commonBiorhythmShapes.getPsychicShape().setIsVisible(false);

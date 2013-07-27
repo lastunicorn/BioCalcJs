@@ -32,40 +32,11 @@ lu.bioCalc.BiorhythmLegend = function (biorhythmView, legendContainerSelector) {
             biorhythmShapes[i].subscribeToNameChanged(onBiorhythmNameChanged);
             biorhythmShapes[i].subscribeToColorChanged(onBiorhythmColorChanged);
 
-            var $legendItemTag = generateLegendItemTag(biorhythmShapes[i]);
+				var biorhythmLegendItem = new lu.bioCalc.BiorhythmLegendItem(biorhythmShapes[i]);
+            var $legendItemTag = biorhythmLegendItem.generate();
             
             $legendContainer.prepend($legendItemTag);
         }
-    }
-    
-    function generateLegendItemTag(biorhythmShape) {
-        var $div = $("<div/>");
-        
-        $div.addClass("bioLegendItem");
-        $div.attr("data-biorhythm", biorhythmShape.getName());
-        
-        $div.append(generateLegendColorTag(biorhythmShape));
-        $div.append(generateLegendLabelTag(biorhythmShape));
-        
-        if (!biorhythmShape.getIsVisible()) {
-            $div.hide();
-        }
-        
-        return $div;
-    }
-    
-    function generateLegendColorTag(biorhythmShape) {
-        var $div = $("<div/>");
-        $div.addClass("bioLegendColor");
-        $div.css('background-color', biorhythmShape.getColor());
-        return $div;
-    }
-    
-    function generateLegendLabelTag(biorhythmShape) {
-        var $div = $("<div/>");
-        $div.addClass("bioLegendLabel");
-        $div.text(biorhythmShape.getBiorhythm().getName());
-        return $div;
     }
     
 	// --------------------------------------------------------------------------

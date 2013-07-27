@@ -2,7 +2,6 @@ var lu = lu || {};
 lu.biorhythmControls = lu.biorhythmControls || {};
 lu.biorhythmControls.BiorhythmView = function(id) {
   var canvas = null;
-  var currentDayIndex = 0;
   var biorhythms = [];
   var biorhythmAddedEvent = new lu.Event;
   this.subscribeToBiorhythmAdded = biorhythmAddedEvent.subscribe;
@@ -14,7 +13,9 @@ lu.biorhythmControls.BiorhythmView = function(id) {
   this.setBiorhythms = function(value) {
     removeAllBiorhythms();
     for(var i = 0;i < value.length;i++) {
-      addBiorhythm(value[i])
+      if($.type(value[i]) === "object") {
+        addBiorhythm(value[i])
+      }
     }
     paint()
   };
@@ -251,8 +252,28 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     return xDayBorderWidth
   };
   this.subscribeToXDayBorderWidthChanged = isXDayBorderWidthChangedEvent.subscribe;
+  this.setBirthdayOnAllBiorhythms = function(birthday) {
+    suspendPaint();
+    for(var i = 0;i < biorhythms.length;i++) {
+      biorhythms[i].setBirthday(birthday)
+    }
+    resumePaint()
+  };
   var painter = null;
+  var allowRepaint = true;
+  this.suspendPaint = suspendPaint;
+  function suspendPaint() {
+    allowRepaint = false
+  }
+  this.resumePaint = resumePaint;
+  function resumePaint() {
+    allowRepaint = true;
+    paint()
+  }
   function paint() {
+    if(!allowRepaint) {
+      return
+    }
     var rawPaintData = {biorhythmShapes:biorhythms, firstDay:firstDay, totalDays:totalDays, xDayIndex:xDayIndex, isXDayVisible:isXDayVisible, xDayBorderColor:xDayBorderColor, xDayBorderWidth:xDayBorderWidth, gridColor:gridColor, isGridVisible:isGridVisible, todayBackColor:todayBackColor, areDayNumbersVisible:areDayNumbersVisible, areWeekDaysVisible:areWeekDaysVisible, dayNumbersPosition:dayNumbersPosition, weekDaysPosition:weekDaysPosition, areSundaysEmphasized:areSundaysEmphasized, foreColor:foreColor, 
     sundaysColor:sundaysColor, font:font, sundaysFont:sundaysFont};
     painter.paint(rawPaintData, canvas)
@@ -263,6 +284,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
   var moveStepLength = 0;
   var ctrlPressed = false;
   var buttonPressed = lu.MouseButton.none;
+  var currentDayIndex = 0;
   function onMouseDown(evt) {
     if(evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {
       return

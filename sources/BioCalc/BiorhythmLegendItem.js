@@ -23,18 +23,6 @@ lu.bioCalc.BiorhythmLegendItem = function (biorhythmShape) {
         var $div = $("<div/>");
         $div.addClass("bioLegendColor");
         $div.css('background-color', biorhythmShape.getColor());
-            
-        $div.colorpicker({
-				inline: false,
-				altField: function(element) { return $(element); },
-				altProperties: 'background-color',
-				buttonColorize: true,
-				color: biorhythmShape.getColor(),
-				colorFormat: "#HEX",
-				close: onColorPickerClosed,
-				open: onColorPickerOpened
-			});
-				
         return $div;
     }
     
@@ -42,18 +30,6 @@ lu.bioCalc.BiorhythmLegendItem = function (biorhythmShape) {
         var $div = $("<div/>");
         $div.addClass("bioLegendLabel");
         $div.text(biorhythmShape.getBiorhythm().getName());
-            
-			$div.colorpicker({
-				inline: false,
-				altField: function(element) { return $(element).parent().find(".bioLegendColor"); },
-				altProperties: 'background-color',
-				buttonColorize: true,
-				color: biorhythmShape.getColor(),
-				colorFormat: "#HEX",
-				close:  onColorPickerClosed,
-				open: onColorPickerOpened
-			});
-			
         return $div;
     }
 

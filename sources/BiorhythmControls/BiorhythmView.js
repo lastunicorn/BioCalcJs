@@ -5,8 +5,6 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	
 	var canvas = null;
 	
-	var currentDayIndex = 0;
-	
 	// #region Biorhythms
 	
 	// --------------------------------------------------------------------------
@@ -30,7 +28,9 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 		removeAllBiorhythms();
 
 		for (var i = 0; i < value.length; i++) {
-		    addBiorhythm(value[i]);
+		    if ($.type(value[i]) === "object") {
+		        addBiorhythm(value[i]);
+		    }
 		}
 		
 		paint();
@@ -516,6 +516,16 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	
 	// #endregion
 	
+	this.setBirthdayOnAllBiorhythms = function(birthday) {
+        suspendPaint();
+        
+        for (var i = 0; i < biorhythms.length; i++) {
+            biorhythms[i].setBirthday(birthday);
+        }
+        
+        resumePaint();
+	};
+	
     // #region Paint
 
 	// --------------------------------------------------------------------------
@@ -523,8 +533,24 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 	// --------------------------------------------------------------------------
 		
 	var painter = null;
+	var allowRepaint = true;
+	
+	this.suspendPaint = suspendPaint;
+	function suspendPaint() {
+        allowRepaint = false;
+	}
+	
+	this.resumePaint = resumePaint;
+	function resumePaint() {
+        allowRepaint = true;
+        paint();
+	}
 	
 	function paint() {
+	    if (!allowRepaint) {
+	       return;
+	    }
+	    
 		var rawPaintData = {
 			biorhythmShapes: biorhythms,
 			firstDay: firstDay,
@@ -565,6 +591,7 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     var moveStepLength = 0;
     var ctrlPressed = false;
     var buttonPressed = lu.MouseButton.none;
+	var currentDayIndex = 0;
 	
 	function onMouseDown(evt) {
 		if (evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {

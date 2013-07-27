@@ -20,7 +20,7 @@ lu.bioCalc.BiorhythmLegend = function (biorhythmView, legendContainerSelector) {
         // todo: implement this
     }
 
-    this.populate = function populate() {
+    this.populate = function() {
         var biorhythmShapes = biorhythmView.getBiorhythms();
         
         biorhythmView.subscribeToBiorhythmAdded(onBiorhythmAdded);
@@ -37,7 +37,7 @@ lu.bioCalc.BiorhythmLegend = function (biorhythmView, legendContainerSelector) {
             
             $legendContainer.prepend($legendItemTag);
         }
-    }
+    };
     
 	// --------------------------------------------------------------------------
 	// Initializer

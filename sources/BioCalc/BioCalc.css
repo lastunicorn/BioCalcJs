@@ -81,3 +81,19 @@ h1
 {
     /*display: none;/**/
 }
+
+.ui-colorpicker
+{
+    font: 13px Arial;
+}
+
+.ui-datepicker
+{
+    font: 13px Arial;
+}
+
+.ui-menu
+{
+    position: absolute;
+    min-width: 100px;
+}

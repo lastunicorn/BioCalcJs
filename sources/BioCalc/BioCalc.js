@@ -49,20 +49,27 @@
 	// Functions - Event Handlers
 	// --------------------------------------------------------------------------
 	
+	var $menu;
+	var $buttonAdd;
+	
 	function onDocumentReady() {
         
-        $("#button1").on("click", function () {
-            //alert(biorhythmView.getPaintCount());
-        });
+        var initialBirthday = new Date(1980, 05, 13); 
         
-		biorhythmView = new lu.biorhythmControls.BiorhythmView("bioCanvas");
-		biorhythmView.setXDayVisibility(false); 
-		
+        $("#button1").on("click", onButton1Clicked);
+        
 		generateBiorhythms();
 		biorhythmShapes = commonBiorhythmShapes.getAll();
-		
+        
+		biorhythmView = new lu.biorhythmControls.BiorhythmView("bioCanvas");
+		biorhythmView.suspendPaint();
+		biorhythmView.setXDayVisibility(false);
+		biorhythmView.setBiorhythms(biorhythmShapes);
+		biorhythmView.setBirthdayOnAllBiorhythms(initialBirthday);
 		biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
+		biorhythmView.resumePaint();
 		
+        $("#birthdayTextBox").val(formatDate(initialBirthday));
         $("#birthdayTextBox").datepicker({
             changeMonth: true,
             changeYear: true,
@@ -71,10 +78,8 @@
             showButtonPanel: true
         });
         
-        var birthday = new Date(1980, 05, 13); 
-        $("#birthdayTextBox").val(formatDate(birthday));
-        setBirthday(birthday);
-        
+        var firstDay = biorhythmView.getFirstDay();
+        $("#firstDayTextBox").val(formatDate(firstDay));
         $("#firstDayTextBox").datepicker({
             changeMonth: true,
             changeYear: true,
@@ -82,25 +87,50 @@
             onClose : onFirstDayDatePickerClose,
             showButtonPanel: true
         });
-        
-        var firstDay = biorhythmView.getFirstDay();
-        $("#firstDayTextBox").val(formatDate(firstDay));
-        
-		biorhythmView.setBiorhythms(biorhythmShapes);
 		
 		var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
 		biorhythmLegend.populate();
+		
+		$menu = $("#menu")
+            .hide()
+            .menu();
+            
+		$buttonAdd = $("#buttonAddBiorhythm")
+            .button({
+                icons: { secondary: "ui-icon-triangle-1-s" }
+            })
+            .click(onButtonAddBiorhythmClicked);
 	}
+
+    function onButtonAddBiorhythmClicked(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        
+        var menu = $menu.show().position({
+                my: "right top",
+                at: "right bottom",
+                of: this
+            });
+
+        $(document).one("click", function() {
+            menu.hide();
+        });
+    }
+
+    function onButton1Clicked() {
+        biorhythmView.setBirthday(new Date());
+    }
 	
 	function onBiorhythmViewFirstDayChanged() {
         var firstDay = biorhythmView.getFirstDay(); 
         var firstDayAsString = formatDate(firstDay);
+        
         $("#firstDayTextBox").val(firstDayAsString);
 	}
 
     function onBirthdayDatePickerClose() {
         var date = $(this).datepicker("getDate");
-        setTimeout(function() { setBirthday(date) }, 0);
+        biorhythmView.setBirthdayOnAllBiorhythms(date);
     }
     
     function onFirstDayDatePickerClose() {
@@ -115,5 +145,4 @@
 	(function initialize() {
 		$(onDocumentReady);
 	}());
-    
 }());

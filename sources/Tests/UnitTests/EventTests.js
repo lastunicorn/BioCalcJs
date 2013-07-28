@@ -1,3 +1,6 @@
+/// <reference src="../../libraries/qUnit/qunit-1.12.0.js"/>
+/// <reference src="../../sources/common/Event.js/"/>
+
 (function() {
     var ev = null;
 

@@ -7,6 +7,7 @@ lu.biorhythmControls.common.painting.DayLabelsPainter = function() {
 
     var dataToPaint = null;
     var paintContext = null;
+    var currentFont = null;
 
     this.paint = function(context, data) {
         paintContext = context;
@@ -21,6 +22,7 @@ lu.biorhythmControls.common.painting.DayLabelsPainter = function() {
 
         var labelCount = dataToPaint.labels.length;
 
+        currentFont = null;
         for ( var i = 0; i < labelCount; i++) {
             paintLabel(dataToPaint.labels[i]);
         }
@@ -29,10 +31,14 @@ lu.biorhythmControls.common.painting.DayLabelsPainter = function() {
     function paintLabel(label) {
         if (label.isEmphasized) {
             paintContext.fillStyle = dataToPaint.emphasizedColor;
-            paintContext.font = dataToPaint.emphasizedFont;
+            if (currentFont !== dataToPaint.emphasizedFont) {
+                paintContext.font = dataToPaint.emphasizedFont;
+            }
         } else {
             paintContext.fillStyle = dataToPaint.color;
-            paintContext.font = dataToPaint.font;
+            if (currentFont !== dataToPaint.font) {
+                paintContext.font = dataToPaint.font;
+            }
         }
 
         paintContext.fillText(label.text, label.location.getX(), label.location.getY());

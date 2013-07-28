@@ -1,7 +1,6 @@
 (function() {
-	var biorhythmShapes;
-	var biorhythmView;
-	var commonBiorhythmShapes;
+	var biorhythmView = null;
+	var commonBiorhythmShapes = null;
 
 	// --------------------------------------------------------------------------
 	// Functions - "private"
@@ -10,7 +9,7 @@
 	function generateBiorhythms() {
 		commonBiorhythmShapes = new lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes();
 
-		commonBiorhythmShapes.getPhysicalShape().setIsVisible(true);	
+		commonBiorhythmShapes.getPhysicalShape().setIsVisible(true);
 		commonBiorhythmShapes.getEmotionalShape().setIsVisible(true);
 		commonBiorhythmShapes.getIntellectualShape().setIsVisible(true);
 		commonBiorhythmShapes.getIntuitiveShape().setIsVisible(true);
@@ -29,6 +28,8 @@
 	}
 
 	function setBirthday(birthday) {
+        var biorhythmShapes = commonBiorhythmShapes.getAll();
+        
 		for (var i = 0; i < biorhythmShapes.length; i++) {
 			biorhythmShapes[i].setBirthday(birthday);
 		}
@@ -54,7 +55,8 @@
         var initialBirthday = new Date(1980, 05, 13); 
         
 		generateBiorhythms();
-		biorhythmShapes = commonBiorhythmShapes.getAll();
+
+		var biorhythmShapes = commonBiorhythmShapes.getAll();
         
 		biorhythmView = new lu.biorhythmControls.BiorhythmView("bioCanvas");
 		biorhythmView.suspendPaint();
@@ -96,7 +98,7 @@
 
     function onBirthdayDatePickerClose() {
         var date = $(this).datepicker("getDate");
-        biorhythmView.setBirthdayOnAllBiorhythms(date);
+        setTimeout(function() { biorhythmView.setBirthdayOnAllBiorhythms(date); }, 0);
     }
     
     function onFirstDayDatePickerClose() {

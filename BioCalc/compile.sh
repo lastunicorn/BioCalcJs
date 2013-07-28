@@ -14,7 +14,7 @@ BIORHYTHM_CONTROLS_DIRECTORY=../BiorhythmControls
 echo Compiling dependencies...
 cd $BIORHYTHM_CONTROLS_DIRECTORY
 /bin/bash compile.sh
-cd ../BioCalcJs
+cd ../BioCalc
 
 # Copy dependencies
 echo Copying dependency files...

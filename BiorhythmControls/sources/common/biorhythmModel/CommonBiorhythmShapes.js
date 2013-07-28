@@ -24,12 +24,9 @@ lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
 
     function createBiorhythmShapes() {
         physicalShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape();
-        emotionalShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes
-                .createEmotionalBiorhythmShape();
-        intellectualShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes
-                .createIntellectualBiorhythmShape();
-        intuitiveShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes
-                .createIntuitiveBiorhythmShape();
+        emotionalShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape();
+        intellectualShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape();
+        intuitiveShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape();
 
         passionShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape();
         passionShape.setIsVisible(false);
@@ -38,8 +35,7 @@ lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         wisdomShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape();
         wisdomShape.setIsVisible(false);
 
-        perceptionShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes
-                .createPerceptionBiorhythmShape();
+        perceptionShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape();
         perceptionShape.setIsVisible(false);
         psychicShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape();
         psychicShape.setIsVisible(false);
@@ -48,11 +44,9 @@ lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
 
         estheticShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape();
         estheticShape.setIsVisible(false);
-        selfAwarenessShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes
-                .createSelfAwarenessBiorhythmShape();
+        selfAwarenessShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape();
         selfAwarenessShape.setIsVisible(false);
-        spiritualShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes
-                .createSpiritualBiorhythmShape();
+        spiritualShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape();
         spiritualShape.setIsVisible(false);
     }
 

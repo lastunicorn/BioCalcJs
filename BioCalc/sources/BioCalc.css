@@ -1,24 +1,24 @@
 /* General Tags
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 body {
-    font: 14px Arial;
+	font: 14px Arial;
 }
 
 h1 {
-    font: 25px Arial;
-    font-weight: bold;
+	font: 25px Arial;
+	font-weight: bold;
 }
 
 /* Common
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 .clear {
-    clear: both;
+	clear: both;
 }
 
 /* Debug
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 #debug {
 	height: 200px;
@@ -28,27 +28,27 @@ h1 {
 }
 
 /* Page
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 #version {
 	text-align: right;
 	margin: 3px 0;
 	color: #a0a0a0;
 	display: inline;
-	font-size: 10px; 
+	font-size: 10px;
 }
 
 #pageContainer {
-    width: 900px;
-    margin: 0 auto;
+	width: 900px;
+	margin: 0 auto;
 }
 
 /* Biorhythm View
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 #bioCanvasContainer {
-    width: 900px;
-    margin: 0 auto;
+	width: 900px;
+	margin: 0 auto;
 }
 
 #bioCanvas {
@@ -59,33 +59,33 @@ h1 {
 }
 
 /* Biorhythm Legend
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 #bioLegend {
-    margin: 5px 0;
+	margin: 5px 0;
 }
 
 .bioLegendItem {
-    display: inline;
-    margin-left: 10px;
-    float: right;
+	display: inline;
+	margin-left: 10px;
+	float: right;
 }
 
 .bioLegendColor {
-    background-color: #000000;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    margin: 0 3px;
+	background-color: #000000;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	margin: 0 3px;
 }
 
 .bioLegendLabel {
-    display: inline-block;
+	display: inline-block;
 }
 
 /* DateTimes
------------------------------------------------------------------------------ */
+ ----------------------------------------------------------------------------- */
 
 .ui-datepicker {
-    font: 13px Arial;
+	font: 13px Arial;
 }

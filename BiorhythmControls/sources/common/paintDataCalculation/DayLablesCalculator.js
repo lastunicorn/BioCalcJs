@@ -74,12 +74,12 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
     }
 
     function calculateDayNumberPaintInfo(i, day) {
+    	var text = day.getDate().toString();
         var location = calculateDayNumberLocation(i, rawPaintData.dayNumbersPosition);
-
         var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 0;
-
+        
         return {
-            text: day.getDate().toString(),
+            text: text,
             location: location,
             isEmphasized: isEmphasized
         };

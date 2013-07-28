@@ -4,23 +4,20 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
 lu.bioControls.core.biorhythms.PerceptionBiorhythm = function() {
-	var biorhythm;
-	
-	function getName() {
-		return "Perception";
-	}
+    var biorhythm = null;
 
-	function getValue(dayIndex) {
-		return biorhythm.getValue(dayIndex);
-	}
-	
-	(function initialize() {
-		var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm();
-		var intuitiveBiorhythm = new lu.bioControls.core.biorhythms.IntuitiveBiorhythm();
-		
-		biorhythm = new lu.bioControls.core.biorhythms.AverageBiorhythm(physicalBiorhythm, intuitiveBiorhythm);
-	}());
+    this.getName = function() {
+        return "Perception";
+    };
 
-	this.getName = getName;
-	this.getValue = getValue;
+    this.getValue = function(dayIndex) {
+        return biorhythm.getValue(dayIndex);
+    };
+
+    (function initialize() {
+        var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm();
+        var intuitiveBiorhythm = new lu.bioControls.core.biorhythms.IntuitiveBiorhythm();
+
+        biorhythm = new lu.bioControls.core.biorhythms.AverageBiorhythm(physicalBiorhythm, intuitiveBiorhythm);
+    }());
 };

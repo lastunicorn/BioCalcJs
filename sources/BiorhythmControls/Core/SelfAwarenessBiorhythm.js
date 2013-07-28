@@ -3,27 +3,23 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
-lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function(){
-	var biorhythm;
-	
-	function getName() {
-		return "Self Awareness";
-	}
-	
-	function getPeriodLength() {
-		return biorhythm.getPeriodLength();
-	}
+lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function() {
+    var biorhythm = null;
 
-	function getValue(dayIndex) {
-		return biorhythm.getValue(dayIndex);
-	}
-	
-	(function initialize() {
-		biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm();
-		biorhythm.setPeriodLength(48);
-	}());
+    this.getName = function() {
+        return "Self Awareness";
+    };
 
-	this.getName = getName;
-	this.getPeriodLength = getPeriodLength;
-	this.getValue = getValue;
+    this.getPeriodLength = function() {
+        return biorhythm.getPeriodLength();
+    };
+
+    this.getValue = function(dayIndex) {
+        return biorhythm.getValue(dayIndex);
+    };
+
+    (function initialize() {
+        biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm();
+        biorhythm.setPeriodLength(48);
+    }());
 };

@@ -4,9 +4,9 @@ lu.biorhythmControls.common = lu.biorhythmControls.common || {};
 lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
 
 lu.biorhythmControls.common.paintDataCalculation.XDayMarkerCalculator = function() {
-    
-    var rawPaintData;
-    var canvas;
+
+    var rawPaintData = null;
+    var canvas = null;
     
 	// --------------------------------------------------------------------------
 	// Functions - "public"

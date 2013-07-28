@@ -4,59 +4,41 @@ lu.biorhythmControls.common = lu.biorhythmControls.common || {};
 lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
 
 lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function() {
-    
-    var nextCalculator;
-    var rawPaintData;
-    var canvas;
-    var textHeight;
-    
-	// --------------------------------------------------------------------------
-	// Functions - "public"
-	// --------------------------------------------------------------------------
-	
-    this.calculate = function (data, canvasElement) {
+
+    var rawPaintData = null;
+    var canvas = null;
+    var textHeight = 12;
+
+    // --------------------------------------------------------------------------
+    // Functions - "public"
+    // --------------------------------------------------------------------------
+
+    this.calculate = function(data, canvasElement) {
         rawPaintData = data;
         canvas = canvasElement;
-        
+
         calculateTextSize();
-        
+
         return calculateDayLabels();
     };
-    
-	// --------------------------------------------------------------------------
-	// Functions - "private"
-	// --------------------------------------------------------------------------
-    
-    function calculateTextSize() {
-        var textSize = lu.TextUtil.measureText({
-            text: "0jf",
-            font: rawPaintData.font
-        });
-        
-        var textSizeEmphasized = lu.TextUtil.measureText({
-            text: "0jf",
-            font: rawPaintData.sundaysFont
-        });
-        
-        textHeight = Math.max(textSize[1], textSizeEmphasized[1]);
-    }
-	
+
+    // --------------------------------------------------------------------------
+    // Functions - "private"
+    // --------------------------------------------------------------------------
+
     function calculateDayLabels() {
         var areDayNumbersVisible = rawPaintData.areDayNumbersVisible;
-        var areWeekDaysVisible = rawPaintData.areWeekDaysVisible &&
-                !(rawPaintData.areDayNumbersVisible &&
-                rawPaintData.weekDaysPosition === rawPaintData.dayNumbersPosition);
+        var areWeekDaysVisible = rawPaintData.areWeekDaysVisible
+                && !(rawPaintData.areDayNumbersVisible && rawPaintData.weekDaysPosition === rawPaintData.dayNumbersPosition);
 
         if (!areDayNumbersVisible && !areWeekDaysVisible) {
             return null;
         }
 
         var dayLabelsPaintData = [];
-
         var day = new Date(rawPaintData.firstDay.getTime());
-        var xStep = (canvas.width) / rawPaintData.totalDays;
 
-        for (var i = 0; i < rawPaintData.totalDays; i++) {
+        for ( var i = 0; i < rawPaintData.totalDays; i++) {
             if (areDayNumbersVisible) {
                 dayLabelsPaintData.push(calculateDayNumberPaintInfo(i, day));
             }
@@ -77,11 +59,25 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
         };
     }
 
+    function calculateTextSize() {
+        var textSize = lu.TextUtil.measureText({
+            text: "0jf",
+            font: rawPaintData.font
+        });
+
+        var textSizeEmphasized = lu.TextUtil.measureText({
+            text: "0jf",
+            font: rawPaintData.sundaysFont
+        });
+
+        textHeight = Math.max(textSize[1], textSizeEmphasized[1]);
+    }
+
     function calculateDayNumberPaintInfo(i, day) {
         var location = calculateDayNumberLocation(i, rawPaintData.dayNumbersPosition);
 
         var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 0;
-        
+
         return {
             text: day.getDate().toString(),
             location: location,
@@ -104,7 +100,7 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
     function calculateDayNumberLocation(index, position) {
         var xStep = (canvas.width) / rawPaintData.totalDays;
         var daysFontHeight = (textHeight + 3) / 2;
-        
+
         switch (position) {
             case lu.DayLabelPosition.top:
                 return new lu.Point(xStep * index + xStep / 2, daysFontHeight);

@@ -4,7 +4,7 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
 lu.bioControls.core.biorhythms.EmotionalBiorhythm = function(){
-	var biorhythm;
+	var biorhythm = null;
 	
 	this.getName = function() {
 		return "Emotional";

@@ -5,9 +5,8 @@ lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.p
 
 lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
     
-    var nextCalculator;
-    var rawPaintData;
-    var canvas;
+    var rawPaintData = null;
+    var canvas = null;
     var margin = 10;
     
 	// --------------------------------------------------------------------------

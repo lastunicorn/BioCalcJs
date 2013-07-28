@@ -4,13 +4,13 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
 lu.bioControls.core.biorhythms.PassionBiorhythm = function() {
-    var biorhythm;
+    var biorhythm = null;
 
-    this.getName = function getName() {
+    this.getName = function() {
         return "Passion";
     };
 
-    this.getValue = function getValue(dayIndex) {
+    this.getValue = function(dayIndex) {
         return biorhythm.getValue(dayIndex);
     };
 

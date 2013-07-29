@@ -665,6 +665,17 @@ lu.TextUtil = function() {
   return{measureText:measureText}
 }();
 var lu = lu || {};
+lu.WeekDayNamesProvider = function() {
+  var weekDayShortNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  function getWeekDayName(weekDay) {
+    if(typeof weekDay !== "number") {
+      return""
+    }
+    return weekDayShortNames[weekDay]
+  }
+  return{getWeekDayName:getWeekDayName}
+}();
+var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
@@ -933,9 +944,10 @@ lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
     return{text:text, location:location, isEmphasized:isEmphasized}
   }
   function calculateWeekDayPaintInfo(day, i) {
+    var text = lu.WeekDayNamesProvider.getWeekDayName(day.getDay());
     var location = calculateDayNumberLocation(i, rawPaintData.weekDaysPosition);
     var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 0;
-    return{text:day.getDay().toString(), location:location, isEmphasized:isEmphasized}
+    return{text:text, location:location, isEmphasized:isEmphasized}
   }
   function calculateDayNumberLocation(index, position) {
     var xStep = canvas.width / rawPaintData.totalDays;

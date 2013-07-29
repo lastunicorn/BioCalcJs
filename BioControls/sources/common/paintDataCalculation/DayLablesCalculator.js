@@ -28,8 +28,7 @@ lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
 
     function calculateDayLabels() {
         var areDayNumbersVisible = rawPaintData.areDayNumbersVisible;
-        var areWeekDaysVisible = rawPaintData.areWeekDaysVisible
-                && !(rawPaintData.areDayNumbersVisible && rawPaintData.weekDaysPosition === rawPaintData.dayNumbersPosition);
+        var areWeekDaysVisible = rawPaintData.areWeekDaysVisible && !(rawPaintData.areDayNumbersVisible && rawPaintData.weekDaysPosition === rawPaintData.dayNumbersPosition);
 
         if (!areDayNumbersVisible && !areWeekDaysVisible) {
             return null;
@@ -74,10 +73,10 @@ lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
     }
 
     function calculateDayNumberPaintInfo(i, day) {
-    	var text = day.getDate().toString();
+        var text = day.getDate().toString();
         var location = calculateDayNumberLocation(i, rawPaintData.dayNumbersPosition);
         var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 0;
-        
+
         return {
             text: text,
             location: location,
@@ -86,12 +85,12 @@ lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
     }
 
     function calculateWeekDayPaintInfo(day, i) {
+        var text = lu.WeekDayNamesProvider.getWeekDayName(day.getDay());
         var location = calculateDayNumberLocation(i, rawPaintData.weekDaysPosition);
-
         var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 0;
 
         return {
-            text: day.getDay().toString(),
+            text: text,
             location: location,
             isEmphasized: isEmphasized
         };

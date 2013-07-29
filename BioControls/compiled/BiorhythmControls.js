@@ -1,6 +1,6 @@
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.BiorhythmView = function(id) {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.BiorhythmView = function(id) {
   var canvas = null;
   var biorhythms = [];
   var biorhythmAddedEvent = new lu.Event;
@@ -349,16 +349,16 @@ lu.biorhythmControls.BiorhythmView = function(id) {
     canvas.addEventListener(mouseWheelEventName, onWheel, false);
     canvas.addEventListener("keydown", onKeyDown, false);
     canvas.addEventListener("keyup", onKeyUp, false);
-    painter = new lu.biorhythmControls.common.painting.BiorhythmViewPainter
+    painter = new lu.bioControls.common.painting.BiorhythmViewPainter
   })()
 };
 var lu = lu || {};
 lu.DayLabelPosition = {top:0, aboveMiddle:1, belowMiddle:2, bottom:3};
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.biorhythmModel = lu.biorhythmControls.common.biorhythmModel || {};
-lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
+lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
   var name = "New Biorhythm Shape";
   var nameChangedEvent = new lu.Event;
   this.subscribeToNameChanged = function(eventHandler) {
@@ -466,10 +466,10 @@ lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
-lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
+lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
   var rawPaintData = null;
   var canvas = null;
   var margin = 10;
@@ -509,10 +509,10 @@ lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = fun
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
-lu.biorhythmControls.common.painting.BiorhythmCurvesPainter = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.painting = lu.bioControls.common.painting || {};
+lu.bioControls.common.painting.BiorhythmCurvesPainter = function() {
   var dataToPaint = null;
   var paintContext = null;
   this.paint = function(context, data) {
@@ -665,10 +665,10 @@ lu.TextUtil = function() {
   return{measureText:measureText}
 }();
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.biorhythmModel = lu.biorhythmControls.common.biorhythmModel || {};
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   var physicalShape = null;
   var emotionalShape = null;
   var intellectualShape = null;
@@ -683,27 +683,27 @@ lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   var selfAwarenessShape = null;
   var spiritualShape = null;
   function createBiorhythmShapes() {
-    physicalShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape();
-    emotionalShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape();
-    intellectualShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape();
-    intuitiveShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape();
-    passionShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape();
+    physicalShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape();
+    emotionalShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape();
+    intellectualShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape();
+    intuitiveShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape();
+    passionShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape();
     passionShape.setIsVisible(false);
-    masteryShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape();
+    masteryShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape();
     masteryShape.setIsVisible(false);
-    wisdomShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape();
+    wisdomShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape();
     wisdomShape.setIsVisible(false);
-    perceptionShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape();
+    perceptionShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape();
     perceptionShape.setIsVisible(false);
-    psychicShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape();
+    psychicShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape();
     psychicShape.setIsVisible(false);
-    successShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape();
+    successShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape();
     successShape.setIsVisible(false);
-    estheticShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape();
+    estheticShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape();
     estheticShape.setIsVisible(false);
-    selfAwarenessShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape();
+    selfAwarenessShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape();
     selfAwarenessShape.setIsVisible(false);
-    spiritualShape = lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape();
+    spiritualShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape();
     spiritualShape.setIsVisible(false)
   }
   this.getPhysicalShape = function getPhysicalShape() {
@@ -764,135 +764,135 @@ lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
     createBiorhythmShapes()
   })()
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday = new Date(1980, 5, 13);
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday = new Date(1980, 5, 13);
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#ff0000");
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.EmotionalBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#32cd32");
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.IntellectualBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#1e90ff");
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.IntuitiveBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#ffa500");
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.PassionBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#ff0000");
   shape.setLineStyle(lu.LineStyle.dash);
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.MasteryBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#1e90ff");
   shape.setLineStyle(lu.LineStyle.dashDot);
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.WisdomBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#32cd32");
   shape.setLineStyle(lu.LineStyle.dashDotDot);
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.PerceptionBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#ff0000");
   shape.setLineStyle(lu.LineStyle.dash);
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.PsychicBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#32cd32");
   shape.setLineStyle(lu.LineStyle.dashDot);
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.SuccessBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#1e90ff");
   shape.setLineStyle(lu.LineStyle.dashDotDot);
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.EstheticBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#ff0000");
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#1e90ff");
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
-lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape = function() {
   var biorhythm = new lu.bioControls.core.biorhythms.SpiritualBiorhythm;
-  var shape = new lu.biorhythmControls.common.biorhythmModel.BiorhythmShape;
+  var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape;
   shape.setName(biorhythm.getName() + " Shape");
   shape.setBiorhythm(biorhythm);
   shape.setColor("#ffa500");
-  shape.setBirthday(lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+  shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
   return shape
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
-lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
+lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
   var rawPaintData = null;
   var canvas = null;
   var textHeight = 12;
@@ -927,9 +927,10 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
     textHeight = Math.max(textSize[1], textSizeEmphasized[1])
   }
   function calculateDayNumberPaintInfo(i, day) {
+    var text = day.getDate().toString();
     var location = calculateDayNumberLocation(i, rawPaintData.dayNumbersPosition);
     var isEmphasized = rawPaintData.areSundaysEmphasized && day.getDay() === 0;
-    return{text:day.getDate().toString(), location:location, isEmphasized:isEmphasized}
+    return{text:text, location:location, isEmphasized:isEmphasized}
   }
   function calculateWeekDayPaintInfo(day, i) {
     var location = calculateDayNumberLocation(i, rawPaintData.weekDaysPosition);
@@ -954,10 +955,10 @@ lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator = function(
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
-lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
+lu.bioControls.common.paintDataCalculation.GridLinesCalculator = function() {
   var rawPaintData = null;
   var canvas = null;
   this.calculate = function(data, canvasElement) {
@@ -992,10 +993,10 @@ lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator = function(
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
-lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
+lu.bioControls.common.paintDataCalculation.PaintDataCalculator = function() {
   var biorhythmCurvesCalculator = null;
   var gridLinesCalculator = null;
   var dayLabelsCalculator = null;
@@ -1005,18 +1006,18 @@ lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function(
     return{biorhythms:biorhythmCurvesCalculator.calculate(data, canvasElement), gridLines:gridLinesCalculator.calculate(data, canvasElement), dayLabels:dayLabelsCalculator.calculate(data, canvasElement), todayMarker:todayMarkerCalculator.calculate(data, canvasElement), xDayMarker:xDayMarkerCalculator.calculate(data, canvasElement)}
   };
   (function initialize() {
-    biorhythmCurvesCalculator = new lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator;
-    gridLinesCalculator = new lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator;
-    dayLabelsCalculator = new lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator;
-    todayMarkerCalculator = new lu.biorhythmControls.common.paintDataCalculation.TodayMarkerCalculator;
-    xDayMarkerCalculator = new lu.biorhythmControls.common.paintDataCalculation.XDayMarkerCalculator
+    biorhythmCurvesCalculator = new lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator;
+    gridLinesCalculator = new lu.bioControls.common.paintDataCalculation.GridLinesCalculator;
+    dayLabelsCalculator = new lu.bioControls.common.paintDataCalculation.DayLablesCalculator;
+    todayMarkerCalculator = new lu.bioControls.common.paintDataCalculation.TodayMarkerCalculator;
+    xDayMarkerCalculator = new lu.bioControls.common.paintDataCalculation.XDayMarkerCalculator
   })()
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
-lu.biorhythmControls.common.paintDataCalculation.TodayMarkerCalculator = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
+lu.bioControls.common.paintDataCalculation.TodayMarkerCalculator = function() {
   var rawPaintData = null;
   var canvas = null;
   this.calculate = function(data, canvasElement) {
@@ -1048,10 +1049,10 @@ lu.biorhythmControls.common.paintDataCalculation.TodayMarkerCalculator = functio
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
-lu.biorhythmControls.common.paintDataCalculation.XDayMarkerCalculator = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
+lu.bioControls.common.paintDataCalculation.XDayMarkerCalculator = function() {
   var rawPaintData = null;
   var canvas = null;
   this.calculate = function(data, canvasElement) {
@@ -1072,10 +1073,10 @@ lu.biorhythmControls.common.paintDataCalculation.XDayMarkerCalculator = function
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
-lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.painting = lu.bioControls.common.painting || {};
+lu.bioControls.common.painting.BiorhythmViewPainter = function() {
   var rawPaintData = null;
   var canvas = null;
   var paintCount = 0;
@@ -1086,7 +1087,7 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
     paintCount++;
     rawPaintData = data;
     canvas = canvasElement;
-    var paintDataCalculator = new lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator;
+    var paintDataCalculator = new lu.bioControls.common.paintDataCalculation.PaintDataCalculator;
     var dataToPaint = paintDataCalculator.calculate(rawPaintData, canvas);
     paintAll(dataToPaint)
   };
@@ -1094,15 +1095,15 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
     if(canvas.getContext) {
       var context = canvas.getContext("2d");
       clearCanvas(context);
-      var todayMarkerPainter = new lu.biorhythmControls.common.painting.TodayMarkerPainter;
+      var todayMarkerPainter = new lu.bioControls.common.painting.TodayMarkerPainter;
       todayMarkerPainter.paint(context, dataToPaint.todayMarker);
-      var gridLinesPainter = new lu.biorhythmControls.common.painting.GridLinesPainter;
+      var gridLinesPainter = new lu.bioControls.common.painting.GridLinesPainter;
       gridLinesPainter.paint(context, dataToPaint.gridLines);
-      var biorhythmCurvesPainter = new lu.biorhythmControls.common.painting.BiorhythmCurvesPainter;
+      var biorhythmCurvesPainter = new lu.bioControls.common.painting.BiorhythmCurvesPainter;
       biorhythmCurvesPainter.paint(context, dataToPaint.biorhythms);
-      var dayLabelsPainter = new lu.biorhythmControls.common.painting.DayLabelsPainter;
+      var dayLabelsPainter = new lu.bioControls.common.painting.DayLabelsPainter;
       dayLabelsPainter.paint(context, dataToPaint.dayLabels);
-      var xDayMarkerPainter = new lu.biorhythmControls.common.painting.XDayMarkerPainter;
+      var xDayMarkerPainter = new lu.bioControls.common.painting.XDayMarkerPainter;
       xDayMarkerPainter.paint(context, dataToPaint.xDayMarker)
     }
   }
@@ -1112,10 +1113,10 @@ lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
-lu.biorhythmControls.common.painting.DayLabelsPainter = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.painting = lu.bioControls.common.painting || {};
+lu.bioControls.common.painting.DayLabelsPainter = function() {
   var dataToPaint = null;
   var paintContext = null;
   var currentFont = null;
@@ -1149,10 +1150,10 @@ lu.biorhythmControls.common.painting.DayLabelsPainter = function() {
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
-lu.biorhythmControls.common.painting.GridLinesPainter = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.painting = lu.bioControls.common.painting || {};
+lu.bioControls.common.painting.GridLinesPainter = function() {
   var paintContext = null;
   var dataToPaint = null;
   this.paint = function(context, data) {
@@ -1189,10 +1190,10 @@ lu.biorhythmControls.common.painting.GridLinesPainter = function() {
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
-lu.biorhythmControls.common.painting.TodayMarkerPainter = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.painting = lu.bioControls.common.painting || {};
+lu.bioControls.common.painting.TodayMarkerPainter = function() {
   var paintContext = null;
   var dataToPaint = null;
   this.paint = function(context, data) {
@@ -1212,10 +1213,10 @@ lu.biorhythmControls.common.painting.TodayMarkerPainter = function() {
   }
 };
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
-lu.biorhythmControls.common.painting.XDayMarkerPainter = function() {
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.painting = lu.bioControls.common.painting || {};
+lu.bioControls.common.painting.XDayMarkerPainter = function() {
   var paintContext = null;
   var dataToPaint = null;
   this.paint = function(context, data) {

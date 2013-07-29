@@ -1,7 +1,7 @@
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
+lu.bioControls = lu.bioControls || {};
 
-lu.biorhythmControls.BiorhythmView = function(id) {
+lu.bioControls.BiorhythmView = function(id) {
 	
 	var canvas = null;
 	
@@ -687,6 +687,6 @@ lu.biorhythmControls.BiorhythmView = function(id) {
 		canvas.addEventListener('keydown', onKeyDown, false);
 		canvas.addEventListener('keyup', onKeyUp, false);
 		
-		painter = new lu.biorhythmControls.common.painting.BiorhythmViewPainter();
+		painter = new lu.bioControls.common.painting.BiorhythmViewPainter();
 	}());
 };

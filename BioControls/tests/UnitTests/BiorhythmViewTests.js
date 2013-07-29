@@ -14,13 +14,13 @@
                 };
             };
 
-            lu.biorhythmControls = lu.biorhythmControls || {};
-            lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-            lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
-            lu.biorhythmControls.common.painting.BiorhythmViewPainter = function() {
+            lu.bioControls = lu.bioControls || {};
+            lu.bioControls.common = lu.bioControls.common || {};
+            lu.bioControls.common.painting = lu.bioControls.common.painting || {};
+            lu.bioControls.common.painting.BiorhythmViewPainter = function() {
             };
 
-            biorhythmView = new lu.biorhythmControls.BiorhythmView("id");
+            biorhythmView = new lu.bioControls.BiorhythmView("id");
         }
     });
 

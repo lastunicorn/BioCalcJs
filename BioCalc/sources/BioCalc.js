@@ -7,7 +7,7 @@
 	// --------------------------------------------------------------------------
 
 	function generateBiorhythms() {
-		commonBiorhythmShapes = new lu.biorhythmControls.common.biorhythmModel.CommonBiorhythmShapes();
+		commonBiorhythmShapes = new lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes();
 
 		commonBiorhythmShapes.getPhysicalShape().setIsVisible(true);
 		commonBiorhythmShapes.getEmotionalShape().setIsVisible(true);
@@ -58,7 +58,7 @@
 
 		var biorhythmShapes = commonBiorhythmShapes.getAll();
 
-		biorhythmView = new lu.biorhythmControls.BiorhythmView("bioCanvas");
+		biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
 		biorhythmView.suspendPaint();
 		biorhythmView.setXDayVisibility(false);
 		biorhythmView.setBiorhythms(biorhythmShapes);

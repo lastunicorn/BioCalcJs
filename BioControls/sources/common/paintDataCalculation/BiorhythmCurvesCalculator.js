@@ -1,9 +1,9 @@
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
 
-lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
+lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
     
     var rawPaintData = null;
     var canvas = null;

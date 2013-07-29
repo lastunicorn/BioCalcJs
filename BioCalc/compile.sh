@@ -4,7 +4,7 @@
 # Configuration
 # ----------------------------------------------------------------------------
 
-BIORHYTHM_CONTROLS_DIRECTORY=../BiorhythmControls
+BIORHYTHM_CONTROLS_DIRECTORY=../BioControls
 
 # ----------------------------------------------------------------------------
 # Compile

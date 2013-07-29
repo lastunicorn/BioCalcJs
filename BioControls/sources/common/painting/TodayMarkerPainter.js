@@ -1,9 +1,9 @@
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.painting = lu.biorhythmControls.common.painting || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.painting = lu.bioControls.common.painting || {};
 
-lu.biorhythmControls.common.painting.TodayMarkerPainter = function() {
+lu.bioControls.common.painting.TodayMarkerPainter = function() {
 
     var paintContext = null;
     var dataToPaint = null;

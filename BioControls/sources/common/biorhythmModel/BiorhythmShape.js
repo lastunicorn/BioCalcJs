@@ -1,9 +1,9 @@
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.biorhythmModel = lu.biorhythmControls.common.biorhythmModel || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
 
-lu.biorhythmControls.common.biorhythmModel.BiorhythmShape = function() {
+lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     // #region Name
 

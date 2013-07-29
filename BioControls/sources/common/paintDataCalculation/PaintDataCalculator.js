@@ -1,9 +1,9 @@
 var lu = lu || {};
-lu.biorhythmControls = lu.biorhythmControls || {};
-lu.biorhythmControls.common = lu.biorhythmControls.common || {};
-lu.biorhythmControls.common.paintDataCalculation = lu.biorhythmControls.common.paintDataCalculation || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
 
-lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function() {
+lu.bioControls.common.paintDataCalculation.PaintDataCalculator = function() {
 
     var biorhythmCurvesCalculator = null;
     var gridLinesCalculator = null;
@@ -30,10 +30,10 @@ lu.biorhythmControls.common.paintDataCalculation.PaintDataCalculator = function(
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        biorhythmCurvesCalculator = new lu.biorhythmControls.common.paintDataCalculation.BiorhythmCurvesCalculator();
-        gridLinesCalculator = new lu.biorhythmControls.common.paintDataCalculation.GridLinesCalculator();
-        dayLabelsCalculator = new lu.biorhythmControls.common.paintDataCalculation.DayLablesCalculator();
-        todayMarkerCalculator = new lu.biorhythmControls.common.paintDataCalculation.TodayMarkerCalculator();
-        xDayMarkerCalculator = new lu.biorhythmControls.common.paintDataCalculation.XDayMarkerCalculator();
+        biorhythmCurvesCalculator = new lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator();
+        gridLinesCalculator = new lu.bioControls.common.paintDataCalculation.GridLinesCalculator();
+        dayLabelsCalculator = new lu.bioControls.common.paintDataCalculation.DayLablesCalculator();
+        todayMarkerCalculator = new lu.bioControls.common.paintDataCalculation.TodayMarkerCalculator();
+        xDayMarkerCalculator = new lu.bioControls.common.paintDataCalculation.XDayMarkerCalculator();
     }());
 };

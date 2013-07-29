@@ -3,7 +3,7 @@
 	<name>BioCalc</name>
 	<comment></comment>
 	<projects>
-		<project>BiorhythmControls</project>
+		<project>BioControls</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

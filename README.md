@@ -1,4 +1,4 @@
 BioCalcJs
 =========
 
-A biorhythm calculator made in js.
+A javascript application that displays the biorhythm charts of a person.

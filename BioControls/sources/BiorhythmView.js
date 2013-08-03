@@ -594,6 +594,8 @@ lu.bioControls.BiorhythmView = function(id) {
     var currentDayIndex = 0;
 
     function onMouseDown(evt) {
+        evt.preventDefault();
+
         if (evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {
             return;
         }
@@ -611,6 +613,8 @@ lu.bioControls.BiorhythmView = function(id) {
     }
 
     function onMouseMove(evt) {
+        evt.preventDefault();
+
         if (buttonPressed !== lu.MouseButton.left && buttonPressed !== lu.MouseButton.right) {
             return;
         }
@@ -639,13 +643,11 @@ lu.bioControls.BiorhythmView = function(id) {
     }
 
     function onMouseUp(evt) {
+        evt.preventDefault();
+
         if (evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right) {
             buttonPressed = lu.MouseButton.none;
         }
-    }
-
-    function onMouseOut() {
-        buttonPressed = lu.MouseButton.none;
     }
 
     function onWheel(evt) {
@@ -674,21 +676,14 @@ lu.bioControls.BiorhythmView = function(id) {
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        var mouseWheelEventName = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"; // FF
-                                                                                                            // doesn't
-                                                                                                            // recognize
-                                                                                                            // mousewheel
-                                                                                                            // as
-                                                                                                            // of
-                                                                                                            // FF3.x
+        // FF doesn't recognize mousewheel as of FF3.x
+        var mouseWheelEventName = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
 
         canvas = document.getElementById(id);
-        canvas.addEventListener('mousemove', onMouseMove, false);
-
         canvas.addEventListener('mousedown', onMouseDown, false);
-        canvas.addEventListener('mouseup', onMouseUp, false);
+        document.addEventListener('mousemove', onMouseMove, false);
+        document.addEventListener('mouseup', onMouseUp, false);
 
-        canvas.addEventListener('mouseout', onMouseOut, false);
         canvas.addEventListener(mouseWheelEventName, onWheel, false);
 
         canvas.addEventListener('keydown', onKeyDown, false);

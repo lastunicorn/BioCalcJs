@@ -3,11 +3,29 @@
 
 body {
 	font: 14px Arial;
+	color: #303030;
 }
 
 h1 {
 	font: 25px Arial;
 	font-weight: bold;
+	color: #000;
+}
+
+input[type="text"] {
+	padding: 3px;
+	border: 1px solid #b0b0b0;
+	border-radius: 4px;
+	background-color: #f0f0f0;
+}
+
+input[type="text"]:hover {
+	background-color: #e8e8e8;
+	border-color: #909090;
+}
+
+input[type="text"]:focus {
+	background-color: #f8f8f8;
 }
 
 /* Common
@@ -15,6 +33,15 @@ h1 {
 
 .clear {
 	clear: both;
+}
+
+h2 {
+	font: 16px Arial;
+	font-weight: bold;
+}
+
+a[target="_blank"] {
+	color: blue;
 }
 
 /* Debug
@@ -30,7 +57,7 @@ h1 {
 /* Page
  ----------------------------------------------------------------------------- */
 
-#version {
+.bio-calc-version {
 	text-align: right;
 	margin: 3px 0;
 	color: #a0a0a0;
@@ -58,6 +85,10 @@ h1 {
 	margin: 0 auto;
 }
 
+#birthdayTextBox, #firstDayTextBox {
+	width: 200px;
+}
+
 /* Biorhythm Legend
  ----------------------------------------------------------------------------- */
 
@@ -83,9 +114,35 @@ h1 {
 	display: inline-block;
 }
 
-/* DateTimes
+/* Datetime pickers
  ----------------------------------------------------------------------------- */
 
 .ui-datepicker {
 	font: 13px Arial;
+}
+
+/* Toolbar
+ ----------------------------------------------------------------------------- */
+
+#toolbar {
+	margin: 10px 0;
+}
+
+#toolbar .ui-button {
+	font-size: 12px;
+}
+
+#tabs {
+	font-size: 12px;
+}
+
+/* Help Dialog
+ ----------------------------------------------------------------------------- */
+
+#helpDialog, #aboutDialog {
+	font-size: 12px;
+}
+
+#helpDialog p {
+	text-align: justify;
 }

@@ -38,7 +38,7 @@ lu.bioCalc.BiorhythmLegend = function(biorhythmView, legendContainerSelector) {
 
 			$legendContainer.prepend($legendItemTag);
 		}
-	}
+	};
 
 	// --------------------------------------------------------------------------
 	// Initializer

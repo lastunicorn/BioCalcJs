@@ -1,0 +1,13 @@
+BioControls
+===========
+
+
+ver 1.0.1
+---------
+When dragging the biorhythm chart (left-right) I prevented Chrome from displaying the selection cursor.
+I improved chart dragging by allowing it even if the mouse goes outside of the canvas surface.
+I added a Help dialog and an About dialog.
+
+ver 1.0.0
+---------
+The first stable version released. 

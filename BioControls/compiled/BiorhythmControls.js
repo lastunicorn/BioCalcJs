@@ -572,6 +572,11 @@ lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythm
   }
 };
 var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.getVersion = function() {
+  return"1.0.0"
+};
+var lu = lu || {};
 lu.Event = function() {
   var eventHandlers = [];
   this.subscribe = function(eventHandler) {

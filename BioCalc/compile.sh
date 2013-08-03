@@ -18,4 +18,4 @@ cd ../BioCalc
 
 # Copy dependencies
 echo Copying dependency files...
-cp $BIORHYTHM_CONTROLS_DIRECTORY/compiled/*.* libraries/BiorhythmControls
+cp $BIORHYTHM_CONTROLS_DIRECTORY/compiled/*.* sources/libraries/BiorhythmControls

@@ -2,6 +2,7 @@
     var biorhythmView = null;
     var commonBiorhythmShapes = null;
     var $birthdayTextBox, $firstDayTextBox, $helpButton, $aboutButton, $aboutDialog, $helpDialog;
+    var version = "1.1.0";
 
     // --------------------------------------------------------------------------
     // Functions - "private"
@@ -163,7 +164,7 @@
         
         $("#tabs").tabs();
         
-        $(".bio-calc-version").html("ver 1.0.1");
+        $(".bio-calc-version").html("ver " + version);
     }
 
     function onBiorhythmViewFirstDayChanged() {

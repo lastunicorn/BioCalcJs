@@ -70,10 +70,27 @@ lu.bioControls.BiorhythmView = function(id) {
         }
     }
 
+    this.removeBiorhythm = function(biorhythmShape) {
+        var index = biorhythms.indexOf(biorhythmShape);
+        if (index !== -1) {
+            removeBiorhythmAt(index);
+        }
+    };
+
     function removeBiorhythmAt(index) {
-        // todo: unsubscribe from events
+        var biorhythmShape = biorhythms[index];
+
+        biorhythmShape.unsubscribeFromNameChanged(onBiorhithmShapeChanged);
+        biorhythmShape.unsubscribeFromBirthdayChanged(onBiorhithmShapeChanged);
+        biorhythmShape.unsubscribeFromBiorhythmChanged(onBiorhithmShapeChanged);
+        biorhythmShape.unsubscribeFromColorChanged(onBiorhithmShapeChanged);
+        biorhythmShape.unsubscribeFromIsVisibleChanged(onBiorhithmShapeChanged);
+        biorhythmShape.unsubscribeFromLineWidthChanged(onBiorhithmShapeChanged);
+        biorhythmShape.unsubscribeFromLineStyleChanged(onBiorhithmShapeChanged);
 
         biorhythms.splice(index, 1);
+
+        biorhythmRemovedEvent.raise();
     }
 
     // #endregion

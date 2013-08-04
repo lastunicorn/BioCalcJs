@@ -10,9 +10,8 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var name = "New Biorhythm Shape";
     var nameChangedEvent = new lu.Event();
 
-    this.subscribeToNameChanged = function(eventHandler) {
-        nameChangedEvent.subscribe(eventHandler);
-    };
+    this.subscribeToNameChanged = nameChangedEvent.subscribe;
+    this.unsubscribeFromNameChanged = nameChangedEvent.unsubscribe;
 
     this.getName = function() {
         return name;
@@ -34,9 +33,8 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var birthday = Date(80, 05, 13);
     var birthdayChangedEvent = new lu.Event();
 
-    this.subscribeToBirthdayChanged = function(eventHandler) {
-        birthdayChangedEvent.subscribe(eventHandler);
-    };
+    this.subscribeToBirthdayChanged = birthdayChangedEvent.subscribe;
+    this.unsubscribeFromBirthdayChanged = birthdayChangedEvent.unsubscribe;
 
     this.getBirthday = function() {
         return birthday;
@@ -58,9 +56,8 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var biorhythm = null;
     var biorhythmChangedEvent = new lu.Event();
 
-    this.subscribeToBiorhythmChanged = function(eventHandler) {
-        biorhythmChangedEvent.subscribe(eventHandler);
-    };
+    this.subscribeToBiorhythmChanged = biorhythmChangedEvent.subscribe;
+    this.unsubscribeFromBiorhythmChanged = biorhythmChangedEvent.unsubscribe;
 
     this.getBiorhythm = function() {
         return biorhythm;
@@ -82,9 +79,8 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var color = null;
     var colorChangedEvent = new lu.Event();
 
-    this.subscribeToColorChanged = function(eventHandler) {
-        colorChangedEvent.subscribe(eventHandler);
-    };
+    this.subscribeToColorChanged = colorChangedEvent.subscribe;
+    this.unsubscribeFromColorChanged = colorChangedEvent.unsubscribe;
 
     this.getColor = function() {
         return color;
@@ -106,9 +102,8 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var isVisible = true;
     var isVisibleChangedEvent = new lu.Event();
 
-    this.subscribeToIsVisibleChanged = function(eventHandler) {
-        isVisibleChangedEvent.subscribe(eventHandler);
-    };
+    this.subscribeToIsVisibleChanged = isVisibleChangedEvent.subscribe;
+    this.unsubscribeFromIsVisibleChanged = isVisibleChangedEvent.unsubscribe;
 
     this.getIsVisible = function() {
         return isVisible;
@@ -130,9 +125,8 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var lineWidth = 1;
     var lineWidthChangedEvent = new lu.Event();
 
-    this.subscribeToLineWidthChanged = function(eventHandler) {
-        lineWidthChangedEvent.subscribe(eventHandler);
-    };
+    this.subscribeToLineWidthChanged = lineWidthChangedEvent.subscribe;
+    this.unsubscribeFromLineWidthChanged = lineWidthChangedEvent.unsubscribe;
 
     this.getLineWidth = function() {
         return lineWidth;
@@ -154,9 +148,8 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var lineStyle = lu.LineStyle.solid;
     var lineStyleChangedEvent = new lu.Event();
 
-    this.subscribeToLineStyleChanged = function(eventHandler) {
-        lineStyleChangedEvent.subscribe(eventHandler);
-    };
+    this.subscribeToLineStyleChanged = lineStyleChangedEvent.subscribe;
+    this.unsubscribeFromLineStyleChanged = lineStyleChangedEvent.unsubscribe;
 
     this.getLineStyle = function() {
         return lineStyle;

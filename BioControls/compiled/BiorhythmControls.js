@@ -489,13 +489,14 @@ lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function(
     var values = [];
     var points;
     for(var i = 0;i < rawPaintData.biorhythmShapes.length;i++) {
-      if(!rawPaintData.biorhythmShapes[i].getIsVisible()) {
+      var biorhythmShape = rawPaintData.biorhythmShapes[i];
+      if(!biorhythmShape.getIsVisible()) {
         continue
       }
-      var biorhythm = rawPaintData.biorhythmShapes[i].getBiorhythm();
-      var birthday = rawPaintData.biorhythmShapes[i].getBirthday();
+      var biorhythm = biorhythmShape.getBiorhythm();
+      var birthday = biorhythmShape.getBirthday();
       points = calculateBiorhythmPoints(biorhythm, birthday);
-      values.push({points:points, color:rawPaintData.biorhythmShapes[i].getColor(), lineWidth:rawPaintData.biorhythmShapes[i].getLineWidth(), lineStyle:rawPaintData.biorhythmShapes[i].getLineStyle()})
+      values.push({points:points, color:biorhythmShape.getColor(), lineWidth:biorhythmShape.getLineWidth(), lineStyle:biorhythmShape.getLineStyle()})
     }
     return values
   }

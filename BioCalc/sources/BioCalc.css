@@ -139,6 +139,10 @@ a[target="_blank"] {
 	font: 13px Arial;
 }
 
+.ui-colorpicker {
+    font: 13px Arial;
+}
+
 /* Toolbar
  ----------------------------------------------------------------------------- */
 
@@ -163,4 +167,8 @@ a[target="_blank"] {
 
 #helpDialog p {
 	text-align: justify;
+}
+
+.ui-dialog {
+    font: 13px Arial;
 }

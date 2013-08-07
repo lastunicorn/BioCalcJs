@@ -156,8 +156,8 @@
         $helpDialog = $("#helpDialog");
         $helpDialog.dialog({
             modal: true,
-            height: 480,
-            width: 640,
+            height: 360,
+            width: 480,
             autoOpen: false,
             buttons:{
                 Close: function(){

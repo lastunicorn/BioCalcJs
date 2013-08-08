@@ -1,4 +1,4 @@
-﻿// BioControls
+// BioCalc
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,18 +15,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
+lu.bioCalc = lu.bioCalc || {};
 
-Object.defineProperty(lu.bioControls, "version", {
+Object.defineProperty(lu.bioCalc, "version", {
     value: "1.1.0",
     writable: false,
     enumerable: true,
     configurable: false
 });
-
-/**
- * Deprecated
- */
-lu.bioControls.getVersion = function() {
-    return lu.bioControls.version;
-};

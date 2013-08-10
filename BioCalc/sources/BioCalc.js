@@ -17,7 +17,7 @@
 (function() {
     var biorhythmView = null;
     var commonBiorhythmShapes = null;
-    var $birthdayTextBox, $firstDayTextBox, $helpButton, $aboutButton, $aboutDialog, $helpDialog;
+    var $birthdayTextBox = null, $firstDayTextBox = null, $helpButton = null, $aboutButton = null, $aboutDialog = null, $helpDialog = null;
 
     // --------------------------------------------------------------------------
     // Functions - "private"
@@ -158,8 +158,8 @@
             height: 360,
             width: 480,
             autoOpen: false,
-            buttons:{
-                Close: function(){
+            buttons: {
+                Close: function() {
                     $helpDialog.dialog("close");
                 }
             },
@@ -176,9 +176,9 @@
         $("#jQueryVersion").html($.fn.jquery);
         $("#jQueryUIVersion").html($.ui.version);
         $("#bioControlsVersion").html(lu.bioControls.version);
-        
+
         $("#tabs").tabs();
-        
+
         $(".bio-calc-version").html("ver " + lu.bioCalc.version);
     }
 

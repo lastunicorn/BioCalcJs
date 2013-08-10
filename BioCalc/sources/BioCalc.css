@@ -101,6 +101,7 @@ a[target="_blank"] {
 	outline: none;
 	border-radius: 5px;
 	margin: 0 auto;
+	cursor: move;
 }
 
 #birthdayTextBox, #firstDayTextBox {
@@ -126,10 +127,12 @@ a[target="_blank"] {
 	height: 16px;
 	display: inline-block;
 	margin: 0 3px;
+	cursor: pointer;
 }
 
 .bioLegendLabel {
 	display: inline-block;
+	cursor: pointer;
 }
 
 /* Datetime pickers

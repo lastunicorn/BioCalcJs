@@ -21,7 +21,7 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
 
     var $legendColorTag = null;
     var $legendLabelTag = null;
-    
+
     this.generate = function() {
         var $div = $("<div/>");
 
@@ -29,8 +29,8 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
         $div.attr("data-biorhythm", biorhythmShape.getName());
 
         $legendColorTag = generateLegendColorTag(biorhythmShape);
-        $legendLabelTag = generateLegendLabelTag(biorhythmShape);        
-        
+        $legendLabelTag = generateLegendLabelTag(biorhythmShape);
+
         $div.append($legendColorTag);
         $div.append($legendLabelTag);
 
@@ -46,24 +46,6 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
         $div.addClass("bioLegendColor");
         $div.css('background-color', biorhythmShape.getColor());
 
-        var biorhythmName = biorhythmShape.getBiorhythm().getName();
-        var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
-
-        // $div.colorpicker({
-        // inline: false,
-        // altField: function(element) { return $(element); },
-        // altProperties: 'background-color',
-        // buttonColorize: true,
-        // color: biorhythmShape.getColor(),
-        // colorFormat: "#HEX",
-        // close: onColorPickerClosed,
-        // open: onColorPickerOpened,
-        // revert: true,
-        // showOn: 'click',
-        // title: title,
-        // parts: title ? "draggable" : "popup"
-        // });
-
         return $div;
     }
 
@@ -74,7 +56,7 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
 
         var biorhythmName = biorhythmShape.getBiorhythm().getName();
         var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
-        
+
         $div.colorpicker({
             inline: false,
             altField: $legendColorTag,
@@ -88,7 +70,7 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
             title: title,
             parts: title ? "draggable" : "popup",
         });
-        
+
         return $div;
     }
 

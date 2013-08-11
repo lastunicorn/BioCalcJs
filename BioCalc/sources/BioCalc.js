@@ -181,10 +181,6 @@
         $("#tabs").tabs();
 
         $(".bio-calc-version").html("ver " + lu.bioCalc.version);
-        
-        $("#clickme").click(function(){
-            biorhythmView.firstDay = new Date(2000, 00, 01);  
-        });
     }
 
     function onAboutDialogCloseClicked() {

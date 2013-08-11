@@ -133,9 +133,17 @@ lu.bioControls.BiorhythmView = function(id) {
         setFirstDay(date);
     }
 
-    this.getFirstDay = function() {
+    this.getFirstDay = getFirstDay;
+    function getFirstDay() {
         return firstDay;
     };
+    
+    Object.defineProperty(this, "firstDay", {
+        enumerable: true,
+        configurable: false,
+        get: getFirstDay,
+        set: setFirstDay
+    });
 
     this.subscribeToFirstDayChanged = firstDayChangedEvent.subscribe;
 

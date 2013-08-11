@@ -16,10 +16,20 @@
 
 var lu = lu || {};
 
+/**
+ * It is an observed object. Any function can be set as subscriber and it will
+ * be called when the event is raised.
+ */
 lu.Event = function() {
 
     var eventHandlers = [];
 
+    /**
+     * Registers a function to be called when the event is raised.
+     * 
+     * @param eventHandler
+     *            The function to be registered.
+     */
     this.subscribe = function(eventHandler) {
         if (typeof (eventHandler) !== "function") {
             throw "eventHandler is not a function.";
@@ -28,11 +38,17 @@ lu.Event = function() {
         eventHandlers.push(eventHandler);
     };
 
+    /**
+     * Unregisters a previously registered function.
+     * 
+     * @param eventHandler
+     *            The function to be unregistered.
+     */
     this.unsubscribe = function(eventHandler) {
         if (typeof (eventHandler) !== "function") {
             throw "eventHandler is not a function.";
         }
-        
+
         for ( var i = 0; i < eventHandlers.length; i++) {
             if (eventHandlers[i] === eventHandler) {
                 eventHandlers.splice(i, 1);
@@ -40,9 +56,16 @@ lu.Event = function() {
         }
     };
 
-    this.raise = function() {
+    /**
+     * It calls all the eventHandlers previously subscribed to this event.
+     * 
+     * @param sender
+     *            The object on which the subscribers will be run. This object
+     *            will be the "this" object.
+     */
+    this.raise = function(sender, arg) {
         for ( var i = 0; i < eventHandlers.length; i++) {
-            eventHandlers[i]();
+            eventHandlers[i].call(sender, arg);
         }
     };
 };

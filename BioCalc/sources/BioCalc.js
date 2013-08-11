@@ -17,7 +17,12 @@
 (function() {
     var biorhythmView = null;
     var commonBiorhythmShapes = null;
-    var $birthdayTextBox = null, $firstDayTextBox = null, $helpButton = null, $aboutButton = null, $aboutDialog = null, $helpDialog = null;
+    var $birthdayTextBox = null;
+    var $firstDayTextBox = null;
+    var $helpButton = null;
+    var $aboutButton = null;
+    var $aboutDialog = null;
+    var $helpDialog = null;
 
     // --------------------------------------------------------------------------
     // Functions - "private"
@@ -80,7 +85,7 @@
         biorhythmView.setXDayVisibility(false);
         biorhythmView.setBiorhythms(biorhythmShapes);
         biorhythmView.setBirthdayOnAllBiorhythms(initialBirthday);
-        biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
+        biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);        
         biorhythmView.resumePaint();
 
         $birthdayTextBox = $("#birthdayTextBox");
@@ -138,9 +143,7 @@
             width: 480,
             autoOpen: false,
             buttons: {
-                Close: function() {
-                    $aboutDialog.dialog("close");
-                }
+                Close: onAboutDialogCloseClicked
             },
             show: {
                 effect: "puff",
@@ -159,9 +162,7 @@
             width: 480,
             autoOpen: false,
             buttons: {
-                Close: function() {
-                    $helpDialog.dialog("close");
-                }
+                Close: onHelpDialogCloseClicked
             },
             show: {
                 effect: "puff",
@@ -180,6 +181,18 @@
         $("#tabs").tabs();
 
         $(".bio-calc-version").html("ver " + lu.bioCalc.version);
+        
+        $("#clickme").click(function(){
+            biorhythmView.firstDay = new Date(2000, 00, 01);  
+        });
+    }
+
+    function onAboutDialogCloseClicked() {
+        $aboutDialog.dialog("close");
+    }
+    
+    function onHelpDialogCloseClicked() {
+        $helpDialog.dialog("close");
     }
 
     function onBiorhythmViewFirstDayChanged() {

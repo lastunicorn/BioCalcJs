@@ -50,8 +50,8 @@ lu.bioControls.common.painting.GridLinesPainter = function() {
 
     function paintLine(line) {
         paintContext.beginPath();
-        paintContext.moveTo(line.getStartPoint().getX(), line.getStartPoint().getY());
-        paintContext.lineTo(line.getEndPoint().getX(), line.getEndPoint().getY());
+        paintContext.moveTo(line.startPoint.getX(), line.startPoint.getY());
+        paintContext.lineTo(line.endPoint.getX(), line.endPoint.getY());
         paintContext.stroke();
     }
 

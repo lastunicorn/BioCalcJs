@@ -127,10 +127,36 @@
         }
         ev.subscribe(evHandler);
         ev.unsubscribe(evHandler);
-        
+
         ev.raise();
-        
+
         QUnit.strictEqual(handlerCallCount, 0, "Tests that the event handler is not called if it is unsubscribed.");
+    });
+
+    QUnit.test("The event handlers are called on the specified sender object.", function() {
+        var actualSender = null;
+        var expectedSender = {};
+        function evHandler() {
+            actualSender = this;
+        }
+        ev.subscribe(evHandler);
+
+        ev.raise(expectedSender);
+
+        QUnit.strictEqual(actualSender, expectedSender, "Tests that the sender is the one specified on the raise method.");
+    });
+
+    QUnit.test("The event handlers are called with the specified event argument.", function() {
+        var actualArgument = null;
+        var expectedArgument = null;
+        function evHandler(evArg) {
+            actualArgument = evArg;
+        }
+        ev.subscribe(evHandler);
+
+        ev.raise(null, expectedArgument);
+
+        QUnit.strictEqual(actualArgument, expectedArgument, "Tests that the event handlers are called with the specified event argument.");
     });
 
     QUnit.test("If subscribed and unsubscribed one of two handlers, only the other event handler is called when event is raised.", function() {
@@ -145,9 +171,9 @@
         ev.subscribe(evHandler1);
         ev.subscribe(evHandler2);
         ev.unsubscribe(evHandler1);
-        
+
         ev.raise();
-        
+
         QUnit.strictEqual(handler1CallCount, 0, "Tests that the first event handler is not called if it is unsubscribed.");
         QUnit.strictEqual(handler2CallCount, 1, "Tests that the second event handler is called.");
     });

@@ -16,16 +16,76 @@
 
 var lu = lu || {};
 
-lu.Line = function (startPoint, endPoint) {
-    this.getStartPoint = function () {
+/**
+ * A segment of a line determined by two points.
+ * 
+ * @param startPoint
+ *            The point of start of the line's segment.
+ * 
+ * @param endPoint
+ *            The point of end of the line's segment.
+ * 
+ * @returns {lu.Line}
+ */
+lu.Line = function(startPoint, endPoint) {
+
+    /**
+     * Returns the starting point of the line segment.
+     * 
+     * @returns The starting point of the line segment.
+     */
+    function getStartPoint() {
         return startPoint;
-    };
-    
-    this.getEndPoint = function () {
+    }
+
+    /**
+     * @deprecated
+     */
+    this.getStartPoint = getStartPoint;
+
+    /**
+     * Returns the ending point of the line segment.
+     * 
+     * @returns The ending point of the line segment.
+     */
+    function getEndPoint() {
         return endPoint;
+    }
+
+    /**
+     * @deprecated
+     */
+    this.getEndPoint = getEndPoint;
+
+    Object.defineProperty(this, "startPoint", {
+        enumerable: true,
+        get: getStartPoint
+    });
+
+    Object.defineProperty(this, "endPoint", {
+        enumerable: true,
+        get: getEndPoint
+    });
+
+    /**
+     * Returns a string representation of the current object.
+     * 
+     * @returns A string representation of the current object.
+     */
+    this.toString = function() {
+        return startPoint.toString() + " - " + endPoint.toString();
     };
-	
-	this.toString = function() {
-		return startPoint.toString() + " - " + endPoint.toString();
-	};
+
+    /**
+     * Performs the needed initialization of a new Point object.
+     */
+    (function initialize() {
+        if (!(startPoint instanceof lu.Point)) {
+            throw "startPoint is undefined.";
+        }
+
+        if (!(endPoint instanceof lu.Point)) {
+            throw "endPoint is undefined.";
+        }
+    }).call(this);
 };

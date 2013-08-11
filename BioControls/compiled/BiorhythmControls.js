@@ -76,9 +76,11 @@ lu.bioControls.BiorhythmView = function(id) {
     date.setDate(date.getDate() + value);
     setFirstDay(date)
   }
-  this.getFirstDay = function() {
+  this.getFirstDay = getFirstDay;
+  function getFirstDay() {
     return firstDay
-  };
+  }
+  Object.defineProperty(this, "firstDay", {enumerable:true, configurable:false, get:getFirstDay, set:setFirstDay});
   this.subscribeToFirstDayChanged = firstDayChangedEvent.subscribe;
   var isGridVisible = true;
   var isGridVisibleChangedEvent = new lu.Event;
@@ -604,23 +606,35 @@ lu.Event = function() {
       }
     }
   };
-  this.raise = function() {
+  this.raise = function(sender, arg) {
     for(var i = 0;i < eventHandlers.length;i++) {
-      eventHandlers[i]()
+      eventHandlers[i].call(sender, arg)
     }
   }
 };
 var lu = lu || {};
 lu.Line = function(startPoint, endPoint) {
-  this.getStartPoint = function() {
+  function getStartPoint() {
     return startPoint
-  };
-  this.getEndPoint = function() {
+  }
+  this.getStartPoint = getStartPoint;
+  function getEndPoint() {
     return endPoint
-  };
+  }
+  this.getEndPoint = getEndPoint;
+  Object.defineProperty(this, "startPoint", {enumerable:true, get:getStartPoint});
+  Object.defineProperty(this, "endPoint", {enumerable:true, get:getEndPoint});
   this.toString = function() {
     return startPoint.toString() + " - " + endPoint.toString()
-  }
+  };
+  (function initialize() {
+    if(!(startPoint instanceof lu.Point)) {
+      throw"startPoint is undefined.";
+    }
+    if(!(endPoint instanceof lu.Point)) {
+      throw"endPoint is undefined.";
+    }
+  }).call(this)
 };
 var lu = lu || {};
 lu.LineStyle = {solid:0, dash:1, dot:2, dashDot:3, dashDotDot:4};
@@ -1202,8 +1216,8 @@ lu.bioControls.common.painting.GridLinesPainter = function() {
   }
   function paintLine(line) {
     paintContext.beginPath();
-    paintContext.moveTo(line.getStartPoint().getX(), line.getStartPoint().getY());
-    paintContext.lineTo(line.getEndPoint().getX(), line.getEndPoint().getY());
+    paintContext.moveTo(line.startPoint.getX(), line.startPoint.getY());
+    paintContext.lineTo(line.endPoint.getX(), line.endPoint.getY());
     paintContext.stroke()
   }
   function setLinePattern(linePattern) {

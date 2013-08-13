@@ -23,6 +23,10 @@
     var $aboutButton = null;
     var $aboutDialog = null;
     var $helpDialog = null;
+    var $saveBirthdayButton = null;
+    var $clearBirthdayButton = null;
+    var configManager = null;
+    var config = null;
 
     // --------------------------------------------------------------------------
     // Functions - "private"
@@ -67,6 +71,11 @@
 
         return year + "-" + monthString + "-" + dayString;
     }
+    
+    function updateBirthdayInUi(){
+        biorhythmView.setBirthdayOnAllBiorhythms(config.birthday);
+        $birthdayTextBox.val(formatDate(config.birthday));
+    }
 
     // --------------------------------------------------------------------------
     // Functions - Event Handlers
@@ -74,7 +83,8 @@
 
     function onDocumentReady() {
 
-        var initialBirthday = new Date(1980, 05, 13);
+        configManager = new lu.bioCalc.ConfigManager();
+        config = configManager.loadFromCookies();
 
         generateBiorhythms();
 
@@ -84,17 +94,17 @@
         biorhythmView.suspendPaint();
         biorhythmView.setXDayVisibility(false);
         biorhythmView.setBiorhythms(biorhythmShapes);
-        biorhythmView.setBirthdayOnAllBiorhythms(initialBirthday);
-        biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);        
+        biorhythmView.setBirthdayOnAllBiorhythms(config.birthday);
+        biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
         biorhythmView.resumePaint();
 
         $birthdayTextBox = $("#birthdayTextBox");
-        $birthdayTextBox.val(formatDate(initialBirthday));
+        $birthdayTextBox.val(formatDate(config.birthday));
         $birthdayTextBox.datepicker({
             changeMonth: true,
             changeYear: true,
             dateFormat: "yy-mm-dd",
-            onClose: onBirthdayDatePickerClose,
+            onSelect: onBirthdayDatePickerSelect,
             showButtonPanel: true
         });
 
@@ -105,7 +115,7 @@
             changeMonth: true,
             changeYear: true,
             dateFormat: "yy-mm-dd",
-            onClose: onFirstDayDatePickerClose,
+            onSelect: onFirstDayDatePickerSelect,
             showButtonPanel: true
         });
 
@@ -181,12 +191,32 @@
         $("#tabs").tabs();
 
         $(".bio-calc-version").html("ver " + lu.bioCalc.version);
+
+        $saveBirthdayButton = $("#saveBirthdayButton");
+        $saveBirthdayButton.button({
+            text: false,
+            icons: {
+                primary: "ui-icon-disk"
+            },
+            disabled: true
+        });
+        $saveBirthdayButton.click(onSaveBirthdayButtonClick);
+
+        $clearBirthdayButton = $("#clearBirthdayButton");
+        $clearBirthdayButton.button({
+            text: false,
+            icons: {
+                primary: "ui-icon-close"
+            }
+        });
+        $clearBirthdayButton.click(onClearBirthdayButtonClick);
+        $clearBirthdayButton.parent().buttonset();
     }
 
     function onAboutDialogCloseClicked() {
         $aboutDialog.dialog("close");
     }
-    
+
     function onHelpDialogCloseClicked() {
         $helpDialog.dialog("close");
     }
@@ -198,16 +228,34 @@
         $firstDayTextBox.val(firstDayAsString);
     }
 
-    function onBirthdayDatePickerClose() {
-        var date = $(this).datepicker("getDate");
+    function onBirthdayDatePickerSelect() {
+        config.birthday = $(this).datepicker("getDate");
+
         setTimeout(function() {
-            biorhythmView.setBirthdayOnAllBiorhythms(date);
+            biorhythmView.setBirthdayOnAllBiorhythms(config.birthday);
         }, 0);
+
+        $saveBirthdayButton.button("option", "disabled", false);
     }
 
-    function onFirstDayDatePickerClose() {
+    function onFirstDayDatePickerSelect() {
         var date = $(this).datepicker("getDate");
         biorhythmView.setFirstDay(date);
+    }
+
+    function onClearBirthdayButtonClick() {
+        config.birthday = configManager.getDefaultBirthday();
+        updateBirthdayInUi();
+        $saveBirthdayButton.button("option", "disabled", true);
+        configManager.saveInCookies(config);
+    }
+
+    function onSaveBirthdayButtonClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        configManager.saveInCookies(config);
+        $saveBirthdayButton.button("option", "disabled", true);
     }
 
     // --------------------------------------------------------------------------

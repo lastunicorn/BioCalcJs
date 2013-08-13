@@ -135,16 +135,6 @@ a[target="_blank"] {
 	cursor: pointer;
 }
 
-/* Datetime pickers
- ----------------------------------------------------------------------------- */
-
-.ui-datepicker {
-	font: 13px Arial;
-}
-
-.ui-colorpicker {
-    font: 13px Arial;
-}
 
 /* Toolbar
  ----------------------------------------------------------------------------- */
@@ -172,6 +162,6 @@ a[target="_blank"] {
 	text-align: justify;
 }
 
-.ui-dialog {
+.ui-widget {
     font: 13px Arial;
 }

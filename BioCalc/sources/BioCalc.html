@@ -22,6 +22,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         
         <script type="text/javascript" src="libraries/jQuery/jquery-2.0.3.min.js"></script>
         
+        <script type="text/javascript" src="libraries/jQueryCookie/jquery.cookie.js"></script>
+        
         <link rel="stylesheet" href="libraries/jQueryUI/css/smoothness/jquery-ui.min.css" />
         <script type="text/javascript" src="libraries/jQueryUI/js/jquery-ui.min.js"></script>
         
@@ -32,6 +34,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         
         <script type="text/javascript" src="Debug.js"></script>
         <script type="text/javascript" src="Version.js"></script>
+        <script type="text/javascript" src="ConfigManager.js"></script>
         <script type="text/javascript" src="BioCalc.js"></script>
         <script type="text/javascript" src="BiorhythmLegend.js"></script>
         <script type="text/javascript" src="BiorhythmLegendItem.js"></script>
@@ -59,6 +62,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                         <td>Birthday:</td>
                         <td>
                             <input type="text" id="birthdayTextBox" />
+							<span>
+								<button id="saveBirthdayButton">Save birthday as default</button>
+								<button id="clearBirthdayButton">Reset default birthday</button>
+							</span>
                         </td>
                     </tr>
                     <tr>

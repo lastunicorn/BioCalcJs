@@ -1,0 +1,18 @@
+BioCalc
+=======
+
+var 1.2.0
+---------
+[Feature] When clicking the color square from the Legend, a color picker is displayed to change the color of the corresponding biorhythm.
+[Feature] The birthday can be saved in cookies.
+
+ver 1.1.0
+---------
+[Bug Fix] When dragging the biorhythm chart (left-right) I prevented Chrome from displaying the selection cursor.
+[Feature] I improved chart dragging by allowing it even if the mouse goes outside of the canvas surface.
+[Feature] I added a Help dialog and an About dialog.
+[Feature] I added GNU GPL license information.
+
+ver 1.0.0
+---------
+The first stable version released. 

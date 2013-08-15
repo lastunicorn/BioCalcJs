@@ -101,7 +101,6 @@ a[target="_blank"] {
 	outline: none;
 	border-radius: 5px;
 	margin: 0 auto;
-	cursor: move;
 }
 
 #birthdayTextBox, #firstDayTextBox {
@@ -127,14 +126,18 @@ a[target="_blank"] {
 	height: 16px;
 	display: inline-block;
 	margin: 0 3px;
-	cursor: pointer;
 }
 
 .bioLegendLabel {
 	display: inline-block;
-	cursor: pointer;
 }
 
+/* Datetime pickers
+ ----------------------------------------------------------------------------- */
+
+.ui-datepicker {
+	font: 13px Arial;
+}
 
 /* Toolbar
  ----------------------------------------------------------------------------- */
@@ -151,11 +154,7 @@ a[target="_blank"] {
 	font-size: 12px;
 }
 
-#clearBirthdayButton {
-	display: none;
-}
-
-/* Help/About Dialog
+/* Help Dialog
  ----------------------------------------------------------------------------- */
 
 #helpDialog, #aboutDialog {
@@ -164,19 +163,4 @@ a[target="_blank"] {
 
 #helpDialog p {
 	text-align: justify;
-}
-
-#helpDialog{
-	display: none;
-}
-
-#aboutDialog{
-	display: none;
-}
-
-/* jQuery Widgets
- ----------------------------------------------------------------------------- */
-
-.ui-widget {
-    font: 13px Arial;
 }

@@ -19,41 +19,66 @@ lu.bioCalc = lu.bioCalc || {};
 
 lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
 
-	this.generate = function() {
-		var $div = $("<div/>");
+    var $legendColorTag = null;
+    var $legendLabelTag = null;
 
-		$div.addClass("bioLegendItem");
-		$div.attr("data-biorhythm", biorhythmShape.getName());
+    this.generate = function() {
+        var $div = $("<div/>");
 
-		$div.append(generateLegendColorTag(biorhythmShape));
-		$div.append(generateLegendLabelTag(biorhythmShape));
+        $div.addClass("bioLegendItem");
+        $div.attr("data-biorhythm", biorhythmShape.getName());
 
-		if (!biorhythmShape.getIsVisible()) {
-			$div.hide();
-		}
+        $legendColorTag = generateLegendColorTag(biorhythmShape);
+        $legendLabelTag = generateLegendLabelTag(biorhythmShape);
 
-		return $div;
-	};
+        $div.append($legendColorTag);
+        $div.append($legendLabelTag);
 
-	function generateLegendColorTag() {
-		var $div = $("<div/>");
-		$div.addClass("bioLegendColor");
-		$div.css('background-color', biorhythmShape.getColor());
-		return $div;
-	}
+        if (!biorhythmShape.getIsVisible()) {
+            $div.hide();
+        }
 
-	function generateLegendLabelTag(biorhythmShape) {
-		var $div = $("<div/>");
-		$div.addClass("bioLegendLabel");
-		$div.text(biorhythmShape.getBiorhythm().getName());
-		return $div;
-	}
+        return $div;
+    };
 
-	function onColorPickerClosed(event, color) {
-		biorhythmShape.setColor(color.formatted);
-	}
+    function generateLegendColorTag() {
+        var $div = $("<div/>");
+        $div.addClass("bioLegendColor");
+        $div.css('background-color', biorhythmShape.getColor());
 
-	function onColorPickerOpened(event, color) {
-		$(this).colorpicker("setColor", biorhythmShape.getColor());
-	}
+        return $div;
+    }
+
+    function generateLegendLabelTag() {
+        var $div = $("<div/>");
+        $div.addClass("bioLegendLabel");
+        $div.text(biorhythmShape.getBiorhythm().getName());
+
+        var biorhythmName = biorhythmShape.getBiorhythm().getName();
+        var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
+
+        $div.colorpicker({
+            inline: false,
+            altField: $legendColorTag,
+            altProperties: 'background-color',
+            buttonColorize: true,
+            color: biorhythmShape.getColor(),
+            colorFormat: "#HEX",
+            close: onColorPickerClosed,
+            open: onColorPickerOpened,
+            showOn: 'click alt',
+            title: title,
+            parts: title ? "draggable" : "popup",
+        });
+
+        return $div;
+    }
+
+    function onColorPickerClosed(event, color) {
+        biorhythmShape.setColor(color.formatted);
+    }
+
+    function onColorPickerOpened(event, color) {
+        $(this).colorpicker("setColor", biorhythmShape.getColor());
+    }
 };

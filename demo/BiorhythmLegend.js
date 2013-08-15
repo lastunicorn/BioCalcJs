@@ -18,49 +18,76 @@ var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
 lu.bioCalc.BiorhythmLegend = function(biorhythmView, legendContainerSelector) {
-	var $legendContainer = null;
+    var $legendContainer = null;
+    var biorhythmLegendItems = {};
 
-	function onBiorhythmNameChanged() {
-		// todo: implement this
-	}
+    function onBiorhythmNameChanged() {
+        // todo: implement this
+    }
 
-	function onBiorhythmColorChanged() {
-		// todo: implement this
-	}
+    function onBiorhythmColorChanged() {
+        // todo: implement this
+    }
 
-	function onBiorhythmAdded() {
-		// todo: implement this
-	}
+    function onBiorhythmVisibilityChanged(arg) {
+        var $element = biorhythmLegendItems[this.getName()];
 
-	function onBiorhythmRemoved() {
-		// todo: implement this
-	}
+        if ($element) {
+            if (arg) {
+                $element.show();
+            } else {
+                $element.hide();
+            }
+        }
+    }
 
-	this.populate = function populate() {
-		var biorhythmShapes = biorhythmView.getBiorhythms();
+    // function onBiorhythmAdded(arg) {
+    // arg.subscribeToNameChanged(onBiorhythmNameChanged);
+    // arg.subscribeToColorChanged(onBiorhythmColorChanged);
+    // arg.subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
+    // }
+    //
+    // function onBiorhythmRemoved(arg) {
+    // arg.unsubscribeFromNameChanged(onBiorhythmNameChanged);
+    // arg.unsubscribeFromColorChanged(onBiorhythmColorChanged);
+    // arg.unsubscribeFromIsVisibleChanged(onBiorhythmVisibilityChanged);
+    // }
 
-		biorhythmView.subscribeToBiorhythmAdded(onBiorhythmAdded);
-		biorhythmView.subscribeToBiorhythmRemoved(onBiorhythmRemoved);
+    this.populate = function() {
+        var biorhythmShapes = biorhythmView.getBiorhythms();
 
-		$legendContainer.empty();
+        $legendContainer.empty();
 
-		for ( var i = 0; i < biorhythmShapes.length; i++) {
-			biorhythmShapes[i].subscribeToNameChanged(onBiorhythmNameChanged);
-			biorhythmShapes[i].subscribeToColorChanged(onBiorhythmColorChanged);
+        for ( var i = 0; i < biorhythmShapes.length; i++) {
+            var biorhythmLegendItem = new lu.bioCalc.BiorhythmLegendItem(biorhythmShapes[i]);
+            var $legendItemTag = biorhythmLegendItem.generate();
 
-			var biorhythmLegendItem = new lu.bioCalc.BiorhythmLegendItem(
-					biorhythmShapes[i]);
-			var $legendItemTag = biorhythmLegendItem.generate();
+            biorhythmLegendItems[biorhythmShapes[i].getName()] = $legendItemTag;
 
-			$legendContainer.prepend($legendItemTag);
-		}
-	};
+            $legendContainer.prepend($legendItemTag);
+        }
+    };
 
-	// --------------------------------------------------------------------------
-	// Initializer
-	// --------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+    // Initializer
+    // --------------------------------------------------------------------------
 
-	(function initialize() {
-		$legendContainer = $(legendContainerSelector);
-	}());
+    (function initialize() {
+        $legendContainer = $(legendContainerSelector);
+
+        if (!(biorhythmView instanceof lu.bioControls.BiorhythmView)) {
+            return;
+        }
+
+        // biorhythmView.subscribeToBiorhythmAdded(onBiorhythmAdded);
+        // biorhythmView.subscribeToBiorhythmRemoved(onBiorhythmRemoved);
+
+        var biorhythmShapes = biorhythmView.getBiorhythms();
+
+        for ( var i = 0; i < biorhythmShapes.length; i++) {
+            biorhythmShapes[i].subscribeToNameChanged(onBiorhythmNameChanged);
+            biorhythmShapes[i].subscribeToColorChanged(onBiorhythmColorChanged);
+            biorhythmShapes[i].subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
+        }
+    }());
 };

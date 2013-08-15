@@ -20,6 +20,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.BiorhythmView = function(id) {
 
     var canvas = null;
+    var obj = this;
 
     // #region Biorhythms
 
@@ -73,7 +74,7 @@ lu.bioControls.BiorhythmView = function(id) {
         biorhythmShape.subscribeToLineWidthChanged(onBiorhithmShapeChanged);
         biorhythmShape.subscribeToLineStyleChanged(onBiorhithmShapeChanged);
 
-        biorhythmAddedEvent.raise();
+        biorhythmAddedEvent.raise(obj, biorhythmShape);
     }
 
     function onBiorhithmShapeChanged() {
@@ -106,7 +107,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
         biorhythms.splice(index, 1);
 
-        biorhythmRemovedEvent.raise();
+        biorhythmRemovedEvent.raise(obj, biorhythmShape);
     }
 
     // #endregion
@@ -123,7 +124,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setFirstDay = setFirstDay;
     function setFirstDay(value) {
         firstDay = value;
-        firstDayChangedEvent.raise();
+        firstDayChangedEvent.raise(obj, value);
         paint();
     }
 
@@ -136,8 +137,9 @@ lu.bioControls.BiorhythmView = function(id) {
     this.getFirstDay = getFirstDay;
     function getFirstDay() {
         return firstDay;
-    };
-    
+    }
+    ;
+
     Object.defineProperty(this, "firstDay", {
         enumerable: true,
         configurable: false,
@@ -161,7 +163,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setGridVisibility = function(value) {
         isGridVisible = Boolean(value);
 
-        isGridVisibleChangedEvent.raise();
+        isGridVisibleChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -185,7 +187,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setTotalDays = function(value) {
         totalDays = value;
 
-        totalDaysChangedEvent.raise();
+        totalDaysChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -209,7 +211,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setXDayIndex = function(value) {
         xDayIndex = value;
 
-        xDayIndexChangedEvent.raise();
+        xDayIndexChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -233,7 +235,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setGridColor = function(value) {
         gridColor = value;
 
-        gridColorChangedEvent.raise();
+        gridColorChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -257,7 +259,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setDayNumbersVisibility = function(value) {
         areDayNumbersVisible = value;
 
-        areDayNumbersVisibleChangedEvent.raise();
+        areDayNumbersVisibleChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -281,7 +283,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setWeekDaysVisibility = function(value) {
         areWeekDaysVisible = value;
 
-        areWeekDaysVisibleChangedEvent.raise();
+        areWeekDaysVisibleChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -305,7 +307,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setDayNumbersPosition = function(value) {
         dayNumbersPosition = value;
 
-        dayNumbersPositionChangedEvent.raise();
+        dayNumbersPositionChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -329,7 +331,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setWeekDaysPosition = function(value) {
         weekDaysPosition = value;
 
-        weekDaysPositionChangedEvent.raise();
+        weekDaysPositionChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -353,7 +355,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setAreSundaysEmphasized = function(value) {
         areSundaysEmphasized = value;
 
-        areSundaysEmphasizedChangedEvent.raise();
+        areSundaysEmphasizedChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -377,7 +379,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setForeColor = function(value) {
         foreColor = value;
 
-        foreColorChangedEvent.raise();
+        foreColorChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -401,7 +403,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setSundaysColor = function(value) {
         sundaysColor = value;
 
-        sundaysColorChangedEvent.raise();
+        sundaysColorChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -425,7 +427,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setFont = function(value) {
         font = value;
 
-        fontChangedEvent.raise();
+        fontChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -449,7 +451,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setSundaysFont = function(value) {
         sundaysFont = value;
 
-        sundaysFontChangedEvent.raise();
+        sundaysFontChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -473,7 +475,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setTodayBackColor = function(value) {
         todayBackColor = value;
 
-        todayBackColorChangedEvent.raise();
+        todayBackColorChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -497,7 +499,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.setXDayVisibility = function(value) {
         isXDayVisible = value;
 
-        isXDayVisibleChangedEvent.raise();
+        isXDayVisibleChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -516,12 +518,12 @@ lu.bioControls.BiorhythmView = function(id) {
     // --------------------------------------------------------------------------
 
     var xDayBorderColor = "#000000"; // Black
-    var isXDayBorderColorChangedEvent = new lu.Event();
+    var xDayBorderColorChangedEvent = new lu.Event();
 
     this.setXDayBorderColor = function(value) {
         xDayBorderColor = value;
 
-        isXDayBorderColorChangedEvent.raise();
+        xDayBorderColorChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -529,7 +531,7 @@ lu.bioControls.BiorhythmView = function(id) {
         return xDayBorderColor;
     };
 
-    this.subscribeToXDayBorderColorChanged = isXDayBorderColorChangedEvent.subscribe;
+    this.subscribeToXDayBorderColorChanged = xDayBorderColorChangedEvent.subscribe;
 
     // #endregion
 
@@ -540,12 +542,12 @@ lu.bioControls.BiorhythmView = function(id) {
     // --------------------------------------------------------------------------
 
     var xDayBorderWidth = 2;
-    var isXDayBorderWidthChangedEvent = new lu.Event();
+    var xDayBorderWidthChangedEvent = new lu.Event();
 
     this.setXDayBorderWidth = function(value) {
         xDayBorderWidth = value;
 
-        isXDayBorderWidthChangedEvent.raise();
+        xDayBorderWidthChangedEvent.raise(obj, value);
         paint();
     };
 
@@ -553,7 +555,7 @@ lu.bioControls.BiorhythmView = function(id) {
         return xDayBorderWidth;
     };
 
-    this.subscribeToXDayBorderWidthChanged = isXDayBorderWidthChangedEvent.subscribe;
+    this.subscribeToXDayBorderWidthChanged = xDayBorderWidthChangedEvent.subscribe;
 
     // #endregion
 

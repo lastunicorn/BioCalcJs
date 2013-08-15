@@ -21,6 +21,8 @@ lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {
 
 lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
+    var obj = this;
+    
     // #region Name
 
     var name = "New Biorhythm Shape";
@@ -39,7 +41,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         }
 
         name = value;
-        nameChangedEvent.raise();
+        nameChangedEvent.raise(obj, value);
     };
 
     // #endregion
@@ -62,7 +64,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         }
 
         birthday = value;
-        birthdayChangedEvent.raise();
+        birthdayChangedEvent.raise(obj, value);
     };
 
     // #endregion
@@ -85,7 +87,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         }
 
         biorhythm = value;
-        biorhythmChangedEvent.raise();
+        biorhythmChangedEvent.raise(obj, value);
     };
 
     // #endregion
@@ -108,7 +110,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         }
 
         color = value;
-        colorChangedEvent.raise();
+        colorChangedEvent.raise(obj, value);
     };
 
     // #endregion
@@ -131,7 +133,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         }
 
         isVisible = value;
-        isVisibleChangedEvent.raise();
+        isVisibleChangedEvent.raise(obj, value);
     };
 
     // #endregion
@@ -154,7 +156,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         }
 
         lineWidth = value;
-        lineWidthChangedEvent.raise();
+        lineWidthChangedEvent.raise(obj, value);
     };
 
     // #endregion
@@ -177,7 +179,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         }
 
         lineStyle = value;
-        lineStyleChangedEvent.raise();
+        lineStyleChangedEvent.raise(obj, value);
     };
 
     // #endregion

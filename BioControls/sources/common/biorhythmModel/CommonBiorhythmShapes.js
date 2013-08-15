@@ -134,7 +134,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         return [ estheticShape, selfAwarenessShape, spiritualShape ];
     };
 
-    this.getAll = function() {
+    this.getAll = getAll;
+    function getAll() {
         return [ physicalShape, emotionalShape, intellectualShape, intuitiveShape,
 
         passionShape, masteryShape, wisdomShape,
@@ -142,6 +143,14 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         perceptionShape, psychicShape, successShape,
 
         estheticShape, selfAwarenessShape, spiritualShape ];
+    };
+
+    this.setBirthdayOnAll = function(birthday) {
+        var biorhythms = getAll();
+        
+        for ( var i = 0; i < biorhythms.length; i++) {
+            biorhythms[i].setBirthday(birthday);
+        }
     };
 
     (function initialize() {

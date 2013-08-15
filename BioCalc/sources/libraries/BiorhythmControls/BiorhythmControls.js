@@ -2,6 +2,7 @@ var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.BiorhythmView = function(id) {
   var canvas = null;
+  var obj = this;
   var biorhythms = [];
   var biorhythmAddedEvent = new lu.Event;
   this.subscribeToBiorhythmAdded = biorhythmAddedEvent.subscribe;
@@ -35,7 +36,7 @@ lu.bioControls.BiorhythmView = function(id) {
     biorhythmShape.subscribeToIsVisibleChanged(onBiorhithmShapeChanged);
     biorhythmShape.subscribeToLineWidthChanged(onBiorhithmShapeChanged);
     biorhythmShape.subscribeToLineStyleChanged(onBiorhithmShapeChanged);
-    biorhythmAddedEvent.raise()
+    biorhythmAddedEvent.raise(obj, biorhythmShape)
   }
   function onBiorhithmShapeChanged() {
     paint()
@@ -61,14 +62,14 @@ lu.bioControls.BiorhythmView = function(id) {
     biorhythmShape.unsubscribeFromLineWidthChanged(onBiorhithmShapeChanged);
     biorhythmShape.unsubscribeFromLineStyleChanged(onBiorhithmShapeChanged);
     biorhythms.splice(index, 1);
-    biorhythmRemovedEvent.raise()
+    biorhythmRemovedEvent.raise(obj, biorhythmShape)
   }
   var firstDay = new Date(Date.now() - 7 * 24 * 60 * 60 * 1E3);
   var firstDayChangedEvent = new lu.Event;
   this.setFirstDay = setFirstDay;
   function setFirstDay(value) {
     firstDay = value;
-    firstDayChangedEvent.raise();
+    firstDayChangedEvent.raise(obj, value);
     paint()
   }
   function incrementFirstDay(value) {
@@ -86,7 +87,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var isGridVisibleChangedEvent = new lu.Event;
   this.setGridVisibility = function(value) {
     isGridVisible = Boolean(value);
-    isGridVisibleChangedEvent.raise();
+    isGridVisibleChangedEvent.raise(obj, value);
     paint()
   };
   this.getGridVisibility = function() {
@@ -97,7 +98,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var totalDaysChangedEvent = new lu.Event;
   this.setTotalDays = function(value) {
     totalDays = value;
-    totalDaysChangedEvent.raise();
+    totalDaysChangedEvent.raise(obj, value);
     paint()
   };
   this.getTotalDays = function() {
@@ -108,7 +109,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var xDayIndexChangedEvent = new lu.Event;
   this.setXDayIndex = function(value) {
     xDayIndex = value;
-    xDayIndexChangedEvent.raise();
+    xDayIndexChangedEvent.raise(obj, value);
     paint()
   };
   this.getXDayIndex = function() {
@@ -119,7 +120,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var gridColorChangedEvent = new lu.Event;
   this.setGridColor = function(value) {
     gridColor = value;
-    gridColorChangedEvent.raise();
+    gridColorChangedEvent.raise(obj, value);
     paint()
   };
   this.getGridColor = function() {
@@ -130,7 +131,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var areDayNumbersVisibleChangedEvent = new lu.Event;
   this.setDayNumbersVisibility = function(value) {
     areDayNumbersVisible = value;
-    areDayNumbersVisibleChangedEvent.raise();
+    areDayNumbersVisibleChangedEvent.raise(obj, value);
     paint()
   };
   this.getDayNumbersVisibility = function() {
@@ -141,7 +142,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var areWeekDaysVisibleChangedEvent = new lu.Event;
   this.setWeekDaysVisibility = function(value) {
     areWeekDaysVisible = value;
-    areWeekDaysVisibleChangedEvent.raise();
+    areWeekDaysVisibleChangedEvent.raise(obj, value);
     paint()
   };
   this.getWeekDaysVisibility = function() {
@@ -152,7 +153,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var dayNumbersPositionChangedEvent = new lu.Event;
   this.setDayNumbersPosition = function(value) {
     dayNumbersPosition = value;
-    dayNumbersPositionChangedEvent.raise();
+    dayNumbersPositionChangedEvent.raise(obj, value);
     paint()
   };
   this.getDayNumbersPosition = function() {
@@ -163,7 +164,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var weekDaysPositionChangedEvent = new lu.Event;
   this.setWeekDaysPosition = function(value) {
     weekDaysPosition = value;
-    weekDaysPositionChangedEvent.raise();
+    weekDaysPositionChangedEvent.raise(obj, value);
     paint()
   };
   this.getWeekDaysPosition = function() {
@@ -174,7 +175,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var areSundaysEmphasizedChangedEvent = new lu.Event;
   this.setAreSundaysEmphasized = function(value) {
     areSundaysEmphasized = value;
-    areSundaysEmphasizedChangedEvent.raise();
+    areSundaysEmphasizedChangedEvent.raise(obj, value);
     paint()
   };
   this.getAreSundaysEmphasized = function() {
@@ -185,7 +186,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var foreColorChangedEvent = new lu.Event;
   this.setForeColor = function(value) {
     foreColor = value;
-    foreColorChangedEvent.raise();
+    foreColorChangedEvent.raise(obj, value);
     paint()
   };
   this.getForeColor = function() {
@@ -196,7 +197,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var sundaysColorChangedEvent = new lu.Event;
   this.setSundaysColor = function(value) {
     sundaysColor = value;
-    sundaysColorChangedEvent.raise();
+    sundaysColorChangedEvent.raise(obj, value);
     paint()
   };
   this.getSundaysColor = function() {
@@ -207,7 +208,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var fontChangedEvent = new lu.Event;
   this.setFont = function(value) {
     font = value;
-    fontChangedEvent.raise();
+    fontChangedEvent.raise(obj, value);
     paint()
   };
   this.getFont = function() {
@@ -218,7 +219,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var sundaysFontChangedEvent = new lu.Event;
   this.setSundaysFont = function(value) {
     sundaysFont = value;
-    sundaysFontChangedEvent.raise();
+    sundaysFontChangedEvent.raise(obj, value);
     paint()
   };
   this.getSundaysFont = function() {
@@ -229,7 +230,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var todayBackColorChangedEvent = new lu.Event;
   this.setTodayBackColor = function(value) {
     todayBackColor = value;
-    todayBackColorChangedEvent.raise();
+    todayBackColorChangedEvent.raise(obj, value);
     paint()
   };
   this.getTodayBackColor = function() {
@@ -240,7 +241,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var isXDayVisibleChangedEvent = new lu.Event;
   this.setXDayVisibility = function(value) {
     isXDayVisible = value;
-    isXDayVisibleChangedEvent.raise();
+    isXDayVisibleChangedEvent.raise(obj, value);
     paint()
   };
   this.getXDayVisibility = function() {
@@ -248,27 +249,27 @@ lu.bioControls.BiorhythmView = function(id) {
   };
   this.subscribeToXDayVisibilityChanged = isXDayVisibleChangedEvent.subscribe;
   var xDayBorderColor = "#000000";
-  var isXDayBorderColorChangedEvent = new lu.Event;
+  var xDayBorderColorChangedEvent = new lu.Event;
   this.setXDayBorderColor = function(value) {
     xDayBorderColor = value;
-    isXDayBorderColorChangedEvent.raise();
+    xDayBorderColorChangedEvent.raise(obj, value);
     paint()
   };
   this.getXDayBorderColor = function() {
     return xDayBorderColor
   };
-  this.subscribeToXDayBorderColorChanged = isXDayBorderColorChangedEvent.subscribe;
+  this.subscribeToXDayBorderColorChanged = xDayBorderColorChangedEvent.subscribe;
   var xDayBorderWidth = 2;
-  var isXDayBorderWidthChangedEvent = new lu.Event;
+  var xDayBorderWidthChangedEvent = new lu.Event;
   this.setXDayBorderWidth = function(value) {
     xDayBorderWidth = value;
-    isXDayBorderWidthChangedEvent.raise();
+    xDayBorderWidthChangedEvent.raise(obj, value);
     paint()
   };
   this.getXDayBorderWidth = function() {
     return xDayBorderWidth
   };
-  this.subscribeToXDayBorderWidthChanged = isXDayBorderWidthChangedEvent.subscribe;
+  this.subscribeToXDayBorderWidthChanged = xDayBorderWidthChangedEvent.subscribe;
   this.setBirthdayOnAllBiorhythms = function(birthday) {
     suspendPaint();
     for(var i = 0;i < biorhythms.length;i++) {
@@ -375,6 +376,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
 lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
+  var obj = this;
   var name = "New Biorhythm Shape";
   var nameChangedEvent = new lu.Event;
   this.subscribeToNameChanged = nameChangedEvent.subscribe;
@@ -387,7 +389,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
       return
     }
     name = value;
-    nameChangedEvent.raise()
+    nameChangedEvent.raise(obj, value)
   };
   var birthday = Date(80, 5, 13);
   var birthdayChangedEvent = new lu.Event;
@@ -401,7 +403,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
       return
     }
     birthday = value;
-    birthdayChangedEvent.raise()
+    birthdayChangedEvent.raise(obj, value)
   };
   var biorhythm = null;
   var biorhythmChangedEvent = new lu.Event;
@@ -415,7 +417,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
       return
     }
     biorhythm = value;
-    biorhythmChangedEvent.raise()
+    biorhythmChangedEvent.raise(obj, value)
   };
   var color = null;
   var colorChangedEvent = new lu.Event;
@@ -429,7 +431,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
       return
     }
     color = value;
-    colorChangedEvent.raise()
+    colorChangedEvent.raise(obj, value)
   };
   var isVisible = true;
   var isVisibleChangedEvent = new lu.Event;
@@ -443,7 +445,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
       return
     }
     isVisible = value;
-    isVisibleChangedEvent.raise()
+    isVisibleChangedEvent.raise(obj, value)
   };
   var lineWidth = 1;
   var lineWidthChangedEvent = new lu.Event;
@@ -457,7 +459,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
       return
     }
     lineWidth = value;
-    lineWidthChangedEvent.raise()
+    lineWidthChangedEvent.raise(obj, value)
   };
   var lineStyle = lu.LineStyle.solid;
   var lineStyleChangedEvent = new lu.Event;
@@ -471,7 +473,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
       return
     }
     lineStyle = value;
-    lineStyleChangedEvent.raise()
+    lineStyleChangedEvent.raise(obj, value)
   }
 };
 var lu = lu || {};
@@ -796,8 +798,15 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   this.getIChingBiorhythmShapes = function() {
     return[estheticShape, selfAwarenessShape, spiritualShape]
   };
-  this.getAll = function() {
+  this.getAll = getAll;
+  function getAll() {
     return[physicalShape, emotionalShape, intellectualShape, intuitiveShape, passionShape, masteryShape, wisdomShape, perceptionShape, psychicShape, successShape, estheticShape, selfAwarenessShape, spiritualShape]
+  }
+  this.setBirthdayOnAll = function(birthday) {
+    var biorhythms = getAll();
+    for(var i = 0;i < biorhythms.length;i++) {
+      biorhythms[i].setBirthday(birthday)
+    }
   };
   (function initialize() {
     createBiorhythmShapes()

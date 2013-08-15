@@ -27,38 +27,36 @@
     var $clearBirthdayButton = null;
     var configManager = null;
     var config = null;
+    var $jQueryVersionLabel = null;
+    var $jQueryUIVersionLabel = null;
+    var $bioControlsVersionLabel = null;
+    var $bioCalcVersionLabel = null;
 
     // --------------------------------------------------------------------------
     // Functions - "private"
     // --------------------------------------------------------------------------
 
     function generateBiorhythms() {
-        commonBiorhythmShapes = new lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes();
+        var shapes = new lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes();
 
-        commonBiorhythmShapes.getPhysicalShape().setIsVisible(true);
-        commonBiorhythmShapes.getEmotionalShape().setIsVisible(true);
-        commonBiorhythmShapes.getIntellectualShape().setIsVisible(true);
-        commonBiorhythmShapes.getIntuitiveShape().setIsVisible(true);
+        shapes.getPhysicalShape().setIsVisible(true);
+        shapes.getEmotionalShape().setIsVisible(true);
+        shapes.getIntellectualShape().setIsVisible(true);
+        shapes.getIntuitiveShape().setIsVisible(true);
 
-        commonBiorhythmShapes.getPassionShape().setIsVisible(false);
-        commonBiorhythmShapes.getMasteryShape().setIsVisible(false);
-        commonBiorhythmShapes.getWisdomShape().setIsVisible(false);
+        shapes.getPassionShape().setIsVisible(true);
+        shapes.getMasteryShape().setIsVisible(false);
+        shapes.getWisdomShape().setIsVisible(false);
 
-        commonBiorhythmShapes.getPerceptionShape().setIsVisible(false);
-        commonBiorhythmShapes.getPsychicShape().setIsVisible(false);
-        commonBiorhythmShapes.getSuccessShape().setIsVisible(false);
+        shapes.getPerceptionShape().setIsVisible(false);
+        shapes.getPsychicShape().setIsVisible(false);
+        shapes.getSuccessShape().setIsVisible(false);
 
-        commonBiorhythmShapes.getEstheticShape().setIsVisible(false);
-        commonBiorhythmShapes.getSelfAwarenessShape().setIsVisible(false);
-        commonBiorhythmShapes.getSpiritualShape().setIsVisible(false);
-    }
+        shapes.getEstheticShape().setIsVisible(false);
+        shapes.getSelfAwarenessShape().setIsVisible(false);
+        shapes.getSpiritualShape().setIsVisible(false);
 
-    function setBirthday(birthday) {
-        var biorhythmShapes = commonBiorhythmShapes.getAll();
-
-        for ( var i = 0; i < biorhythmShapes.length; i++) {
-            biorhythmShapes[i].setBirthday(birthday);
-        }
+        return shapes;
     }
 
     function formatDate(date) {
@@ -71,35 +69,32 @@
 
         return year + "-" + monthString + "-" + dayString;
     }
-    
-    function updateBirthdayInUi(){
+
+    function updateBirthdayInUi() {
         biorhythmView.setBirthdayOnAllBiorhythms(config.birthday);
         $birthdayTextBox.val(formatDate(config.birthday));
+    }
+
+    function enableSaveBirthdayButton() {
+        $saveBirthdayButton.button("option", "disabled", false);
+    }
+
+    function disableSaveBirthdayButton() {
+        $saveBirthdayButton.button("option", "disabled", true);
     }
 
     // --------------------------------------------------------------------------
     // Functions - Event Handlers
     // --------------------------------------------------------------------------
 
-    function onDocumentReady() {
-
-        configManager = new lu.bioCalc.ConfigManager();
-        config = configManager.loadFromCookies();
-
-        generateBiorhythms();
-
-        var biorhythmShapes = commonBiorhythmShapes.getAll();
-
+    function initializeControls() {
         biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
         biorhythmView.suspendPaint();
         biorhythmView.setXDayVisibility(false);
-        biorhythmView.setBiorhythms(biorhythmShapes);
-        biorhythmView.setBirthdayOnAllBiorhythms(config.birthday);
         biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
         biorhythmView.resumePaint();
 
         $birthdayTextBox = $("#birthdayTextBox");
-        $birthdayTextBox.val(formatDate(config.birthday));
         $birthdayTextBox.datepicker({
             changeMonth: true,
             changeYear: true,
@@ -108,9 +103,7 @@
             showButtonPanel: true
         });
 
-        var firstDay = biorhythmView.getFirstDay();
         $firstDayTextBox = $("#firstDayTextBox");
-        $firstDayTextBox.val(formatDate(firstDay));
         $firstDayTextBox.datepicker({
             changeMonth: true,
             changeYear: true,
@@ -118,9 +111,6 @@
             onSelect: onFirstDayDatePickerSelect,
             showButtonPanel: true
         });
-
-        var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
-        biorhythmLegend.populate();
 
         $("#toolbar").buttonset();
 
@@ -131,9 +121,7 @@
             },
             text: true
         });
-        $helpButton.click(function() {
-            $helpDialog.dialog("open");
-        });
+        $helpButton.click(onHelpButtonClick);
 
         $aboutButton = $("#aboutButton");
         $aboutButton.button({
@@ -142,9 +130,7 @@
             },
             text: true
         });
-        $aboutButton.click(function() {
-            $aboutDialog.dialog("open");
-        });
+        $aboutButton.click(onAboutButtonClick);
 
         $aboutDialog = $("#aboutDialog");
         $aboutDialog.dialog({
@@ -184,13 +170,13 @@
             }
         });
 
-        $("#jQueryVersion").html($.fn.jquery);
-        $("#jQueryUIVersion").html($.ui.version);
-        $("#bioControlsVersion").html(lu.bioControls.version);
+        $jQueryVersionLabel = $("#jQueryVersionLabel");
+        $jQueryUIVersionLabel = $("#jQueryUIVersionLabel");
+        $bioControlsVersionLabel = $("#bioControlsVersionLabel");
 
         $("#tabs").tabs();
 
-        $(".bio-calc-version").html("ver " + lu.bioCalc.version);
+        $bioCalcVersionLabel = $(".bio-calc-version");
 
         $saveBirthdayButton = $("#saveBirthdayButton");
         $saveBirthdayButton.button({
@@ -210,7 +196,36 @@
             }
         });
         $clearBirthdayButton.click(onClearBirthdayButtonClick);
-        $clearBirthdayButton.parent().buttonset();
+
+        $("#birthdayButtons").buttonset();
+    }
+
+    function onDocumentReady() {
+
+        initializeControls();
+
+        configManager = new lu.bioCalc.ConfigManager();
+        config = configManager.loadFromCookies();
+
+        commonBiorhythmShapes = generateBiorhythms();
+        commonBiorhythmShapes.setBirthdayOnAll(config.birthday);
+
+        var biorhythmShapes = commonBiorhythmShapes.getAll();
+        biorhythmView.setBiorhythms(biorhythmShapes);
+
+        $birthdayTextBox.val(formatDate(config.birthday));
+
+        var firstDay = biorhythmView.getFirstDay();
+        $firstDayTextBox.val(formatDate(firstDay));
+
+        var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
+        biorhythmLegend.populate();
+
+        $jQueryVersionLabel.html($.fn.jquery);
+        $jQueryUIVersionLabel.html($.ui.version);
+        $bioControlsVersionLabel.html(lu.bioControls.version);
+
+        $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
     }
 
     function onAboutDialogCloseClicked() {
@@ -235,7 +250,7 @@
             biorhythmView.setBirthdayOnAllBiorhythms(config.birthday);
         }, 0);
 
-        $saveBirthdayButton.button("option", "disabled", false);
+        enableSaveBirthdayButton();
     }
 
     function onFirstDayDatePickerSelect() {
@@ -246,7 +261,7 @@
     function onClearBirthdayButtonClick() {
         config.birthday = configManager.getDefaultBirthday();
         updateBirthdayInUi();
-        $saveBirthdayButton.button("option", "disabled", true);
+        disableSaveBirthdayButton();
         configManager.saveInCookies(config);
     }
 
@@ -255,7 +270,15 @@
         e.stopPropagation();
 
         configManager.saveInCookies(config);
-        $saveBirthdayButton.button("option", "disabled", true);
+        disableSaveBirthdayButton();
+    }
+
+    function onHelpButtonClick() {
+        $helpDialog.dialog("open");
+    }
+
+    function onAboutButtonClick() {
+        $aboutDialog.dialog("open");
     }
 
     // --------------------------------------------------------------------------

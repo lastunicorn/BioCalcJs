@@ -151,7 +151,11 @@ a[target="_blank"] {
 	font-size: 12px;
 }
 
-/* Help Dialog
+#clearBirthdayButton {
+	display: none;
+}
+
+/* Help/About Dialog
  ----------------------------------------------------------------------------- */
 
 #helpDialog, #aboutDialog {
@@ -161,6 +165,17 @@ a[target="_blank"] {
 #helpDialog p {
 	text-align: justify;
 }
+
+#helpDialog{
+	display: none;
+}
+
+#aboutDialog{
+	display: none;
+}
+
+/* jQuery Widgets
+ ----------------------------------------------------------------------------- */
 
 .ui-widget {
     font: 13px Arial;

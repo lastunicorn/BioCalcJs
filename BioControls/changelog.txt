@@ -1,6 +1,11 @@
 BioControls
 ===========
 
+ver 1.2.0
+---------
+[Feature] I improved the lu.Event object to provide the sender and an argument.
+[Feature] I changed BiorhythmView and BiorhythmShape to provide the sender and an argument when raising events.
+
 
 ver 1.1.0
 ---------

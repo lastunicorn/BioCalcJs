@@ -24,13 +24,70 @@
     var $aboutDialog = null;
     var $helpDialog = null;
     var $saveBirthdayButton = null;
-    var $clearBirthdayButton = null;
-    var configManager = null;
-    var config = null;
+    var $resetBirthdayButton = null;
     var $jQueryVersionLabel = null;
     var $jQueryUIVersionLabel = null;
     var $bioControlsVersionLabel = null;
     var $bioCalcVersionLabel = null;
+    var configManager = null;
+    var config = null;
+    var model = null;
+
+    // --------------------------------------------------------------------------
+    // Functions - GUI helpers
+    // --------------------------------------------------------------------------
+
+    function enableSaveBirthdayButton() {
+        $saveBirthdayButton.button("option", "disabled", false);
+    }
+
+    function disableSaveBirthdayButton() {
+        $saveBirthdayButton.button("option", "disabled", true);
+    }
+
+    function enableResetBirthdayButton() {
+        $resetBirthdayButton.button("option", "disabled", false);
+    }
+
+    function disableResetBirthdayButton() {
+        $resetBirthdayButton.button("option", "disabled", true);
+    }
+
+    // --------------------------------------------------------------------------
+    // Functions - Update GUI from model
+    // --------------------------------------------------------------------------
+
+    function updateBirthdayInUi() {
+        setTimeout(function() {
+            biorhythmView.setBirthdayOnAllBiorhythms(model.birthday);
+        }, 0);
+
+        $birthdayTextBox.val(formatDate(model.birthday));
+    }
+
+    function updateFirstDayInUi() {
+        setTimeout(function() {
+            $firstDayTextBox.val(formatDate(model.firstDay));
+        }, 0);
+        
+        biorhythmView.setFirstDay(model.firstDay);
+    }
+
+    function updateSaveBirthdayButtonVisibility() {
+        if (model.birthday != null && config.birthday.getTime() == model.birthday.getTime()) {
+            disableSaveBirthdayButton();
+        } else {
+            enableSaveBirthdayButton();
+        }
+    }
+
+    function updateResetBirthdayButtonVisibility() {
+        if (model.birthday.getTime() == config.birthday.getTime()) {
+            disableResetBirthdayButton();
+        } else {
+            enableResetBirthdayButton();
+        }
+    }
 
     // --------------------------------------------------------------------------
     // Functions - "private"
@@ -44,7 +101,7 @@
         shapes.getIntellectualShape().setIsVisible(true);
         shapes.getIntuitiveShape().setIsVisible(true);
 
-        shapes.getPassionShape().setIsVisible(true);
+        shapes.getPassionShape().setIsVisible(false);
         shapes.getMasteryShape().setIsVisible(false);
         shapes.getWisdomShape().setIsVisible(false);
 
@@ -68,19 +125,6 @@
         var dayString = day < 10 ? "0" + day : "" + day;
 
         return year + "-" + monthString + "-" + dayString;
-    }
-
-    function updateBirthdayInUi() {
-        biorhythmView.setBirthdayOnAllBiorhythms(config.birthday);
-        $birthdayTextBox.val(formatDate(config.birthday));
-    }
-
-    function enableSaveBirthdayButton() {
-        $saveBirthdayButton.button("option", "disabled", false);
-    }
-
-    function disableSaveBirthdayButton() {
-        $saveBirthdayButton.button("option", "disabled", true);
     }
 
     // --------------------------------------------------------------------------
@@ -188,14 +232,15 @@
         });
         $saveBirthdayButton.click(onSaveBirthdayButtonClick);
 
-        $clearBirthdayButton = $("#clearBirthdayButton");
-        $clearBirthdayButton.button({
+        $resetBirthdayButton = $("#resetBirthdayButton");
+        $resetBirthdayButton.button({
             text: false,
             icons: {
                 primary: "ui-icon-close"
-            }
+            },
+            disabled: true
         });
-        $clearBirthdayButton.click(onClearBirthdayButtonClick);
+        $resetBirthdayButton.click(onResetBirthdayButtonClick);
 
         $("#birthdayButtons").buttonset();
     }
@@ -204,28 +249,36 @@
 
         initializeControls();
 
-        configManager = new lu.bioCalc.ConfigManager();
-        config = configManager.loadFromCookies();
+        biorhythmView.suspendPaint();
+        try {
+            configManager = new lu.bioCalc.ConfigManager();
+            config = configManager.loadFromCookies();
 
-        commonBiorhythmShapes = generateBiorhythms();
-        commonBiorhythmShapes.setBirthdayOnAll(config.birthday);
+            model = {
+                birthday: config.birthday,
+                firstDay: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+            };
 
-        var biorhythmShapes = commonBiorhythmShapes.getAll();
-        biorhythmView.setBiorhythms(biorhythmShapes);
+            commonBiorhythmShapes = generateBiorhythms();
+            biorhythmView.setBiorhythms(commonBiorhythmShapes.getAll());
 
-        $birthdayTextBox.val(formatDate(config.birthday));
+            var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
+            biorhythmLegend.populate();
 
-        var firstDay = biorhythmView.getFirstDay();
-        $firstDayTextBox.val(formatDate(firstDay));
+            $jQueryVersionLabel.html($.fn.jquery);
+            $jQueryUIVersionLabel.html($.ui.version);
+            $bioControlsVersionLabel.html(lu.bioControls.version);
 
-        var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
-        biorhythmLegend.populate();
+            $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
 
-        $jQueryVersionLabel.html($.fn.jquery);
-        $jQueryUIVersionLabel.html($.ui.version);
-        $bioControlsVersionLabel.html(lu.bioControls.version);
-
-        $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
+            updateBirthdayInUi();
+            updateFirstDayInUi();
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+        }
+        finally {
+            biorhythmView.resumePaint();
+        }
     }
 
     function onAboutDialogCloseClicked() {
@@ -237,40 +290,45 @@
     }
 
     function onBiorhythmViewFirstDayChanged() {
-        var firstDay = biorhythmView.getFirstDay();
-        var firstDayAsString = formatDate(firstDay);
+        model.firstDay = biorhythmView.getFirstDay();
 
-        $firstDayTextBox.val(firstDayAsString);
+        $firstDayTextBox.val(formatDate(model.firstDay));
     }
 
     function onBirthdayDatePickerSelect() {
-        config.birthday = $(this).datepicker("getDate");
+        model.birthday = $(this).datepicker("getDate");
 
-        setTimeout(function() {
-            biorhythmView.setBirthdayOnAllBiorhythms(config.birthday);
-        }, 0);
-
-        enableSaveBirthdayButton();
+        updateBirthdayInUi();
+        updateSaveBirthdayButtonVisibility();
+        updateResetBirthdayButtonVisibility();
     }
 
     function onFirstDayDatePickerSelect() {
-        var date = $(this).datepicker("getDate");
-        biorhythmView.setFirstDay(date);
+        model.firstDay = $(this).datepicker("getDate");
+
+        updateFirstDayInUi();
     }
 
-    function onClearBirthdayButtonClick() {
-        config.birthday = configManager.getDefaultBirthday();
+    function onResetBirthdayButtonClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        model.birthday = config.birthday;
+
         updateBirthdayInUi();
-        disableSaveBirthdayButton();
-        configManager.saveInCookies(config);
+        updateSaveBirthdayButtonVisibility();
+        updateResetBirthdayButtonVisibility();
     }
 
     function onSaveBirthdayButtonClick(e) {
         e.preventDefault();
         e.stopPropagation();
 
+        config.birthday = model.birthday;
         configManager.saveInCookies(config);
-        disableSaveBirthdayButton();
+
+        updateSaveBirthdayButtonVisibility();
+        updateResetBirthdayButtonVisibility();
     }
 
     function onHelpButtonClick() {

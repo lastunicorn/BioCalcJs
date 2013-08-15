@@ -107,14 +107,19 @@ lu.bioControls.BiorhythmView = function(id) {
   this.subscribeToTotalDaysChanged = totalDaysChangedEvent.subscribe;
   var xDayIndex = 7;
   var xDayIndexChangedEvent = new lu.Event;
-  this.setXDayIndex = function(value) {
+  this.setXDayIndex = setXDayIndex;
+  function setXDayIndex(value) {
+    if(xDayIndex === value || value < 0 || value >= totalDays) {
+      return
+    }
     xDayIndex = value;
     xDayIndexChangedEvent.raise(obj, value);
     paint()
-  };
-  this.getXDayIndex = function() {
+  }
+  this.getXDayIndex = getXDayIndex;
+  function getXDayIndex() {
     return xDayIndex
-  };
+  }
   this.subscribeToXDayIndexChanged = xDayIndexChangedEvent.subscribe;
   var gridColor = "#d3d3d3";
   var gridColorChangedEvent = new lu.Event;
@@ -305,6 +310,7 @@ lu.bioControls.BiorhythmView = function(id) {
   var currentDayIndex = 0;
   function onMouseDown(evt) {
     evt.preventDefault();
+    evt.stopPropagation();
     if(evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {
       return
     }
@@ -316,6 +322,7 @@ lu.bioControls.BiorhythmView = function(id) {
   }
   function onMouseMove(evt) {
     evt.preventDefault();
+    evt.stopPropagation();
     if(buttonPressed !== lu.MouseButton.left && buttonPressed !== lu.MouseButton.right) {
       return
     }
@@ -328,31 +335,34 @@ lu.bioControls.BiorhythmView = function(id) {
     }
     currentDayIndex = index;
     if(ctrlPressed || buttonPressed === lu.MouseButton.right) {
-      xDayIndex += steps;
-      paint()
+      setXDayIndex(getXDayIndex() + steps)
     }else {
       incrementFirstDay(-steps)
     }
-    evt.preventDefault();
-    evt.stopPropagation()
   }
   function onMouseUp(evt) {
     evt.preventDefault();
+    evt.stopPropagation();
     if(evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right) {
       buttonPressed = lu.MouseButton.none
     }
   }
   function onWheel(evt) {
     evt.preventDefault();
+    evt.stopPropagation();
     var delta = evt.detail ? evt.detail : evt.wheelDelta / -120;
     incrementFirstDay(delta)
   }
   function onKeyDown(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
     if(evt.keyCode === 17) {
       ctrlPressed = true
     }
   }
   function onKeyUp(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
     if(evt.keyCode === 17) {
       ctrlPressed = false
     }

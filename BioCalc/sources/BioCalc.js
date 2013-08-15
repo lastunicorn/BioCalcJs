@@ -29,6 +29,7 @@
     var $jQueryUIVersionLabel = null;
     var $bioControlsVersionLabel = null;
     var $bioCalcVersionLabel = null;
+    var $xDayInfoContainer = null;
     var configManager = null;
     var config = null;
     var model = null;
@@ -69,7 +70,7 @@
         setTimeout(function() {
             $firstDayTextBox.val(formatDate(model.firstDay));
         }, 0);
-        
+
         biorhythmView.setFirstDay(model.firstDay);
     }
 
@@ -85,7 +86,32 @@
         if (model.birthday.getTime() == config.birthday.getTime()) {
             disableResetBirthdayButton();
         } else {
-            enableResetBirthdayButton();
+            enableResetBirthdayButtoonHelpButtonClickn();
+        }
+    }
+
+    function updateXDayInfo() {
+        var biorhythmShapes = biorhythmView.getBiorhythms();
+
+        $xDayInfoContainer.empty();
+
+        for ( var i = 0; i < biorhythmShapes.length; i++) {
+            var biorhythmShape = biorhythmShapes[i];
+            var biorhythm = biorhythmShape.getBiorhythm();
+
+            if (biorhythmShape.getIsVisible()) {
+                var milisecondsLived = biorhythmView.getFirstDay() - biorhythmShape.getBirthday();
+                var daysLived = Math.floor(milisecondsLived / 1000 / 60 / 60 / 24);
+                var value = biorhythm.getValue(daysLived + biorhythmView.getXDayIndex());
+                var percentage = value * 100;
+
+                var text = biorhythm.getName() + " = " + Math.round(percentage) + "%";
+
+                var $item = $("<div/>");
+                $item.html(text);
+                $item.css("color", biorhythmShape.getColor());
+                $xDayInfoContainer.append($item);
+            }
         }
     }
 
@@ -133,10 +159,8 @@
 
     function initializeControls() {
         biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
-        biorhythmView.suspendPaint();
-        biorhythmView.setXDayVisibility(false);
         biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
-        biorhythmView.resumePaint();
+        biorhythmView.subscribeToXDayIndexChanged(onBiorhythmViewXDayIndexChanged);
 
         $birthdayTextBox = $("#birthdayTextBox");
         $birthdayTextBox.datepicker({
@@ -243,6 +267,8 @@
         $resetBirthdayButton.click(onResetBirthdayButtonClick);
 
         $("#birthdayButtons").buttonset();
+
+        $xDayInfoContainer = $("#xDayInfoContainer");
     }
 
     function onDocumentReady() {
@@ -275,10 +301,20 @@
             updateFirstDayInUi();
             updateSaveBirthdayButtonVisibility();
             updateResetBirthdayButtonVisibility();
+            updateXDayInfo();
         }
         finally {
             biorhythmView.resumePaint();
         }
+
+        $(document.body).on("click", ".ui-widget-overlay", function() {
+            $.each($(".ui-dialog"), function() {
+                var $dialog = $(this).children(".ui-dialog-content");
+                if ($dialog.dialog("option", "modal")) {
+                    $dialog.dialog("close");
+                }
+            });
+        });
     }
 
     function onAboutDialogCloseClicked() {
@@ -293,6 +329,7 @@
         model.firstDay = biorhythmView.getFirstDay();
 
         $firstDayTextBox.val(formatDate(model.firstDay));
+        updateXDayInfo();
     }
 
     function onBirthdayDatePickerSelect() {
@@ -301,6 +338,7 @@
         updateBirthdayInUi();
         updateSaveBirthdayButtonVisibility();
         updateResetBirthdayButtonVisibility();
+        updateXDayInfo();
     }
 
     function onFirstDayDatePickerSelect() {
@@ -309,8 +347,13 @@
         updateFirstDayInUi();
     }
 
+    function onBiorhythmViewXDayIndexChanged() {
+        updateXDayInfo();
+    }
+
     function onResetBirthdayButtonClick(e) {
         e.preventDefault();
+
         e.stopPropagation();
 
         model.birthday = config.birthday;

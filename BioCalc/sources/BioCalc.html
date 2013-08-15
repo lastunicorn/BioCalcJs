@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!------------------------------------------------------------------------------
 ﻿BioCalc
 Copyright (C) 2013 Last Unicorn
@@ -27,7 +27,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         <link rel="stylesheet" href="libraries/jQueryUI/css/smoothness/jquery-ui.min.css" />
         <script type="text/javascript" src="libraries/jQueryUI/js/jquery-ui.min.js"></script>
         
-        <script type="text/javascript" src="libraries/BiorhythmControls/BiorhythmControls.min.js"></script>
+        <script type="text/javascript" src="libraries/BiorhythmControls/BiorhythmControls.js"></script>
         
         <script type="text/javascript" src="libraries/ColorPicker/jquery.colorpicker.js"></script>
         <link rel="stylesheet" href="libraries/ColorPicker/jquery.colorpicker.css" />
@@ -76,7 +76,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
                     </tr>
                 </tbody>
             </table>
+            <h2>Biorhythm's values for the X Day</h2>
+            <div id="xDayInfoContainer"></div>
         </div>
+        <!----------------------------------------------------------------------
+        About Dialog
+        ----------------------------------------------------------------------->
         <div id="aboutDialog" title="About">
         	<h1>
             	<span id="title">Biorhythm Calculator</span>
@@ -102,6 +107,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				</div>
 			</div>
         </div>
+        <!----------------------------------------------------------------------
+        Help Dialog
+        ----------------------------------------------------------------------->
         <div id="helpDialog" title="Help">
         	<h2>What are the biorhythms</h2>
         	<p>According to believers in biorhythms, a person's life is influenced by rhythmic biological cycles that affect one's ability in various domains, such as mental, physical and emotional activity.</p>

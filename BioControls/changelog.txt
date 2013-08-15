@@ -1,6 +1,10 @@
 BioControls
 ===========
 
+ver 1.3.0
+---------
+[Bug Fix] The XDay marker was abel to go outside the visible area.
+
 ver 1.2.0
 ---------
 [Feature] I improved the lu.Event object to provide the sender and an argument.

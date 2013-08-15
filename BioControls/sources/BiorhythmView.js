@@ -121,6 +121,12 @@ lu.bioControls.BiorhythmView = function(id) {
     var firstDay = new Date(Date.now() - (7 * 24 * 60 * 60 * 1000));
     var firstDayChangedEvent = new lu.Event();
 
+    /**
+     * Sets the first day displayed in the grid.
+     * 
+     * @param value
+     *            The new first day.
+     */
     this.setFirstDay = setFirstDay;
     function setFirstDay(value) {
         firstDay = value;
@@ -134,11 +140,16 @@ lu.bioControls.BiorhythmView = function(id) {
         setFirstDay(date);
     }
 
+    /**
+     * Returns the date representing the first day displayed in the grid.
+     * 
+     * @returns {Date} The date representing the first day displayed in the
+     *          grid.
+     */
     this.getFirstDay = getFirstDay;
     function getFirstDay() {
         return firstDay;
     }
-    ;
 
     Object.defineProperty(this, "firstDay", {
         enumerable: true,
@@ -208,16 +219,21 @@ lu.bioControls.BiorhythmView = function(id) {
     var xDayIndex = 7;
     var xDayIndexChangedEvent = new lu.Event();
 
-    this.setXDayIndex = function(value) {
+    this.setXDayIndex = setXDayIndex;
+    function setXDayIndex(value) {
+        if (xDayIndex === value || value < 0 || value >= totalDays)
+            return;
+
         xDayIndex = value;
 
         xDayIndexChangedEvent.raise(obj, value);
         paint();
-    };
+    }
 
-    this.getXDayIndex = function() {
+    this.getXDayIndex = getXDayIndex;
+    function getXDayIndex() {
         return xDayIndex;
-    };
+    }
 
     this.subscribeToXDayIndexChanged = xDayIndexChangedEvent.subscribe;
 
@@ -638,6 +654,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     function onMouseDown(evt) {
         evt.preventDefault();
+        evt.stopPropagation();
 
         if (evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {
             return;
@@ -657,6 +674,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     function onMouseMove(evt) {
         evt.preventDefault();
+        evt.stopPropagation();
 
         if (buttonPressed !== lu.MouseButton.left && buttonPressed !== lu.MouseButton.right) {
             return;
@@ -675,18 +693,15 @@ lu.bioControls.BiorhythmView = function(id) {
         currentDayIndex = index;
 
         if (ctrlPressed || buttonPressed === lu.MouseButton.right) {
-            xDayIndex += steps;
-            paint();
+            setXDayIndex(getXDayIndex() + steps);
         } else {
             incrementFirstDay(-steps);
         }
-
-        evt.preventDefault();
-        evt.stopPropagation();
     }
 
     function onMouseUp(evt) {
         evt.preventDefault();
+        evt.stopPropagation();
 
         if (evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right) {
             buttonPressed = lu.MouseButton.none;
@@ -695,18 +710,25 @@ lu.bioControls.BiorhythmView = function(id) {
 
     function onWheel(evt) {
         evt.preventDefault();
+        evt.stopPropagation();
 
         var delta = evt.detail ? evt.detail : evt.wheelDelta / (-120);
         incrementFirstDay(delta);
     }
 
     function onKeyDown(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        
         if (evt.keyCode === 17) {
             ctrlPressed = true;
         }
     }
 
     function onKeyUp(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        
         if (evt.keyCode === 17) {
             ctrlPressed = false;
         }

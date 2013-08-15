@@ -86,7 +86,7 @@
         if (model.birthday.getTime() == config.birthday.getTime()) {
             disableResetBirthdayButton();
         } else {
-            enableResetBirthdayButtoonHelpButtonClickn();
+            enableResetBirthdayButton();
         }
     }
 

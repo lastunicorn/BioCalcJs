@@ -3,7 +3,8 @@ BioControls
 
 ver 1.3.0
 ---------
-[Bug Fix] The XDay marker was abel to go outside the visible area.
+[Bug Fix] The XDay marker was able to go outside the visible area.
+[Feature] I added handler on the contextmenu event to prevent the opening of the context menu on chrome.
 
 ver 1.2.0
 ---------

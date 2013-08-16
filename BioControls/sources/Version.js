@@ -18,7 +18,7 @@ var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 
 Object.defineProperty(lu.bioControls, "version", {
-    value: "1.2.0",
+    value: "1.3.0",
     writable: false,
     enumerable: true,
     configurable: false

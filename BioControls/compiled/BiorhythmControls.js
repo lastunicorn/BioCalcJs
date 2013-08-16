@@ -600,7 +600,7 @@ lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythm
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
-Object.defineProperty(lu.bioControls, "version", {value:"1.2.0", writable:false, enumerable:true, configurable:false});
+Object.defineProperty(lu.bioControls, "version", {value:"1.3.0", writable:false, enumerable:true, configurable:false});
 lu.bioControls.getVersion = function() {
   return lu.bioControls.version
 };

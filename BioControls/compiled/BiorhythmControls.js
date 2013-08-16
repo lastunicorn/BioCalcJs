@@ -367,6 +367,10 @@ lu.bioControls.BiorhythmView = function(id) {
       ctrlPressed = false
     }
   }
+  function onContextMenu(evt) {
+    evt.preventDefault();
+    evt.stopPropagation()
+  }
   (function initialize() {
     var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
     canvas = document.getElementById(id);
@@ -376,6 +380,7 @@ lu.bioControls.BiorhythmView = function(id) {
     canvas.addEventListener(mouseWheelEventName, onWheel, false);
     canvas.addEventListener("keydown", onKeyDown, false);
     canvas.addEventListener("keyup", onKeyUp, false);
+    canvas.addEventListener("contextmenu", onContextMenu, false);
     painter = new lu.bioControls.common.painting.BiorhythmViewPainter
   })()
 };

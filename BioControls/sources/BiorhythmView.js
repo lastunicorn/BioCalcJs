@@ -719,7 +719,7 @@ lu.bioControls.BiorhythmView = function(id) {
     function onKeyDown(evt) {
         evt.preventDefault();
         evt.stopPropagation();
-        
+
         if (evt.keyCode === 17) {
             ctrlPressed = true;
         }
@@ -728,11 +728,16 @@ lu.bioControls.BiorhythmView = function(id) {
     function onKeyUp(evt) {
         evt.preventDefault();
         evt.stopPropagation();
-        
+
         if (evt.keyCode === 17) {
             ctrlPressed = false;
         }
     }
+
+    function onContextMenu(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+    };
 
     // #endregion
 
@@ -753,6 +758,8 @@ lu.bioControls.BiorhythmView = function(id) {
 
         canvas.addEventListener('keydown', onKeyDown, false);
         canvas.addEventListener('keyup', onKeyUp, false);
+
+        canvas.addEventListener('contextmenu', onContextMenu, false);
 
         painter = new lu.bioControls.common.painting.BiorhythmViewPainter();
     }());

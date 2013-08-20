@@ -304,87 +304,18 @@ lu.bioControls.BiorhythmView = function(id) {
   this.getPaintCount = function() {
     return painter.getPaintCount()
   };
-  var moveStepLength = 0;
-  var ctrlPressed = false;
-  var buttonPressed = lu.MouseButton.none;
-  var currentDayIndex = 0;
-  function onMouseDown(evt) {
-    evt.stopPropagation();
-    if(evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {
-      return
-    }
-    var rect = canvas.getBoundingClientRect();
-    var clickX = evt.clientX - rect.left;
-    moveStepLength = canvas.width / totalDays;
-    currentDayIndex = Math.floor(clickX / moveStepLength);
-    buttonPressed = evt.which
-  }
-  function onMouseMove(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    if(buttonPressed !== lu.MouseButton.left && buttonPressed !== lu.MouseButton.right) {
-      return
-    }
-    var rect = canvas.getBoundingClientRect();
-    var clickX = evt.clientX - rect.left;
-    var index = Math.floor(clickX / moveStepLength);
-    var steps = index - currentDayIndex;
-    if(steps == 0) {
-      return
-    }
-    currentDayIndex = index;
-    if(ctrlPressed || buttonPressed === lu.MouseButton.right) {
-      setXDayIndex(getXDayIndex() + steps)
-    }else {
-      incrementFirstDay(-steps)
-    }
-  }
-  function onMouseUp(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    if(evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right) {
-      buttonPressed = lu.MouseButton.none
-    }
-  }
-  function onWheel(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    var delta = evt.detail ? evt.detail : evt.wheelDelta / -120;
-    incrementFirstDay(delta)
-  }
-  function onKeyDown(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    if(evt.keyCode === 17) {
-      ctrlPressed = true
-    }
-  }
-  function onKeyUp(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    if(evt.keyCode === 17) {
-      ctrlPressed = false
-    }
-  }
-  function onContextMenu(evt) {
-    evt.preventDefault();
-    evt.stopPropagation()
-  }
-  function onSelectStart(evt) {
-    evt.preventDefault();
-    evt.stopPropagation()
-  }
+  var scroller;
   (function initialize() {
-    var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
     canvas = document.getElementById(id);
-    canvas.addEventListener("mousedown", onMouseDown, false);
-    document.addEventListener("mousemove", onMouseMove, false);
-    document.addEventListener("mouseup", onMouseUp, false);
-    canvas.addEventListener(mouseWheelEventName, onWheel, false);
-    canvas.addEventListener("keydown", onKeyDown, false);
-    canvas.addEventListener("keyup", onKeyUp, false);
-    canvas.addEventListener("contextmenu", onContextMenu, false);
-    canvas.addEventListener("selectstart", onSelectStart, false);
+    scroller = new lu.bioControls.Scroller({canvas:canvas, onDragStart:function(evt) {
+      evt.stepLength = canvas.width / totalDays
+    }, onDrag:function(evt) {
+      if(evt.isAlternative) {
+        setXDayIndex(getXDayIndex() + evt.steps)
+      }else {
+        incrementFirstDay(-evt.steps)
+      }
+    }});
     painter = new lu.bioControls.common.painting.BiorhythmViewPainter
   })()
 };
@@ -601,6 +532,110 @@ lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythm
   this.getValue = function(dayIndex) {
     return(biorhythmA.getValue(dayIndex) + biorhythmB.getValue(dayIndex)) / 2
   }
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.Scroller = function(configuration) {
+  var defaultStepLength = 1;
+  var stepLength = 1;
+  var ctrlPressed = false;
+  var buttonPressed = lu.MouseButton.none;
+  var currentDayIndex = 0;
+  function raiseOnDragStart(arg) {
+    if(typeof configuration.onDragStart === "function") {
+      configuration.onDragStart(arg)
+    }
+  }
+  function raiseOnDrag(arg) {
+    if(typeof configuration.onDrag === "function") {
+      configuration.onDrag(arg)
+    }
+  }
+  function calculateStepLength() {
+    var arg = {};
+    raiseOnDragStart(arg);
+    if(typeof arg.stepLength === "number") {
+      return arg.stepLength
+    }else {
+      return defaultStepLength
+    }
+  }
+  function onMouseDown(evt) {
+    var isLeftOrRightButton = evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right;
+    if(!isLeftOrRightButton) {
+      return
+    }
+    var rect = configuration.canvas.getBoundingClientRect();
+    var clickX = evt.clientX - rect.left;
+    stepLength = calculateStepLength();
+    currentDayIndex = Math.floor(clickX / stepLength);
+    buttonPressed = evt.which
+  }
+  function onMouseMove(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    var isLeftOrRightButton = buttonPressed === lu.MouseButton.left || buttonPressed === lu.MouseButton.right;
+    if(!isLeftOrRightButton) {
+      return
+    }
+    var rect = configuration.canvas.getBoundingClientRect();
+    var clickX = evt.clientX - rect.left;
+    var index = Math.floor(clickX / stepLength);
+    var steps = index - currentDayIndex;
+    if(steps == 0) {
+      return
+    }
+    currentDayIndex = index;
+    var isAlternative = ctrlPressed || buttonPressed === lu.MouseButton.right;
+    raiseOnDrag({steps:steps, isAlternative:isAlternative})
+  }
+  function onMouseUp(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    var isLeftOrRightButton = evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right;
+    if(isLeftOrRightButton) {
+      buttonPressed = lu.MouseButton.none
+    }
+  }
+  function onWheel(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    var delta = evt.detail ? evt.detail : evt.wheelDelta / -120;
+    raiseOnDrag({steps:delta, isAlternative:false})
+  }
+  function onKeyDown(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    if(evt.keyCode === 17) {
+      ctrlPressed = true
+    }
+  }
+  function onKeyUp(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    if(evt.keyCode === 17) {
+      ctrlPressed = false
+    }
+  }
+  function onContextMenu(evt) {
+    evt.preventDefault();
+    evt.stopPropagation()
+  }
+  function onSelectStart(evt) {
+    evt.preventDefault();
+    evt.stopPropagation()
+  }
+  (function initialize() {
+    var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
+    configuration.canvas.addEventListener("mousedown", onMouseDown, false);
+    document.addEventListener("mousemove", onMouseMove, false);
+    document.addEventListener("mouseup", onMouseUp, false);
+    configuration.canvas.addEventListener(mouseWheelEventName, onWheel, false);
+    configuration.canvas.addEventListener("keydown", onKeyDown, false);
+    configuration.canvas.addEventListener("keyup", onKeyUp, false);
+    configuration.canvas.addEventListener("contextmenu", onContextMenu, false);
+    configuration.canvas.addEventListener("selectstart", onSelectStart, false)
+  })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};

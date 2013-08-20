@@ -21,6 +21,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var canvas = null;
     var obj = this;
+    var scroller = null;
 
     // #region Biorhythms
 
@@ -644,128 +645,33 @@ lu.bioControls.BiorhythmView = function(id) {
     // #endregion
 
     // --------------------------------------------------------------------------
-    // Scrolling
+    // Event Handlers
     // --------------------------------------------------------------------------
 
-    var moveStepLength = 0;
-    var ctrlPressed = false;
-    var buttonPressed = lu.MouseButton.none;
-    var currentDayIndex = 0;
-
-    function onMouseDown(evt) {
-        // evt.preventDefault();
-        evt.stopPropagation();
-
-        if (evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {
-            return;
-        }
-
-        /*
-         * if (!view.Focused) view.Focus();
-         */
-
-        var rect = canvas.getBoundingClientRect();
-        var clickX = evt.clientX - rect.left;
-
-        moveStepLength = canvas.width / totalDays;
-        currentDayIndex = Math.floor(clickX / moveStepLength);
-        buttonPressed = evt.which;
-    }
-
-    function onMouseMove(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        if (buttonPressed !== lu.MouseButton.left && buttonPressed !== lu.MouseButton.right) {
-            return;
-        }
-
-        var rect = canvas.getBoundingClientRect();
-        var clickX = evt.clientX - rect.left;
-
-        var index = Math.floor(clickX / moveStepLength);
-        var steps = index - currentDayIndex;
-
-        if (steps == 0) {
-            return;
-        }
-
-        currentDayIndex = index;
-
-        if (ctrlPressed || buttonPressed === lu.MouseButton.right) {
-            setXDayIndex(getXDayIndex() + steps);
+    function onDrag(evt) {
+        if (evt.isAlternative) {
+            setXDayIndex(getXDayIndex() + evt.steps);
         } else {
-            incrementFirstDay(-steps);
+            incrementFirstDay(-evt.steps);
         }
     }
 
-    function onMouseUp(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        if (evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right) {
-            buttonPressed = lu.MouseButton.none;
-        }
+    function onDragStart(evt) {
+        evt.stepLength = canvas.width / totalDays;
     }
-
-    function onWheel(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        var delta = evt.detail ? evt.detail : evt.wheelDelta / (-120);
-        incrementFirstDay(delta);
-    }
-
-    function onKeyDown(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        if (evt.keyCode === 17) {
-            ctrlPressed = true;
-        }
-    }
-
-    function onKeyUp(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        if (evt.keyCode === 17) {
-            ctrlPressed = false;
-        }
-    }
-
-    function onContextMenu(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-    }
-
-    function onSelectStart(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-    }
-
-    // #endregion
 
     // --------------------------------------------------------------------------
     // Initializer
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        // FF doesn't recognize mousewheel as of FF3.x
-        var mouseWheelEventName = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
-
         canvas = document.getElementById(id);
-        canvas.addEventListener('mousedown', onMouseDown, false);
-        document.addEventListener('mousemove', onMouseMove, false);
-        document.addEventListener('mouseup', onMouseUp, false);
 
-        canvas.addEventListener(mouseWheelEventName, onWheel, false);
-
-        canvas.addEventListener('keydown', onKeyDown, false);
-        canvas.addEventListener('keyup', onKeyUp, false);
-
-        canvas.addEventListener('contextmenu', onContextMenu, false);
-        canvas.addEventListener('selectstart', onSelectStart, false);
+        scroller = new lu.bioControls.Scroller({
+            canvas: canvas,
+            onDragStart: onDragStart,
+            onDrag: onDrag
+        });
 
         painter = new lu.bioControls.common.painting.BiorhythmViewPainter();
     }());

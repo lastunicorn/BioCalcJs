@@ -668,7 +668,7 @@ lu.bioControls.BiorhythmView = function(id) {
         canvas = document.getElementById(id);
 
         scroller = new lu.bioControls.Scroller({
-            canvas: canvas,
+            element: canvas,
             onDragStart: onDragStart,
             onDrag: onDrag
         });

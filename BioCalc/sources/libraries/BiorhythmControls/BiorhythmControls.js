@@ -3,6 +3,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.BiorhythmView = function(id) {
   var canvas = null;
   var obj = this;
+  var scroller = null;
   var biorhythms = [];
   var biorhythmAddedEvent = new lu.Event;
   this.subscribeToBiorhythmAdded = biorhythmAddedEvent.subscribe;
@@ -304,18 +305,19 @@ lu.bioControls.BiorhythmView = function(id) {
   this.getPaintCount = function() {
     return painter.getPaintCount()
   };
-  var scroller;
+  function onDrag(evt) {
+    if(evt.isAlternative) {
+      setXDayIndex(getXDayIndex() + evt.steps)
+    }else {
+      incrementFirstDay(-evt.steps)
+    }
+  }
+  function onDragStart(evt) {
+    evt.stepLength = canvas.width / totalDays
+  }
   (function initialize() {
     canvas = document.getElementById(id);
-    scroller = new lu.bioControls.Scroller({canvas:canvas, onDragStart:function(evt) {
-      evt.stepLength = canvas.width / totalDays
-    }, onDrag:function(evt) {
-      if(evt.isAlternative) {
-        setXDayIndex(getXDayIndex() + evt.steps)
-      }else {
-        incrementFirstDay(-evt.steps)
-      }
-    }});
+    scroller = new lu.bioControls.Scroller({element:canvas, onDragStart:onDragStart, onDrag:onDrag});
     painter = new lu.bioControls.common.painting.BiorhythmViewPainter
   })()
 };
@@ -565,7 +567,7 @@ lu.bioControls.Scroller = function(configuration) {
     if(!isLeftOrRightButton) {
       return
     }
-    var rect = configuration.canvas.getBoundingClientRect();
+    var rect = configuration.element.getBoundingClientRect();
     var clickX = evt.clientX - rect.left;
     stepLength = calculateStepLength();
     currentDayIndex = Math.floor(clickX / stepLength);
@@ -578,7 +580,7 @@ lu.bioControls.Scroller = function(configuration) {
     if(!isLeftOrRightButton) {
       return
     }
-    var rect = configuration.canvas.getBoundingClientRect();
+    var rect = configuration.element.getBoundingClientRect();
     var clickX = evt.clientX - rect.left;
     var index = Math.floor(clickX / stepLength);
     var steps = index - currentDayIndex;
@@ -627,14 +629,14 @@ lu.bioControls.Scroller = function(configuration) {
   }
   (function initialize() {
     var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
-    configuration.canvas.addEventListener("mousedown", onMouseDown, false);
+    configuration.element.addEventListener("mousedown", onMouseDown, false);
     document.addEventListener("mousemove", onMouseMove, false);
     document.addEventListener("mouseup", onMouseUp, false);
-    configuration.canvas.addEventListener(mouseWheelEventName, onWheel, false);
-    configuration.canvas.addEventListener("keydown", onKeyDown, false);
-    configuration.canvas.addEventListener("keyup", onKeyUp, false);
-    configuration.canvas.addEventListener("contextmenu", onContextMenu, false);
-    configuration.canvas.addEventListener("selectstart", onSelectStart, false)
+    configuration.element.addEventListener(mouseWheelEventName, onWheel, false);
+    configuration.element.addEventListener("keydown", onKeyDown, false);
+    configuration.element.addEventListener("keyup", onKeyUp, false);
+    configuration.element.addEventListener("contextmenu", onContextMenu, false);
+    configuration.element.addEventListener("selectstart", onSelectStart, false)
   })()
 };
 var lu = lu || {};

@@ -161,7 +161,7 @@
         biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
         biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
         biorhythmView.subscribeToXDayIndexChanged(onBiorhythmViewXDayIndexChanged);
-
+        
         $birthdayTextBox = $("#birthdayTextBox");
         $birthdayTextBox.datepicker({
             changeMonth: true,

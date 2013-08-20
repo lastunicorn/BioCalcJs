@@ -309,7 +309,6 @@ lu.bioControls.BiorhythmView = function(id) {
   var buttonPressed = lu.MouseButton.none;
   var currentDayIndex = 0;
   function onMouseDown(evt) {
-    evt.preventDefault();
     evt.stopPropagation();
     if(evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {
       return
@@ -371,6 +370,10 @@ lu.bioControls.BiorhythmView = function(id) {
     evt.preventDefault();
     evt.stopPropagation()
   }
+  function onSelectStart(evt) {
+    evt.preventDefault();
+    evt.stopPropagation()
+  }
   (function initialize() {
     var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
     canvas = document.getElementById(id);
@@ -381,6 +384,7 @@ lu.bioControls.BiorhythmView = function(id) {
     canvas.addEventListener("keydown", onKeyDown, false);
     canvas.addEventListener("keyup", onKeyUp, false);
     canvas.addEventListener("contextmenu", onContextMenu, false);
+    canvas.addEventListener("selectstart", onSelectStart, false);
     painter = new lu.bioControls.common.painting.BiorhythmViewPainter
   })()
 };

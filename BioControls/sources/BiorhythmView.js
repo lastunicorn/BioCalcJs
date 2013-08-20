@@ -653,7 +653,7 @@ lu.bioControls.BiorhythmView = function(id) {
     var currentDayIndex = 0;
 
     function onMouseDown(evt) {
-        evt.preventDefault();
+        // evt.preventDefault();
         evt.stopPropagation();
 
         if (evt.which !== lu.MouseButton.left && evt.which !== lu.MouseButton.right) {
@@ -737,7 +737,12 @@ lu.bioControls.BiorhythmView = function(id) {
     function onContextMenu(evt) {
         evt.preventDefault();
         evt.stopPropagation();
-    };
+    }
+
+    function onSelectStart(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+    }
 
     // #endregion
 
@@ -760,6 +765,7 @@ lu.bioControls.BiorhythmView = function(id) {
         canvas.addEventListener('keyup', onKeyUp, false);
 
         canvas.addEventListener('contextmenu', onContextMenu, false);
+        canvas.addEventListener('selectstart', onSelectStart, false);
 
         painter = new lu.bioControls.common.painting.BiorhythmViewPainter();
     }());

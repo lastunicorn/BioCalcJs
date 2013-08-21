@@ -20,6 +20,7 @@
     var commonBiorhythmShapes = null;
     var $birthdayTextBox = null;
     var $firstDayTextBox = null;
+    var $firstDayLabel = null;
     var $helpButton = null;
     var $aboutButton = null;
     var $aboutDialog = null;
@@ -94,7 +95,7 @@
 
     function updateXDayInfo() {
         var xDay = biorhythmView.getXDay();
-        
+
         $xDayValueLabel.html(formatDate(xDay));
         xDayInfoView.update(xDay);
     }
@@ -163,7 +164,9 @@
             changeYear: true,
             dateFormat: "yy-mm-dd",
             onSelect: onFirstDayDatePickerSelect,
-            showButtonPanel: true
+            showButtonPanel: true,
+            beforeShow: onBeforeFirstDayDatePickerShow,
+            showAnim: ""
         });
 
         $("#toolbar").buttonset();
@@ -189,8 +192,8 @@
         $aboutDialog = $("#aboutDialog");
         $aboutDialog.dialog({
             modal: true,
-            height: 360,
-            width: 480,
+            height: 420,
+            width: 560,
             autoOpen: false,
             buttons: {
                 Close: onAboutDialogCloseClicked
@@ -208,8 +211,8 @@
         $helpDialog = $("#helpDialog");
         $helpDialog.dialog({
             modal: true,
-            height: 360,
-            width: 480,
+            height: 480,
+            width: 640,
             autoOpen: false,
             buttons: {
                 Close: onHelpDialogCloseClicked
@@ -228,7 +231,9 @@
         $jQueryUIVersionLabel = $("#jQueryUIVersionLabel");
         $bioControlsVersionLabel = $("#bioControlsVersionLabel");
 
-        $("#tabs").tabs();
+        $("#aboutDialog .tabs").tabs();
+
+        $("#helpDialog .tabs").tabs();
 
         $bioCalcVersionLabel = $(".bio-calc-version");
 
@@ -255,6 +260,26 @@
         $("#birthdayButtons").buttonset();
 
         $xDayValueLabel = $("#xDayValueLabel");
+
+        $firstDayLabel = $("#firstDayLabel");
+    }
+
+    function onBeforeFirstDayDatePickerShow(input, inst) {
+        // Handle calendar position before showing it.
+        // It's not supported by Datepicker itself (for now) so I need
+        // to use its internal variables.
+        var calendar = inst.dpDiv;
+
+        // Dirty hack, but we can't do anything without it (for now, in
+        // jQuery UI 1.8.20)
+        setTimeout(function() {
+            calendar.position({
+                my: 'left top',
+                at: 'left bottom',
+                collision: 'none',
+                of: $firstDayLabel
+            });
+        }, 0);
     }
 
     function onDocumentReady() {
@@ -288,9 +313,7 @@
 
             $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
 
-            $("#firstDayLabel").click(function() {
-                $firstDayTextBox.datepicker('show');
-            });
+            $firstDayLabel.click(onFirstDayLabelClick);
 
             updateBirthdayInUi();
             updateFirstDayInUi();
@@ -310,6 +333,16 @@
                 }
             });
         });
+    }
+
+    function onFirstDayLabelClick() {
+        var isDisabled = $firstDayTextBox.datepicker("isDisabled");
+
+        if (!isDisabled) {
+            setTimeout(function() {
+                $firstDayTextBox.datepicker('show');
+            }, 0);
+        }
     }
 
     function onAboutDialogCloseClicked() {

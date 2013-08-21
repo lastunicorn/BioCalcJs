@@ -44,15 +44,20 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         <link rel="stylesheet" type="text/css" href="BioCalc.css" />
     </head>
     <body>
+        <!----------------------------------------------------------------------
+        Main Content
+        ----------------------------------------------------------------------->
         <div id="pageContainer">
-            <h1>
-            	<span id="title">Biorhythm Calculator</span>
-            	<span class="bio-calc-version"></span>
-            </h1>
-            <div id="toolbar">
-            	<button id="helpButton">Help</button>
-            	<button id="aboutButton">About</button>
-            </div>
+        	<header>
+        		<h1>
+            		<span id="title">Biorhythm Calculator</span>
+            		<span class="bio-calc-version"></span>
+            	</h1>
+            	<div id="toolbar">
+            		<button id="helpButton">Help</button>
+            		<button id="aboutButton">About</button>
+            	</div>
+        	</header>
             <div id="dateLimitsContainer">
             	<div style="float: left;">
             		<span id="firstDayLabel"></span>
@@ -91,10 +96,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         About Dialog
         ----------------------------------------------------------------------->
         <div id="aboutDialog" title="About">
-        	<h1>
-            	<span id="title">Biorhythm Calculator</span>
-            	<span class="bio-calc-version"></span>
-            </h1>
+        	<header>
+        		<h1>
+            		<span id="title">Biorhythm Calculator</span>
+            		<span class="bio-calc-version"></span>
+            	</h1>
+            </header>
             <div id="tabs">
 				<ul>
 					<li><a href="#tabs-1">Info</a></li>
@@ -119,7 +126,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
         Help Dialog
         ----------------------------------------------------------------------->
         <div id="helpDialog" title="Help">
-        	<h2>What are the biorhythms</h2>
+        	<header>
+        		<h2>What are the biorhythms</h2>
+        	</header>
         	<p>According to believers in biorhythms, a person's life is influenced by rhythmic biological cycles that affect one's ability in various domains, such as mental, physical and emotional activity.</p>
         	<p>These cycles begin at birth and oscillate in a steady (sine wave) fashion throughout life; thus, by modeling them mathematically, a person's level of ability in each of these domains can be predicted from day to day.</p>
         	<p>Read more on <a href="http://en.wikipedia.org/wiki/Biorhythm" target="_blank">Wikipedia</a>.</p>

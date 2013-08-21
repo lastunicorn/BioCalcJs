@@ -24,12 +24,6 @@ body {
 	color: #303030;
 }
 
-h1 {
-	font: 25px Arial;
-	font-weight: bold;
-	color: #000;
-}
-
 input[type="text"] {
 	padding: 3px;
 	border: 1px solid #b0b0b0;
@@ -136,11 +130,25 @@ a[target="_blank"] {
 }
 
 
-/* Toolbar
+/* Header
 ----------------------------------------------------------------------------- */
 
+header {
+	overflow: hidden;
+	width: 100%;
+}
+
+header h1 {
+	font: 25px Arial;
+	font-weight: bold;
+	color: #000;
+	float: left;
+	margin: 16px 0;
+}
+
 #toolbar {
-	margin: 10px 0;
+	float: right;
+	margin: 16px 3px 16px 0;
 }
 
 #toolbar .ui-button {

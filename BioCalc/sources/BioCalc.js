@@ -16,6 +16,7 @@
 
 (function() {
     var biorhythmView = null;
+    var xDayInfoView = null;
     var commonBiorhythmShapes = null;
     var $birthdayTextBox = null;
     var $firstDayTextBox = null;
@@ -29,7 +30,6 @@
     var $jQueryUIVersionLabel = null;
     var $bioControlsVersionLabel = null;
     var $bioCalcVersionLabel = null;
-    var $xDayInfoContainer = null;
     var $bioCanvas = null;
     var $xDayValueLabel = null;
     var configManager = null;
@@ -93,32 +93,10 @@
     }
 
     function updateXDayInfo() {
-        var biorhythmShapes = biorhythmView.getBiorhythms();
-
-        var firstDay = biorhythmView.getFirstDay();
-        var xDay = new Date(firstDay.getTime() + (biorhythmView.getXDayIndex() * 24 * 60 * 60 * 1000));
-        $xDayValueLabel.html(formatDate(xDay));
+        var xDay = biorhythmView.getXDay();
         
-        $xDayInfoContainer.empty();
-
-        for ( var i = 0; i < biorhythmShapes.length; i++) {
-            var biorhythmShape = biorhythmShapes[i];
-            var biorhythm = biorhythmShape.getBiorhythm();
-
-            if (biorhythmShape.getIsVisible()) {
-                var milisecondsLived = biorhythmView.getFirstDay() - biorhythmShape.getBirthday();
-                var daysLived = Math.floor(milisecondsLived / 1000 / 60 / 60 / 24);
-                var value = biorhythm.getValue(daysLived + biorhythmView.getXDayIndex());
-                var percentage = value * 100;
-
-                var text = biorhythm.getName() + " = " + Math.round(percentage) + "%";
-
-                var $item = $("<div/>");
-                $item.html(text);
-                $item.css("color", biorhythmShape.getColor());
-                $xDayInfoContainer.append($item);
-            }
-        }
+        $xDayValueLabel.html(formatDate(xDay));
+        xDayInfoView.update(xDay);
     }
 
     // --------------------------------------------------------------------------
@@ -276,8 +254,6 @@
 
         $("#birthdayButtons").buttonset();
 
-        $xDayInfoContainer = $("#xDayInfoContainer");
-        
         $xDayValueLabel = $("#xDayValueLabel");
     }
 
@@ -302,6 +278,9 @@
 
             var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
             biorhythmLegend.populate();
+
+            xDayInfoView = new lu.bioCalc.XDayInfoView(biorhythmView.getBiorhythms(), "#xDayInfoContainer");
+            xDayInfoView.populate();
 
             $jQueryVersionLabel.html($.fn.jquery);
             $jQueryUIVersionLabel.html($.ui.version);

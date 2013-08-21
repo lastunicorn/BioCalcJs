@@ -23,8 +23,6 @@ lu.bioControls.BiorhythmView = function(id) {
     var obj = this;
     var scroller = null;
 
-    // #region Biorhythms
-
     // --------------------------------------------------------------------------
     // Biorhythms
     // --------------------------------------------------------------------------
@@ -111,10 +109,6 @@ lu.bioControls.BiorhythmView = function(id) {
         biorhythmRemovedEvent.raise(obj, biorhythmShape);
     }
 
-    // #endregion
-
-    // #region FirstDay
-
     // --------------------------------------------------------------------------
     // FirstDay
     // --------------------------------------------------------------------------
@@ -165,9 +159,9 @@ lu.bioControls.BiorhythmView = function(id) {
         return new Date(firstDay.getTime() + (totalDays - 1) * 24 * 60 * 60 * 1000);
     };
 
-    // #endregion
-
-    // #region IsGridVisible
+    this.getXDay = function() {
+        return new Date(firstDay.getTime() + (xDayIndex * 24 * 60 * 60 * 1000));
+    };
 
     // --------------------------------------------------------------------------
     // IsGridVisible
@@ -189,10 +183,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToGridVisibilityChanged = isGridVisibleChangedEvent.subscribe;
 
-    // #endregion
-
-    // #region TotalDays
-
     // --------------------------------------------------------------------------
     // TotalDays
     // --------------------------------------------------------------------------
@@ -212,10 +202,6 @@ lu.bioControls.BiorhythmView = function(id) {
     };
 
     this.subscribeToTotalDaysChanged = totalDaysChangedEvent.subscribe;
-
-    // #endregion
-
-    // #region XDayIndex
 
     // --------------------------------------------------------------------------
     // XDayIndex
@@ -242,10 +228,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToXDayIndexChanged = xDayIndexChangedEvent.subscribe;
 
-    // #endregion
-
-    // #region GridColor
-
     // --------------------------------------------------------------------------
     // GridColor
     // --------------------------------------------------------------------------
@@ -265,10 +247,6 @@ lu.bioControls.BiorhythmView = function(id) {
     };
 
     this.subscribeToGridColorChanged = gridColorChangedEvent.subscribe;
-
-    // #endregion
-
-    // #region AreDayNumbersVisible
 
     // --------------------------------------------------------------------------
     // AreDayNumbersVisible
@@ -290,10 +268,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToDayNumbersVisibilityChanged = areDayNumbersVisibleChangedEvent.subscribe;
 
-    // #endregion
-
-    // #region AreWeekDaysVisible
-
     // --------------------------------------------------------------------------
     // AreWeekDaysVisible
     // --------------------------------------------------------------------------
@@ -314,10 +288,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToWeekDaysVisibilityChanged = areWeekDaysVisibleChangedEvent.subscribe;
 
-    // #endregion
-
-    // #region DayNumbersPosition
-
     // --------------------------------------------------------------------------
     // DayNumbersPosition
     // --------------------------------------------------------------------------
@@ -337,10 +307,6 @@ lu.bioControls.BiorhythmView = function(id) {
     };
 
     this.subscribeToTodayNumbersPositionChanged = dayNumbersPositionChangedEvent.subscribe;
-
-    // #endregion
-
-    // #region WeekDaysPosition
 
     // --------------------------------------------------------------------------
     // WeekDaysPosition
@@ -386,10 +352,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToAreSundaysEmphasizedChanged = areSundaysEmphasizedChangedEvent.subscribe;
 
-    // #endregion
-
-    // #region ForeColor
-
     // --------------------------------------------------------------------------
     // ForeColor
     // --------------------------------------------------------------------------
@@ -409,10 +371,6 @@ lu.bioControls.BiorhythmView = function(id) {
     };
 
     this.subscribeToForeColorChanged = foreColorChangedEvent.subscribe;
-
-    // #endregion
-
-    // #region SundaysColor
 
     // --------------------------------------------------------------------------
     // SundaysColor
@@ -434,10 +392,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToSundaysColorChanged = sundaysColorChangedEvent.subscribe;
 
-    // #endregion
-
-    // #region Font
-
     // --------------------------------------------------------------------------
     // Font
     // --------------------------------------------------------------------------
@@ -457,10 +411,6 @@ lu.bioControls.BiorhythmView = function(id) {
     };
 
     this.subscribeToFontChanged = fontChangedEvent.subscribe;
-
-    // #endregion
-
-    // #region SundaysFont
 
     // --------------------------------------------------------------------------
     // SundaysFont
@@ -482,10 +432,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToSundaysFontChanged = sundaysFontChangedEvent.subscribe;
 
-    // #endregion
-
-    // #region TodayBackColor
-
     // --------------------------------------------------------------------------
     // TodayBackColor
     // --------------------------------------------------------------------------
@@ -505,10 +451,6 @@ lu.bioControls.BiorhythmView = function(id) {
     };
 
     this.subscribeToTodayBackColorChanged = todayBackColorChangedEvent.subscribe;
-
-    // #endregion
-
-    // #region IsXDayVisible
 
     // --------------------------------------------------------------------------
     // IsXDayVisible
@@ -530,10 +472,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToXDayVisibilityChanged = isXDayVisibleChangedEvent.subscribe;
 
-    // #endregion
-
-    // #region XDayBorderColor
-
     // --------------------------------------------------------------------------
     // XDayBorderColor
     // --------------------------------------------------------------------------
@@ -553,10 +491,6 @@ lu.bioControls.BiorhythmView = function(id) {
     };
 
     this.subscribeToXDayBorderColorChanged = xDayBorderColorChangedEvent.subscribe;
-
-    // #endregion
-
-    // #region XDayBorderWidth
 
     // --------------------------------------------------------------------------
     // XDayBorderWidth
@@ -578,7 +512,9 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToXDayBorderWidthChanged = xDayBorderWidthChangedEvent.subscribe;
 
-    // #endregion
+    // --------------------------------------------------------------------------
+    // 
+    // --------------------------------------------------------------------------
 
     this.setBirthdayOnAllBiorhythms = function(birthday) {
         suspendPaint();
@@ -589,8 +525,6 @@ lu.bioControls.BiorhythmView = function(id) {
 
         resumePaint();
     };
-
-    // #region Paint
 
     // --------------------------------------------------------------------------
     // Paint
@@ -645,8 +579,6 @@ lu.bioControls.BiorhythmView = function(id) {
     this.getPaintCount = function() {
         return painter.getPaintCount();
     };
-
-    // #endregion
 
     // --------------------------------------------------------------------------
     // Event Handlers

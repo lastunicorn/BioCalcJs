@@ -87,6 +87,9 @@ lu.bioControls.BiorhythmView = function(id) {
   this.getLastDay = function() {
     return new Date(firstDay.getTime() + (totalDays - 1) * 24 * 60 * 60 * 1E3)
   };
+  this.getXDay = function() {
+    return new Date(firstDay.getTime() + xDayIndex * 24 * 60 * 60 * 1E3)
+  };
   var isGridVisible = true;
   var isGridVisibleChangedEvent = new lu.Event;
   this.setGridVisibility = function(value) {

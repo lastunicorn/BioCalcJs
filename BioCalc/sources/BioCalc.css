@@ -184,7 +184,7 @@ a[target="_blank"] {
 /* X Day Info
 ----------------------------------------------------------------------------- */
 
-h2 {
+#pageContainer h2 {
 	margin-top: 30px; 
 }
 
@@ -194,4 +194,17 @@ h2 {
 	margin: 5px 0;
 	background-color: #f0f0f0;
 	border-radius: 3px;
+}
+
+/* Date Limit Labels
+----------------------------------------------------------------------------- */
+
+#dateLimitsContainer {
+	color: #bbbbbb;
+	font-size: 0.9em;
+	margin: 3px 5px;
+}
+
+#dateLimitsContainer #firstDayLabel {
+	cursor: pointer;
 }

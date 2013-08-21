@@ -161,6 +161,10 @@ lu.bioControls.BiorhythmView = function(id) {
 
     this.subscribeToFirstDayChanged = firstDayChangedEvent.subscribe;
 
+    this.getLastDay = function() {
+        return new Date(firstDay.getTime() + (totalDays - 1) * 24 * 60 * 60 * 1000);
+    };
+
     // #endregion
 
     // #region IsGridVisible

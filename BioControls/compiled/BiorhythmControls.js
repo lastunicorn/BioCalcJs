@@ -84,6 +84,9 @@ lu.bioControls.BiorhythmView = function(id) {
   }
   Object.defineProperty(this, "firstDay", {enumerable:true, configurable:false, get:getFirstDay, set:setFirstDay});
   this.subscribeToFirstDayChanged = firstDayChangedEvent.subscribe;
+  this.getLastDay = function() {
+    return new Date(firstDay.getTime() + (totalDays - 1) * 24 * 60 * 60 * 1E3)
+  };
   var isGridVisible = true;
   var isGridVisibleChangedEvent = new lu.Event;
   this.setGridVisibility = function(value) {
@@ -540,9 +543,10 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.Scroller = function(configuration) {
   var defaultStepLength = 1;
   var stepLength = 1;
-  var ctrlPressed = false;
+  var isCtrlPressed = false;
   var buttonPressed = lu.MouseButton.none;
   var currentDayIndex = 0;
+  var isDragging = false;
   function raiseOnDragStart(arg) {
     if(typeof configuration.onDragStart === "function") {
       configuration.onDragStart(arg)
@@ -571,15 +575,15 @@ lu.bioControls.Scroller = function(configuration) {
     var clickX = evt.clientX - rect.left;
     stepLength = calculateStepLength();
     currentDayIndex = Math.floor(clickX / stepLength);
-    buttonPressed = evt.which
+    buttonPressed = evt.which;
+    isDragging = true
   }
   function onMouseMove(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    var isLeftOrRightButton = buttonPressed === lu.MouseButton.left || buttonPressed === lu.MouseButton.right;
-    if(!isLeftOrRightButton) {
+    if(!isDragging) {
       return
     }
+    evt.preventDefault();
+    evt.stopPropagation();
     var rect = configuration.element.getBoundingClientRect();
     var clickX = evt.clientX - rect.left;
     var index = Math.floor(clickX / stepLength);
@@ -588,15 +592,16 @@ lu.bioControls.Scroller = function(configuration) {
       return
     }
     currentDayIndex = index;
-    var isAlternative = ctrlPressed || buttonPressed === lu.MouseButton.right;
+    var isAlternative = isCtrlPressed || buttonPressed === lu.MouseButton.right;
     raiseOnDrag({steps:steps, isAlternative:isAlternative})
   }
   function onMouseUp(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    var isLeftOrRightButton = evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right;
-    if(isLeftOrRightButton) {
+    if(isDragging) {
+      isDragging = false;
       buttonPressed = lu.MouseButton.none
+    }else {
+      evt.preventDefault();
+      evt.stopPropagation()
     }
   }
   function onWheel(evt) {
@@ -606,17 +611,13 @@ lu.bioControls.Scroller = function(configuration) {
     raiseOnDrag({steps:delta, isAlternative:false})
   }
   function onKeyDown(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
     if(evt.keyCode === 17) {
-      ctrlPressed = true
+      isCtrlPressed = true
     }
   }
   function onKeyUp(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
     if(evt.keyCode === 17) {
-      ctrlPressed = false
+      isCtrlPressed = false
     }
   }
   function onContextMenu(evt) {
@@ -633,8 +634,8 @@ lu.bioControls.Scroller = function(configuration) {
     document.addEventListener("mousemove", onMouseMove, false);
     document.addEventListener("mouseup", onMouseUp, false);
     configuration.element.addEventListener(mouseWheelEventName, onWheel, false);
-    configuration.element.addEventListener("keydown", onKeyDown, false);
-    configuration.element.addEventListener("keyup", onKeyUp, false);
+    document.addEventListener("keydown", onKeyDown, false);
+    document.addEventListener("keyup", onKeyUp, false);
     configuration.element.addEventListener("contextmenu", onContextMenu, false);
     configuration.element.addEventListener("selectstart", onSelectStart, false)
   })()

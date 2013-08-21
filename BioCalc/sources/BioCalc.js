@@ -30,6 +30,8 @@
     var $bioControlsVersionLabel = null;
     var $bioCalcVersionLabel = null;
     var $xDayInfoContainer = null;
+    var $bioCanvas = null;
+    var $xDayValueLabel = null;
     var configManager = null;
     var config = null;
     var model = null;
@@ -93,6 +95,10 @@
     function updateXDayInfo() {
         var biorhythmShapes = biorhythmView.getBiorhythms();
 
+        var firstDay = biorhythmView.getFirstDay();
+        var xDay = new Date(firstDay.getTime() + (biorhythmView.getXDayIndex() * 24 * 60 * 60 * 1000));
+        $xDayValueLabel.html(formatDate(xDay));
+        
         $xDayInfoContainer.empty();
 
         for ( var i = 0; i < biorhythmShapes.length; i++) {
@@ -158,10 +164,12 @@
     // --------------------------------------------------------------------------
 
     function initializeControls() {
+        $bioCanvas = $("#bioCanvas");
+
         biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
         biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
         biorhythmView.subscribeToXDayIndexChanged(onBiorhythmViewXDayIndexChanged);
-        
+
         $birthdayTextBox = $("#birthdayTextBox");
         $birthdayTextBox.datepicker({
             changeMonth: true,
@@ -269,6 +277,8 @@
         $("#birthdayButtons").buttonset();
 
         $xDayInfoContainer = $("#xDayInfoContainer");
+        
+        $xDayValueLabel = $("#xDayValueLabel");
     }
 
     function onDocumentReady() {
@@ -285,6 +295,8 @@
                 firstDay: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
             };
 
+            $bioCanvas.attr("tabindex", "1");
+
             commonBiorhythmShapes = generateBiorhythms();
             biorhythmView.setBiorhythms(commonBiorhythmShapes.getAll());
 
@@ -296,6 +308,10 @@
             $bioControlsVersionLabel.html(lu.bioControls.version);
 
             $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
+
+            $("#firstDayLabel").click(function() {
+                $firstDayTextBox.datepicker('show');
+            });
 
             updateBirthdayInUi();
             updateFirstDayInUi();
@@ -329,6 +345,13 @@
         model.firstDay = biorhythmView.getFirstDay();
 
         $firstDayTextBox.val(formatDate(model.firstDay));
+
+        var firstDay = model.firstDay;
+        $("#firstDayLabel").html("<< " + formatDate(firstDay));
+
+        var lastDay = new Date(model.firstDay.getTime() + (biorhythmView.getTotalDays() - 1) * 24 * 60 * 60 * 1000);
+        $("#lastDayLabel").html(formatDate(lastDay) + " >>");
+
         updateXDayInfo();
     }
 

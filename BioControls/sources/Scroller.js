@@ -18,7 +18,11 @@ var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 
 /**
- * Implements the functionality of horizontal scrolling for an html element.
+ * Implements the functionality of horizontal scrolling for an html element. It
+ * raises an event when the user drags the content horizontally or uses the
+ * mouse wheel. It also supports an alternate scrolling that means the user
+ * holds the ctrl key while scrolling or he scrolls using the right mouse
+ * button.
  * 
  * @param configuration.element
  *            The element on which to implement scrolling mechanism.
@@ -37,9 +41,10 @@ lu.bioControls.Scroller = function(configuration) {
 
     var defaultStepLength = 1;
     var stepLength = 1;
-    var ctrlPressed = false;
+    var isCtrlPressed = false;
     var buttonPressed = lu.MouseButton.none;
     var currentDayIndex = 0;
+    var isDragging = false;
 
     function raiseOnDragStart(arg) {
         if (typeof configuration.onDragStart === "function") {
@@ -81,16 +86,16 @@ lu.bioControls.Scroller = function(configuration) {
         stepLength = calculateStepLength();
         currentDayIndex = Math.floor(clickX / stepLength);
         buttonPressed = evt.which;
+        isDragging = true;
     }
 
     function onMouseMove(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        var isLeftOrRightButton = buttonPressed === lu.MouseButton.left || buttonPressed === lu.MouseButton.right;
-        if (!isLeftOrRightButton) {
+        if (!isDragging) {
             return;
         }
+
+        evt.preventDefault();
+        evt.stopPropagation();
 
         var rect = configuration.element.getBoundingClientRect();
         var clickX = evt.clientX - rect.left;
@@ -104,7 +109,7 @@ lu.bioControls.Scroller = function(configuration) {
 
         currentDayIndex = index;
 
-        var isAlternative = ctrlPressed || buttonPressed === lu.MouseButton.right;
+        var isAlternative = isCtrlPressed || buttonPressed === lu.MouseButton.right;
 
         raiseOnDrag({
             steps: steps,
@@ -113,12 +118,12 @@ lu.bioControls.Scroller = function(configuration) {
     }
 
     function onMouseUp(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        var isLeftOrRightButton = evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right;
-        if (isLeftOrRightButton) {
+        if (isDragging) {
+            isDragging = false;
             buttonPressed = lu.MouseButton.none;
+        } else {
+            evt.preventDefault();
+            evt.stopPropagation();
         }
     }
 
@@ -135,20 +140,14 @@ lu.bioControls.Scroller = function(configuration) {
     }
 
     function onKeyDown(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
         if (evt.keyCode === 17) {
-            ctrlPressed = true;
+            isCtrlPressed = true;
         }
     }
 
     function onKeyUp(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
         if (evt.keyCode === 17) {
-            ctrlPressed = false;
+            isCtrlPressed = false;
         }
     }
 
@@ -176,8 +175,8 @@ lu.bioControls.Scroller = function(configuration) {
 
         configuration.element.addEventListener(mouseWheelEventName, onWheel, false);
 
-        configuration.element.addEventListener('keydown', onKeyDown, false);
-        configuration.element.addEventListener('keyup', onKeyUp, false);
+        document.addEventListener('keydown', onKeyDown, false);
+        document.addEventListener('keyup', onKeyUp, false);
 
         configuration.element.addEventListener('contextmenu', onContextMenu, false);
         configuration.element.addEventListener('selectstart', onSelectStart, false);

@@ -51,8 +51,19 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
             	<button id="helpButton">Help</button>
             	<button id="aboutButton">About</button>
             </div>
+            <div id="dateLimitsContainer">
+            	<div style="float: left;">
+            		<span id="firstDayLabel"></span>
+            		<input id="firstDayTextBox" type="hidden" value="" />
+            		<span>&nbsp;</span>
+            	</div>
+            	<div style="float: right;">
+            		<span id="lastDayLabel"></span>
+            	</div>
+            	<div class="clear"></div>
+            </div>
             <div id="bioCanvasContainer">
-                <canvas id="bioCanvas" width="900" height="200" tabindex="1"></canvas>
+                <canvas id="bioCanvas" width="900" height="200"></canvas>
             </div>
             <div id="bioLegend"></div>
             <div class="clear"></div>
@@ -68,15 +79,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 							</span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>First Day:</td>
-                        <td>
-                            <input type="text" id="firstDayTextBox" />
-                        </td>
-                    </tr>
                 </tbody>
             </table>
-            <h2>Biorhythm's values for the X Day</h2>
+            <h2>X Day (<span id="xDayValueLabel"></span>)</h2>
             <div id="xDayInfoContainer"></div>
         </div>
         <!----------------------------------------------------------------------

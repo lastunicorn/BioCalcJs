@@ -64,9 +64,7 @@
     // --------------------------------------------------------------------------
 
     function updateBirthdayInUi() {
-        setTimeout(function() {
-            biorhythmView.setBirthdayOnAllBiorhythms(model.birthday);
-        }, 0);
+        biorhythmView.setBirthdayOnAllBiorhythms(model.birthday);
 
         $birthdayTextBox.val(formatDate(model.birthday));
     }
@@ -100,6 +98,15 @@
 
         $xDayValueLabel.html(formatDate(xDay));
         xDayInfoView.update(xDay);
+    }
+    
+    function setNewBirthday(birthday){
+        model.birthday = birthday;
+        
+        updateBirthdayInUi();
+        updateSaveBirthdayButtonVisibility();
+        updateResetBirthdayButtonVisibility();
+        updateXDayInfo();
     }
 
     // --------------------------------------------------------------------------
@@ -312,7 +319,6 @@
 
             $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
 
-
             updateBirthdayInUi();
             updateFirstDayInUi();
             updateSaveBirthdayButtonVisibility();
@@ -358,12 +364,8 @@
     }
 
     function onBirthdayDatePickerSelect() {
-        model.birthday = $(this).datepicker("getDate");
-
-        updateBirthdayInUi();
-        updateSaveBirthdayButtonVisibility();
-        updateResetBirthdayButtonVisibility();
-        updateXDayInfo();
+        var newBirthday = $(this).datepicker("getDate");
+        setNewBirthday(newBirthday);
     }
 
     function onFirstDayLabelClick() {
@@ -433,14 +435,9 @@
 
     function onResetBirthdayButtonClick(e) {
         e.preventDefault();
-
         e.stopPropagation();
 
-        model.birthday = config.birthday;
-
-        updateBirthdayInUi();
-        updateSaveBirthdayButtonVisibility();
-        updateResetBirthdayButtonVisibility();
+        setNewBirthday(config.birthday);
     }
 
     function onSaveBirthdayButtonClick(e) {

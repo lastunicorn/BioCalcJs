@@ -162,6 +162,11 @@ header h1 {
 	font-size: 12px;
 }
 
+.ui-tabs ul li,
+.ui-tabs ul li a {
+	outline: none;
+}
+
 #clearBirthdayButton {
 	display: none;
 }
@@ -216,6 +221,7 @@ header h1 {
 	margin: 3px 5px;
 }
 
-#dateLimitsContainer #firstDayLabel {
+#dateLimitsContainer #firstDayLabel,
+#dateLimitsContainer #lastDayLabel {
 	cursor: pointer;
 }

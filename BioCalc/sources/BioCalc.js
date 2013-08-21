@@ -21,6 +21,8 @@
     var $birthdayTextBox = null;
     var $firstDayTextBox = null;
     var $firstDayLabel = null;
+    var $lastDayTextBox = null;
+    var $lastDayLabel = null;
     var $helpButton = null;
     var $aboutButton = null;
     var $aboutDialog = null;
@@ -169,6 +171,17 @@
             showAnim: ""
         });
 
+        $lastDayTextBox = $("#lastDayTextBox");
+        $lastDayTextBox.datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            onSelect: onLastDayDatePickerSelect,
+            showButtonPanel: true,
+            beforeShow: onBeforeLastDayDatePickerShow,
+            showAnim: ""
+        });
+
         $("#toolbar").buttonset();
 
         $helpButton = $("#helpButton");
@@ -262,24 +275,10 @@
         $xDayValueLabel = $("#xDayValueLabel");
 
         $firstDayLabel = $("#firstDayLabel");
-    }
+        $firstDayLabel.click(onFirstDayLabelClick);
 
-    function onBeforeFirstDayDatePickerShow(input, inst) {
-        // Handle calendar position before showing it.
-        // It's not supported by Datepicker itself (for now) so I need
-        // to use its internal variables.
-        var calendar = inst.dpDiv;
-
-        // Dirty hack, but we can't do anything without it (for now, in
-        // jQuery UI 1.8.20)
-        setTimeout(function() {
-            calendar.position({
-                my: 'left top',
-                at: 'left bottom',
-                collision: 'none',
-                of: $firstDayLabel
-            });
-        }, 0);
+        $lastDayLabel = $("#lastDayLabel");
+        $lastDayLabel.click(onLastDayLabelClick);
     }
 
     function onDocumentReady() {
@@ -313,7 +312,6 @@
 
             $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
 
-            $firstDayLabel.click(onFirstDayLabelClick);
 
             updateBirthdayInUi();
             updateFirstDayInUi();
@@ -335,16 +333,6 @@
         });
     }
 
-    function onFirstDayLabelClick() {
-        var isDisabled = $firstDayTextBox.datepicker("isDisabled");
-
-        if (!isDisabled) {
-            setTimeout(function() {
-                $firstDayTextBox.datepicker('show');
-            }, 0);
-        }
-    }
-
     function onAboutDialogCloseClicked() {
         $aboutDialog.dialog("close");
     }
@@ -355,14 +343,16 @@
 
     function onBiorhythmViewFirstDayChanged() {
         model.firstDay = biorhythmView.getFirstDay();
+        var lastDay = biorhythmView.getLastDay();
 
         $firstDayTextBox.val(formatDate(model.firstDay));
+        $lastDayTextBox.val(formatDate(lastDay));
 
         var firstDay = model.firstDay;
-        $("#firstDayLabel").html("<< " + formatDate(firstDay));
+        $firstDayLabel.html("<< " + formatDate(firstDay));
 
         var lastDay = new Date(model.firstDay.getTime() + (biorhythmView.getTotalDays() - 1) * 24 * 60 * 60 * 1000);
-        $("#lastDayLabel").html(formatDate(lastDay) + " >>");
+        $lastDayLabel.html(formatDate(lastDay) + " >>");
 
         updateXDayInfo();
     }
@@ -376,10 +366,65 @@
         updateXDayInfo();
     }
 
+    function onFirstDayLabelClick() {
+        setTimeout(function() {
+            $firstDayTextBox.datepicker('show');
+        }, 0);
+    }
+
     function onFirstDayDatePickerSelect() {
         model.firstDay = $(this).datepicker("getDate");
 
         updateFirstDayInUi();
+    }
+
+    function onBeforeFirstDayDatePickerShow(input, inst) {
+        // Handle calendar position before showing it.
+        // It's not supported by Datepicker itself (for now) so I need
+        // to use its internal variables.
+        var calendar = inst.dpDiv;
+
+        // Dirty hack, but we can't do anything without it (for now, in
+        // jQuery UI 1.8.20)
+        setTimeout(function() {
+            calendar.position({
+                my: 'left top',
+                at: 'left bottom',
+                collision: 'none',
+                of: $firstDayLabel
+            });
+        }, 0);
+    }
+
+    function onLastDayLabelClick() {
+        setTimeout(function() {
+            $lastDayTextBox.datepicker('show');
+        }, 0);
+    }
+
+    function onLastDayDatePickerSelect() {
+        var lastDay = $(this).datepicker("getDate");
+        model.firstDay = new Date(lastDay.getTime() - (biorhythmView.getTotalDays() - 1) * 24 * 60 * 60 * 1000);
+
+        updateFirstDayInUi();
+    }
+
+    function onBeforeLastDayDatePickerShow(input, inst) {
+        // Handle calendar position before showing it.
+        // It's not supported by Datepicker itself (for now) so I need
+        // to use its internal variables.
+        var calendar = inst.dpDiv;
+
+        // Dirty hack, but we can't do anything without it (for now, in
+        // jQuery UI 1.8.20)
+        setTimeout(function() {
+            calendar.position({
+                my: 'right top',
+                at: 'right bottom',
+                collision: 'none',
+                of: $lastDayLabel
+            });
+        }, 0);
     }
 
     function onBiorhythmViewXDayIndexChanged() {

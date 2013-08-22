@@ -20,51 +20,32 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.XDayInfoView = function(biorhythmShapes, containerSelector) {
 
     var $container = null;
-    var rows = {};
+    var items = [];
 
-    function onBiorhythmNameChanged() {
-        // todo: implement this
-    }
-
-    function onBiorhythmColorChanged() {
-        // todo: implement this
-    }
-
-    function onBiorhythmVisibilityChanged(arg) {
-        var $element = rows[this.getName()];
-
-        if ($element) {
-            if (arg) {
-                $element.show();
-            } else {
-                $element.hide();
-            }
-        }
-    }
-
-    this.populate = function(xDay) {
-        generateAndAddItems(xDay);
+    this.populate = function() {
+        generateAndAddItems();
     };
 
     this.update = function(xDay) {
-        generateAndAddItems(xDay);
+        for ( var i = 0; i < items.length; i++) {
+            items[i].update(xDay);
+        }
     };
 
-    function generateAndAddItems(xDay) {
+    function generateAndAddItems() {
         $container.empty();
-        rows = {};
+        items.length = 0;
 
         for ( var i = 0; i < biorhythmShapes.length; i++) {
-            generateAndAddItem(biorhythmShapes[i], xDay);
+            generateAndAddItem(biorhythmShapes[i]);
         }
     }
 
-    function generateAndAddItem(biorhythmShape, xDay) {
+    function generateAndAddItem(biorhythmShape) {
         var xDayInfoItem = new lu.bioCalc.XDayInfoItem(biorhythmShape);
-        var $itemElement = xDayInfoItem.generate(xDay);
+        items.push(xDayInfoItem);
 
-        rows[biorhythmShape.getName()] = $itemElement;
-
+        var $itemElement = xDayInfoItem.getElement();
         $container.append($itemElement);
     }
 
@@ -77,12 +58,6 @@ lu.bioCalc.XDayInfoView = function(biorhythmShapes, containerSelector) {
 
         if (typeof biorhythmShapes !== "array") {
             // return;
-        }
-
-        for ( var i = 0; i < biorhythmShapes.length; i++) {
-            biorhythmShapes[i].subscribeToNameChanged(onBiorhythmNameChanged);
-            biorhythmShapes[i].subscribeToColorChanged(onBiorhythmColorChanged);
-            biorhythmShapes[i].subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
         }
     }());
 };

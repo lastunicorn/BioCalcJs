@@ -167,6 +167,9 @@
             showButtonPanel: true
         });
 
+        $firstDayLabel = $("#firstDayLabel");
+        $firstDayLabel.click(onFirstDayLabelClick);
+
         $firstDayTextBox = $("#firstDayTextBox");
         $firstDayTextBox.datepicker({
             changeMonth: true,
@@ -177,6 +180,9 @@
             beforeShow: onBeforeFirstDayDatePickerShow,
             showAnim: ""
         });
+
+        $lastDayLabel = $("#lastDayLabel");
+        $lastDayLabel.click(onLastDayLabelClick);
 
         $lastDayTextBox = $("#lastDayTextBox");
         $lastDayTextBox.datepicker({
@@ -280,12 +286,6 @@
         $("#birthdayButtons").buttonset();
 
         $xDayValueLabel = $("#xDayValueLabel");
-
-        $firstDayLabel = $("#firstDayLabel");
-        $firstDayLabel.click(onFirstDayLabelClick);
-
-        $lastDayLabel = $("#lastDayLabel");
-        $lastDayLabel.click(onLastDayLabelClick);
     }
 
     function onDocumentReady() {
@@ -305,12 +305,14 @@
             $bioCanvas.attr("tabindex", "1");
 
             commonBiorhythmShapes = generateBiorhythms();
-            biorhythmView.setBiorhythms(commonBiorhythmShapes.getAll());
+            var biorhythmShapes = commonBiorhythmShapes.getAll();
+            
+            biorhythmView.setBiorhythms(biorhythmShapes);
 
-            var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
+            var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmShapes, "#bioLegend");
             biorhythmLegend.populate();
 
-            xDayInfoView = new lu.bioCalc.XDayInfoView(biorhythmView.getBiorhythms(), "#xDayInfoContainer");
+            xDayInfoView = new lu.bioCalc.XDayInfoView(biorhythmShapes, "#xDayInfoContainer");
             xDayInfoView.populate();
 
             $jQueryVersionLabel.html($.fn.jquery);

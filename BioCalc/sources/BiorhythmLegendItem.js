@@ -19,17 +19,21 @@ lu.bioCalc = lu.bioCalc || {};
 
 lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
 
+    var $element = null;
     var $legendColorTag = null;
     var $legendLabelTag = null;
 
-    this.generate = function() {
+    this.getElement = function() {
+        return $element;
+    };
+
+    function generate() {
         var $div = $("<div/>");
 
-        $div.addClass("bioLegendItem");
-        $div.attr("data-biorhythm", biorhythmShape.getName());
+        $div.addClass("bio-legend-item");
 
-        $legendColorTag = generateLegendColorTag(biorhythmShape);
-        $legendLabelTag = generateLegendLabelTag(biorhythmShape);
+        $legendColorTag = generateLegendColorTag();
+        $legendLabelTag = generateLegendLabelTag();
 
         $div.append($legendColorTag);
         $div.append($legendLabelTag);
@@ -39,19 +43,19 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
         }
 
         return $div;
-    };
+    }
 
     function generateLegendColorTag() {
         var $div = $("<div/>");
-        $div.addClass("bioLegendColor");
-        $div.css('background-color', biorhythmShape.getColor());
+        $div.addClass("color-label");
+        $div.css("background-color", biorhythmShape.getColor());
 
         return $div;
     }
 
     function generateLegendLabelTag() {
         var $div = $("<div/>");
-        $div.addClass("bioLegendLabel");
+        $div.addClass("bio-legend-label");
         $div.text(biorhythmShape.getBiorhythm().getName());
 
         var biorhythmName = biorhythmShape.getBiorhythm().getName();
@@ -60,19 +64,23 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
         $div.colorpicker({
             inline: false,
             altField: $legendColorTag,
-            altProperties: 'background-color',
+            altProperties: "background-color",
             buttonColorize: true,
             color: biorhythmShape.getColor(),
             colorFormat: "#HEX",
             close: onColorPickerClosed,
             open: onColorPickerOpened,
-            showOn: 'click alt',
+            showOn: "click alt",
             title: title,
             parts: title ? "draggable" : "popup",
         });
 
         return $div;
     }
+
+    // --------------------------------------------------------------------------
+    // Event Handlers
+    // --------------------------------------------------------------------------
 
     function onColorPickerClosed(event, color) {
         biorhythmShape.setColor(color.formatted);
@@ -81,4 +89,36 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
     function onColorPickerOpened(event, color) {
         $(this).colorpicker("setColor", biorhythmShape.getColor());
     }
+
+    function onBiorhythmNameChanged(arg) {
+        $legendLabelTag.html(arg);
+    }
+
+    function onBiorhythmColorChanged(arg) {
+        $legendColorTag.css("background-color", arg);
+    }
+
+    function onBiorhythmVisibilityChanged(arg) {
+        if (arg) {
+            $element.show();
+        } else {
+            $element.hide();
+        }
+    }
+
+    // --------------------------------------------------------------------------
+    // Initializer
+    // --------------------------------------------------------------------------
+
+    (function initialize() {
+        $element = generate();
+
+        if (!(biorhythmShape instanceof lu.bioControls.common.biorhythmModel.BiorhythmShape)) {
+            return;
+        }
+
+        biorhythmShape.subscribeToNameChanged(onBiorhythmNameChanged);
+        biorhythmShape.subscribeToColorChanged(onBiorhythmColorChanged);
+        biorhythmShape.subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
+    }());
 };

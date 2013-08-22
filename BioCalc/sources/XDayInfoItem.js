@@ -19,29 +19,132 @@ lu.bioCalc = lu.bioCalc || {};
 
 lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
 
-    this.generate = function(xDay) {
-        var biorhythm = biorhythmShape.getBiorhythm();
+    var $element = null;
+    var $colorElement = null;
+    var $labelElement = null;
+    var $valueElement = null;
+    var currentXDay = null;
 
-        if (!xDay) {
-            xDay = biorhythmShape.getBirthday();
-        }
+    this.getElement = function() {
+        return $element;
+    };
 
-        var milisecondsLived = xDay - biorhythmShape.getBirthday();
-        var daysLived = Math.floor(milisecondsLived / 1000 / 60 / 60 / 24);
-        var value = biorhythm.getValue(daysLived);
-        var percentage = value * 100;
+    this.update = function(xDay) {
+        currentXDay = xDay;
 
-        var text = biorhythm.getName() + " = " + Math.round(percentage) + "%";
+        var percentage = calculatePercentage();
+        $valueElement.text(formatPercentage(percentage));
 
+        // var positiveColor = "#32cd32";
+        // var negativeColor = "#ff0000";
+        //
+        // if (percentage >= 0) {
+        // $valueElement.css("color", positiveColor);
+        // } else {
+        // $valueElement.css("color", negativeColor);
+        // }
+    };
+
+    function generate() {
         var $item = $("<div/>");
-        $item.attr("data-biorhythm", biorhythmShape.getName());
-        $item.html(text);
-        $item.css("color", biorhythmShape.getColor());
+
+        $item.addClass("x-day-item");
+
+        $colorElement = generateColorTag();
+        $labelElement = generateLabelTag();
+        $valueElement = generateValueTag();
+
+        $item.append($colorElement);
+        $item.append($labelElement);
+        $item.append(" = ");
+        $item.append($valueElement);
 
         if (!biorhythmShape.getIsVisible()) {
             $item.hide();
         }
 
         return $item;
-    };
+    }
+
+    function generateColorTag() {
+        var $item = $("<span/>");
+        $item.addClass("color-label");
+        $item.css("background-color", biorhythmShape.getColor());
+
+        return $item;
+    }
+
+    function generateLabelTag() {
+        var $div = $("<span/>");
+        $div.text(biorhythmShape.getBiorhythm().getName());
+
+        return $div;
+    }
+
+    function generateValueTag() {
+        var $item = $("<span/>");
+
+        var percentage = calculatePercentage();
+        $item.text(formatPercentage(percentage));
+
+        return $item;
+    }
+
+    function calculatePercentage() {
+        var biorhythm = biorhythmShape.getBiorhythm();
+
+        var milisecondsLived = currentXDay - biorhythmShape.getBirthday();
+        var daysLived = Math.floor(milisecondsLived / 1000 / 60 / 60 / 24);
+        var value = biorhythm.getValue(daysLived);
+        var percentage = value * 100;
+
+        return Math.round(percentage);
+    }
+
+    function formatPercentage(value) {
+        if (typeof value === "number") {
+            return value.toString() + "%";
+        } else {
+            return "?%";
+        }
+    }
+
+    // --------------------------------------------------------------------------
+    // Event Handlers
+    // --------------------------------------------------------------------------
+
+    function onBiorhythmNameChanged(arg) {
+        $labelElement.text(arg);
+    }
+
+    function onBiorhythmColorChanged(arg) {
+        $colorElement.css("background-color", arg);
+    }
+
+    function onBiorhythmVisibilityChanged(arg) {
+        if ($element) {
+            if (arg) {
+                $element.show();
+            } else {
+                $element.hide();
+            }
+        }
+    }
+
+    // --------------------------------------------------------------------------
+    // Initializer
+    // --------------------------------------------------------------------------
+
+    (function initialize() {
+        currentXDay = biorhythmShape.getBirthday();
+        $element = generate();
+
+        if (!(biorhythmShape instanceof lu.bioControls.common.biorhythmModel.BiorhythmShape)) {
+            return;
+        }
+
+        biorhythmShape.subscribeToNameChanged(onBiorhythmNameChanged);
+        biorhythmShape.subscribeToColorChanged(onBiorhythmColorChanged);
+        biorhythmShape.subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
+    }());
 };

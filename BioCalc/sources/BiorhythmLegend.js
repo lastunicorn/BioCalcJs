@@ -17,29 +17,9 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
-lu.bioCalc.BiorhythmLegend = function(biorhythmView, legendContainerSelector) {
-    var $legendContainer = null;
-    var biorhythmLegendItems = {};
-
-    function onBiorhythmNameChanged() {
-        // todo: implement this
-    }
-
-    function onBiorhythmColorChanged() {
-        // todo: implement this
-    }
-
-    function onBiorhythmVisibilityChanged(arg) {
-        var $element = biorhythmLegendItems[this.getName()];
-
-        if ($element) {
-            if (arg) {
-                $element.show();
-            } else {
-                $element.hide();
-            }
-        }
-    }
+lu.bioCalc.BiorhythmLegend = function(biorhythmShapes, legendContainerSelector) {
+    var $container = null;
+    var biorhythmLegendItems = [];
 
     // function onBiorhythmAdded(arg) {
     // arg.subscribeToNameChanged(onBiorhythmNameChanged);
@@ -54,17 +34,15 @@ lu.bioCalc.BiorhythmLegend = function(biorhythmView, legendContainerSelector) {
     // }
 
     this.populate = function() {
-        var biorhythmShapes = biorhythmView.getBiorhythms();
-
-        $legendContainer.empty();
+        $container.empty();
+        biorhythmLegendItems.length = 0;
 
         for ( var i = 0; i < biorhythmShapes.length; i++) {
             var biorhythmLegendItem = new lu.bioCalc.BiorhythmLegendItem(biorhythmShapes[i]);
-            var $legendItemTag = biorhythmLegendItem.generate();
+            biorhythmLegendItems.push(biorhythmLegendItem);
 
-            biorhythmLegendItems[biorhythmShapes[i].getName()] = $legendItemTag;
-
-            $legendContainer.prepend($legendItemTag);
+            var $legendItemTag = biorhythmLegendItem.getElement();
+            $container.prepend($legendItemTag);
         }
     };
 
@@ -73,21 +51,13 @@ lu.bioCalc.BiorhythmLegend = function(biorhythmView, legendContainerSelector) {
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        $legendContainer = $(legendContainerSelector);
+        $container = $(legendContainerSelector);
 
-        if (!(biorhythmView instanceof lu.bioControls.BiorhythmView)) {
-            return;
+        if (typeof biorhythmShapes !== "array") {
+            // return;
         }
 
         // biorhythmView.subscribeToBiorhythmAdded(onBiorhythmAdded);
         // biorhythmView.subscribeToBiorhythmRemoved(onBiorhythmRemoved);
-
-        var biorhythmShapes = biorhythmView.getBiorhythms();
-
-        for ( var i = 0; i < biorhythmShapes.length; i++) {
-            biorhythmShapes[i].subscribeToNameChanged(onBiorhythmNameChanged);
-            biorhythmShapes[i].subscribeToColorChanged(onBiorhythmColorChanged);
-            biorhythmShapes[i].subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
-        }
     }());
 };

@@ -19,21 +19,27 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
+/**
+ * Represents the mastery biorhythm. It is a biorhythm obtained by calculating
+ * the average between physical and intellectual biorhythms.
+ * 
+ * @returns {lu.bioControls.core.biorhythms.MasteryBiorhythm}
+ */
 lu.bioControls.core.biorhythms.MasteryBiorhythm = function() {
-	var biorhythm = null;
-	
-	this.getName = function() {
-		return "Mastery";
-	};
+    var biorhythm = null;
 
-	this.getValue = function(dayIndex) {
-		return biorhythm.getValue(dayIndex);
-	};
-	
-	(function initialize() {
-		var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm();
-		var intellectualBiorhythm = new lu.bioControls.core.biorhythms.IntellectualBiorhythm();
-		
-		biorhythm = new lu.bioControls.core.biorhythms.AverageBiorhythm(physicalBiorhythm, intellectualBiorhythm);
-	}());
+    this.getName = function() {
+        return "Mastery";
+    };
+
+    this.getValue = function(dayIndex) {
+        return biorhythm.getValue(dayIndex);
+    };
+
+    (function initialize() {
+        var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm();
+        var intellectualBiorhythm = new lu.bioControls.core.biorhythms.IntellectualBiorhythm();
+
+        biorhythm = new lu.bioControls.core.biorhythms.AverageBiorhythm(physicalBiorhythm, intellectualBiorhythm);
+    }());
 };

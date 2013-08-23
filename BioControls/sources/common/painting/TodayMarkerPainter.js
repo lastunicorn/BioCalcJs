@@ -19,6 +19,12 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.painting = lu.bioControls.common.painting || {};
 
+/**
+ * Paints the colored recatangle representing the current day using an html
+ * canvas context object.
+ * 
+ * @returns {lu.bioControls.common.painting.TodayMarkerPainter}
+ */
 lu.bioControls.common.painting.TodayMarkerPainter = function() {
 
     var paintContext = null;

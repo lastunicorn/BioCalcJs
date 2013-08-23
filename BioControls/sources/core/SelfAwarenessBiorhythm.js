@@ -19,6 +19,12 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
+/**
+ * Represents the self awareness biorhythm. It is a sinusoidal biorhythm with the
+ * period of 48 days.
+ * 
+ * @returns {lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm}
+ */
 lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function() {
     var biorhythm = null;
 

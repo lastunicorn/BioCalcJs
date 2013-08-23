@@ -19,6 +19,12 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
+/**
+ * Represents the success biorhythm. It is a biorhythm obtained by calculating
+ * the average between emotional and intellectual biorhythms.
+ * 
+ * @returns {lu.bioControls.core.biorhythms.WisdomBiorhythm}
+ */
 lu.bioControls.core.biorhythms.WisdomBiorhythm = function() {
     var biorhythm = null;
 

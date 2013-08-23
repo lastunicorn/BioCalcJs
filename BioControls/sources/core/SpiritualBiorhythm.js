@@ -19,6 +19,12 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
+/**
+ * Represents the spiritual biorhythm. It is a sinusoidal biorhythm with the
+ * period of 53 days.
+ * 
+ * @returns {lu.bioControls.core.biorhythms.SpiritualBiorhythm}
+ */
 lu.bioControls.core.biorhythms.SpiritualBiorhythm = function() {
     var biorhythm = null;
 

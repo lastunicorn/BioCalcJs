@@ -19,6 +19,12 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
 
+/**
+ * It is a repository containing a list of BiorhythmShape objects; one for each
+ * known biorhythm.
+ * 
+ * @returns {lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes}
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
 
     var physicalShape = null;
@@ -143,11 +149,12 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         perceptionShape, psychicShape, successShape,
 
         estheticShape, selfAwarenessShape, spiritualShape ];
-    };
+    }
+    ;
 
     this.setBirthdayOnAll = function(birthday) {
         var biorhythms = getAll();
-        
+
         for ( var i = 0; i < biorhythms.length; i++) {
             biorhythms[i].setBirthday(birthday);
         }

@@ -19,9 +19,20 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
+/**
+ * Represents a biorhythm that is an average of two other biorhythms.
+ * 
+ * @param biorhythmA
+ *            The first biorhythm used to calculate the average.
+ * 
+ * @param biorhythmB
+ *            The second biorhythm used to calculate the average.
+ * 
+ * @returns {lu.bioControls.core.biorhythms.AverageBiorhythm}
+ */
 lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
-	
-	this.getValue = function(dayIndex) {
-		return (biorhythmA.getValue(dayIndex) + biorhythmB.getValue(dayIndex)) / 2;
-	};
+
+    this.getValue = function(dayIndex) {
+        return (biorhythmA.getValue(dayIndex) + biorhythmB.getValue(dayIndex)) / 2;
+    };
 };

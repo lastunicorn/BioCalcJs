@@ -19,6 +19,11 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
+/**
+ * Represents a sinusoidal biorhythm.
+ * 
+ * @returns {lu.bioControls.core.biorhythms.SinusoidalBiorhythm}
+ */
 lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function() {
 
     var values = [];

@@ -19,10 +19,15 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
 
+/**
+ * Represents a biorhythm curve with all its display related properties.
+ * 
+ * @returns {lu.bioControls.common.biorhythmModel.BiorhythmShape}
+ */
 lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var obj = this;
-    
+
     // #region Name
 
     var name = "New Biorhythm Shape";

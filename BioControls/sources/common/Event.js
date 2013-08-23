@@ -17,8 +17,7 @@
 var lu = lu || {};
 
 /**
- * It is an observed object. Any function can be set as subscriber and it will
- * be called when the event is raised.
+ * Keeps a list of functions and calls them one by one when the event is raised.
  */
 lu.Event = function() {
 

@@ -19,6 +19,12 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.painting = lu.bioControls.common.painting || {};
 
+/**
+ * Paints the lines delimiting the days and the horizontal axis using an html
+ * canvas context object.
+ * 
+ * @returns {lu.bioControls.common.painting.GridLinesPainter}
+ */
 lu.bioControls.common.painting.GridLinesPainter = function() {
 
     var paintContext = null;

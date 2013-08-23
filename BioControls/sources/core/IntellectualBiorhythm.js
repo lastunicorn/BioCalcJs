@@ -19,23 +19,29 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
+/**
+ * Represents the intelectual biorhythm. It is a sinusoidal biorhythm with the
+ * period of 33 days.
+ * 
+ * @returns {lu.bioControls.core.biorhythms.IntellectualBiorhythm}
+ */
 lu.bioControls.core.biorhythms.IntellectualBiorhythm = function() {
-	var biorhythm = null;
-	
-	this.getName = function() {
-		return "Intellectual";
-	};
-	
-	this.getPeriodLength = function() {
-		return biorhythm.getPeriodLength();
-	};
+    var biorhythm = null;
 
-	this.getValue = function(dayIndex) {
-		return biorhythm.getValue(dayIndex);
-	};
-	
-	(function initialize() {
-		biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm();
-		biorhythm.setPeriodLength(33);
-	}());
+    this.getName = function() {
+        return "Intellectual";
+    };
+
+    this.getPeriodLength = function() {
+        return biorhythm.getPeriodLength();
+    };
+
+    this.getValue = function(dayIndex) {
+        return biorhythm.getValue(dayIndex);
+    };
+
+    (function initialize() {
+        biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm();
+        biorhythm.setPeriodLength(33);
+    }());
 };

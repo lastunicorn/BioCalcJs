@@ -19,6 +19,11 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.painting = lu.bioControls.common.painting || {};
 
+/**
+ * Paints the labels of the month days and week days using an html canvas context object.
+ * 
+ * @returns {lu.bioControls.common.painting.DayLabelsPainter}
+ */
 lu.bioControls.common.painting.DayLabelsPainter = function() {
 
     var dataToPaint = null;

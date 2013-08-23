@@ -1189,6 +1189,11 @@ lu.bioControls.common.painting.BiorhythmViewPainter = function() {
   var rawPaintData = null;
   var canvas = null;
   var paintCount = 0;
+  var todayMarkerPainter = null;
+  var gridLinesPainter = null;
+  var biorhythmCurvesPainter = null;
+  var dayLabelsPainter = null;
+  var xDayMarkerPainter = null;
   this.getPaintCount = function() {
     return paintCount
   };
@@ -1204,15 +1209,10 @@ lu.bioControls.common.painting.BiorhythmViewPainter = function() {
     if(canvas.getContext) {
       var context = canvas.getContext("2d");
       clearCanvas(context);
-      var todayMarkerPainter = new lu.bioControls.common.painting.TodayMarkerPainter;
       todayMarkerPainter.paint(context, dataToPaint.todayMarker);
-      var gridLinesPainter = new lu.bioControls.common.painting.GridLinesPainter;
       gridLinesPainter.paint(context, dataToPaint.gridLines);
-      var biorhythmCurvesPainter = new lu.bioControls.common.painting.BiorhythmCurvesPainter;
       biorhythmCurvesPainter.paint(context, dataToPaint.biorhythms);
-      var dayLabelsPainter = new lu.bioControls.common.painting.DayLabelsPainter;
       dayLabelsPainter.paint(context, dataToPaint.dayLabels);
-      var xDayMarkerPainter = new lu.bioControls.common.painting.XDayMarkerPainter;
       xDayMarkerPainter.paint(context, dataToPaint.xDayMarker)
     }
   }
@@ -1220,6 +1220,13 @@ lu.bioControls.common.painting.BiorhythmViewPainter = function() {
     context.fillStyle = "#ffffff";
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
+  (function initialize() {
+    todayMarkerPainter = new lu.bioControls.common.painting.TodayMarkerPainter;
+    gridLinesPainter = new lu.bioControls.common.painting.GridLinesPainter;
+    biorhythmCurvesPainter = new lu.bioControls.common.painting.BiorhythmCurvesPainter;
+    dayLabelsPainter = new lu.bioControls.common.painting.DayLabelsPainter;
+    xDayMarkerPainter = new lu.bioControls.common.painting.XDayMarkerPainter
+  })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};

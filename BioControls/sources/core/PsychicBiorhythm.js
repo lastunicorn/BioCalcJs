@@ -19,6 +19,12 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
+/**
+ * Represents the psychic biorhythm. It is a biorhythm obtained by calculating
+ * the average between emotional and intuitive biorhythms.
+ * 
+ * @returns {lu.bioControls.core.biorhythms.PsychicBiorhythm}
+ */
 lu.bioControls.core.biorhythms.PsychicBiorhythm = function() {
     var biorhythm = null;
 

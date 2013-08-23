@@ -17,6 +17,14 @@
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 
+/**
+ * Draws the biorhythm charts on a html canvas element. 
+ * 
+ * @param id
+ *            The id of the html canvas element on which to draw the charts.
+ * 
+ * @returns {lu.bioControls.BiorhythmView}
+ */
 lu.bioControls.BiorhythmView = function(id) {
 
     var canvas = null;

@@ -19,6 +19,11 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.painting = lu.bioControls.common.painting || {};
 
+/**
+ * Paints the biorhythm curves using an html canvas context object.
+ * 
+ * @returns {lu.bioControls.common.painting.BiorhythmCurvesPainter}
+ */
 lu.bioControls.common.painting.BiorhythmCurvesPainter = function() {
 
     var dataToPaint = null;

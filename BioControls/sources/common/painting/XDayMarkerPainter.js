@@ -19,6 +19,12 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.painting = lu.bioControls.common.painting || {};
 
+/**
+ * Outlines the rectangle representing the X day using an html canvas context
+ * object.
+ * 
+ * @returns {lu.bioControls.common.painting.XDayMarkerPainter}
+ */
 lu.bioControls.common.painting.XDayMarkerPainter = function() {
 
     var paintContext = null;

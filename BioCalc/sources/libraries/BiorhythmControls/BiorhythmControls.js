@@ -628,8 +628,10 @@ lu.bioControls.Scroller = function(configuration) {
     evt.stopPropagation()
   }
   function onSelectStart(evt) {
-    evt.preventDefault();
-    evt.stopPropagation()
+    if(isDragging) {
+      evt.preventDefault();
+      evt.stopPropagation()
+    }
   }
   (function initialize() {
     var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
@@ -640,7 +642,7 @@ lu.bioControls.Scroller = function(configuration) {
     document.addEventListener("keydown", onKeyDown, false);
     document.addEventListener("keyup", onKeyUp, false);
     configuration.element.addEventListener("contextmenu", onContextMenu, false);
-    configuration.element.addEventListener("selectstart", onSelectStart, false)
+    document.addEventListener("selectstart", onSelectStart, false)
   })()
 };
 var lu = lu || {};
@@ -676,14 +678,14 @@ lu.Event = function() {
 };
 var lu = lu || {};
 lu.Line = function(startPoint, endPoint) {
+  this.getStartPoint = getStartPoint;
   function getStartPoint() {
     return startPoint
   }
-  this.getStartPoint = getStartPoint;
+  this.getEndPoint = getEndPoint;
   function getEndPoint() {
     return endPoint
   }
-  this.getEndPoint = getEndPoint;
   Object.defineProperty(this, "startPoint", {enumerable:true, get:getStartPoint});
   Object.defineProperty(this, "endPoint", {enumerable:true, get:getEndPoint});
   this.toString = function() {
@@ -704,33 +706,67 @@ var lu = lu || {};
 lu.MouseButton = {none:0, left:1, middle:2, right:3};
 var lu = lu || {};
 lu.Point = function(x, y) {
-  this.getX = function getX() {
+  this.getX = getX;
+  function getX() {
     return x
-  };
-  this.getY = function getY() {
+  }
+  this.getY = getY;
+  function getY() {
     return y
-  };
+  }
+  Object.defineProperty(this, "x", {enumerable:true, get:getX});
+  Object.defineProperty(this, "y", {enumerable:true, get:getY});
   this.toString = function() {
     return"[" + x + "; " + y + "]"
-  }
+  };
+  (function initialize() {
+    if(typeof x !== "number") {
+      throw"x has to be a number.";
+    }
+    if(typeof y !== "number") {
+      throw"y has to be a number.";
+    }
+  }).call(this)
 };
 var lu = lu || {};
 lu.Rectangle = function(left, top, width, height) {
-  this.getLeft = function() {
+  this.getLeft = getLeft;
+  function getLeft() {
     return left
-  };
-  this.getTop = function() {
+  }
+  Object.defineProperty(this, "left", {enumerable:true, get:getLeft});
+  this.getTop = getTop;
+  function getTop() {
     return top
-  };
-  this.getWidth = function() {
+  }
+  Object.defineProperty(this, "top", {enumerable:true, get:getTop});
+  this.getWidth = getWidth;
+  function getWidth() {
     return width
-  };
-  this.getHeight = function() {
+  }
+  Object.defineProperty(this, "width", {enumerable:true, get:getWidth});
+  this.getHeight = getHeight;
+  function getHeight() {
     return height
-  };
+  }
+  Object.defineProperty(this, "height", {enumerable:true, get:getHeight});
   this.toString = function() {
     return"[" + left.toString() + ", " + top.toString() + "] w=" + width.toString() + "; h=" + height.toString()
-  }
+  };
+  (function initialize() {
+    if(typeof left !== "number") {
+      throw"left has to be a number.";
+    }
+    if(typeof top !== "number") {
+      throw"top has to be a number.";
+    }
+    if(typeof width !== "number") {
+      throw"width has to be a number.";
+    }
+    if(typeof height !== "number") {
+      throw"height has to be a number.";
+    }
+  }).call(this)
 };
 var lu = lu || {};
 lu.TextUtil = function() {

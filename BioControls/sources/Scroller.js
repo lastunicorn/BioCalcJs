@@ -157,8 +157,10 @@ lu.bioControls.Scroller = function(configuration) {
     }
 
     function onSelectStart(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
+        if (isDragging) {
+            evt.preventDefault();
+            evt.stopPropagation();
+        }
     }
 
     // --------------------------------------------------------------------------
@@ -179,6 +181,6 @@ lu.bioControls.Scroller = function(configuration) {
         document.addEventListener('keyup', onKeyUp, false);
 
         configuration.element.addEventListener('contextmenu', onContextMenu, false);
-        configuration.element.addEventListener('selectstart', onSelectStart, false);
+        document.addEventListener('selectstart', onSelectStart, false);
     }());
 };

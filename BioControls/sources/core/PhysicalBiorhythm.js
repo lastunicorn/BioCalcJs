@@ -41,7 +41,6 @@ lu.bioControls.core.biorhythms.PhysicalBiorhythm = function() {
     };
 
     (function initialize() {
-        biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm();
-        biorhythm.setPeriodLength(23);
+        biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(23);
     }());
 };

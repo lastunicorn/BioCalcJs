@@ -20,16 +20,20 @@
 (function() {
     var ev = null;
 
-    QUnit.module("Event Tests", {
+    // --------------------------------------------------------------------------
+    // subscribe methos
+    // --------------------------------------------------------------------------
+
+    QUnit.module("Event Tests - subscribe method", {
         setup: function() {
             ev = new lu.Event();
         },
         teardown: function() {
-            delete lu.Event;
+            delete ev;
         }
     });
 
-    QUnit.test("subscribe() methos throws if subscribe a null.", function() {
+    QUnit.test("subscribe() method throws if subscribe a null.", function() {
         function toBeTested() {
             ev.subscribe(null);
         }
@@ -37,7 +41,7 @@
         QUnit.throws(toBeTested, "Tests that throws if subscribe a null.");
     });
 
-    QUnit.test("subscribe() methos throws if subscribe an undefined.", function() {
+    QUnit.test("subscribe() method throws if subscribe an undefined.", function() {
         function toBeTested() {
             ev.subscribe(undefined);
         }
@@ -45,7 +49,7 @@
         QUnit.throws(toBeTested, "Tests that throws if subscribe an undefined.");
     });
 
-    QUnit.test("subscribe() methos throws if subscribe a number.", function() {
+    QUnit.test("subscribe() method throws if subscribe a number.", function() {
         function toBeTested() {
             ev.subscribe(1);
         }
@@ -53,7 +57,7 @@
         QUnit.throws(toBeTested, "Tests that throws if subscribe a number.");
     });
 
-    QUnit.test("subscribe() methos throws if subscribe an object.", function() {
+    QUnit.test("subscribe() method throws if subscribe an object.", function() {
         function toBeTested() {
             ev.subscribe({});
         }
@@ -90,8 +94,25 @@
         QUnit.strictEqual(handler1WasCalled, 1, "Tests that first event handlers subscribed is called when event is raised.");
         QUnit.strictEqual(handler2WasCalled, 1, "Tests that second event handlers subscribed is called when event is raised.");
     });
+}());
 
-    QUnit.test("unsubscribe() methos throws if unsubscribe a null.", function() {
+// --------------------------------------------------------------------------
+// unsubscribe methos
+// --------------------------------------------------------------------------
+
+(function() {
+    var ev = null;
+
+    QUnit.module("Event Tests - unsubscribe method", {
+        setup: function() {
+            ev = new lu.Event();
+        },
+        teardown: function() {
+            delete ev;
+        }
+    });
+
+    QUnit.test("unsubscribe() method throws if unsubscribe a null.", function() {
         function toBeTested() {
             ev.unsubscribe(null);
         }
@@ -99,7 +120,7 @@
         QUnit.throws(toBeTested, "Tests that throws if unsubscribe a null.");
     });
 
-    QUnit.test("unsubscribe() methos throws if unsubscribe an undefined.", function() {
+    QUnit.test("unsubscribe() method throws if unsubscribe an undefined.", function() {
         function toBeTested() {
             ev.unsubscribe(undefined);
         }
@@ -107,7 +128,7 @@
         QUnit.throws(toBeTested, "Tests that throws if unsubscribe an undefined.");
     });
 
-    QUnit.test("unsubscribe() methos throws if unsubscribe a number.", function() {
+    QUnit.test("unsubscribe() method throws if unsubscribe a number.", function() {
         function toBeTested() {
             ev.unsubscribe(1);
         }
@@ -115,7 +136,7 @@
         QUnit.throws(toBeTested, "Tests that throws if unsubscribe a number.");
     });
 
-    QUnit.test("unsubscribe() methos throws if subscribe an object.", function() {
+    QUnit.test("unsubscribe() method throws if subscribe an object.", function() {
         function toBeTested() {
             ev.unsubscribe({});
         }
@@ -179,5 +200,34 @@
 
         QUnit.strictEqual(handler1CallCount, 0, "Tests that the first event handler is not called if it is unsubscribed.");
         QUnit.strictEqual(handler2CallCount, 1, "Tests that the second event handler is called.");
+    });
+}());
+
+// --------------------------------------------------------------------------
+// event property
+// --------------------------------------------------------------------------
+
+(function() {
+    var ev = null;
+
+    QUnit.module("Event Tests - event property", {
+        setup: function() {
+            ev = new lu.Event();
+        },
+        teardown: function() {
+            delete ev;
+        }
+    });
+
+    QUnit.test("event property returns an object that contains the subscribe method.", function() {
+        var actual = ev.event.subscribe;
+        
+        QUnit.strictEqual(actual, ev.subscribe, "Tests that event property returns an object containing the subscribe method.");
+    });
+
+    QUnit.test("event property returns an object that contains the unsubscribe method.", function() {
+        var actual = ev.event.unsubscribe;
+        
+        QUnit.strictEqual(actual, ev.unsubscribe, "Tests that event property returns an object containing the unsubscribe method.");
     });
 }());

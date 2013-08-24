@@ -29,13 +29,16 @@ lu.Event = function() {
      * @param eventHandler
      *            The function to be registered.
      */
-    this.subscribe = function(eventHandler) {
+    this.subscribe = subscribe;
+
+    function subscribe(eventHandler) {
         if (typeof (eventHandler) !== "function") {
             throw "eventHandler is not a function.";
         }
 
         eventHandlers.push(eventHandler);
-    };
+    }
+    ;
 
     /**
      * Unregisters a previously registered function.
@@ -43,7 +46,9 @@ lu.Event = function() {
      * @param eventHandler
      *            The function to be unregistered.
      */
-    this.unsubscribe = function(eventHandler) {
+    this.unsubscribe = unsubscribe;
+
+    function unsubscribe(eventHandler) {
         if (typeof (eventHandler) !== "function") {
             throw "eventHandler is not a function.";
         }
@@ -53,7 +58,8 @@ lu.Event = function() {
                 eventHandlers.splice(i, 1);
             }
         }
-    };
+    }
+    ;
 
     /**
      * It calls all the eventHandlers previously subscribed to this event.
@@ -67,4 +73,19 @@ lu.Event = function() {
             eventHandlers[i].call(sender, arg);
         }
     };
+
+    /**
+     * Gets an object containing the subscribe and unsubscribe methods. This is
+     * useful to expose to subscribers instead of exposing the whole {lu.Event}
+     * object.
+     */
+    Object.defineProperty(this, "event", {
+        value: {
+            subscribe: subscribe,
+            unsubscribe: unsubscribe
+        },
+        enumerable: true,
+        configurable: false,
+        writable: false
+    });
 };

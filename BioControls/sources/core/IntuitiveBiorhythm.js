@@ -33,7 +33,7 @@ lu.bioControls.core.biorhythms.IntuitiveBiorhythm = function() {
     };
 
     this.getPeriodLength = function() {
-        return biorhythm.getPeriodLength();
+        return biorhythm.periodLength;
     };
 
     this.getValue = function(dayIndex) {
@@ -41,7 +41,6 @@ lu.bioControls.core.biorhythms.IntuitiveBiorhythm = function() {
     };
 
     (function initialize() {
-        biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm();
-        biorhythm.setPeriodLength(38);
+        biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(38);
     }());
 };

@@ -68,7 +68,7 @@ lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
         $item.append(" = ");
         $item.append($valueElement);
 
-        if (!biorhythmShape.getIsVisible()) {
+        if (!biorhythmShape.isVisible) {
             $item.hide();
         }
 
@@ -78,14 +78,14 @@ lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
     function generateColorTag() {
         var $item = $("<span/>");
         $item.addClass("color-label");
-        $item.css("background-color", biorhythmShape.getColor());
+        $item.css("background-color", biorhythmShape.color);
 
         return $item;
     }
 
     function generateLabelTag() {
         var $div = $("<span/>");
-        $div.text(biorhythmShape.getBiorhythm().getName());
+        $div.text(biorhythmShape.biorhythm.getName());
 
         return $div;
     }
@@ -100,9 +100,9 @@ lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
     }
 
     function calculatePercentage() {
-        var biorhythm = biorhythmShape.getBiorhythm();
+        var biorhythm = biorhythmShape.biorhythm;
 
-        var milisecondsLived = currentXDay - biorhythmShape.getBirthday();
+        var milisecondsLived = currentXDay - biorhythmShape.birthday;
         var daysLived = Math.floor(milisecondsLived / 1000 / 60 / 60 / 24);
         var value = biorhythm.getValue(daysLived);
         var percentage = value * 100;
@@ -145,15 +145,15 @@ lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        currentXDay = biorhythmShape.getBirthday();
+        currentXDay = biorhythmShape.birthday;
         $element = generate();
 
         if (!(biorhythmShape instanceof lu.bioControls.common.biorhythmModel.BiorhythmShape)) {
             return;
         }
 
-        biorhythmShape.subscribeToNameChanged(onBiorhythmNameChanged);
-        biorhythmShape.subscribeToColorChanged(onBiorhythmColorChanged);
-        biorhythmShape.subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
+        biorhythmShape.nameChanged.subscribe(onBiorhythmNameChanged);
+        biorhythmShape.colorChanged.subscribe(onBiorhythmColorChanged);
+        biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged);
     }());
 };

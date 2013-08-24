@@ -28,165 +28,339 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var obj = this;
 
-    // #region Name
+    // --------------------------------------------------------------------------
+    // Name
+    // --------------------------------------------------------------------------
 
     var name = "New Biorhythm Shape";
     var nameChangedEvent = new lu.Event();
+    this.nameChanged = nameChangedEvent.event;
 
+    /**
+     * deprecated
+     */
     this.subscribeToNameChanged = nameChangedEvent.subscribe;
+
+    /**
+     * deprecated
+     */
     this.unsubscribeFromNameChanged = nameChangedEvent.unsubscribe;
 
-    this.getName = function() {
-        return name;
-    };
+    /**
+     * deprecated
+     */
+    this.getName = getName;
 
-    this.setName = function(value) {
+    function getName() {
+        return name;
+    }
+
+    /**
+     * deprecated
+     */
+    this.setName = setName;
+
+    function setName(value) {
         if (value === name) {
             return;
         }
 
         name = value;
         nameChangedEvent.raise(obj, value);
-    };
+    }
 
-    // #endregion
+    Object.defineProperty(this, "name", {
+        enumerable: true,
+        configurable: false,
+        get: getName,
+        set: setName
+    });
 
-    // #region Birthday
+    // --------------------------------------------------------------------------
+    // Birthday
+    // --------------------------------------------------------------------------
 
     var birthday = Date(80, 05, 13);
     var birthdayChangedEvent = new lu.Event();
+    this.birthdayChanged = birthdayChangedEvent.event;
 
+    /**
+     * deprecated
+     */
     this.subscribeToBirthdayChanged = birthdayChangedEvent.subscribe;
+
+    /**
+     * deprecated
+     */
     this.unsubscribeFromBirthdayChanged = birthdayChangedEvent.unsubscribe;
 
-    this.getBirthday = function() {
-        return birthday;
-    };
+    /**
+     * deprecated
+     */
+    this.getBirthday = getBirthday;
 
-    this.setBirthday = function(value) {
+    function getBirthday() {
+        return birthday;
+    }
+
+    /**
+     * deprecated
+     */
+    this.setBirthday = setBirthday;
+
+    function setBirthday(value) {
         if (value === birthday) {
             return;
         }
 
         birthday = value;
         birthdayChangedEvent.raise(obj, value);
-    };
+    }
 
-    // #endregion
+    Object.defineProperty(this, "birthday", {
+        enumerable: true,
+        configurable: false,
+        get: getBirthday,
+        set: setBirthday
+    });
 
-    // #region Biorhythm
+    // --------------------------------------------------------------------------
+    // Biorythm
+    // --------------------------------------------------------------------------
 
     var biorhythm = null;
     var biorhythmChangedEvent = new lu.Event();
+    this.biorhythmChanged = biorhythmChangedEvent.event;
 
+    /**
+     * deprecated
+     */
     this.subscribeToBiorhythmChanged = biorhythmChangedEvent.subscribe;
+
+    /**
+     * deprecated
+     */
     this.unsubscribeFromBiorhythmChanged = biorhythmChangedEvent.unsubscribe;
 
-    this.getBiorhythm = function() {
-        return biorhythm;
-    };
+    /**
+     * deprecated
+     */
+    this.getBiorhythm = getBiorhythm;
 
-    this.setBiorhythm = function(value) {
+    function getBiorhythm() {
+        return biorhythm;
+    }
+
+    /**
+     * deprecated
+     */
+    this.setBiorhythm = setBiorhythm;
+
+    function setBiorhythm(value) {
         if (value === biorhythm) {
             return;
         }
 
         biorhythm = value;
         biorhythmChangedEvent.raise(obj, value);
-    };
+    }
 
-    // #endregion
+    Object.defineProperty(this, "biorhythm", {
+        enumerable: true,
+        configurable: false,
+        get: getBiorhythm,
+        set: setBiorhythm
+    });
 
-    // #region Color
+    // --------------------------------------------------------------------------
+    // Color
+    // --------------------------------------------------------------------------
 
     var color = null;
     var colorChangedEvent = new lu.Event();
+    this.colorChanged = colorChangedEvent.event;
 
+    /**
+     * deprecated
+     */
     this.subscribeToColorChanged = colorChangedEvent.subscribe;
+
+    /**
+     * deprecated
+     */
     this.unsubscribeFromColorChanged = colorChangedEvent.unsubscribe;
 
-    this.getColor = function() {
-        return color;
-    };
+    /**
+     * deprecated
+     */
+    this.getColor = getColor;
 
-    this.setColor = function(value) {
+    function getColor() {
+        return color;
+    }
+
+    /**
+     * deprecated
+     */
+    this.setColor = setColor;
+
+    function setColor(value) {
         if (value === color) {
             return;
         }
 
         color = value;
         colorChangedEvent.raise(obj, value);
-    };
+    }
 
-    // #endregion
+    Object.defineProperty(this, "color", {
+        enumerable: true,
+        configurable: false,
+        get: getColor,
+        set: setColor
+    });
 
-    // #region IsVisible
+    // --------------------------------------------------------------------------
+    // IsVisible
+    // --------------------------------------------------------------------------
 
     var isVisible = true;
     var isVisibleChangedEvent = new lu.Event();
+    this.isVisibleChanged = isVisibleChangedEvent.event;
 
+    /**
+     * deprecated
+     */
     this.subscribeToIsVisibleChanged = isVisibleChangedEvent.subscribe;
+
+    /**
+     * deprecated
+     */
     this.unsubscribeFromIsVisibleChanged = isVisibleChangedEvent.unsubscribe;
 
-    this.getIsVisible = function() {
-        return isVisible;
-    };
+    /**
+     * deprecated
+     */
+    this.getIsVisible = getIsVisible;
 
-    this.setIsVisible = function(value) {
+    function getIsVisible() {
+        return isVisible;
+    }
+
+    /**
+     * deprecated
+     */
+    this.setIsVisible = setIsVisible;
+
+    function setIsVisible(value) {
         if (value === isVisible) {
             return;
         }
 
         isVisible = value;
         isVisibleChangedEvent.raise(obj, value);
-    };
+    }
 
-    // #endregion
+    Object.defineProperty(this, "isVisible", {
+        enumerable: true,
+        configurable: false,
+        get: getIsVisible,
+        set: setIsVisible
+    });
 
-    // #region LineWidth
+    // --------------------------------------------------------------------------
+    // LineWidth
+    // --------------------------------------------------------------------------
 
     var lineWidth = 1;
     var lineWidthChangedEvent = new lu.Event();
+    this.lineWidthChanged = lineWidthChangedEvent.event;
 
+    /**
+     * deprecated
+     */
     this.subscribeToLineWidthChanged = lineWidthChangedEvent.subscribe;
+
+    /**
+     * deprecated
+     */
     this.unsubscribeFromLineWidthChanged = lineWidthChangedEvent.unsubscribe;
 
-    this.getLineWidth = function() {
-        return lineWidth;
-    };
+    /**
+     * deprecated
+     */
+    this.getLineWidth = getLineWidth;
 
-    this.setLineWidth = function(value) {
+    function getLineWidth() {
+        return lineWidth;
+    }
+
+    /**
+     * deprecated
+     */
+    this.setLineWidth = setLineWidth;
+
+    function setLineWidth(value) {
         if (value === lineWidth) {
             return;
         }
 
         lineWidth = value;
         lineWidthChangedEvent.raise(obj, value);
-    };
+    }
 
-    // #endregion
+    Object.defineProperty(this, "lineWidth", {
+        enumerable: true,
+        configurable: false,
+        get: getLineWidth,
+        set: setLineWidth
+    });
 
-    // #region LineStyle
+    // --------------------------------------------------------------------------
+    // LineStyle
+    // --------------------------------------------------------------------------
 
     var lineStyle = lu.LineStyle.solid;
     var lineStyleChangedEvent = new lu.Event();
+    this.lineStyleChanged = lineStyleChangedEvent.event;
 
+    /**
+     * deprecated
+     */
     this.subscribeToLineStyleChanged = lineStyleChangedEvent.subscribe;
+
+    /**
+     * deprecated
+     */
     this.unsubscribeFromLineStyleChanged = lineStyleChangedEvent.unsubscribe;
 
-    this.getLineStyle = function() {
-        return lineStyle;
-    };
+    /**
+     * deprecated
+     */
+    this.getLineStyle = getLineStyle;
 
-    this.setLineStyle = function(value) {
+    function getLineStyle() {
+        return lineStyle;
+    }
+
+    /**
+     * deprecated
+     */
+    this.setLineStyle = setLineStyle;
+
+    function setLineStyle(value) {
         if (value === lineStyle) {
             return;
         }
 
         lineStyle = value;
         lineStyleChangedEvent.raise(obj, value);
-    };
+    }
 
-    // #endregion
-
+    Object.defineProperty(this, "lineStyle", {
+        enumerable: true,
+        configurable: false,
+        get: getLineStyle,
+        set: setLineStyle
+    });
 };

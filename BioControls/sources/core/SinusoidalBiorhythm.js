@@ -24,22 +24,34 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
  * 
  * @returns {lu.bioControls.core.biorhythms.SinusoidalBiorhythm}
  */
-lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function() {
+lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(periodLength) {
 
     var values = [];
-    var periodLength = 0;
 
-    this.getPeriodLength = function() {
+    /**
+     * @deprecated Use the periodLength property instead.
+     */
+    this.getPeriodLength = getPeriodLength;
+
+    function getPeriodLength() {
         return periodLength;
-    };
+    }
 
+    /**
+     * @deprecated Use the constructor to pass the periodLength.
+     */
     this.setPeriodLength = function(value) {
         periodLength = value;
         generateValues();
     };
 
-    this.getValue = function(dayIndex) {
+    Object.defineProperty(this, "periodLength", {
+        enumerable: true,
+        configurable: false,
+        get: getPeriodLength
+    });
 
+    this.getValue = function(dayIndex) {
         var index = dayIndex % periodLength;
 
         if (index < 0) {
@@ -56,4 +68,16 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function() {
             values[i] = Math.sin(i * 2 * Math.PI / periodLength);
         }
     }
+
+    (function initialize() {
+        if (typeof periodLength !== undefined) {
+            if (typeof periodLength !== "number") {
+                throw "periodLength should be a number.";
+            }
+
+            generateValues();
+        } else {
+            periodLength = 0;
+        }
+    }());
 };

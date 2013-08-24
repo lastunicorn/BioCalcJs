@@ -175,10 +175,10 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhyt
     var biorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#ff0000"); // Red
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#ff0000"; // Red
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -187,10 +187,10 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhy
     var biorhythm = new lu.bioControls.core.biorhythms.EmotionalBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#32cd32"); // LimeGreen
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#32cd32"; // LimeGreen
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -199,10 +199,10 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBio
     var biorhythm = new lu.bioControls.core.biorhythms.IntellectualBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#1e90ff"); // DodgerBlue
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#1e90ff"; // DodgerBlue
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -211,10 +211,10 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhy
     var biorhythm = new lu.bioControls.core.biorhythms.IntuitiveBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#ffa500"); // Orange
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#ffa500"; // Orange
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -227,11 +227,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhyth
     var biorhythm = new lu.bioControls.core.biorhythms.PassionBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#ff0000"); // Red
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#ff0000"; // Red
     shape.setLineStyle(lu.LineStyle.dash);
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -240,11 +240,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhyth
     var biorhythm = new lu.bioControls.core.biorhythms.MasteryBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#1e90ff"); // DodgerBlue
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#1e90ff"; // DodgerBlue
     shape.setLineStyle(lu.LineStyle.dashDot);
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -253,11 +253,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythm
     var biorhythm = new lu.bioControls.core.biorhythms.WisdomBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#32cd32"); // LimeGreen
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#32cd32"; // LimeGreen
     shape.setLineStyle(lu.LineStyle.dashDotDot);
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -270,11 +270,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorh
     var biorhythm = new lu.bioControls.core.biorhythms.PerceptionBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#ff0000"); // Red
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#ff0000"; // Red
     shape.setLineStyle(lu.LineStyle.dash);
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -283,11 +283,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhyth
     var biorhythm = new lu.bioControls.core.biorhythms.PsychicBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#32cd32"); // LimeGreen
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#32cd32"; // LimeGreen
     shape.setLineStyle(lu.LineStyle.dashDot);
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -296,11 +296,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhyth
     var biorhythm = new lu.bioControls.core.biorhythms.SuccessBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#1e90ff"); // DodgerBlue
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#1e90ff"; // DodgerBlue
     shape.setLineStyle(lu.LineStyle.dashDotDot);
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -313,10 +313,10 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhyt
     var biorhythm = new lu.bioControls.core.biorhythms.EstheticBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#ff0000"); // Red
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#ff0000"; // Red
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -325,10 +325,10 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBi
     var biorhythm = new lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#1e90ff"); // DodgerBlue
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#1e90ff"; // DodgerBlue
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };
@@ -337,10 +337,10 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhy
     var biorhythm = new lu.bioControls.core.biorhythms.SpiritualBiorhythm();
 
     var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.setName(biorhythm.getName() + " Shape");
-    shape.setBiorhythm(biorhythm);
-    shape.setColor("#ffa500"); // Orange
-    shape.setBirthday(lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday);
+    shape.name = biorhythm.getName() + " Shape";
+    shape.biorhythm = biorhythm;
+    shape.color = "#ffa500"; // Orange
+    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
 
     return shape;
 };

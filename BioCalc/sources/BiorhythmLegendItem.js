@@ -38,7 +38,7 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
         $div.append($legendColorTag);
         $div.append($legendLabelTag);
 
-        if (!biorhythmShape.getIsVisible()) {
+        if (!biorhythmShape.isVisible) {
             $div.hide();
         }
 
@@ -48,7 +48,7 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
     function generateLegendColorTag() {
         var $div = $("<div/>");
         $div.addClass("color-label");
-        $div.css("background-color", biorhythmShape.getColor());
+        $div.css("background-color", biorhythmShape.color);
 
         return $div;
     }
@@ -56,9 +56,9 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
     function generateLegendLabelTag() {
         var $div = $("<div/>");
         $div.addClass("bio-legend-label");
-        $div.text(biorhythmShape.getBiorhythm().getName());
+        $div.text(biorhythmShape.biorhythm.getName());
 
-        var biorhythmName = biorhythmShape.getBiorhythm().getName();
+        var biorhythmName = biorhythmShape.biorhythm.getName();
         var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
 
         $div.colorpicker({
@@ -66,7 +66,7 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
             altField: $legendColorTag,
             altProperties: "background-color",
             buttonColorize: true,
-            color: biorhythmShape.getColor(),
+            color: biorhythmShape.color,
             colorFormat: "#HEX",
             close: onColorPickerClosed,
             open: onColorPickerOpened,
@@ -83,11 +83,11 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
     // --------------------------------------------------------------------------
 
     function onColorPickerClosed(event, color) {
-        biorhythmShape.setColor(color.formatted);
+        biorhythmShape.color = color.formatted;
     }
 
     function onColorPickerOpened(event, color) {
-        $(this).colorpicker("setColor", biorhythmShape.getColor());
+        $(this).colorpicker("setColor", biorhythmShape.color);
     }
 
     function onBiorhythmNameChanged(arg) {
@@ -117,8 +117,8 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
             return;
         }
 
-        biorhythmShape.subscribeToNameChanged(onBiorhythmNameChanged);
-        biorhythmShape.subscribeToColorChanged(onBiorhythmColorChanged);
-        biorhythmShape.subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
+        biorhythmShape.nameChanged.subscribe(onBiorhythmNameChanged);
+        biorhythmShape.colorChanged.subscribe(onBiorhythmColorChanged);
+        biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged);
     }());
 };

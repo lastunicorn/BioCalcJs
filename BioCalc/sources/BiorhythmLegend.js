@@ -17,21 +17,21 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
+/**
+ * Creates and displays a list of items, each item providing information like
+ * color and name of one BiorhythmShape from the specified list.
+ * 
+ * @param biorhythmShapes
+ *            The list of BiorhythmShapes for which to create the legend.
+ * 
+ * @param legendContainerSelector
+ *            The jQuery selector of the element where to display the items.
+ * 
+ * @returns {lu.bioCalc.BiorhythmLegend}
+ */
 lu.bioCalc.BiorhythmLegend = function(biorhythmShapes, legendContainerSelector) {
     var $container = null;
     var biorhythmLegendItems = [];
-
-    // function onBiorhythmAdded(arg) {
-    // arg.subscribeToNameChanged(onBiorhythmNameChanged);
-    // arg.subscribeToColorChanged(onBiorhythmColorChanged);
-    // arg.subscribeToIsVisibleChanged(onBiorhythmVisibilityChanged);
-    // }
-    //
-    // function onBiorhythmRemoved(arg) {
-    // arg.unsubscribeFromNameChanged(onBiorhythmNameChanged);
-    // arg.unsubscribeFromColorChanged(onBiorhythmColorChanged);
-    // arg.unsubscribeFromIsVisibleChanged(onBiorhythmVisibilityChanged);
-    // }
 
     this.populate = function() {
         $container.empty();
@@ -53,11 +53,23 @@ lu.bioCalc.BiorhythmLegend = function(biorhythmShapes, legendContainerSelector) 
     (function initialize() {
         $container = $(legendContainerSelector);
 
-        if (typeof biorhythmShapes !== "array") {
-            // return;
+        if ($.type(biorhythmShapes) !== "array") {
+            return;
         }
-
-        // biorhythmView.subscribeToBiorhythmAdded(onBiorhythmAdded);
-        // biorhythmView.subscribeToBiorhythmRemoved(onBiorhythmRemoved);
     }());
 };
+
+// --------------------------------------------------------------------------
+// jQuery widget
+// --------------------------------------------------------------------------
+
+(function($) {
+    var biorhythmLegend = null;
+
+    $.widget("lastunicorn.biorhythmLegend", {
+        _create: function() {
+            biorhythmLegend = new lu.bioCalc.BiorhythmLegend(this.options.biorhythms, this.element);
+            biorhythmLegend.populate();
+        }
+    });
+}(jQuery));

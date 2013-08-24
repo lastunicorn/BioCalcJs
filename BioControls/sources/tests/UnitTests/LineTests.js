@@ -20,6 +20,9 @@
         setup: function() {
             lu.Point = function() {
             };
+        },
+        teardown: function() {
+            delete lu.Point;
         }
     });
 
@@ -42,85 +45,78 @@
 
         QUnit.throws(toBeTested, "Tests that the constructor throws.");
     });
+}());
 
-    // -------------------------------------------------------------------------
-    // startPoint tests
-    // -------------------------------------------------------------------------
+// -------------------------------------------------------------------------
+// startPoint tests
+// -------------------------------------------------------------------------
+
+(function() {
+
+    var line = null;
+    var startPoint = null;
+    var endPoint = null;
+
+    QUnit.module("Line Tests - left property", {
+        setup: function() {
+            lu.Point = function() {
+            };
+
+            startPoint = new lu.Point();
+            endPoint = new lu.Point();
+            line = new lu.Line(startPoint, endPoint);
+        },
+        teardown: function() {
+            delete lu.Point;
+        }
+    });
 
     QUnit.test("startPoint property returns the value received on constructor.", function() {
-        var expected = new lu.Point();
-        var line = new lu.Line(expected, new lu.Point());
-
-        var actual = line.startPoint;
-
-        QUnit.strictEqual(actual, expected, "Tests that returns the value received on constructor.");
+        QUnit.strictEqual(line.startPoint, startPoint, "Tests that returns the value received on constructor.");
     });
 
     QUnit.test("startPoint property appears in the enumeration of properties.", function() {
-        var line = new lu.Line(new lu.Point(), new lu.Point());
-
-        QUnit.enumeratesProperty(line, "startPoint", "Tests that startPoint appears in the enumeration of properties.");
+        QUnit.propertyIsEnumerable(line, "startPoint", "Tests that startPoint appears in the enumeration of properties.");
     });
 
     QUnit.test("startPoint property cannot be redefined.", function() {
-        var line = new lu.Line(new lu.Point(), new lu.Point());
+        QUnit.propertyCannotBeRedefined(line, "startPoint", "Tests that startPoint cannot be redefined.");
+    });
+}());
 
-        QUnit.canRedefineProperty(line, "startPoint", "Tests that startPoint cannot be redefined.");
+// -------------------------------------------------------------------------
+// endPoint tests
+// -------------------------------------------------------------------------
+
+(function() {
+
+    var line = null;
+    var startPoint = null;
+    var endPoint = null;
+
+    QUnit.module("Line Tests - left property", {
+        setup: function() {
+            lu.Point = function() {
+            };
+
+            startPoint = new lu.Point();
+            endPoint = new lu.Point();
+            line = new lu.Line(startPoint, endPoint);
+        },
+        teardown: function() {
+            delete lu.Point;
+        }
     });
 
-    // -------------------------------------------------------------------------
-    // endPoint tests
-    // -------------------------------------------------------------------------
-
     QUnit.test("endPoint property returns the value received on constructor.", function() {
-        var expected = new lu.Point();
-        var line = new lu.Line(new lu.Point(), expected);
-
-        var actual = line.endPoint;
-
-        QUnit.strictEqual(actual, expected, "Tests that returns the value received on constructor.");
+        QUnit.strictEqual(line.endPoint, endPoint, "Tests that returns the value received on constructor.");
     });
 
     QUnit.test("endPoint property appears in the enumeration of properties.", function() {
-        var line = new lu.Line(new lu.Point(), new lu.Point());
-
-        QUnit.enumeratesProperty(line, "endPoint", "Tests that endPoint appears in the enumeration of properties.");
+        QUnit.propertyIsEnumerable(line, "endPoint", "Tests that endPoint appears in the enumeration of properties.");
     });
 
     QUnit.test("endPoint property cannot be redefined.", function() {
-        var line = new lu.Line(new lu.Point(), new lu.Point());
-
-        QUnit.canRedefineProperty(line, "endPoint", "Tests that endPoint cannot be redefined.");
-    });
-
-    // -------------------------------------------------------------------------
-    // 
-    // -------------------------------------------------------------------------
-
-    QUnit.extend(QUnit, {
-        enumeratesProperty: function(object, propName, message) {
-            var isOk = false;
-            for ( var prop in object) {
-                if (prop === propName) {
-                    isOk = true;
-                    break;
-                }
-            }
-
-            if (isOk) {
-                ok(true, message);
-            } else {
-                ok(false, message);
-            }
-        },
-        canRedefineProperty: function(object, propName, message) {
-            function toBeTested() {
-                Object.defineProperty(object, propName, {
-                    value: 1
-                });
-            }
-
-            QUnit.throws(toBeTested, message);
-        }
+        QUnit.propertyCannotBeRedefined(line, "endPoint", "Tests that endPoint cannot be redefined.");
     });
 }());

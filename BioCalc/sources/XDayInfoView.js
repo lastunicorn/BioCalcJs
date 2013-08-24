@@ -17,6 +17,18 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
+/**
+ * Displays in a container the percentage for each biorhythm in a list for a
+ * specific day named the "X day".
+ * 
+ * @param biorhythmShapes
+ *            The list of biorhythms for which to display the percentage.
+ * 
+ * @param containerSelector
+ *            The jQuery selector of the continer in which to display the data.
+ * 
+ * @returns {lu.bioCalc.XDayInfoView}
+ */
 lu.bioCalc.XDayInfoView = function(biorhythmShapes, containerSelector) {
 
     var $container = null;
@@ -56,8 +68,27 @@ lu.bioCalc.XDayInfoView = function(biorhythmShapes, containerSelector) {
     (function initialize() {
         $container = $(containerSelector);
 
-        if (typeof biorhythmShapes !== "array") {
-            // return;
+        if ($.type(biorhythmShapes) !== "array") {
+            return;
         }
     }());
 };
+
+// --------------------------------------------------------------------------
+// jQuery widget
+// --------------------------------------------------------------------------
+
+(function($) {
+    var xDayInfoView = null;
+
+    $.widget("lastunicorn.xDayInfoView", {
+        _create: function() {
+            xDayInfoView = new lu.bioCalc.XDayInfoView(this.options.biorhythms, this.element);
+            xDayInfoView.populate();
+        },
+
+        update: function(xDay) {
+            xDayInfoView.update(xDay);
+        }
+    });
+}(jQuery));

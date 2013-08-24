@@ -16,24 +16,87 @@
 
 var lu = lu || {};
 
-lu.Rectangle = function (left, top, width, height) {
-    this.getLeft = function () {
+lu.Rectangle = function(left, top, width, height) {
+
+    /**
+     * @deprecated
+     */
+    this.getLeft = getLeft;
+
+    function getLeft() {
         return left;
-    };
-    
-    this.getTop = function () {
+    }
+
+    Object.defineProperty(this, "left", {
+        enumerable: true,
+        get: getLeft
+    });
+
+    /**
+     * @deprecated
+     */
+    this.getTop = getTop;
+
+    function getTop() {
         return top;
-    };
-    
-    this.getWidth = function () {
+    }
+
+    Object.defineProperty(this, "top", {
+        enumerable: true,
+        get: getTop
+    });
+
+    /**
+     * @deprecated
+     */
+    this.getWidth = getWidth;
+
+    function getWidth() {
         return width;
-    };
-    
-    this.getHeight = function () {
+    }
+
+    Object.defineProperty(this, "width", {
+        enumerable: true,
+        get: getWidth
+    });
+
+    /**
+     * @deprecated
+     */
+    this.getHeight = getHeight;
+
+    function getHeight() {
         return height;
+    }
+
+    Object.defineProperty(this, "height", {
+        enumerable: true,
+        get: getHeight
+    });
+
+    this.toString = function() {
+        return "[" + left.toString() + ", " + top.toString() + "] w=" + width.toString() + "; h=" + height.toString();
     };
-	
-	this.toString = function() {
-		return "[" + left.toString() + ", " + top.toString() + "] w=" + width.toString() + "; h=" + height.toString();
-	};
+
+    // --------------------------------------------------------------------------
+    // Initialization
+    // --------------------------------------------------------------------------
+
+    (function initialize() {
+        if (typeof left !== "number") {
+            throw "left has to be a number.";
+        }
+
+        if (typeof top !== "number") {
+            throw "top has to be a number.";
+        }
+
+        if (typeof width !== "number") {
+            throw "width has to be a number.";
+        }
+
+        if (typeof height !== "number") {
+            throw "height has to be a number.";
+        }
+    }).call(this);
 };

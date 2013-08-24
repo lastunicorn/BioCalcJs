@@ -17,6 +17,15 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
+/**
+ * Represents an item in the XDayInfoView. It contains the value of one
+ * biorhythm for a specific day named X day.
+ * 
+ * @param biorhythmShape
+ *            The BiorhythmShape for which to display the X day information.
+ * 
+ * @returns {lu.bioCalc.XDayInfoItem}
+ */
 lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
 
     var $element = null;

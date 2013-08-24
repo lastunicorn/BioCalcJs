@@ -138,16 +138,4 @@
             eventWasRaised = true;
         });
     }
-
-    QUnit.extend(QUnit, {
-        inArray: function(actual, expectedValues, message) {
-            ok(expectedValues.indexOf(actual) !== -1, message);
-        },
-        arraysAreEquivalent: function(actual, expected, message) {
-            QUnit.strictEqual(actual.length, expected.length, "Tests that the lengths of the arrays are equal.");
-            for ( var i = 0; i < actual.length; i++) {
-                QUnit.inArray(actual[i], expected, "Tests that the element " + i + " from the actual array exists in the expected array.");
-            }
-        }
-    });
 }());

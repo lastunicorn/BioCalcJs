@@ -17,7 +17,7 @@
 var lu = lu || {};
 
 /**
- * A segment of a line determined by two points.
+ * A segment of a geometric line determined by two points.
  * 
  * @param startPoint
  *            The point of start of the line's segment.
@@ -30,10 +30,10 @@ var lu = lu || {};
 lu.Line = function(startPoint, endPoint) {
 
     /**
-     * Returns the starting point of the line segment.
-     * 
-     * @returns The starting point of the line segment.
+     * @deprecated
      */
+    this.getStartPoint = getStartPoint;
+
     function getStartPoint() {
         return startPoint;
     }
@@ -41,21 +41,11 @@ lu.Line = function(startPoint, endPoint) {
     /**
      * @deprecated
      */
-    this.getStartPoint = getStartPoint;
+    this.getEndPoint = getEndPoint;
 
-    /**
-     * Returns the ending point of the line segment.
-     * 
-     * @returns The ending point of the line segment.
-     */
     function getEndPoint() {
         return endPoint;
     }
-
-    /**
-     * @deprecated
-     */
-    this.getEndPoint = getEndPoint;
 
     Object.defineProperty(this, "startPoint", {
         enumerable: true,
@@ -67,18 +57,14 @@ lu.Line = function(startPoint, endPoint) {
         get: getEndPoint
     });
 
-    /**
-     * Returns a string representation of the current object.
-     * 
-     * @returns A string representation of the current object.
-     */
     this.toString = function() {
         return startPoint.toString() + " - " + endPoint.toString();
     };
 
-    /**
-     * Performs the needed initialization of a new Point object.
-     */
+    // --------------------------------------------------------------------------
+    // Initialization
+    // --------------------------------------------------------------------------
+
     (function initialize() {
         if (!(startPoint instanceof lu.Point)) {
             throw "startPoint is undefined.";

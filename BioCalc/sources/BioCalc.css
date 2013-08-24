@@ -91,6 +91,10 @@ a[target="_blank"] {
 	margin: 0 auto;
 }
 
+#pageContainer h2 {
+	margin-top: 30px; 
+}
+
 /* Biorhythm View
 ----------------------------------------------------------------------------- */
 
@@ -150,12 +154,12 @@ header h1 {
 	margin: 16px 0;
 }
 
-#toolbar {
+#mainToolbar {
 	float: right;
 	margin: 16px 3px 16px 0;
 }
 
-#toolbar .ui-button {
+#mainToolbar .ui-button {
 	font-size: 12px;
 }
 
@@ -203,10 +207,6 @@ header h1 {
 
 /* X Day Info
 ----------------------------------------------------------------------------- */
-
-#pageContainer h2 {
-	margin-top: 30px; 
-}
 
 #xDayInfoContainer {
 	border: 1px dashed #d0d0d0;

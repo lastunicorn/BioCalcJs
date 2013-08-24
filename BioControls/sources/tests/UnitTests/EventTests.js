@@ -23,6 +23,9 @@
     QUnit.module("Event Tests", {
         setup: function() {
             ev = new lu.Event();
+        },
+        teardown: function() {
+            delete lu.Event;
         }
     });
 

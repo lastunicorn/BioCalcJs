@@ -16,16 +16,63 @@
 
 var lu = lu || {};
 
-lu.Point = function (x, y) {
-	this.getX = function getX() {
-		return x;
-	};
-	
-	this.getY = function getY() {
-		return y;
-	};
-	
-	this.toString = function() {
-		return "[" + x + "; " + y + "]";
-	};
+/**
+ * Represents a point determined by two values in the cartesian reference
+ * system.
+ * 
+ * @param x
+ *            The x coordinate of the point.
+ *            
+ * @param y
+ *            The y coordinate of the point.
+ *            
+ * @returns {lu.Point}
+ */
+lu.Point = function(x, y) {
+
+    /**
+     * @deprecated
+     */
+    this.getX = getX;
+
+    function getX() {
+        return x;
+    }
+
+    /**
+     * @deprecated
+     */
+    this.getY = getY;
+
+    function getY() {
+        return y;
+    }
+
+    Object.defineProperty(this, "x", {
+        enumerable: true,
+        get: getX
+    });
+
+    Object.defineProperty(this, "y", {
+        enumerable: true,
+        get: getY
+    });
+
+    this.toString = function() {
+        return "[" + x + "; " + y + "]";
+    };
+
+    // --------------------------------------------------------------------------
+    // Initialization
+    // --------------------------------------------------------------------------
+
+    (function initialize() {
+        if (typeof x !== "number") {
+            throw "x has to be a number.";
+        }
+
+        if (typeof y !== "number") {
+            throw "y has to be a number.";
+        }
+    }).call(this);
 };

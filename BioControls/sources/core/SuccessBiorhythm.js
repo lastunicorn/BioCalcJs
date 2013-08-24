@@ -28,9 +28,19 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SuccessBiorhythm = function() {
     var biorhythm = null;
 
+    /**
+     * @deprecated
+     */
     this.getName = function() {
         return "Success";
     };
+    
+    Object.defineProperty(this, "name",{
+        value: "Success",
+        writable: false,
+        enumerable: true,
+        configurable: false
+    });
 
     this.getValue = function(dayIndex) {
         return biorhythm.getValue(dayIndex);

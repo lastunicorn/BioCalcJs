@@ -56,9 +56,9 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
     function generateLegendLabelTag() {
         var $div = $("<div/>");
         $div.addClass("bio-legend-label");
-        $div.text(biorhythmShape.biorhythm.getName());
+        $div.text(biorhythmShape.biorhythm.name);
 
-        var biorhythmName = biorhythmShape.biorhythm.getName();
+        var biorhythmName = biorhythmShape.biorhythm.name;
         var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
 
         $div.colorpicker({

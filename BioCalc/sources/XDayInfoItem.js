@@ -85,7 +85,7 @@ lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
 
     function generateLabelTag() {
         var $div = $("<span/>");
-        $div.text(biorhythmShape.biorhythm.getName());
+        $div.text(biorhythmShape.biorhythm.name);
 
         return $div;
     }

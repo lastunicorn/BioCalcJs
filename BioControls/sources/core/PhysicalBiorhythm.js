@@ -28,12 +28,22 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PhysicalBiorhythm = function() {
     var biorhythm = null;
 
+    /**
+     * @deprecated
+     */
     this.getName = function() {
         return "Physical";
     };
+    
+    Object.defineProperty(this, "name",{
+        value: "Physical",
+        writable: false,
+        enumerable: true,
+        configurable: false
+    });
 
     this.getPeriodLength = function() {
-        return biorhythm.getPeriodLength();
+        return biorhythm.period;
     };
 
     this.getValue = function(dayIndex) {

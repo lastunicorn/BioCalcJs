@@ -28,12 +28,22 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function() {
     var biorhythm = null;
 
+    /**
+     * @deprecated
+     */
     this.getName = function() {
         return "Self Awareness";
     };
+    
+    Object.defineProperty(this, "name",{
+        value: "Self Awareness",
+        writable: false,
+        enumerable: true,
+        configurable: false
+    });
 
     this.getPeriodLength = function() {
-        return biorhythm.periodLength;
+        return biorhythm.period;
     };
 
     this.getValue = function(dayIndex) {

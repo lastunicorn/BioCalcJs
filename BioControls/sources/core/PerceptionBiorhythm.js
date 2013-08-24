@@ -28,9 +28,19 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PerceptionBiorhythm = function() {
     var biorhythm = null;
 
+    /**
+     * @deprecated
+     */
     this.getName = function() {
         return "Perception";
     };
+    
+    Object.defineProperty(this, "name",{
+        value: "Perception",
+        writable: false,
+        enumerable: true,
+        configurable: false
+    });
 
     this.getValue = function(dayIndex) {
         return biorhythm.getValue(dayIndex);

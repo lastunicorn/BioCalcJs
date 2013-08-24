@@ -28,9 +28,19 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PsychicBiorhythm = function() {
     var biorhythm = null;
 
+    /**
+     * @deprecated
+     */
     this.getName = function() {
         return "Psychic";
     };
+    
+    Object.defineProperty(this, "name",{
+        value: "Psychic",
+        writable: false,
+        enumerable: true,
+        configurable: false
+    });
 
     this.getValue = function(dayIndex) {
         return biorhythm.getValue(dayIndex);

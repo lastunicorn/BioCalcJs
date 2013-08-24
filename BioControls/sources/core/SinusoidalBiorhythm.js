@@ -24,38 +24,38 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
  * 
  * @returns {lu.bioControls.core.biorhythms.SinusoidalBiorhythm}
  */
-lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(periodLength) {
+lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
 
     var values = [];
 
     /**
-     * @deprecated Use the periodLength property instead.
+     * @deprecated Use the period property instead.
      */
-    this.getPeriodLength = getPeriodLength;
+    this.getPeriodLength = getPeriod;
 
-    function getPeriodLength() {
-        return periodLength;
+    function getPeriod() {
+        return period;
     }
 
     /**
      * @deprecated Use the constructor to pass the periodLength.
      */
     this.setPeriodLength = function(value) {
-        periodLength = value;
+        period = value;
         generateValues();
     };
 
-    Object.defineProperty(this, "periodLength", {
+    Object.defineProperty(this, "period", {
         enumerable: true,
         configurable: false,
-        get: getPeriodLength
+        get: getPeriod
     });
 
     this.getValue = function(dayIndex) {
-        var index = dayIndex % periodLength;
+        var index = dayIndex % period;
 
         if (index < 0) {
-            index += periodLength;
+            index += period;
         }
 
         return values[index];
@@ -64,20 +64,20 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(periodLength) {
     function generateValues() {
         values = [];
 
-        for ( var i = 0; i < periodLength; i++) {
-            values[i] = Math.sin(i * 2 * Math.PI / periodLength);
+        for ( var i = 0; i < period; i++) {
+            values[i] = Math.sin(i * 2 * Math.PI / period);
         }
     }
 
     (function initialize() {
-        if (typeof periodLength !== undefined) {
-            if (typeof periodLength !== "number") {
-                throw "periodLength should be a number.";
+        if (typeof period !== undefined) {
+            if (typeof period !== "number") {
+                throw "period should be a number.";
             }
 
             generateValues();
         } else {
-            periodLength = 0;
+            period = 0;
         }
     }());
 };

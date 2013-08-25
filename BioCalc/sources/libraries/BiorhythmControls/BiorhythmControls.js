@@ -96,26 +96,32 @@ lu.bioControls.BiorhythmView = function(id) {
   var isGridVisible = true;
   var isGridVisibleChangedEvent = new lu.Event;
   this.isGridVisibleChanged = isGridVisibleChangedEvent.event;
-  this.setGridVisibility = function(value) {
+  this.setGridVisibility = setGridVisibility;
+  function setGridVisibility(value) {
     isGridVisible = Boolean(value);
     isGridVisibleChangedEvent.raise(obj, value);
     paint()
-  };
-  this.getGridVisibility = function() {
+  }
+  this.getGridVisibility = getGridVisibility;
+  function getGridVisibility() {
     return isGridVisible
-  };
+  }
+  Object.defineProperty(this, "isGridVisible", {enumerable:true, configurable:false, get:getGridVisibility, set:setGridVisibility});
   this.subscribeToGridVisibilityChanged = isGridVisibleChangedEvent.subscribe;
   var totalDays = 30;
   var totalDaysChangedEvent = new lu.Event;
   this.totalDaysChanged = totalDaysChangedEvent.event;
-  this.setTotalDays = function(value) {
+  this.setTotalDays = setTotalDays;
+  function setTotalDays(value) {
     totalDays = value;
     totalDaysChangedEvent.raise(obj, value);
     paint()
-  };
-  this.getTotalDays = function() {
+  }
+  this.getTotalDays = getTotalDays;
+  function getTotalDays() {
     return totalDays
-  };
+  }
+  Object.defineProperty(this, "totalDays", {enumerable:true, configurable:false, get:getTotalDays, set:setTotalDays});
   this.subscribeToTotalDaysChanged = totalDaysChangedEvent.subscribe;
   var xDayIndex = 7;
   var xDayIndexChangedEvent = new lu.Event;
@@ -133,42 +139,52 @@ lu.bioControls.BiorhythmView = function(id) {
   function getXDayIndex() {
     return xDayIndex
   }
+  Object.defineProperty(this, "xDayIndex", {enumerable:true, configurable:false, get:getXDayIndex, set:setXDayIndex});
   this.subscribeToXDayIndexChanged = xDayIndexChangedEvent.subscribe;
   var gridColor = "#d3d3d3";
   var gridColorChangedEvent = new lu.Event;
   this.gridColorChanged = gridColorChangedEvent.event;
-  this.setGridColor = function(value) {
+  this.setGridColor = setGridColor;
+  function setGridColor(value) {
     gridColor = value;
     gridColorChangedEvent.raise(obj, value);
     paint()
-  };
-  this.getGridColor = function() {
+  }
+  this.getGridColor = getGridColor;
+  function getGridColor() {
     return xDayIndex
-  };
+  }
+  Object.defineProperty(this, "gridColor", {enumerable:true, configurable:false, get:getGridColor, set:setGridColor});
   this.subscribeToGridColorChanged = gridColorChangedEvent.subscribe;
   var areDayNumbersVisible = true;
   var areDayNumbersVisibleChangedEvent = new lu.Event;
   this.areDayNumbersVisibleChanged = areDayNumbersVisibleChangedEvent.event;
-  this.setDayNumbersVisibility = function(value) {
+  this.setDayNumbersVisibility = setDayNumbersVisibility;
+  function setDayNumbersVisibility(value) {
     areDayNumbersVisible = value;
     areDayNumbersVisibleChangedEvent.raise(obj, value);
     paint()
-  };
-  this.getDayNumbersVisibility = function() {
+  }
+  this.getDayNumbersVisibility = getDayNumbersVisibility;
+  function getDayNumbersVisibility() {
     return areDayNumbersVisible
-  };
+  }
+  Object.defineProperty(this, "areDayNumbersVisible", {enumerable:true, configurable:false, get:getDayNumbersVisibility, set:setDayNumbersVisibility});
   this.subscribeToDayNumbersVisibilityChanged = areDayNumbersVisibleChangedEvent.subscribe;
   var areWeekDaysVisible = true;
   var areWeekDaysVisibleChangedEvent = new lu.Event;
   this.areWeekDaysVisibleChanged = areWeekDaysVisibleChangedEvent.event;
-  this.setWeekDaysVisibility = function(value) {
+  this.setWeekDaysVisibility = setWeekDaysVisibility;
+  function setWeekDaysVisibility(value) {
     areWeekDaysVisible = value;
     areWeekDaysVisibleChangedEvent.raise(obj, value);
     paint()
-  };
-  this.getWeekDaysVisibility = function() {
+  }
+  this.getWeekDaysVisibility = getWeekDaysVisibility;
+  function getWeekDaysVisibility() {
     return areWeekDaysVisible
-  };
+  }
+  Object.defineProperty(this, "areWeekDaysVisible", {enumerable:true, configurable:false, get:getWeekDaysVisibility, set:setWeekDaysVisibility});
   this.subscribeToWeekDaysVisibilityChanged = areWeekDaysVisibleChangedEvent.subscribe;
   var dayNumbersPosition = lu.DayLabelPosition.top;
   var dayNumbersPositionChangedEvent = new lu.Event;
@@ -351,12 +367,15 @@ var lu = lu || {};
 lu.DateUtil = {daysToMiliseconds:function(days) {
   return days * 24 * 60 * 60 * 1E3
 }, addDays:function(date, daysToAdd) {
-  var miliseconds = this.daysToMiliseconds(daysToAdd);
+  var miliseconds = daysToAdd * 24 * 60 * 60 * 1E3;
   if(date instanceof Date) {
     date = date.getTime()
   }
   if(typeof date !== "number") {
     throw"date argument is not a real date.";
+  }
+  if(typeof daysToAdd !== "number") {
+    throw"daysToAdd should be a number.";
   }
   return new Date(date + miliseconds)
 }};

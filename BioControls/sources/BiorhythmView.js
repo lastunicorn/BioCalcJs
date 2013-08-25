@@ -199,16 +199,33 @@ lu.bioControls.BiorhythmView = function(id) {
     var isGridVisibleChangedEvent = new lu.Event();
     this.isGridVisibleChanged = isGridVisibleChangedEvent.event;
 
-    this.setGridVisibility = function(value) {
+    this.setGridVisibility = setGridVisibility;
+
+    /**
+     * @deprecated Use the isGridVisible property instead.
+     */
+    function setGridVisibility(value) {
         isGridVisible = Boolean(value);
 
         isGridVisibleChangedEvent.raise(obj, value);
         paint();
-    };
+    }
 
-    this.getGridVisibility = function() {
+    this.getGridVisibility = getGridVisibility;
+
+    /**
+     * @deprecated Use the isGridVisible property instead.
+     */
+    function getGridVisibility() {
         return isGridVisible;
-    };
+    }
+
+    Object.defineProperty(this, "isGridVisible", {
+        enumerable: true,
+        configurable: false,
+        get: getGridVisibility,
+        set: setGridVisibility
+    });
 
     /**
      * deprecated
@@ -223,16 +240,33 @@ lu.bioControls.BiorhythmView = function(id) {
     var totalDaysChangedEvent = new lu.Event();
     this.totalDaysChanged = totalDaysChangedEvent.event;
 
-    this.setTotalDays = function(value) {
+    this.setTotalDays = setTotalDays;
+
+    /**
+     * @deprecated Use the totalDays property instead.
+     */
+    function setTotalDays(value) {
         totalDays = value;
 
         totalDaysChangedEvent.raise(obj, value);
         paint();
-    };
+    }
 
-    this.getTotalDays = function() {
+    this.getTotalDays = getTotalDays;
+
+    /**
+     * @deprecated Use the totalDays property instead.
+     */
+    function getTotalDays() {
         return totalDays;
-    };
+    }
+
+    Object.defineProperty(this, "totalDays", {
+        enumerable: true,
+        configurable: false,
+        get: getTotalDays,
+        set: setTotalDays
+    });
 
     /**
      * deprecated
@@ -248,6 +282,10 @@ lu.bioControls.BiorhythmView = function(id) {
     this.xDayIndexChanged = xDayIndexChangedEvent.event;
 
     this.setXDayIndex = setXDayIndex;
+
+    /**
+     * @deprecated Use the xDayIndex property instead.
+     */
     function setXDayIndex(value) {
         if (xDayIndex === value || value < 0 || value >= totalDays)
             return;
@@ -259,9 +297,20 @@ lu.bioControls.BiorhythmView = function(id) {
     }
 
     this.getXDayIndex = getXDayIndex;
+
+    /**
+     * @deprecated Use the xDayIndex property instead.
+     */
     function getXDayIndex() {
         return xDayIndex;
     }
+
+    Object.defineProperty(this, "xDayIndex", {
+        enumerable: true,
+        configurable: false,
+        get: getXDayIndex,
+        set: setXDayIndex
+    });
 
     /**
      * deprecated
@@ -276,16 +325,33 @@ lu.bioControls.BiorhythmView = function(id) {
     var gridColorChangedEvent = new lu.Event();
     this.gridColorChanged = gridColorChangedEvent.event;
 
-    this.setGridColor = function(value) {
+    this.setGridColor = setGridColor;
+
+    /**
+     * @deprecated Use the gridColor property instead.
+     */
+    function setGridColor(value) {
         gridColor = value;
 
         gridColorChangedEvent.raise(obj, value);
         paint();
-    };
+    }
 
-    this.getGridColor = function() {
+    this.getGridColor = getGridColor;
+
+    /**
+     * @deprecated Use the gridColor property instead.
+     */
+    function getGridColor() {
         return xDayIndex;
-    };
+    }
+
+    Object.defineProperty(this, "gridColor", {
+        enumerable: true,
+        configurable: false,
+        get: getGridColor,
+        set: setGridColor
+    });
 
     /**
      * deprecated
@@ -300,16 +366,33 @@ lu.bioControls.BiorhythmView = function(id) {
     var areDayNumbersVisibleChangedEvent = new lu.Event();
     this.areDayNumbersVisibleChanged = areDayNumbersVisibleChangedEvent.event;
 
-    this.setDayNumbersVisibility = function(value) {
+    this.setDayNumbersVisibility = setDayNumbersVisibility;
+
+    /**
+     * @deprecated Use the areDayNumbersVisible property instead.
+     */
+    function setDayNumbersVisibility(value) {
         areDayNumbersVisible = value;
 
         areDayNumbersVisibleChangedEvent.raise(obj, value);
         paint();
-    };
+    }
 
-    this.getDayNumbersVisibility = function() {
+    this.getDayNumbersVisibility = getDayNumbersVisibility;
+
+    /**
+     * @deprecated Use the areDayNumbersVisible property instead.
+     */
+    function getDayNumbersVisibility() {
         return areDayNumbersVisible;
-    };
+    }
+
+    Object.defineProperty(this, "areDayNumbersVisible", {
+        enumerable: true,
+        configurable: false,
+        get: getDayNumbersVisibility,
+        set: setDayNumbersVisibility
+    });
 
     /**
      * deprecated
@@ -324,16 +407,33 @@ lu.bioControls.BiorhythmView = function(id) {
     var areWeekDaysVisibleChangedEvent = new lu.Event();
     this.areWeekDaysVisibleChanged = areWeekDaysVisibleChangedEvent.event;
 
-    this.setWeekDaysVisibility = function(value) {
+    this.setWeekDaysVisibility = setWeekDaysVisibility;
+
+    /**
+     * @deprecated Use the areWeekDaysVisible property instead.
+     */
+    function setWeekDaysVisibility(value) {
         areWeekDaysVisible = value;
 
         areWeekDaysVisibleChangedEvent.raise(obj, value);
         paint();
-    };
+    }
 
-    this.getWeekDaysVisibility = function() {
+    this.getWeekDaysVisibility = getWeekDaysVisibility;
+
+    /**
+     * @deprecated Use the areWeekDaysVisible property instead.
+     */
+    function getWeekDaysVisibility() {
         return areWeekDaysVisible;
-    };
+    }
+
+    Object.defineProperty(this, "areWeekDaysVisible", {
+        enumerable: true,
+        configurable: false,
+        get: getWeekDaysVisibility,
+        set: setWeekDaysVisibility
+    });
 
     /**
      * deprecated

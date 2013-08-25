@@ -50,7 +50,7 @@
     // -------------------------------------------------------------------------
 
     QUnit.test("addBiorhythm raises the BiorhythmAdded event.", function() {
-        prepareEventForTesting(biorhythmView.subscribeToBiorhythmAdded);
+        prepareEventForTesting(biorhythmView.biorhythmAdded);
         var biorhythmShape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
 
         biorhythmView.addBiorhythm(biorhythmShape);
@@ -94,7 +94,7 @@
     });
 
     QUnit.test("removeBiorhythm raises the BiorhythmRemoved event.", function() {
-        prepareEventForTesting(biorhythmView.subscribeToBiorhythmRemoved);
+        prepareEventForTesting(biorhythmView.biorhythmRemoved);
         var biorhythmShape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
         biorhythmView.addBiorhythm(biorhythmShape);
 
@@ -108,9 +108,9 @@
     // -------------------------------------------------------------------------
 
     QUnit.test("setFirstDay raises the FirstDayChanged event.", function() {
-        prepareEventForTesting(biorhythmView.subscribeToFirstDayChanged);
+        prepareEventForTesting(biorhythmView.firstDayChanged);
 
-        biorhythmView.setFirstDay(new Date());
+        biorhythmView.firstDay = new Date();
 
         QUnit.strictEqual(eventWasRaised, true, "Tests that the FirstDayChanged event was raised.");
     });
@@ -119,10 +119,10 @@
     // IsGridVisible Tests
     // -------------------------------------------------------------------------
 
-    QUnit.test("setGridVisibility raises the GridVisibilityChanged event.", function() {
-        prepareEventForTesting(biorhythmView.subscribeToGridVisibilityChanged);
+    QUnit.test("setGridVisibility raises the isGridVisibleChanged event.", function() {
+        prepareEventForTesting(biorhythmView.isGridVisibleChanged);
 
-        biorhythmView.setGridVisibility(true);
+        biorhythmView.isGridVisible = true;
 
         QUnit.strictEqual(eventWasRaised, true, "Tests that the GridVisibilityChanged event was raised.");
     });
@@ -131,10 +131,10 @@
     // 
     // -------------------------------------------------------------------------
 
-    function prepareEventForTesting(eventSubscriptionFunction) {
+    function prepareEventForTesting(event) {
         eventWasRaised = false;
 
-        eventSubscriptionFunction(function() {
+        event.subscribe(function() {
             eventWasRaised = true;
         });
     }

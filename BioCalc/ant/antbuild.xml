@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<project default="main" basedir=".">
+
+	<echo message="Copying compiled files from BioControls." />
+	<target name="main">
+		<copy todir="sources/libraries/BiorhythmControls">
+			<fileset dir="../BioControls/compiled">
+				<include name="*.js" />
+			</fileset>
+		</copy>
+	</target>
+
+</project>

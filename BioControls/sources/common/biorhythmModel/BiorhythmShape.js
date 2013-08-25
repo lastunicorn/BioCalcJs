@@ -46,20 +46,20 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
      */
     this.unsubscribeFromNameChanged = nameChangedEvent.unsubscribe;
 
-    /**
-     * deprecated
-     */
     this.getName = getName;
 
+    /**
+     * @deprecated Use the name property instead.
+     */
     function getName() {
         return name;
     }
 
-    /**
-     * deprecated
-     */
     this.setName = setName;
 
+    /**
+     * @deprecated Use the name property instead.
+     */
     function setName(value) {
         if (value === name) {
             return;
@@ -94,20 +94,20 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
      */
     this.unsubscribeFromBirthdayChanged = birthdayChangedEvent.unsubscribe;
 
-    /**
-     * deprecated
-     */
     this.getBirthday = getBirthday;
 
+    /**
+     * @deprecated Use the birthday property instead.
+     */
     function getBirthday() {
         return birthday;
     }
 
-    /**
-     * deprecated
-     */
     this.setBirthday = setBirthday;
 
+    /**
+     * @deprecated Use the birthday property instead.
+     */
     function setBirthday(value) {
         if (value === birthday) {
             return;
@@ -142,20 +142,20 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
      */
     this.unsubscribeFromBiorhythmChanged = biorhythmChangedEvent.unsubscribe;
 
-    /**
-     * deprecated
-     */
     this.getBiorhythm = getBiorhythm;
 
+    /**
+     * @deprecated Use the biorhythm property instead.
+     */
     function getBiorhythm() {
         return biorhythm;
     }
 
-    /**
-     * deprecated
-     */
     this.setBiorhythm = setBiorhythm;
 
+    /**
+     * @deprecated Use the biorhythm property instead.
+     */
     function setBiorhythm(value) {
         if (value === biorhythm) {
             return;
@@ -190,20 +190,20 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
      */
     this.unsubscribeFromColorChanged = colorChangedEvent.unsubscribe;
 
-    /**
-     * deprecated
-     */
     this.getColor = getColor;
 
+    /**
+     * @deprecated Use the color property instead.
+     */
     function getColor() {
         return color;
     }
 
-    /**
-     * deprecated
-     */
     this.setColor = setColor;
 
+    /**
+     * @deprecated Use the color property instead.
+     */
     function setColor(value) {
         if (value === color) {
             return;
@@ -238,20 +238,20 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
      */
     this.unsubscribeFromIsVisibleChanged = isVisibleChangedEvent.unsubscribe;
 
-    /**
-     * deprecated
-     */
     this.getIsVisible = getIsVisible;
 
+    /**
+     * @deprecated Use the isVisible property instead.
+     */
     function getIsVisible() {
         return isVisible;
     }
 
-    /**
-     * deprecated
-     */
     this.setIsVisible = setIsVisible;
 
+    /**
+     * @deprecated Use the isVisible property instead.
+     */
     function setIsVisible(value) {
         if (value === isVisible) {
             return;
@@ -286,20 +286,20 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
      */
     this.unsubscribeFromLineWidthChanged = lineWidthChangedEvent.unsubscribe;
 
-    /**
-     * deprecated
-     */
     this.getLineWidth = getLineWidth;
 
+    /**
+     * @deprecated Use the lineWidth property instead.
+     */
     function getLineWidth() {
         return lineWidth;
     }
 
-    /**
-     * deprecated
-     */
     this.setLineWidth = setLineWidth;
 
+    /**
+     * @deprecated Use the lineWidth property instead.
+     */
     function setLineWidth(value) {
         if (value === lineWidth) {
             return;
@@ -334,20 +334,20 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
      */
     this.unsubscribeFromLineStyleChanged = lineStyleChangedEvent.unsubscribe;
 
-    /**
-     * deprecated
-     */
     this.getLineStyle = getLineStyle;
 
+    /**
+     * @deprecated Use the lineStyle property instead.
+     */
     function getLineStyle() {
         return lineStyle;
     }
 
-    /**
-     * deprecated
-     */
     this.setLineStyle = setLineStyle;
 
+    /**
+     * @deprecated Use the lineStyle property instead.
+     */
     function setLineStyle(value) {
         if (value === lineStyle) {
             return;

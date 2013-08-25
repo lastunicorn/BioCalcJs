@@ -22,7 +22,7 @@
     var biorhythmView = null;
     var eventWasRaised = false;
 
-    QUnit.module("BiorhythmView Tests", {
+    QUnit.module("BiorhythmView Tests - Biorhythms", {
         setup: function() {
 
             lu.bioControls = lu.bioControls || {};
@@ -50,7 +50,7 @@
     // -------------------------------------------------------------------------
 
     QUnit.test("addBiorhythm raises the BiorhythmAdded event.", function() {
-        prepareEventForTesting(biorhythmView.biorhythmAdded);
+        watchForEvent(biorhythmView.biorhythmAdded);
         var biorhythmShape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
 
         biorhythmView.addBiorhythm(biorhythmShape);
@@ -94,7 +94,7 @@
     });
 
     QUnit.test("removeBiorhythm raises the BiorhythmRemoved event.", function() {
-        prepareEventForTesting(biorhythmView.biorhythmRemoved);
+        watchForEvent(biorhythmView.biorhythmRemoved);
         var biorhythmShape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
         biorhythmView.addBiorhythm(biorhythmShape);
 
@@ -108,7 +108,7 @@
     // -------------------------------------------------------------------------
 
     QUnit.test("setFirstDay raises the FirstDayChanged event.", function() {
-        prepareEventForTesting(biorhythmView.firstDayChanged);
+        watchForEvent(biorhythmView.firstDayChanged);
 
         biorhythmView.firstDay = new Date();
 
@@ -120,7 +120,7 @@
     // -------------------------------------------------------------------------
 
     QUnit.test("setGridVisibility raises the isGridVisibleChanged event.", function() {
-        prepareEventForTesting(biorhythmView.isGridVisibleChanged);
+        watchForEvent(biorhythmView.isGridVisibleChanged);
 
         biorhythmView.isGridVisible = true;
 
@@ -131,7 +131,7 @@
     // 
     // -------------------------------------------------------------------------
 
-    function prepareEventForTesting(event) {
+    function watchForEvent(event) {
         eventWasRaised = false;
 
         event.subscribe(function() {

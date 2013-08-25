@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<project default="main" basedir=".">
+
+	<echo message="calling the web services generation ant task: axis_bujava" />
+	<target name="main">
+		<exec executable="${basedir}/compile.sh" />
+	</target>
+
+</project>

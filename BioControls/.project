@@ -16,7 +16,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/Closure Compiler.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/BioControls Builder.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>

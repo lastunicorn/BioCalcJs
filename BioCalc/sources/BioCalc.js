@@ -79,7 +79,7 @@
             $firstDayTextBox.val(formatDate(model.firstDay));
         }, 0);
 
-        biorhythmView.setFirstDay(model.firstDay);
+        biorhythmView.firstDay = model.firstDay;
     }
 
     function updateSaveBirthdayButtonVisibility() {
@@ -99,7 +99,7 @@
     }
 
     function updateXDayInfo() {
-        var xDay = biorhythmView.getXDay();
+        var xDay = biorhythmView.xDay;
 
         $xDayValueLabel.html(formatDate(xDay));
         $xDayInfoContainer.xDayInfoView("update", xDay);
@@ -121,22 +121,22 @@
     function generateBiorhythms() {
         var shapes = new lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes();
 
-        shapes.getPhysicalShape().setIsVisible(true);
-        shapes.getEmotionalShape().setIsVisible(true);
-        shapes.getIntellectualShape().setIsVisible(true);
-        shapes.getIntuitiveShape().setIsVisible(true);
+        shapes.physicalShape.isVisible = true;
+        shapes.emotionalShape.isVisible = true;
+        shapes.intellectualShape.isVisible = true;
+        shapes.intuitiveShape.isVisible = true;
 
-        shapes.getPassionShape().setIsVisible(false);
-        shapes.getMasteryShape().setIsVisible(false);
-        shapes.getWisdomShape().setIsVisible(false);
+        shapes.passionShape.isVisible = false;
+        shapes.masteryShape.isVisible = false;
+        shapes.wisdomShape.isVisible = false;
 
-        shapes.getPerceptionShape().setIsVisible(false);
-        shapes.getPsychicShape().setIsVisible(false);
-        shapes.getSuccessShape().setIsVisible(false);
+        shapes.perceptionShape.isVisible = false;
+        shapes.psychicShape.isVisible = false;
+        shapes.successShape.isVisible = false;
 
-        shapes.getEstheticShape().setIsVisible(false);
-        shapes.getSelfAwarenessShape().setIsVisible(false);
-        shapes.getSpiritualShape().setIsVisible(false);
+        shapes.estheticShape.isVisible = false;
+        shapes.selfAwarenessShape.isVisible = false;
+        shapes.spiritualShape.isVisible = false;
 
         return shapes;
     }
@@ -165,8 +165,8 @@
     }
 
     function onBiorhythmViewFirstDayChanged() {
-        model.firstDay = biorhythmView.getFirstDay();
-        var lastDay = biorhythmView.getLastDay();
+        model.firstDay = biorhythmView.firstDay;
+        var lastDay = biorhythmView.lastDay;
 
         $firstDayTextBox.val(formatDate(model.firstDay));
         $lastDayTextBox.val(formatDate(lastDay));
@@ -327,6 +327,7 @@
                 biorhythmView.resumePaint();
             }
 
+            // Close the modal dialogs when clicking outside of them.
             $(document.body).on("click", ".ui-widget-overlay", function() {
                 $.each($(".ui-dialog"), function() {
                     var $dialog = $(this).children(".ui-dialog-content");
@@ -366,8 +367,8 @@
         function initializeControls() {
 
             biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
-            biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
-            biorhythmView.subscribeToXDayIndexChanged(onBiorhythmViewXDayIndexChanged);
+            biorhythmView.firstDayChanged.subscribe(onBiorhythmViewFirstDayChanged);
+            biorhythmView.xDayIndexChanged.subscribe(onBiorhythmViewXDayIndexChanged);
 
             $birthdayTextBox.datepicker({
                 changeMonth: true,

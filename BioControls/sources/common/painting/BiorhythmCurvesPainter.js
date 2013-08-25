@@ -43,7 +43,7 @@ lu.bioControls.common.painting.BiorhythmCurvesPainter = function() {
     }
 
     function paintBiorhythm(biorhythmData) {
-        var linePattern = calculateLinePattern(biorhythmData.lineStyle, biorhythmData.lineWidth);
+        var linePattern = lu.LinePatternCalculator.calculatePattern(biorhythmData.lineStyle, biorhythmData.lineWidth);
         setLinePattern(linePattern);
 
         paintContext.strokeStyle = biorhythmData.color;
@@ -57,28 +57,6 @@ lu.bioControls.common.painting.BiorhythmCurvesPainter = function() {
         }
 
         paintContext.stroke();
-    }
-
-    function calculateLinePattern(lineStyle, lineWidth) {
-        switch (lineStyle) {
-            case lu.LineStyle.solid:
-                return null;
-
-            case lu.LineStyle.dot:
-                return [ lineWidth * 1, lineWidth * 3 ];
-
-            case lu.LineStyle.dash:
-                return [ lineWidth * 10, lineWidth * 5 ];
-
-            case lu.LineStyle.dashDot:
-                return [ lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3 ];
-
-            case lu.LineStyle.dashDotDot:
-                return [ lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3, lineWidth * 1, lineWidth * 3 ];
-
-            default:
-                return null;
-        }
     }
 
     function setLinePattern(linePattern) {

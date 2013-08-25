@@ -48,10 +48,22 @@ lu.bioControls.common.painting.XDayMarkerPainter = function() {
 
         var rect = dataToPaint.rectangle;
 
+        setLinePattern(null);
+        
         paintContext.beginPath();
         paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
         paintContext.strokeStyle = dataToPaint.lineColor;
         paintContext.lineWidth = dataToPaint.lineWidth;
         paintContext.stroke();
+    }
+
+    function setLinePattern(linePattern) {
+        if (paintContext.mozDash !== undefined) {
+            paintContext.mozDash = linePattern;
+        }
+
+        if (typeof (paintContext.setLineDash) === "function") {
+            paintContext.setLineDash(linePattern);
+        }
     }
 };

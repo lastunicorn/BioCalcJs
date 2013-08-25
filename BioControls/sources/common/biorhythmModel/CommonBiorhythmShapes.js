@@ -72,71 +72,214 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         spiritualShape.setIsVisible(false);
     }
 
-    this.getPhysicalShape = function getPhysicalShape() {
+    this.getPhysicalShape = getPhysicalShape;
+
+    /**
+     * @deprecated
+     */
+    function getPhysicalShape() {
         return physicalShape;
-    };
+    }
 
-    this.getEmotionalShape = function() {
+    Object.defineProperty(this, "physicalShape", {
+        enumerable: true,
+        configurable: false,
+        get: getPhysicalShape
+    });
+
+    this.getEmotionalShape = getEmotionalShape;
+
+    /**
+     * @deprecated
+     */
+    function getEmotionalShape() {
         return emotionalShape;
-    };
+    }
 
-    this.getIntellectualShape = function() {
+    Object.defineProperty(this, "emotionalShape", {
+        enumerable: true,
+        configurable: false,
+        get: getEmotionalShape
+    });
+
+    this.getIntellectualShape = getIntellectualShape;
+
+    /**
+     * @deprecated
+     */
+    function getIntellectualShape() {
         return intellectualShape;
-    };
+    }
 
-    this.getIntuitiveShape = function() {
+    Object.defineProperty(this, "intellectualShape", {
+        enumerable: true,
+        configurable: false,
+        get: getIntellectualShape
+    });
+
+    this.getIntuitiveShape = getIntuitiveShape;
+
+    /**
+     * @deprecated
+     */
+    function getIntuitiveShape() {
         return intuitiveShape;
-    };
+    }
 
-    this.getPrimaryBiorhythmShapes = function() {
+    Object.defineProperty(this, "intuitiveShape", {
+        enumerable: true,
+        configurable: false,
+        get: getIntuitiveShape
+    });
+
+    this.getPrimaryBiorhythmShapes = function getPrimaryBiorhythmShapes() {
         return [ physicalShape, emotionalShape, intellectualShape, intuitiveShape ];
     };
 
-    this.getPassionShape = function() {
+    this.getPassionShape = getPassionShape;
+
+    /**
+     * @deprecated
+     */
+    function getPassionShape() {
         return passionShape;
-    };
+    }
 
-    this.getMasteryShape = function() {
+    Object.defineProperty(this, "passionShape", {
+        enumerable: true,
+        configurable: false,
+        get: getPassionShape
+    });
+
+    this.getMasteryShape = getMasteryShape;
+
+    /**
+     * @deprecated
+     */
+    function getMasteryShape() {
         return masteryShape;
-    };
+    }
 
-    this.getWisdomShape = function() {
+    Object.defineProperty(this, "masteryShape", {
+        enumerable: true,
+        configurable: false,
+        get: getMasteryShape
+    });
+
+    this.getWisdomShape = getWisdomShape;
+
+    /**
+     * @deprecated
+     */
+    function getWisdomShape() {
         return wisdomShape;
-    };
+    }
 
-    this.getSecondaryBiorhythmShapes = function() {
+    Object.defineProperty(this, "wisdomShape", {
+        enumerable: true,
+        configurable: false,
+        get: getWisdomShape
+    });
+
+    this.getSecondaryBiorhythmShapes = function getSecondaryBiorhythmShapes() {
         return [ passionShape, masteryShape, wisdomShape ];
     };
 
-    this.getPerceptionShape = function() {
+    this.getPerceptionShape = getPerceptionShape;
+
+    /**
+     * @deprecated
+     */
+    function getPerceptionShape() {
         return perceptionShape;
-    };
+    }
 
-    this.getPsychicShape = function() {
+    Object.defineProperty(this, "perceptionShape", {
+        enumerable: true,
+        configurable: false,
+        get: getPerceptionShape
+    });
+
+    this.getPsychicShape = getPsychicShape;
+
+    /**
+     * @deprecated
+     */
+    function getPsychicShape() {
         return psychicShape;
-    };
+    }
 
-    this.getSuccessShape = function() {
+    Object.defineProperty(this, "psychicShape", {
+        enumerable: true,
+        configurable: false,
+        get: getPsychicShape
+    });
+
+    this.getSuccessShape = getSuccessShape;
+
+    /**
+     * @deprecated
+     */
+    function getSuccessShape() {
         return successShape;
-    };
+    }
 
-    this.getExtraBiorhythmShapes = function() {
+    Object.defineProperty(this, "successShape", {
+        enumerable: true,
+        configurable: false,
+        get: getSuccessShape
+    });
+
+    this.getExtraBiorhythmShapes = function getExtraBiorhythmShapes() {
         return [ perceptionShape, psychicShape, successShape ];
     };
 
-    this.getEstheticShape = function() {
+    this.getEstheticShape = getEstheticShape;
+
+    /**
+     * @deprecated
+     */
+    function getEstheticShape() {
         return estheticShape;
-    };
+    }
 
-    this.getSelfAwarenessShape = function() {
+    Object.defineProperty(this, "estheticShape", {
+        enumerable: true,
+        configurable: false,
+        get: getEstheticShape
+    });
+
+    this.getSelfAwarenessShape = getSelfAwarenessShape;
+
+    /**
+     * @deprecated
+     */
+    function getSelfAwarenessShape() {
         return selfAwarenessShape;
-    };
+    }
 
-    this.getSpiritualShape = function() {
+    Object.defineProperty(this, "selfAwarenessShape", {
+        enumerable: true,
+        configurable: false,
+        get: getSelfAwarenessShape
+    });
+
+    this.getSpiritualShape = getSpiritualShape;
+
+    /**
+     * @deprecated
+     */
+    function getSpiritualShape() {
         return spiritualShape;
-    };
+    }
 
-    this.getIChingBiorhythmShapes = function() {
+    Object.defineProperty(this, "spiritualShape", {
+        enumerable: true,
+        configurable: false,
+        get: getSpiritualShape
+    });
+
+    this.getIChingBiorhythmShapes = function getIChingBiorhythmShapes() {
         return [ estheticShape, selfAwarenessShape, spiritualShape ];
     };
 
@@ -150,7 +293,6 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
 
         estheticShape, selfAwarenessShape, spiritualShape ];
     }
-    ;
 
     this.setBirthdayOnAll = function(birthday) {
         var biorhythms = getAll();

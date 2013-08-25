@@ -50,5 +50,19 @@ QUnit.extend(QUnit, {
         }
 
         QUnit.throws(toBeTested, message);
+    },
+
+    testMultiple: function(testCases, test) {
+        if (typeof test != "function") {
+            return;
+        }
+
+        for ( var i = 0; i < testCases.length; i++) {
+            if (test instanceof Array) {
+                test.apply(this, testCases[i]);
+            } else {
+                test.call(this, testCases[i]);
+            }
+        }
     }
 });

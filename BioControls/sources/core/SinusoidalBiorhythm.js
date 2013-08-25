@@ -52,6 +52,10 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
     });
 
     this.getValue = function(dayIndex) {
+        if (period == 0) {
+            return 0;
+        }
+
         var index = dayIndex % period;
 
         if (index < 0) {
@@ -70,7 +74,7 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
     }
 
     (function initialize() {
-        if (typeof period !== undefined) {
+        if (period !== undefined) {
             if (typeof period !== "number") {
                 throw "period should be a number.";
             }

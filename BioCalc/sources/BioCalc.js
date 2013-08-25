@@ -174,7 +174,8 @@
         var firstDay = model.firstDay;
         $firstDayLabel.html("<< " + formatDate(firstDay));
 
-        var lastDay = new Date(model.firstDay.getTime() + (biorhythmView.getTotalDays() - 1) * 24 * 60 * 60 * 1000);
+        var displayedMiliseconds = lu.DateUtil.daysToMiliseconds(biorhythmView.getTotalDays() - 1);
+        var lastDay = new Date(model.firstDay.getTime() + displayedMiliseconds);
         $lastDayLabel.html(formatDate(lastDay) + " >>");
 
         updateXDayInfo();
@@ -223,7 +224,9 @@
 
     function onLastDayDatePickerSelect() {
         var lastDay = $(this).datepicker("getDate");
-        model.firstDay = new Date(lastDay.getTime() - (biorhythmView.getTotalDays() - 1) * 24 * 60 * 60 * 1000);
+
+        var displayedDayCount = biorhythmView.getTotalDays() - 1;
+        model.firstDay = lu.DateUtil.addDays(lastDay, -displayedDayCount);
 
         updateFirstDayInUi();
     }
@@ -293,7 +296,7 @@
 
                 model = {
                     birthday: config.birthday,
-                    firstDay: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+                    firstDay: lu.DateUtil.addDays(Date.now(), -7)
                 };
 
                 $bioCanvas.attr("tabindex", "1");

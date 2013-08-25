@@ -18,7 +18,7 @@ var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 
 /**
- * Draws the biorhythm charts on a html canvas element. 
+ * Draws the biorhythm charts on a html canvas element.
  * 
  * @param id
  *            The id of the html canvas element on which to draw the charts.
@@ -39,7 +39,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var biorhythmAddedEvent = new lu.Event();
     this.biorhythmAdded = biorhythmAddedEvent.event;
-    
+
     /**
      * deprecated
      */
@@ -47,15 +47,13 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var biorhythmRemovedEvent = new lu.Event();
     this.biorhythmRemoved = biorhythmRemovedEvent.event;
-    
+
     /**
      * deprecated
      */
     this.subscribeToBiorhythmRemoved = biorhythmRemovedEvent.subscribe;
 
-    this.addBiorhythm = function(biorhythmShape) {
-        addBiorhythm(biorhythmShape);
-    };
+    this.addBiorhythm = addBiorhythm;
 
     this.setBiorhythms = function(value) {
 
@@ -83,13 +81,13 @@ lu.bioControls.BiorhythmView = function(id) {
     function addBiorhythm(biorhythmShape) {
         biorhythms.push(biorhythmShape);
 
-        biorhythmShape.subscribeToNameChanged(onBiorhithmShapeChanged);
-        biorhythmShape.subscribeToBirthdayChanged(onBiorhithmShapeChanged);
-        biorhythmShape.subscribeToBiorhythmChanged(onBiorhithmShapeChanged);
-        biorhythmShape.subscribeToColorChanged(onBiorhithmShapeChanged);
-        biorhythmShape.subscribeToIsVisibleChanged(onBiorhithmShapeChanged);
-        biorhythmShape.subscribeToLineWidthChanged(onBiorhithmShapeChanged);
-        biorhythmShape.subscribeToLineStyleChanged(onBiorhithmShapeChanged);
+        biorhythmShape.nameChanged.subscribe(onBiorhithmShapeChanged);
+        biorhythmShape.birthdayChanged.subscribe(onBiorhithmShapeChanged);
+        biorhythmShape.biorhythmChanged.subscribe(onBiorhithmShapeChanged);
+        biorhythmShape.colorChanged.subscribe(onBiorhithmShapeChanged);
+        biorhythmShape.isVisibleChanged.subscribe(onBiorhithmShapeChanged);
+        biorhythmShape.lineWidthChanged.subscribe(onBiorhithmShapeChanged);
+        biorhythmShape.lineStyleChanged.subscribe(onBiorhithmShapeChanged);
 
         biorhythmAddedEvent.raise(obj, biorhythmShape);
     }
@@ -114,13 +112,13 @@ lu.bioControls.BiorhythmView = function(id) {
     function removeBiorhythmAt(index) {
         var biorhythmShape = biorhythms[index];
 
-        biorhythmShape.unsubscribeFromNameChanged(onBiorhithmShapeChanged);
-        biorhythmShape.unsubscribeFromBirthdayChanged(onBiorhithmShapeChanged);
-        biorhythmShape.unsubscribeFromBiorhythmChanged(onBiorhithmShapeChanged);
-        biorhythmShape.unsubscribeFromColorChanged(onBiorhithmShapeChanged);
-        biorhythmShape.unsubscribeFromIsVisibleChanged(onBiorhithmShapeChanged);
-        biorhythmShape.unsubscribeFromLineWidthChanged(onBiorhithmShapeChanged);
-        biorhythmShape.unsubscribeFromLineStyleChanged(onBiorhithmShapeChanged);
+        biorhythmShape.nameChanged.unsubscribe(onBiorhithmShapeChanged);
+        biorhythmShape.birthdayChanged.unsubscribe(onBiorhithmShapeChanged);
+        biorhythmShape.biorhythmChanged.unsubscribe(onBiorhithmShapeChanged);
+        biorhythmShape.colorChanged.unsubscribe(onBiorhithmShapeChanged);
+        biorhythmShape.iVisibleChanged.unsubscribe(onBiorhithmShapeChanged);
+        biorhythmShape.lineWidthChanged.unsubscribe(onBiorhithmShapeChanged);
+        biorhythmShape.lineStyleChanged.unsubscribe(onBiorhithmShapeChanged);
 
         biorhythms.splice(index, 1);
 
@@ -131,12 +129,12 @@ lu.bioControls.BiorhythmView = function(id) {
     // FirstDay
     // --------------------------------------------------------------------------
 
-    var firstDay = new Date(Date.now() - (7 * 24 * 60 * 60 * 1000));
+    var firstDay = lu.DateUtil.addDays(Date.now(), -7);
     var firstDayChangedEvent = new lu.Event();
     this.firstDayChanged = firstDayChangedEvent.event;
 
     this.setFirstDay = setFirstDay;
-    
+
     /**
      * @deprecated Use the firstDay property instead.
      */
@@ -147,7 +145,7 @@ lu.bioControls.BiorhythmView = function(id) {
     }
 
     this.getFirstDay = getFirstDay;
-    
+
     /**
      * @deprecated Use the firstDay property instead.
      */
@@ -180,7 +178,7 @@ lu.bioControls.BiorhythmView = function(id) {
     });
 
     function getLastDay() {
-        return new Date(firstDay.getTime() + (totalDays - 1) * 24 * 60 * 60 * 1000);
+        return lu.DateUtil.addDays(firstDay, totalDays - 1);
     }
 
     Object.defineProperty(this, "xDay", {
@@ -190,7 +188,7 @@ lu.bioControls.BiorhythmView = function(id) {
     });
 
     function getXDay() {
-        return new Date(firstDay.getTime() + (xDayIndex * 24 * 60 * 60 * 1000));
+        return lu.DateUtil.addDays(firstDay, xDayIndex);
     }
 
     // --------------------------------------------------------------------------

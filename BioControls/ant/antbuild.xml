@@ -2,9 +2,22 @@
 
 <project default="main" basedir=".">
 
-	<echo message="calling the web services generation ant task: axis_bujava" />
 	<target name="main">
+
+		<!--<echo message="Testing." />
+
+		<exec executable="java">
+			<arg line="-jar ExternalTools/ClosureCompiler/compiler.jar" />
+			<arg line="-js &quot;sources/*.js&quot;" />
+			<arg line="-js_output_file compiled/BiorhythmControls.test.js" />
+			<arg line="-formatting PRETTY_PRINT" />
+			<arg line="-compilation_level WHITESPACE_ONLY" />
+		</exec>-->
+
+		<echo message="Compiling the js files." />
+
 		<exec executable="${basedir}/compile.sh" />
+
 	</target>
 
 </project>

@@ -1,10 +1,18 @@
 <?xml version="1.0"?>
 
-<project default="main" basedir=".">
+<project name="BioCalc" default="main" basedir=".">
 
-	<echo message="Copying compiled files from BioControls." />
 	<target name="main">
-		<copy todir="sources/libraries/BiorhythmControls">
+
+		<echo message="Copying files to the compiled directory." />
+
+		<copy todir="compiled">
+			<fileset dir="sources" />
+		</copy>
+
+		<echo message="Copying compiled files from BioControls." />
+
+		<copy todir="compiled/sources/libraries/BiorhythmControls">
 			<fileset dir="../BioControls/compiled">
 				<include name="*.js" />
 			</fileset>

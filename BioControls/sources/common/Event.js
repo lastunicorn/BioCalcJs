@@ -79,7 +79,7 @@ lu.Event = function() {
      * useful to expose to subscribers instead of exposing the whole {lu.Event}
      * object.
      */
-    Object.defineProperty(this, "event", {
+    Object.defineProperty(this, "client", {
         value: {
             subscribe: subscribe,
             unsubscribe: unsubscribe

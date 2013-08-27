@@ -38,7 +38,7 @@ lu.bioControls.BiorhythmView = function(id) {
     var biorhythms = new lu.List();
 
     var biorhythmAddedEvent = new lu.Event();
-    this.biorhythmAdded = biorhythmAddedEvent.event;
+    this.biorhythmAdded = biorhythmAddedEvent.client;
 
     /**
      * deprecated
@@ -46,7 +46,7 @@ lu.bioControls.BiorhythmView = function(id) {
     this.subscribeToBiorhythmAdded = biorhythmAddedEvent.subscribe;
 
     var biorhythmRemovedEvent = new lu.Event();
-    this.biorhythmRemoved = biorhythmRemovedEvent.event;
+    this.biorhythmRemoved = biorhythmRemovedEvent.client;
 
     /**
      * deprecated
@@ -131,7 +131,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var firstDay = lu.DateUtil.addDays(Date.now(), -7);
     var firstDayChangedEvent = new lu.Event();
-    this.firstDayChanged = firstDayChangedEvent.event;
+    this.firstDayChanged = firstDayChangedEvent.client;
 
     this.setFirstDay = setFirstDay;
 
@@ -197,7 +197,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var isGridVisible = true;
     var isGridVisibleChangedEvent = new lu.Event();
-    this.isGridVisibleChanged = isGridVisibleChangedEvent.event;
+    this.isGridVisibleChanged = isGridVisibleChangedEvent.client;
 
     this.setGridVisibility = setGridVisibility;
 
@@ -238,7 +238,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var totalDays = 30;
     var totalDaysChangedEvent = new lu.Event();
-    this.totalDaysChanged = totalDaysChangedEvent.event;
+    this.totalDaysChanged = totalDaysChangedEvent.client;
 
     this.setTotalDays = setTotalDays;
 
@@ -279,7 +279,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var xDayIndex = 7;
     var xDayIndexChangedEvent = new lu.Event();
-    this.xDayIndexChanged = xDayIndexChangedEvent.event;
+    this.xDayIndexChanged = xDayIndexChangedEvent.client;
 
     this.setXDayIndex = setXDayIndex;
 
@@ -323,7 +323,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var gridColor = "#d3d3d3"; // LightGray
     var gridColorChangedEvent = new lu.Event();
-    this.gridColorChanged = gridColorChangedEvent.event;
+    this.gridColorChanged = gridColorChangedEvent.client;
 
     this.setGridColor = setGridColor;
 
@@ -364,7 +364,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var areDayNumbersVisible = true;
     var areDayNumbersVisibleChangedEvent = new lu.Event();
-    this.areDayNumbersVisibleChanged = areDayNumbersVisibleChangedEvent.event;
+    this.areDayNumbersVisibleChanged = areDayNumbersVisibleChangedEvent.client;
 
     this.setDayNumbersVisibility = setDayNumbersVisibility;
 
@@ -405,7 +405,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var areWeekDaysVisible = true;
     var areWeekDaysVisibleChangedEvent = new lu.Event();
-    this.areWeekDaysVisibleChanged = areWeekDaysVisibleChangedEvent.event;
+    this.areWeekDaysVisibleChanged = areWeekDaysVisibleChangedEvent.client;
 
     this.setWeekDaysVisibility = setWeekDaysVisibility;
 
@@ -446,7 +446,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var dayNumbersPosition = lu.DayLabelPosition.top;
     var dayNumbersPositionChangedEvent = new lu.Event();
-    this.dayNumbersPositionChanged = dayNumbersPositionChangedEvent.event;
+    this.dayNumbersPositionChanged = dayNumbersPositionChangedEvent.client;
 
     this.setDayNumbersPosition = setDayNumbersPosition;
 
@@ -487,7 +487,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var weekDaysPosition = lu.DayLabelPosition.bottom;
     var weekDaysPositionChangedEvent = new lu.Event();
-    this.weekDaysPositionChanged = weekDaysPositionChangedEvent.event;
+    this.weekDaysPositionChanged = weekDaysPositionChangedEvent.client;
 
     this.setWeekDaysPosition = setWeekDaysPosition;
 
@@ -532,7 +532,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var areSundaysEmphasized = true;
     var areSundaysEmphasizedChangedEvent = new lu.Event();
-    this.areSundaysEmphasizedChanged = areSundaysEmphasizedChangedEvent.event;
+    this.areSundaysEmphasizedChanged = areSundaysEmphasizedChangedEvent.client;
 
     this.setAreSundaysEmphasized = setAreSundaysEmphasized;
 
@@ -573,7 +573,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var foreColor = "#b0b0b0";
     var foreColorChangedEvent = new lu.Event();
-    this.foreColorChanged = foreColorChangedEvent.event;
+    this.foreColorChanged = foreColorChangedEvent.client;
 
     this.setForeColor = setForeColor;
 
@@ -614,7 +614,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var sundaysColor = "#ff0000";
     var sundaysColorChangedEvent = new lu.Event();
-    this.sundaysColorChanged = sundaysColorChangedEvent.event;
+    this.sundaysColorChanged = sundaysColorChangedEvent.client;
 
     this.setSundaysColor = setSundaysColor;
 
@@ -655,7 +655,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var font = "12px Arial";
     var fontChangedEvent = new lu.Event();
-    this.fontChanged = fontChangedEvent.event;
+    this.fontChanged = fontChangedEvent.client;
 
     this.setFont = setFont;
 
@@ -696,7 +696,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var sundaysFont = "italic 12px Arial";
     var sundaysFontChangedEvent = new lu.Event();
-    this.sundaysFontChanged = sundaysFontChangedEvent.event;
+    this.sundaysFontChanged = sundaysFontChangedEvent.client;
 
     this.setSundaysFont = setSundaysFont;
 
@@ -737,7 +737,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var todayBackColor = "#ffe4b5"; // Moccasin
     var todayBackColorChangedEvent = new lu.Event();
-    this.todayBackColorChanged = todayBackColorChangedEvent.event;
+    this.todayBackColorChanged = todayBackColorChangedEvent.client;
 
     this.setTodayBackColor = setTodayBackColor;
 
@@ -778,7 +778,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var isXDayVisible = true;
     var isXDayVisibleChangedEvent = new lu.Event();
-    this.isXDayVisibleChanged = isXDayVisibleChangedEvent.event;
+    this.isXDayVisibleChanged = isXDayVisibleChangedEvent.client;
 
     this.setXDayVisibility = setXDayVisibility;
 
@@ -819,7 +819,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var xDayBorderColor = "#000000"; // Black
     var xDayBorderColorChangedEvent = new lu.Event();
-    this.xDayBorderColorChanged = xDayBorderColorChangedEvent.event;
+    this.xDayBorderColorChanged = xDayBorderColorChangedEvent.client;
 
     this.setXDayBorderColor = setXDayBorderColor;
 
@@ -860,7 +860,7 @@ lu.bioControls.BiorhythmView = function(id) {
 
     var xDayBorderWidth = 2;
     var xDayBorderWidthChangedEvent = new lu.Event();
-    this.xDayBorderWidthChanged = xDayBorderWidthChangedEvent.event;
+    this.xDayBorderWidthChanged = xDayBorderWidthChangedEvent.client;
 
     this.setXDayBorderWidth = setXDayBorderWidth;
 

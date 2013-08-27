@@ -34,7 +34,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var name = "New Biorhythm Shape";
     var nameChangedEvent = new lu.Event();
-    this.nameChanged = nameChangedEvent.event;
+    this.nameChanged = nameChangedEvent.client;
 
     /**
      * deprecated
@@ -82,7 +82,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var birthday = Date(80, 05, 13);
     var birthdayChangedEvent = new lu.Event();
-    this.birthdayChanged = birthdayChangedEvent.event;
+    this.birthdayChanged = birthdayChangedEvent.client;
 
     /**
      * deprecated
@@ -130,7 +130,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var biorhythm = null;
     var biorhythmChangedEvent = new lu.Event();
-    this.biorhythmChanged = biorhythmChangedEvent.event;
+    this.biorhythmChanged = biorhythmChangedEvent.client;
 
     /**
      * deprecated
@@ -178,7 +178,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var color = null;
     var colorChangedEvent = new lu.Event();
-    this.colorChanged = colorChangedEvent.event;
+    this.colorChanged = colorChangedEvent.client;
 
     /**
      * deprecated
@@ -226,7 +226,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var isVisible = true;
     var isVisibleChangedEvent = new lu.Event();
-    this.isVisibleChanged = isVisibleChangedEvent.event;
+    this.isVisibleChanged = isVisibleChangedEvent.client;
 
     /**
      * deprecated
@@ -274,7 +274,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var lineWidth = 1;
     var lineWidthChangedEvent = new lu.Event();
-    this.lineWidthChanged = lineWidthChangedEvent.event;
+    this.lineWidthChanged = lineWidthChangedEvent.client;
 
     /**
      * deprecated
@@ -322,7 +322,7 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
 
     var lineStyle = lu.LineStyle.solid;
     var lineStyleChangedEvent = new lu.Event();
-    this.lineStyleChanged = lineStyleChangedEvent.event;
+    this.lineStyleChanged = lineStyleChangedEvent.client;
 
     /**
      * deprecated

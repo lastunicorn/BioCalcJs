@@ -26,13 +26,13 @@ lu.List = function() {
     var array = [];
 
     var itemAddedEvent = new lu.Event();
-    this.itemAdded = itemAddedEvent.event;
+    this.itemAdded = itemAddedEvent.client;
 
     var itemAddingEvent = new lu.Event();
-    this.itemAdding = itemAddingEvent.event;
+    this.itemAdding = itemAddingEvent.client;
 
     var itemRemovedEvent = new lu.Event();
-    this.itemRemoved = itemRemovedEvent.event;
+    this.itemRemoved = itemRemovedEvent.client;
 
     this.add = function(item) {
         if (item === undefined || item === null) {

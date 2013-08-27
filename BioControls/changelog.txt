@@ -6,7 +6,7 @@ ver 1.3.0
 [Feature] I added handler on the contextmenu event to prevent the opening of the context menu on Chrome.
 [Feature] I added methods to return the last day displayed and the current X day.
 [Feature] The BiorhythmView control doesn't need to be selected for the ctrl key to be effective.
-[Feature] I created properties instead of get/set methods. 
+[Feature] I created properties instead of get/set methods. The old get/set methods are marked as deprecated.
 [Bug Fix] The XDay marker was able to go outside the visible area.
 [Bug Fix] The XDay marker could not be moved using the ctrl key anymore.
 

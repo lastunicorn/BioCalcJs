@@ -220,13 +220,13 @@
     });
 
     QUnit.test("event property returns an object that contains the subscribe method.", function() {
-        var actual = ev.event.subscribe;
+        var actual = ev.client.subscribe;
         
         QUnit.strictEqual(actual, ev.subscribe, "Tests that event property returns an object containing the subscribe method.");
     });
 
     QUnit.test("event property returns an object that contains the unsubscribe method.", function() {
-        var actual = ev.event.unsubscribe;
+        var actual = ev.client.unsubscribe;
         
         QUnit.strictEqual(actual, ev.unsubscribe, "Tests that event property returns an object containing the unsubscribe method.");
     });

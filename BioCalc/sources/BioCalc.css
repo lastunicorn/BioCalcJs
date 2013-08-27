@@ -137,7 +137,6 @@ a[target="_blank"] {
 	display: inline-block;
 }
 
-
 /* Header
 ----------------------------------------------------------------------------- */
 
@@ -156,7 +155,7 @@ header h1 {
 
 #mainToolbar {
 	float: right;
-	margin: 16px 3px 16px 0;
+	margin: 16px 4px 16px 0;
 }
 
 #mainToolbar .ui-button {

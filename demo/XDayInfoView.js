@@ -1,4 +1,4 @@
-﻿// BioCalc
+// BioCalc
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -18,40 +18,55 @@ var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
 /**
- * Creates and displays a list of items, each item providing information like
- * color and name of one BiorhythmShape from the specified list.
+ * Displays in a container the percentage for each biorhythm in a list for a
+ * specific day named the "X day".
  * 
  * @param biorhythmShapes
- *            The list of BiorhythmShapes for which to create the legend.
+ *            The list of biorhythms for which to display the percentage.
  * 
- * @param legendContainerSelector
- *            The jQuery selector of the element where to display the items.
+ * @param containerSelector
+ *            The jQuery selector of the continer in which to display the data.
  * 
- * @returns {lu.bioCalc.BiorhythmLegend}
+ * @returns {lu.bioCalc.XDayInfoView}
  */
-lu.bioCalc.BiorhythmLegend = function(biorhythmShapes, legendContainerSelector) {
+lu.bioCalc.XDayInfoView = function(biorhythmShapes, containerSelector) {
+
     var $container = null;
-    var biorhythmLegendItems = [];
+    var items = [];
 
     this.populate = function() {
-        $container.empty();
-        biorhythmLegendItems.length = 0;
+        generateAndAddItems();
+    };
 
-        for ( var i = 0; i < biorhythmShapes.length; i++) {
-            var biorhythmLegendItem = new lu.bioCalc.BiorhythmLegendItem(biorhythmShapes[i]);
-            biorhythmLegendItems.push(biorhythmLegendItem);
-
-            var $legendItemTag = biorhythmLegendItem.getElement();
-            $container.prepend($legendItemTag);
+    this.update = function(xDay) {
+        for ( var i = 0; i < items.length; i++) {
+            items[i].update(xDay);
         }
     };
+
+    function generateAndAddItems() {
+        $container.empty();
+        items.length = 0;
+
+        for ( var i = 0; i < biorhythmShapes.length; i++) {
+            generateAndAddItem(biorhythmShapes[i]);
+        }
+    }
+
+    function generateAndAddItem(biorhythmShape) {
+        var xDayInfoItem = new lu.bioCalc.XDayInfoItem(biorhythmShape);
+        items.push(xDayInfoItem);
+
+        var $itemElement = xDayInfoItem.getElement();
+        $container.append($itemElement);
+    }
 
     // --------------------------------------------------------------------------
     // Initializer
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        $container = $(legendContainerSelector);
+        $container = $(containerSelector);
 
         if ($.type(biorhythmShapes) !== "array") {
             return;
@@ -64,12 +79,16 @@ lu.bioCalc.BiorhythmLegend = function(biorhythmShapes, legendContainerSelector) 
 // --------------------------------------------------------------------------
 
 (function($) {
-    var biorhythmLegend = null;
+    var xDayInfoView = null;
 
-    $.widget("lastunicorn.biorhythmLegend", {
+    $.widget("lastunicorn.xDayInfoView", {
         _create: function() {
-            biorhythmLegend = new lu.bioCalc.BiorhythmLegend(this.options.biorhythms, this.element);
-            biorhythmLegend.populate();
+            xDayInfoView = new lu.bioCalc.XDayInfoView(this.options.biorhythms, this.element);
+            xDayInfoView.populate();
+        },
+
+        update: function(xDay) {
+            xDayInfoView.update(xDay);
         }
     });
 }(jQuery));

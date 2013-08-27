@@ -17,8 +17,12 @@
 (function() {
     var biorhythmView = null;
     var commonBiorhythmShapes = null;
+    var $bioLegend = null;
     var $birthdayTextBox = null;
     var $firstDayTextBox = null;
+    var $firstDayLabel = null;
+    var $lastDayTextBox = null;
+    var $lastDayLabel = null;
     var $helpButton = null;
     var $aboutButton = null;
     var $aboutDialog = null;
@@ -29,6 +33,13 @@
     var $jQueryUIVersionLabel = null;
     var $bioControlsVersionLabel = null;
     var $bioCalcVersionLabel = null;
+    var $bioCanvas = null;
+    var $xDayValueLabel = null;
+    var $xDayInfoContainer = null;
+    var $mainToolbar = null;
+    var $birthdayButtons = null;
+    var $aboutDialogTabSet = null;
+    var $helpDialogTabSet = null;
     var configManager = null;
     var config = null;
     var model = null;
@@ -58,9 +69,7 @@
     // --------------------------------------------------------------------------
 
     function updateBirthdayInUi() {
-        setTimeout(function() {
-            biorhythmView.setBirthdayOnAllBiorhythms(model.birthday);
-        }, 0);
+        biorhythmView.setBirthdayOnAllBiorhythms(model.birthday);
 
         $birthdayTextBox.val(formatDate(model.birthday));
     }
@@ -69,8 +78,8 @@
         setTimeout(function() {
             $firstDayTextBox.val(formatDate(model.firstDay));
         }, 0);
-        
-        biorhythmView.setFirstDay(model.firstDay);
+
+        biorhythmView.firstDay = model.firstDay;
     }
 
     function updateSaveBirthdayButtonVisibility() {
@@ -89,6 +98,22 @@
         }
     }
 
+    function updateXDayInfo() {
+        var xDay = biorhythmView.xDay;
+
+        $xDayValueLabel.html(formatDate(xDay));
+        $xDayInfoContainer.xDayInfoView("update", xDay);
+    }
+
+    function setNewBirthday(birthday) {
+        model.birthday = birthday;
+
+        updateBirthdayInUi();
+        updateSaveBirthdayButtonVisibility();
+        updateResetBirthdayButtonVisibility();
+        updateXDayInfo();
+    }
+
     // --------------------------------------------------------------------------
     // Functions - "private"
     // --------------------------------------------------------------------------
@@ -96,22 +121,22 @@
     function generateBiorhythms() {
         var shapes = new lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes();
 
-        shapes.getPhysicalShape().setIsVisible(true);
-        shapes.getEmotionalShape().setIsVisible(true);
-        shapes.getIntellectualShape().setIsVisible(true);
-        shapes.getIntuitiveShape().setIsVisible(true);
+        shapes.physicalShape.isVisible = true;
+        shapes.emotionalShape.isVisible = true;
+        shapes.intellectualShape.isVisible = true;
+        shapes.intuitiveShape.isVisible = true;
 
-        shapes.getPassionShape().setIsVisible(false);
-        shapes.getMasteryShape().setIsVisible(false);
-        shapes.getWisdomShape().setIsVisible(false);
+        shapes.passionShape.isVisible = false;
+        shapes.masteryShape.isVisible = false;
+        shapes.wisdomShape.isVisible = false;
 
-        shapes.getPerceptionShape().setIsVisible(false);
-        shapes.getPsychicShape().setIsVisible(false);
-        shapes.getSuccessShape().setIsVisible(false);
+        shapes.perceptionShape.isVisible = false;
+        shapes.psychicShape.isVisible = false;
+        shapes.successShape.isVisible = false;
 
-        shapes.getEstheticShape().setIsVisible(false);
-        shapes.getSelfAwarenessShape().setIsVisible(false);
-        shapes.getSpiritualShape().setIsVisible(false);
+        shapes.estheticShape.isVisible = false;
+        shapes.selfAwarenessShape.isVisible = false;
+        shapes.spiritualShape.isVisible = false;
 
         return shapes;
     }
@@ -131,156 +156,6 @@
     // Functions - Event Handlers
     // --------------------------------------------------------------------------
 
-    function initializeControls() {
-        biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
-        biorhythmView.suspendPaint();
-        biorhythmView.setXDayVisibility(false);
-        biorhythmView.subscribeToFirstDayChanged(onBiorhythmViewFirstDayChanged);
-        biorhythmView.resumePaint();
-
-        $birthdayTextBox = $("#birthdayTextBox");
-        $birthdayTextBox.datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "yy-mm-dd",
-            onSelect: onBirthdayDatePickerSelect,
-            showButtonPanel: true
-        });
-
-        $firstDayTextBox = $("#firstDayTextBox");
-        $firstDayTextBox.datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "yy-mm-dd",
-            onSelect: onFirstDayDatePickerSelect,
-            showButtonPanel: true
-        });
-
-        $("#toolbar").buttonset();
-
-        $helpButton = $("#helpButton");
-        $helpButton.button({
-            icons: {
-                primary: "ui-icon-help"
-            },
-            text: true
-        });
-        $helpButton.click(onHelpButtonClick);
-
-        $aboutButton = $("#aboutButton");
-        $aboutButton.button({
-            icons: {
-                primary: "ui-icon-star"
-            },
-            text: true
-        });
-        $aboutButton.click(onAboutButtonClick);
-
-        $aboutDialog = $("#aboutDialog");
-        $aboutDialog.dialog({
-            modal: true,
-            height: 360,
-            width: 480,
-            autoOpen: false,
-            buttons: {
-                Close: onAboutDialogCloseClicked
-            },
-            show: {
-                effect: "puff",
-                duration: 300
-            },
-            hide: {
-                effect: "puff",
-                duration: 300
-            }
-        });
-
-        $helpDialog = $("#helpDialog");
-        $helpDialog.dialog({
-            modal: true,
-            height: 360,
-            width: 480,
-            autoOpen: false,
-            buttons: {
-                Close: onHelpDialogCloseClicked
-            },
-            show: {
-                effect: "puff",
-                duration: 300
-            },
-            hide: {
-                effect: "puff",
-                duration: 300
-            }
-        });
-
-        $jQueryVersionLabel = $("#jQueryVersionLabel");
-        $jQueryUIVersionLabel = $("#jQueryUIVersionLabel");
-        $bioControlsVersionLabel = $("#bioControlsVersionLabel");
-
-        $("#tabs").tabs();
-
-        $bioCalcVersionLabel = $(".bio-calc-version");
-
-        $saveBirthdayButton = $("#saveBirthdayButton");
-        $saveBirthdayButton.button({
-            text: false,
-            icons: {
-                primary: "ui-icon-disk"
-            },
-            disabled: true
-        });
-        $saveBirthdayButton.click(onSaveBirthdayButtonClick);
-
-        $resetBirthdayButton = $("#resetBirthdayButton");
-        $resetBirthdayButton.button({
-            text: false,
-            icons: {
-                primary: "ui-icon-close"
-            },
-            disabled: true
-        });
-        $resetBirthdayButton.click(onResetBirthdayButtonClick);
-
-        $("#birthdayButtons").buttonset();
-    }
-
-    function onDocumentReady() {
-
-        initializeControls();
-
-        biorhythmView.suspendPaint();
-        try {
-            configManager = new lu.bioCalc.ConfigManager();
-            config = configManager.loadFromCookies();
-
-            model = {
-                birthday: config.birthday,
-                firstDay: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-            };
-
-            commonBiorhythmShapes = generateBiorhythms();
-            biorhythmView.setBiorhythms(commonBiorhythmShapes.getAll());
-
-            var biorhythmLegend = new lu.bioCalc.BiorhythmLegend(biorhythmView, "#bioLegend");
-            biorhythmLegend.populate();
-
-            $jQueryVersionLabel.html($.fn.jquery);
-            $jQueryUIVersionLabel.html($.ui.version);
-            $bioControlsVersionLabel.html(lu.bioControls.version);
-
-            $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
-
-            updateBirthdayInUi();
-            updateFirstDayInUi();
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
-        }
-        finally {
-            biorhythmView.resumePaint();
-        }
-    }
-
     function onAboutDialogCloseClicked() {
         $aboutDialog.dialog("close");
     }
@@ -290,17 +165,31 @@
     }
 
     function onBiorhythmViewFirstDayChanged() {
-        model.firstDay = biorhythmView.getFirstDay();
+        model.firstDay = biorhythmView.firstDay;
+        var lastDay = biorhythmView.lastDay;
 
         $firstDayTextBox.val(formatDate(model.firstDay));
+        $lastDayTextBox.val(formatDate(lastDay));
+
+        var firstDay = model.firstDay;
+        $firstDayLabel.html("<< " + formatDate(firstDay));
+
+        var displayedMiliseconds = lu.DateUtil.daysToMiliseconds(biorhythmView.totalDays - 1);
+        var lastDay = new Date(model.firstDay.getTime() + displayedMiliseconds);
+        $lastDayLabel.html(formatDate(lastDay) + " >>");
+
+        updateXDayInfo();
     }
 
     function onBirthdayDatePickerSelect() {
-        model.birthday = $(this).datepicker("getDate");
+        var newBirthday = $(this).datepicker("getDate");
+        setNewBirthday(newBirthday);
+    }
 
-        updateBirthdayInUi();
-        updateSaveBirthdayButtonVisibility();
-        updateResetBirthdayButtonVisibility();
+    function onFirstDayLabelClick() {
+        setTimeout(function() {
+            $firstDayTextBox.datepicker('show');
+        }, 0);
     }
 
     function onFirstDayDatePickerSelect() {
@@ -309,15 +198,66 @@
         updateFirstDayInUi();
     }
 
+    function onBeforeFirstDayDatePickerShow(input, inst) {
+        // Handle calendar position before showing it.
+        // It's not supported by Datepicker itself (for now) so I need
+        // to use its internal variables.
+        var calendar = inst.dpDiv;
+
+        // Dirty hack, but we can't do anything without it (for now, in
+        // jQuery UI 1.8.20)
+        setTimeout(function() {
+            calendar.position({
+                my: 'left top',
+                at: 'left bottom',
+                collision: 'none',
+                of: $firstDayLabel
+            });
+        }, 0);
+    }
+
+    function onLastDayLabelClick() {
+        setTimeout(function() {
+            $lastDayTextBox.datepicker('show');
+        }, 0);
+    }
+
+    function onLastDayDatePickerSelect() {
+        var lastDay = $(this).datepicker("getDate");
+
+        var displayedDayCount = biorhythmView.totalDays - 1;
+        model.firstDay = lu.DateUtil.addDays(lastDay, -displayedDayCount);
+
+        updateFirstDayInUi();
+    }
+
+    function onBeforeLastDayDatePickerShow(input, inst) {
+        // Handle calendar position before showing it.
+        // It's not supported by Datepicker itself (for now) so I need
+        // to use its internal variables.
+        var calendar = inst.dpDiv;
+
+        // Dirty hack, but we can't do anything without it (for now, in
+        // jQuery UI 1.8.20)
+        setTimeout(function() {
+            calendar.position({
+                my: 'right top',
+                at: 'right bottom',
+                collision: 'none',
+                of: $lastDayLabel
+            });
+        }, 0);
+    }
+
+    function onBiorhythmViewXDayIndexChanged() {
+        updateXDayInfo();
+    }
+
     function onResetBirthdayButtonClick(e) {
         e.preventDefault();
         e.stopPropagation();
 
-        model.birthday = config.birthday;
-
-        updateBirthdayInUi();
-        updateSaveBirthdayButtonVisibility();
-        updateResetBirthdayButtonVisibility();
+        setNewBirthday(config.birthday);
     }
 
     function onSaveBirthdayButtonClick(e) {
@@ -344,6 +284,203 @@
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        $(onDocumentReady);
+        $(function() {
+
+            createControls();
+            initializeControls();
+
+            biorhythmView.suspendPaint();
+            try {
+                configManager = new lu.bioCalc.ConfigManager();
+                config = configManager.loadFromCookies();
+
+                model = {
+                    birthday: config.birthday,
+                    firstDay: lu.DateUtil.addDays(Date.now(), -7)
+                };
+
+                $bioCanvas.attr("tabindex", "1");
+
+                commonBiorhythmShapes = generateBiorhythms();
+                var biorhythmShapes = commonBiorhythmShapes.getAll();
+
+                biorhythmView.setBiorhythms(biorhythmShapes);
+
+                $bioLegend.biorhythmLegend({
+                    biorhythms: biorhythmShapes
+                });
+
+                $xDayInfoContainer.xDayInfoView({
+                    biorhythms: biorhythmShapes
+                });
+
+                $jQueryVersionLabel.html($.fn.jquery);
+                $jQueryUIVersionLabel.html($.ui.version);
+                $bioControlsVersionLabel.html(lu.bioControls.version);
+
+                $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
+
+                updateBirthdayInUi();
+                updateFirstDayInUi();
+                updateSaveBirthdayButtonVisibility();
+                updateResetBirthdayButtonVisibility();
+                updateXDayInfo();
+            }
+            finally {
+                biorhythmView.resumePaint();
+            }
+
+            // Close the modal dialogs when clicking outside of them.
+            $(document.body).on("click", ".ui-widget-overlay", function() {
+                $.each($(".ui-dialog"), function() {
+                    var $dialog = $(this).children(".ui-dialog-content");
+                    if ($dialog.dialog("option", "modal")) {
+                        $dialog.dialog("close");
+                    }
+                });
+            });
+        });
+
+        function createControls() {
+            $bioCanvas = $("#bioCanvas");
+            $bioLegend = $("#bioLegend");
+            $birthdayTextBox = $("#birthdayTextBox");
+            $firstDayLabel = $("#firstDayLabel");
+            $firstDayTextBox = $("#firstDayTextBox");
+            $lastDayLabel = $("#lastDayLabel");
+            $lastDayTextBox = $("#lastDayTextBox");
+            $mainToolbar = $("#mainToolbar");
+            $helpButton = $("#helpButton");
+            $aboutButton = $("#aboutButton");
+            $aboutDialog = $("#aboutDialog");
+            $helpDialog = $("#helpDialog");
+            $jQueryVersionLabel = $("#jQueryVersionLabel");
+            $jQueryUIVersionLabel = $("#jQueryUIVersionLabel");
+            $bioControlsVersionLabel = $("#bioControlsVersionLabel");
+            $bioCalcVersionLabel = $(".bio-calc-version");
+            $saveBirthdayButton = $("#saveBirthdayButton");
+            $resetBirthdayButton = $("#resetBirthdayButton");
+            $birthdayButtons = $("#birthdayButtons");
+            $xDayValueLabel = $("#xDayValueLabel");
+            $xDayInfoContainer = $("#xDayInfoContainer");
+            $aboutDialogTabSet = $("#aboutDialog .tabs");
+            $helpDialogTabSet = $("#helpDialog .tabs");
+        }
+
+        function initializeControls() {
+
+            biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
+            biorhythmView.firstDayChanged.subscribe(onBiorhythmViewFirstDayChanged);
+            biorhythmView.xDayIndexChanged.subscribe(onBiorhythmViewXDayIndexChanged);
+
+            $birthdayTextBox.datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "yy-mm-dd",
+                onSelect: onBirthdayDatePickerSelect,
+                showButtonPanel: true
+            });
+
+            $firstDayLabel.click(onFirstDayLabelClick);
+
+            $firstDayTextBox.datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "yy-mm-dd",
+                onSelect: onFirstDayDatePickerSelect,
+                showButtonPanel: true,
+                beforeShow: onBeforeFirstDayDatePickerShow,
+                showAnim: ""
+            });
+
+            $lastDayLabel.click(onLastDayLabelClick);
+
+            $lastDayTextBox.datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "yy-mm-dd",
+                onSelect: onLastDayDatePickerSelect,
+                showButtonPanel: true,
+                beforeShow: onBeforeLastDayDatePickerShow,
+                showAnim: ""
+            });
+
+            $mainToolbar.buttonset();
+
+            $helpButton.button({
+                icons: {
+                    primary: "ui-icon-help"
+                },
+                text: true
+            });
+            $helpButton.click(onHelpButtonClick);
+
+            $aboutButton.button({
+                icons: {
+                    primary: "ui-icon-star"
+                },
+                text: true
+            });
+            $aboutButton.click(onAboutButtonClick);
+
+            $aboutDialog.dialog({
+                modal: true,
+                height: 420,
+                width: 560,
+                autoOpen: false,
+                buttons: {
+                    Close: onAboutDialogCloseClicked
+                },
+                show: {
+                    effect: "puff",
+                    duration: 300
+                },
+                hide: {
+                    effect: "puff",
+                    duration: 300
+                }
+            });
+
+            $helpDialog.dialog({
+                modal: true,
+                height: 480,
+                width: 640,
+                autoOpen: false,
+                buttons: {
+                    Close: onHelpDialogCloseClicked
+                },
+                show: {
+                    effect: "puff",
+                    duration: 300
+                },
+                hide: {
+                    effect: "puff",
+                    duration: 300
+                }
+            });
+
+            $aboutDialogTabSet.tabs();
+            $helpDialogTabSet.tabs();
+
+            $saveBirthdayButton.button({
+                text: false,
+                icons: {
+                    primary: "ui-icon-disk"
+                },
+                disabled: true
+            });
+            $saveBirthdayButton.click(onSaveBirthdayButtonClick);
+
+            $resetBirthdayButton.button({
+                text: false,
+                icons: {
+                    primary: "ui-icon-close"
+                },
+                disabled: true
+            });
+            $resetBirthdayButton.click(onResetBirthdayButtonClick);
+
+            $birthdayButtons.buttonset();
+        }
     }());
 }());

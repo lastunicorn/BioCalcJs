@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!------------------------------------------------------------------------------
+﻿BioCalc
+Copyright (C) 2013 Last Unicorn
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+------------------------------------------------------------------------------->
+<html>
+    <head>
+        <title>Biorhythm Calculator</title>
+        
+        <script type="text/javascript" src="libraries/jQuery/jquery-2.0.3.min.js"></script>
+        
+        <script type="text/javascript" src="libraries/jQueryCookie/jquery.cookie.js"></script>
+        
+        <link rel="stylesheet" href="libraries/jQueryUI/css/smoothness/jquery-ui.min.css" />
+        <script type="text/javascript" src="libraries/jQueryUI/js/jquery-ui.min.js"></script>
+        
+        <script type="text/javascript" src="libraries/BiorhythmControls/BiorhythmControls.min.js"></script>
+        
+        <script type="text/javascript" src="libraries/ColorPicker/jquery.colorpicker.js"></script>
+        <link rel="stylesheet" href="libraries/ColorPicker/jquery.colorpicker.css" />
+        
+        <script type="text/javascript" src="Debug.js"></script>
+        <script type="text/javascript" src="Version.js"></script>
+        <script type="text/javascript" src="ConfigManager.js"></script>
+        <script type="text/javascript" src="BioCalc.js"></script>
+        <script type="text/javascript" src="BiorhythmLegend.js"></script>
+        <script type="text/javascript" src="BiorhythmLegendItem.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="BioCalc.css" />
+    </head>
+    <body>
+        <div id="pageContainer">
+            <h1>
+            	<span id="title">Biorhythm Calculator</span>
+            	<span class="bio-calc-version"></span>
+            </h1>
+            <div id="toolbar">
+            	<button id="helpButton">Help</button>
+            	<button id="aboutButton">About</button>
+            </div>
+            <div id="bioCanvasContainer">
+                <canvas id="bioCanvas" width="900" height="200" tabindex="1"></canvas>
+            </div>
+            <div id="bioLegend"></div>
+            <div class="clear"></div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Birthday:</td>
+                        <td>
+                            <input type="text" id="birthdayTextBox" />
+							<span id="birthdayButtons">
+								<button id="saveBirthdayButton">Save birthday as default</button>
+								<button id="resetBirthdayButton">Reset to default birthday</button>
+							</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>First Day:</td>
+                        <td>
+                            <input type="text" id="firstDayTextBox" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="aboutDialog" title="About">
+        	<h1>
+            	<span id="title">Biorhythm Calculator</span>
+            	<span class="bio-calc-version"></span>
+            </h1>
+            <div id="tabs">
+				<ul>
+					<li><a href="#tabs-1">Info</a></li>
+					<li><a href="#tabs-2">Libraries</a></li>
+				</ul>
+				<div id="tabs-1">
+					<p>Author: Alexandru Iuga (<a href="https://github.com/lastunicorn" target="_blank">@lastunicorn</a>)</p>
+        			<p>GitHub page: <a href="https://github.com/lastunicorn/BioCalcJs" target="_blank">here</a></p>
+				</div>
+				<div id="tabs-2">
+					<ul>
+	        			<li>jQuery - <span id="jQueryVersionLabel"/></li>
+	        			<li>jQuery UI - <span id="jQueryUIVersionLabel"/></li>
+	        			<li>BiorhythmControls - <span id="bioControlsVersionLabel"/></li>
+	        		</ul>
+				</div>
+			</div>
+        </div>
+        <div id="helpDialog" title="Help">
+        	<h2>What are the biorhythms</h2>
+        	<p>According to believers in biorhythms, a person's life is influenced by rhythmic biological cycles that affect one's ability in various domains, such as mental, physical and emotional activity.</p>
+        	<p>These cycles begin at birth and oscillate in a steady (sine wave) fashion throughout life; thus, by modeling them mathematically, a person's level of ability in each of these domains can be predicted from day to day.</p>
+        	<p>Read more on <a href="http://en.wikipedia.org/wiki/Biorhythm" target="_blank">Wikipedia</a>.</p>
+        </div>
+    </body>
+</html>

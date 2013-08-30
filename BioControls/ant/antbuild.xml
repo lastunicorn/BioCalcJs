@@ -2,11 +2,100 @@
 
 <project default="main" basedir=".">
 
+	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="ExternalTools/ClosureCompiler/compiler.jar" />
+
 	<target name="main">
 
-		<!--<echo message="Testing." />
+		<echo message="Testing." />
 
-		<exec executable="java">
+		<delete file="compiled/BiorhythmControls.test.js" />
+
+		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="compiled/BiorhythmControls.test.js">
+
+			<sources dir="${basedir}/sources">
+				<file name="BiorhythmView.js" />
+				<file name="Scroller.js" />
+				<file name="Version.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/common">
+				<file name="DateUtil.js" />
+				<file name="DayLabelPosition.js" />
+				<file name="Event.js" />
+				<file name="Line.js" />
+				<file name="LinePatternCalculator.js" />
+				<file name="LineStyle.js" />
+				<file name="List.js" />
+				<file name="MouseButton.js" />
+				<file name="Point.js" />
+				<file name="Rectangle.js" />
+				<file name="TextUtil.js" />
+				<file name="WeekDayNameProvider.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/common/biorhythmModel">
+				<file name="BiorhythmShape.js" />
+				<file name="CommonBiorhythmShapes.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/common/paintDataCalculation">
+				<file name="BiorhythmCurvesCalculator.js" />
+				<file name="DayLablesCalculator.js" />
+				<file name="GridLinesCalculator.js" />
+				<file name="PaintDataCalculator.js" />
+				<file name="TodayMarkerCalculator.js" />
+				<file name="XDayMarkerCalculator.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/common/painting">
+				<file name="BiorhythmCurvesPainter.js" />
+				<file name="BiorhythmViewPainter.js" />
+				<file name="DayLabelsPainter.js" />
+				<file name="GridLinesPainter.js" />
+				<file name="TodayMarkerPainter.js" />
+				<file name="XDayMarkerPainter.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/core">
+				<file name="AverageBiorhythm.js" />
+				<file name="EmotionalBiorhythm.js" />
+				<file name="EstheticBiorhythm.js" />
+				<file name="IntellectualBiorhythm.js" />
+				<file name="IntuitiveBiorhythm.js" />
+				<file name="MasteryBiorhythm.js" />
+				<file name="PassionBiorhythm.js" />
+				<file name="PerceptionBiorhythm.js" />
+				<file name="PhysicalBiorhythm.js" />
+				<file name="PsychicBiorhythm.js" />
+				<file name="SelfAwarenessBiorhythm.js" />
+				<file name="SinusoidalBiorhythm.js" />
+				<file name="SpiritualBiorhythm.js" />
+				<file name="SuccessBiorhythm.js" />
+				<file name="WisdomBiorhythm.js" />
+			</sources>
+
+		</jscomp>
+
+		<!--<java jar="ExternalTools/ClosureCompiler/compiler.jar" fork="true" dir="/home/alez/Projects/eclipse/Biorhythm Calculator/BioControls">
+			<arg line="-js sources/*.js" />
+			<arg line="-js_output_file BiorhythmControls.test.js" />
+			<arg line="-formatting PRETTY_PRINT" />
+			<arg line="-compilation_level WHITESPACE_ONLY" />
+		</java>-->
+
+		<!--<java jar="ExternalTools/ClosureCompiler/compiler.jar" fork="true">
+			<arg value="-js" />
+			<arg value="sources/Scroller.js" />
+			<arg value="-js" />
+			<arg value="sources/Version.js" />
+			<arg value="-js" />
+			<arg value="sources/BiorhythmView.js" />
+			<arg line="-js_output_file compiled/BiorhythmControls.test.js" />
+			<arg line="-formatting PRETTY_PRINT" />
+			<arg line="-compilation_level WHITESPACE_ONLY" />
+		</java>-->
+
+		<!--<exec executable="java">
 			<arg line="-jar ExternalTools/ClosureCompiler/compiler.jar" />
 			<arg line="-js &quot;sources/*.js&quot;" />
 			<arg line="-js_output_file compiled/BiorhythmControls.test.js" />
@@ -16,7 +105,7 @@
 
 		<echo message="Compiling the js files." />
 
-		<exec executable="${basedir}/compile.sh" />
+		<!--<exec executable="${basedir}/compile.sh" />-->
 
 	</target>
 

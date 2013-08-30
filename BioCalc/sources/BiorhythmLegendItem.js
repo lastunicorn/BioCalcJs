@@ -72,7 +72,7 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
             open: onColorPickerOpened,
             showOn: "click alt",
             title: title,
-            parts: title ? "draggable" : "popup",
+            parts: title ? "draggable" : "popup"
         });
 
         return $div;

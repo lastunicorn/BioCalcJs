@@ -396,246 +396,6 @@ lu.bioControls.BiorhythmView = function(id) {
   })()
 };
 var lu = lu || {};
-lu.DateUtil = {daysToMiliseconds:function(days) {
-  return days * 24 * 60 * 60 * 1E3
-}, addDays:function(date, daysToAdd) {
-  var miliseconds = daysToAdd * 24 * 60 * 60 * 1E3;
-  if(date instanceof Date) {
-    date = date.getTime()
-  }
-  if(typeof date !== "number") {
-    throw"date argument is not a real date.";
-  }
-  if(typeof daysToAdd !== "number") {
-    throw"daysToAdd should be a number.";
-  }
-  return new Date(date + miliseconds)
-}};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.common = lu.bioControls.common || {};
-lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
-lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
-  var obj = this;
-  var name = "New Biorhythm Shape";
-  var nameChangedEvent = new lu.Event;
-  this.nameChanged = nameChangedEvent.client;
-  this.subscribeToNameChanged = nameChangedEvent.subscribe;
-  this.unsubscribeFromNameChanged = nameChangedEvent.unsubscribe;
-  this.getName = getName;
-  function getName() {
-    return name
-  }
-  this.setName = setName;
-  function setName(value) {
-    if(value === name) {
-      return
-    }
-    name = value;
-    nameChangedEvent.raise(obj, value)
-  }
-  Object.defineProperty(this, "name", {enumerable:true, configurable:false, get:getName, set:setName});
-  var birthday = Date(80, 5, 13);
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  this.subscribeToBirthdayChanged = birthdayChangedEvent.subscribe;
-  this.unsubscribeFromBirthdayChanged = birthdayChangedEvent.unsubscribe;
-  this.getBirthday = getBirthday;
-  function getBirthday() {
-    return birthday
-  }
-  this.setBirthday = setBirthday;
-  function setBirthday(value) {
-    if(value === birthday) {
-      return
-    }
-    birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  var biorhythm = null;
-  var biorhythmChangedEvent = new lu.Event;
-  this.biorhythmChanged = biorhythmChangedEvent.client;
-  this.subscribeToBiorhythmChanged = biorhythmChangedEvent.subscribe;
-  this.unsubscribeFromBiorhythmChanged = biorhythmChangedEvent.unsubscribe;
-  this.getBiorhythm = getBiorhythm;
-  function getBiorhythm() {
-    return biorhythm
-  }
-  this.setBiorhythm = setBiorhythm;
-  function setBiorhythm(value) {
-    if(value === biorhythm) {
-      return
-    }
-    biorhythm = value;
-    biorhythmChangedEvent.raise(obj, value)
-  }
-  Object.defineProperty(this, "biorhythm", {enumerable:true, configurable:false, get:getBiorhythm, set:setBiorhythm});
-  var color = null;
-  var colorChangedEvent = new lu.Event;
-  this.colorChanged = colorChangedEvent.client;
-  this.subscribeToColorChanged = colorChangedEvent.subscribe;
-  this.unsubscribeFromColorChanged = colorChangedEvent.unsubscribe;
-  this.getColor = getColor;
-  function getColor() {
-    return color
-  }
-  this.setColor = setColor;
-  function setColor(value) {
-    if(value === color) {
-      return
-    }
-    color = value;
-    colorChangedEvent.raise(obj, value)
-  }
-  Object.defineProperty(this, "color", {enumerable:true, configurable:false, get:getColor, set:setColor});
-  var isVisible = true;
-  var isVisibleChangedEvent = new lu.Event;
-  this.isVisibleChanged = isVisibleChangedEvent.client;
-  this.subscribeToIsVisibleChanged = isVisibleChangedEvent.subscribe;
-  this.unsubscribeFromIsVisibleChanged = isVisibleChangedEvent.unsubscribe;
-  this.getIsVisible = getIsVisible;
-  function getIsVisible() {
-    return isVisible
-  }
-  this.setIsVisible = setIsVisible;
-  function setIsVisible(value) {
-    if(value === isVisible) {
-      return
-    }
-    isVisible = value;
-    isVisibleChangedEvent.raise(obj, value)
-  }
-  Object.defineProperty(this, "isVisible", {enumerable:true, configurable:false, get:getIsVisible, set:setIsVisible});
-  var lineWidth = 1;
-  var lineWidthChangedEvent = new lu.Event;
-  this.lineWidthChanged = lineWidthChangedEvent.client;
-  this.subscribeToLineWidthChanged = lineWidthChangedEvent.subscribe;
-  this.unsubscribeFromLineWidthChanged = lineWidthChangedEvent.unsubscribe;
-  this.getLineWidth = getLineWidth;
-  function getLineWidth() {
-    return lineWidth
-  }
-  this.setLineWidth = setLineWidth;
-  function setLineWidth(value) {
-    if(value === lineWidth) {
-      return
-    }
-    lineWidth = value;
-    lineWidthChangedEvent.raise(obj, value)
-  }
-  Object.defineProperty(this, "lineWidth", {enumerable:true, configurable:false, get:getLineWidth, set:setLineWidth});
-  var lineStyle = lu.LineStyle.solid;
-  var lineStyleChangedEvent = new lu.Event;
-  this.lineStyleChanged = lineStyleChangedEvent.client;
-  this.subscribeToLineStyleChanged = lineStyleChangedEvent.subscribe;
-  this.unsubscribeFromLineStyleChanged = lineStyleChangedEvent.unsubscribe;
-  this.getLineStyle = getLineStyle;
-  function getLineStyle() {
-    return lineStyle
-  }
-  this.setLineStyle = setLineStyle;
-  function setLineStyle(value) {
-    if(value === lineStyle) {
-      return
-    }
-    lineStyle = value;
-    lineStyleChangedEvent.raise(obj, value)
-  }
-  Object.defineProperty(this, "lineStyle", {enumerable:true, configurable:false, get:getLineStyle, set:setLineStyle})
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.common = lu.bioControls.common || {};
-lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
-lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
-  var rawPaintData = null;
-  var canvas = null;
-  var margin = 10;
-  this.calculate = function(data, canvasElement) {
-    rawPaintData = data;
-    canvas = canvasElement;
-    return calculateBiorhythms()
-  };
-  function calculateBiorhythms() {
-    var values = [];
-    var points;
-    for(var i = 0;i < rawPaintData.biorhythmShapes.length;i++) {
-      var biorhythmShape = rawPaintData.biorhythmShapes[i];
-      if(!biorhythmShape.getIsVisible()) {
-        continue
-      }
-      var biorhythm = biorhythmShape.getBiorhythm();
-      var birthday = biorhythmShape.getBirthday();
-      points = calculateBiorhythmPoints(biorhythm, birthday);
-      values.push({points:points, color:biorhythmShape.getColor(), lineWidth:biorhythmShape.getLineWidth(), lineStyle:biorhythmShape.getLineStyle()})
-    }
-    return values
-  }
-  function calculateBiorhythmPoints(biorhythm, birthday) {
-    var xStep = canvas.width / rawPaintData.totalDays;
-    var xOffset = xStep / 2;
-    var yOffset = margin + (canvas.height - 2 * margin) / 2;
-    var amplitude = canvas.height / 2 - 2 * margin;
-    var milisecondsLived = rawPaintData.firstDay - birthday;
-    var daysLived = Math.floor(milisecondsLived / 1E3 / 60 / 60 / 24);
-    var points = [];
-    for(var index = 0;index < rawPaintData.totalDays;index++) {
-      var x = xOffset + index * xStep;
-      var y = yOffset - biorhythm.getValue(daysLived + index) * amplitude;
-      points[index] = new lu.Point(x, y)
-    }
-    return points
-  }
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.common = lu.bioControls.common || {};
-lu.bioControls.common.painting = lu.bioControls.common.painting || {};
-lu.bioControls.common.painting.BiorhythmCurvesPainter = function() {
-  var dataToPaint = null;
-  var paintContext = null;
-  this.paint = function(context, data) {
-    paintContext = context;
-    dataToPaint = data;
-    paintBiorhythms()
-  };
-  function paintBiorhythms() {
-    for(var i = 0;i < dataToPaint.length;i++) {
-      paintBiorhythm(dataToPaint[i])
-    }
-  }
-  function paintBiorhythm(biorhythmData) {
-    var linePattern = lu.LinePatternCalculator.calculatePattern(biorhythmData.lineStyle, biorhythmData.lineWidth);
-    setLinePattern(linePattern);
-    paintContext.strokeStyle = biorhythmData.color;
-    paintContext.lineWidth = biorhythmData.lineWidth;
-    paintContext.lineJoin = "round";
-    paintContext.beginPath();
-    for(var i = 0;i < biorhythmData.points.length;i++) {
-      paintContext.lineTo(biorhythmData.points[i].getX(), biorhythmData.points[i].getY())
-    }
-    paintContext.stroke()
-  }
-  function setLinePattern(linePattern) {
-    if(paintContext.mozDash !== undefined) {
-      paintContext.mozDash = linePattern
-    }
-    if(typeof paintContext.setLineDash === "function") {
-      paintContext.setLineDash(linePattern)
-    }
-  }
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.core = lu.bioControls.core || {};
-lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
-lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
-  this.getValue = function(dayIndex) {
-    return(biorhythmA.getValue(dayIndex) + biorhythmB.getValue(dayIndex)) / 2
-  }
-};
-var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.Scroller = function(configuration) {
   var defaultStepLength = 1;
@@ -745,6 +505,22 @@ Object.defineProperty(lu.bioControls, "version", {value:"1.3.0", writable:false,
 lu.bioControls.getVersion = function() {
   return lu.bioControls.version
 };
+var lu = lu || {};
+lu.DateUtil = {daysToMiliseconds:function(days) {
+  return days * 24 * 60 * 60 * 1E3
+}, addDays:function(date, daysToAdd) {
+  var miliseconds = daysToAdd * 24 * 60 * 60 * 1E3;
+  if(date instanceof Date) {
+    date = date.getTime()
+  }
+  if(typeof date !== "number") {
+    throw"date argument is not a real date.";
+  }
+  if(typeof daysToAdd !== "number") {
+    throw"daysToAdd should be a number.";
+  }
+  return new Date(date + miliseconds)
+}};
 var lu = lu || {};
 lu.DayLabelPosition = {top:0, aboveMiddle:1, belowMiddle:2, bottom:3};
 var lu = lu || {};
@@ -938,7 +714,7 @@ lu.Rectangle = function(left, top, width, height) {
   }
   Object.defineProperty(this, "height", {enumerable:true, get:getHeight});
   this.toString = function() {
-    return"[" + left.toString() + ", " + top.toString() + "] w=" + width.toString() + "; h=" + height.toString()
+    return"[" + left.toString() + ", " + top.toString() + "] w\x3d" + width.toString() + "; h\x3d" + height.toString()
   };
   (function initialize() {
     if(typeof left !== "number") {
@@ -988,6 +764,139 @@ lu.WeekDayNamesProvider = function() {
   }
   return{getWeekDayName:getWeekDayName}
 }();
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {};
+lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
+  var obj = this;
+  var name = "New Biorhythm Shape";
+  var nameChangedEvent = new lu.Event;
+  this.nameChanged = nameChangedEvent.client;
+  this.subscribeToNameChanged = nameChangedEvent.subscribe;
+  this.unsubscribeFromNameChanged = nameChangedEvent.unsubscribe;
+  this.getName = getName;
+  function getName() {
+    return name
+  }
+  this.setName = setName;
+  function setName(value) {
+    if(value === name) {
+      return
+    }
+    name = value;
+    nameChangedEvent.raise(obj, value)
+  }
+  Object.defineProperty(this, "name", {enumerable:true, configurable:false, get:getName, set:setName});
+  var birthday = Date(80, 5, 13);
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  this.subscribeToBirthdayChanged = birthdayChangedEvent.subscribe;
+  this.unsubscribeFromBirthdayChanged = birthdayChangedEvent.unsubscribe;
+  this.getBirthday = getBirthday;
+  function getBirthday() {
+    return birthday
+  }
+  this.setBirthday = setBirthday;
+  function setBirthday(value) {
+    if(value === birthday) {
+      return
+    }
+    birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  var biorhythm = null;
+  var biorhythmChangedEvent = new lu.Event;
+  this.biorhythmChanged = biorhythmChangedEvent.client;
+  this.subscribeToBiorhythmChanged = biorhythmChangedEvent.subscribe;
+  this.unsubscribeFromBiorhythmChanged = biorhythmChangedEvent.unsubscribe;
+  this.getBiorhythm = getBiorhythm;
+  function getBiorhythm() {
+    return biorhythm
+  }
+  this.setBiorhythm = setBiorhythm;
+  function setBiorhythm(value) {
+    if(value === biorhythm) {
+      return
+    }
+    biorhythm = value;
+    biorhythmChangedEvent.raise(obj, value)
+  }
+  Object.defineProperty(this, "biorhythm", {enumerable:true, configurable:false, get:getBiorhythm, set:setBiorhythm});
+  var color = null;
+  var colorChangedEvent = new lu.Event;
+  this.colorChanged = colorChangedEvent.client;
+  this.subscribeToColorChanged = colorChangedEvent.subscribe;
+  this.unsubscribeFromColorChanged = colorChangedEvent.unsubscribe;
+  this.getColor = getColor;
+  function getColor() {
+    return color
+  }
+  this.setColor = setColor;
+  function setColor(value) {
+    if(value === color) {
+      return
+    }
+    color = value;
+    colorChangedEvent.raise(obj, value)
+  }
+  Object.defineProperty(this, "color", {enumerable:true, configurable:false, get:getColor, set:setColor});
+  var isVisible = true;
+  var isVisibleChangedEvent = new lu.Event;
+  this.isVisibleChanged = isVisibleChangedEvent.client;
+  this.subscribeToIsVisibleChanged = isVisibleChangedEvent.subscribe;
+  this.unsubscribeFromIsVisibleChanged = isVisibleChangedEvent.unsubscribe;
+  this.getIsVisible = getIsVisible;
+  function getIsVisible() {
+    return isVisible
+  }
+  this.setIsVisible = setIsVisible;
+  function setIsVisible(value) {
+    if(value === isVisible) {
+      return
+    }
+    isVisible = value;
+    isVisibleChangedEvent.raise(obj, value)
+  }
+  Object.defineProperty(this, "isVisible", {enumerable:true, configurable:false, get:getIsVisible, set:setIsVisible});
+  var lineWidth = 1;
+  var lineWidthChangedEvent = new lu.Event;
+  this.lineWidthChanged = lineWidthChangedEvent.client;
+  this.subscribeToLineWidthChanged = lineWidthChangedEvent.subscribe;
+  this.unsubscribeFromLineWidthChanged = lineWidthChangedEvent.unsubscribe;
+  this.getLineWidth = getLineWidth;
+  function getLineWidth() {
+    return lineWidth
+  }
+  this.setLineWidth = setLineWidth;
+  function setLineWidth(value) {
+    if(value === lineWidth) {
+      return
+    }
+    lineWidth = value;
+    lineWidthChangedEvent.raise(obj, value)
+  }
+  Object.defineProperty(this, "lineWidth", {enumerable:true, configurable:false, get:getLineWidth, set:setLineWidth});
+  var lineStyle = lu.LineStyle.solid;
+  var lineStyleChangedEvent = new lu.Event;
+  this.lineStyleChanged = lineStyleChangedEvent.client;
+  this.subscribeToLineStyleChanged = lineStyleChangedEvent.subscribe;
+  this.unsubscribeFromLineStyleChanged = lineStyleChangedEvent.unsubscribe;
+  this.getLineStyle = getLineStyle;
+  function getLineStyle() {
+    return lineStyle
+  }
+  this.setLineStyle = setLineStyle;
+  function setLineStyle(value) {
+    if(value === lineStyle) {
+      return
+    }
+    lineStyle = value;
+    lineStyleChangedEvent.raise(obj, value)
+  }
+  Object.defineProperty(this, "lineStyle", {enumerable:true, configurable:false, get:getLineStyle, set:setLineStyle})
+};
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
@@ -1249,6 +1158,50 @@ var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
+lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
+  var rawPaintData = null;
+  var canvas = null;
+  var margin = 10;
+  this.calculate = function(data, canvasElement) {
+    rawPaintData = data;
+    canvas = canvasElement;
+    return calculateBiorhythms()
+  };
+  function calculateBiorhythms() {
+    var values = [];
+    var points;
+    for(var i = 0;i < rawPaintData.biorhythmShapes.length;i++) {
+      var biorhythmShape = rawPaintData.biorhythmShapes[i];
+      if(!biorhythmShape.getIsVisible()) {
+        continue
+      }
+      var biorhythm = biorhythmShape.getBiorhythm();
+      var birthday = biorhythmShape.getBirthday();
+      points = calculateBiorhythmPoints(biorhythm, birthday);
+      values.push({points:points, color:biorhythmShape.getColor(), lineWidth:biorhythmShape.getLineWidth(), lineStyle:biorhythmShape.getLineStyle()})
+    }
+    return values
+  }
+  function calculateBiorhythmPoints(biorhythm, birthday) {
+    var xStep = canvas.width / rawPaintData.totalDays;
+    var xOffset = xStep / 2;
+    var yOffset = margin + (canvas.height - 2 * margin) / 2;
+    var amplitude = canvas.height / 2 - 2 * margin;
+    var milisecondsLived = rawPaintData.firstDay - birthday;
+    var daysLived = Math.floor(milisecondsLived / 1E3 / 60 / 60 / 24);
+    var points = [];
+    for(var index = 0;index < rawPaintData.totalDays;index++) {
+      var x = xOffset + index * xStep;
+      var y = yOffset - biorhythm.getValue(daysLived + index) * amplitude;
+      points[index] = new lu.Point(x, y)
+    }
+    return points
+  }
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
 lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
   var rawPaintData = null;
   var canvas = null;
@@ -1434,6 +1387,44 @@ var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.painting = lu.bioControls.common.painting || {};
+lu.bioControls.common.painting.BiorhythmCurvesPainter = function() {
+  var dataToPaint = null;
+  var paintContext = null;
+  this.paint = function(context, data) {
+    paintContext = context;
+    dataToPaint = data;
+    paintBiorhythms()
+  };
+  function paintBiorhythms() {
+    for(var i = 0;i < dataToPaint.length;i++) {
+      paintBiorhythm(dataToPaint[i])
+    }
+  }
+  function paintBiorhythm(biorhythmData) {
+    var linePattern = lu.LinePatternCalculator.calculatePattern(biorhythmData.lineStyle, biorhythmData.lineWidth);
+    setLinePattern(linePattern);
+    paintContext.strokeStyle = biorhythmData.color;
+    paintContext.lineWidth = biorhythmData.lineWidth;
+    paintContext.lineJoin = "round";
+    paintContext.beginPath();
+    for(var i = 0;i < biorhythmData.points.length;i++) {
+      paintContext.lineTo(biorhythmData.points[i].getX(), biorhythmData.points[i].getY())
+    }
+    paintContext.stroke()
+  }
+  function setLinePattern(linePattern) {
+    if(paintContext.mozDash !== undefined) {
+      paintContext.mozDash = linePattern
+    }
+    if(typeof paintContext.setLineDash === "function") {
+      paintContext.setLineDash(linePattern)
+    }
+  }
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.common = lu.bioControls.common || {};
+lu.bioControls.common.painting = lu.bioControls.common.painting || {};
 lu.bioControls.common.painting.BiorhythmViewPainter = function() {
   var rawPaintData = null;
   var canvas = null;
@@ -1611,6 +1602,15 @@ lu.bioControls.common.painting.XDayMarkerPainter = function() {
     if(typeof paintContext.setLineDash === "function") {
       paintContext.setLineDash(linePattern)
     }
+  }
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.core = lu.bioControls.core || {};
+lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
+lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
+  this.getValue = function(dayIndex) {
+    return(biorhythmA.getValue(dayIndex) + biorhythmB.getValue(dayIndex)) / 2
   }
 };
 var lu = lu || {};
@@ -1909,4 +1909,3 @@ lu.bioControls.core.biorhythms.WisdomBiorhythm = function() {
     biorhythm = new lu.bioControls.core.biorhythms.AverageBiorhythm(emotionalBiorhythm, intellectualBiorhythm)
   })()
 };
-

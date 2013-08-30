@@ -1,16 +1,35 @@
 <?xml version="1.0"?>
 
-<project default="main" basedir=".">
+<project default="debug" basedir=".">
 
 	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="ExternalTools/ClosureCompiler/compiler.jar" />
 
-	<target name="main">
+	<property name="dir.compiled" value="compiled" />
+	<property name="file.compiled.debug" value="${dir.compiled}/BiorhythmControls.js" />
+	<property name="file.compiled.release" value="${dir.compiled}/BiorhythmControls.min.js" />
 
-		<echo message="Testing." />
+	<target name="debug">
+		<echo message="Deleting the compiled js file." />
+		<delete file="${file.compiled.debug}" />
 
-		<delete file="compiled/BiorhythmControls.test.js" />
+		<antcall target="compile">
+			<param name="file.output" value="${file.compiled.debug}" />
+		</antcall>
+	</target>
 
-		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="compiled/BiorhythmControls.test.js">
+	<target name="release">
+		<echo message="Deleting the compiled js file." />
+		<delete file="${file.compiled.release}" />
+
+		<antcall target="compile">
+			<param name="file.output" value="${file.compiled.release}" />
+		</antcall>
+	</target>
+
+	<target name="compile">
+		<echo message="Compiling the js files." />
+
+		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="${file.output}">
 
 			<sources dir="${basedir}/sources">
 				<file name="BiorhythmView.js" />
@@ -75,38 +94,6 @@
 			</sources>
 
 		</jscomp>
-
-		<!--<java jar="ExternalTools/ClosureCompiler/compiler.jar" fork="true" dir="/home/alez/Projects/eclipse/Biorhythm Calculator/BioControls">
-			<arg line="-js sources/*.js" />
-			<arg line="-js_output_file BiorhythmControls.test.js" />
-			<arg line="-formatting PRETTY_PRINT" />
-			<arg line="-compilation_level WHITESPACE_ONLY" />
-		</java>-->
-
-		<!--<java jar="ExternalTools/ClosureCompiler/compiler.jar" fork="true">
-			<arg value="-js" />
-			<arg value="sources/Scroller.js" />
-			<arg value="-js" />
-			<arg value="sources/Version.js" />
-			<arg value="-js" />
-			<arg value="sources/BiorhythmView.js" />
-			<arg line="-js_output_file compiled/BiorhythmControls.test.js" />
-			<arg line="-formatting PRETTY_PRINT" />
-			<arg line="-compilation_level WHITESPACE_ONLY" />
-		</java>-->
-
-		<!--<exec executable="java">
-			<arg line="-jar ExternalTools/ClosureCompiler/compiler.jar" />
-			<arg line="-js &quot;sources/*.js&quot;" />
-			<arg line="-js_output_file compiled/BiorhythmControls.test.js" />
-			<arg line="-formatting PRETTY_PRINT" />
-			<arg line="-compilation_level WHITESPACE_ONLY" />
-		</exec>-->
-
-		<echo message="Compiling the js files." />
-
-		<!--<exec executable="${basedir}/compile.sh" />-->
-
 	</target>
 
 </project>

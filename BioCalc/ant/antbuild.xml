@@ -1,22 +1,56 @@
 <?xml version="1.0"?>
 
 <project name="BioCalc" default="main" basedir=".">
+	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="../BioControls/ExternalTools/ClosureCompiler/compiler.jar" />
 
 	<target name="main">
 
 		<echo message="Copying files to the compiled directory." />
 
-		<copy todir="compiled">
-			<fileset dir="sources" />
+		<delete includeEmptyDirs="true">
+			<fileset dir="compiled" includes="**/*" />
+		</delete>
+
+		<copy todir="compiled/libraries">
+			<fileset dir="sources/libraries" />
 		</copy>
+
+		<copy file="sources/BioCalc.css" todir="compiled" />
+		<copy file="sources/BioCalc.html" todir="compiled" />
+
+		<copy file="changelog.txt" todir="compiled" />
+		<copy file="license.txt" todir="compiled" />
+
+		<antcall target="compile">
+			<param name="file.output" value="compiled/BioCalc.js" />
+		</antcall>
 
 		<echo message="Copying compiled files from BioControls." />
 
-		<copy todir="compiled/sources/libraries/BiorhythmControls">
+		<copy todir="compiled/libraries/BiorhythmControls">
 			<fileset dir="../BioControls/compiled">
 				<include name="*.js" />
 			</fileset>
 		</copy>
+	</target>
+
+	<target name="compile">
+		<echo message="Compiling the js files." />
+
+		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="${file.output}">
+
+			<sources dir="${basedir}/sources">
+				<file name="BioCalc.js" />
+				<file name="BiorhythmLegend.js" />
+				<file name="BiorhythmLegendItem.js" />
+				<file name="ConfigManager.js" />
+				<file name="Debug.js" />
+				<file name="Version.js" />
+				<file name="XDayInfoItem.js" />
+				<file name="XDayInfoView.js" />
+			</sources>
+
+		</jscomp>
 	</target>
 
 </project>

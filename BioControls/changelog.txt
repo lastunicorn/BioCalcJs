@@ -5,7 +5,8 @@ var 2.0.0
 ---------
 [Change] I removed the deprecated methods.
 [Change] BiorhythmView receives the canvas element instead of the id.
-[Feature] I added more useful methods on CommonBiorhythmShapes constructor.
+[Change] I rearranged files in directories (object constructors in "namespaces").
+[Feature] I added more useful methods in CommonBiorhythmShapes constructor.
 
 ver 1.3.0
 ---------

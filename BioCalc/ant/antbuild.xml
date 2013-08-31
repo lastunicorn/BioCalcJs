@@ -47,10 +47,13 @@
 				<file name="BioCalc.js" />
 				<file name="BiorhythmLegend.js" />
 				<file name="BiorhythmLegendItem.js" />
+				<file name="BiorhythmLegendWidget.js" />
+				<file name="BiorhythmViewWidget.js" />
 				<file name="ConfigManager.js" />
 				<file name="Version.js" />
 				<file name="XDayInfoItem.js" />
 				<file name="XDayInfoView.js" />
+				<file name="XDayInfoWidget.js" />
 			</sources>
 
 		</jscomp>

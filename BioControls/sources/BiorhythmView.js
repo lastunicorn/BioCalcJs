@@ -98,7 +98,7 @@ lu.bioControls.BiorhythmView = function(canvas) {
     }
 
     // --------------------------------------------------------------------------
-    // 
+    // Birthday
     // --------------------------------------------------------------------------
 
     this.setBirthdayOnAllBiorhythms = function(birthday) {

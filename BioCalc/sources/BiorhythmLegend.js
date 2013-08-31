@@ -62,14 +62,3 @@ lu.bioCalc.BiorhythmLegend = function(biorhythmShapes, legendContainerSelector) 
 // --------------------------------------------------------------------------
 // jQuery widget
 // --------------------------------------------------------------------------
-
-(function($) {
-    var biorhythmLegend = null;
-
-    $.widget("lastunicorn.biorhythmLegend", {
-        _create: function() {
-            biorhythmLegend = new lu.bioCalc.BiorhythmLegend(this.options.biorhythms, this.element);
-            biorhythmLegend.populate();
-        }
-    });
-}(jQuery));

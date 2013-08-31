@@ -108,7 +108,7 @@ a[target="_blank"] {
 	margin: 0 auto;
 }
 
-#bioCanvas {
+#bioCanvasContainer canvas {
 	border: 1px solid #c0c0c0;
 	outline: none;
 	border-radius: 5px;

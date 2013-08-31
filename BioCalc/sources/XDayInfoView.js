@@ -73,22 +73,3 @@ lu.bioCalc.XDayInfoView = function(biorhythmShapes, containerSelector) {
         }
     }());
 };
-
-// --------------------------------------------------------------------------
-// jQuery widget
-// --------------------------------------------------------------------------
-
-(function($) {
-    var xDayInfoView = null;
-
-    $.widget("lastunicorn.xDayInfoView", {
-        _create: function() {
-            xDayInfoView = new lu.bioCalc.XDayInfoView(this.options.biorhythms, this.element);
-            xDayInfoView.populate();
-        },
-
-        update: function(xDay) {
-            xDayInfoView.update(xDay);
-        }
-    });
-}(jQuery));

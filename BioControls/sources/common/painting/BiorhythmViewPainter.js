@@ -27,7 +27,8 @@ lu.bioControls.common.painting = lu.bioControls.common.painting || {};
 lu.bioControls.common.painting.BiorhythmViewPainter = function() {
 
     var rawPaintData = null;
-    var canvas = null;
+    var context = null;
+    var rect = null;
     var paintCount = 0;
 
     var todayMarkerPainter = null;
@@ -40,34 +41,32 @@ lu.bioControls.common.painting.BiorhythmViewPainter = function() {
         return paintCount;
     };
 
-    this.paint = function(data, canvasElement) {
+    this.paint = function(data, canvasContext, rectangle) {
         paintCount++;
+        
         rawPaintData = data;
-        canvas = canvasElement;
+        rect = rectangle;
+        context = canvasContext;
 
         var paintDataCalculator = new lu.bioControls.common.paintDataCalculation.PaintDataCalculator();
-        var dataToPaint = paintDataCalculator.calculate(rawPaintData, canvas);
+        var dataToPaint = paintDataCalculator.calculate(rawPaintData, rect);
 
         paintAll(dataToPaint);
     };
 
     function paintAll(dataToPaint) {
-        if (canvas.getContext) {
-            var context = canvas.getContext('2d');
+        clearCanvas(context);
 
-            clearCanvas(context);
-
-            todayMarkerPainter.paint(context, dataToPaint.todayMarker);
-            gridLinesPainter.paint(context, dataToPaint.gridLines);
-            biorhythmCurvesPainter.paint(context, dataToPaint.biorhythms);
-            dayLabelsPainter.paint(context, dataToPaint.dayLabels);
-            xDayMarkerPainter.paint(context, dataToPaint.xDayMarker);
-        }
+        todayMarkerPainter.paint(context, dataToPaint.todayMarker);
+        gridLinesPainter.paint(context, dataToPaint.gridLines);
+        biorhythmCurvesPainter.paint(context, dataToPaint.biorhythms);
+        dayLabelsPainter.paint(context, dataToPaint.dayLabels);
+        xDayMarkerPainter.paint(context, dataToPaint.xDayMarker);
     }
 
     function clearCanvas(context) {
         context.fillStyle = "#ffffff";
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillRect(0, 0, rect.width, rect.height);
     }
 
     (function initialize() {

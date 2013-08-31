@@ -925,6 +925,10 @@ lu.bioControls.BiorhythmView = function(id) {
             return;
         }
 
+        if (!canvas.getContext) {
+            return;
+        }
+
         var rawPaintData = {
             biorhythmShapes: biorhythms.toArray(),
             firstDay: firstDay,
@@ -949,7 +953,10 @@ lu.bioControls.BiorhythmView = function(id) {
             sundaysFont: sundaysFont
         };
 
-        painter.paint(rawPaintData, canvas);
+        var context = canvas.getContext('2d');
+        var rectangle = new lu.Rectangle(0, 0, canvas.width, canvas.height);
+
+        painter.paint(rawPaintData, context, rectangle);
     }
 
     this.getPaintCount = function() {

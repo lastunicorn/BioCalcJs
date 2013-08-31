@@ -22,16 +22,16 @@ lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalc
 lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
     
     var rawPaintData = null;
-    var canvas = null;
+    var rect = null;
     var margin = 10;
     
 	// --------------------------------------------------------------------------
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-    this.calculate = function(data, canvasElement) {
+    this.calculate = function(data, rectangle) {
         rawPaintData = data;
-        canvas = canvasElement;
+        rect = rectangle;
         
         return calculateBiorhythms();
     };
@@ -67,10 +67,10 @@ lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function(
 
 	function calculateBiorhythmPoints(biorhythm)
 	{
-		var xStep = (canvas.width) / rawPaintData.totalDays;
+		var xStep = (rect.width) / rawPaintData.totalDays;
 		var xOffset = xStep / 2;
-		var yOffset = margin + (canvas.height - 2 * margin) / 2;
-		var amplitude = canvas.height / 2 - 2 * margin;
+		var yOffset = margin + (rect.height - 2 * margin) / 2;
+		var amplitude = rect.height / 2 - 2 * margin;
 
         //var milisecondsLived = rawPaintData.firstDay - birthday;
         //var daysLived = Math.floor(milisecondsLived/ 1000 / 60 / 60 / 24);

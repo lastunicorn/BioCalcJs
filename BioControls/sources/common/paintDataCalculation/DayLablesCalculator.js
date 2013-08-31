@@ -22,16 +22,16 @@ lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalc
 lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
 
     var rawPaintData = null;
-    var canvas = null;
+    var rect = null;
     var textHeight = 12;
 
     // --------------------------------------------------------------------------
     // Functions - "public"
     // --------------------------------------------------------------------------
 
-    this.calculate = function(data, canvasElement) {
+    this.calculate = function(data, rectangle) {
         rawPaintData = data;
-        canvas = canvasElement;
+        rect = rectangle;
 
         calculateTextSize();
 
@@ -113,7 +113,7 @@ lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
     }
 
     function calculateDayNumberLocation(index, position) {
-        var xStep = (canvas.width) / rawPaintData.totalDays;
+        var xStep = (rect.width) / rawPaintData.totalDays;
         var daysFontHeight = (textHeight + 3) / 2;
 
         switch (position) {
@@ -122,13 +122,13 @@ lu.bioControls.common.paintDataCalculation.DayLablesCalculator = function() {
 
             default:
             case lu.DayLabelPosition.aboveMiddle:
-                return new lu.Point(xStep * index + xStep / 2, canvas.height / 2 - daysFontHeight);
+                return new lu.Point(xStep * index + xStep / 2, rect.height / 2 - daysFontHeight);
 
             case lu.DayLabelPosition.belowMiddle:
-                return new lu.Point(xStep * index + xStep / 2, canvas.height / 2 + daysFontHeight);
+                return new lu.Point(xStep * index + xStep / 2, rect.height / 2 + daysFontHeight);
 
             case lu.DayLabelPosition.bottom:
-                return new lu.Point(xStep * index + xStep / 2, canvas.height - daysFontHeight);
+                return new lu.Point(xStep * index + xStep / 2, rect.height - daysFontHeight);
         }
     }
 };

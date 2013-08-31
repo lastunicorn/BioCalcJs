@@ -22,15 +22,15 @@ lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalc
 lu.bioControls.common.paintDataCalculation.GridLinesCalculator = function() {
 
     var rawPaintData = null;
-    var canvas = null;
+    var rect = null;
     
 	// --------------------------------------------------------------------------
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-    this.calculate = function(data, canvasElement) {
+    this.calculate = function(data, rectangle) {
         rawPaintData = data;
-        canvas = canvasElement;
+        rect = rectangle;
         
         return calculateGridLines();
     };
@@ -61,18 +61,18 @@ lu.bioControls.common.paintDataCalculation.GridLinesCalculator = function() {
     }
     
     function createDaySeparatorLine(dayIndex) {
-        var xStep = (canvas.width) / rawPaintData.totalDays;
+        var xStep = (rect.width) / rawPaintData.totalDays;
         var index = dayIndex + 1;
         
         var startPoint = new lu.Point(xStep * index, 0);
-        var endPoint = new lu.Point(xStep * index, canvas.height);
+        var endPoint = new lu.Point(xStep * index, rect.height);
 
         return new lu.Line(startPoint, endPoint);
     }
 
     function createXAxis() {
-        var startPoint = new lu.Point(0, canvas.height / 2);
-        var endPoint = new lu.Point(canvas.width, canvas.height / 2);
+        var startPoint = new lu.Point(0, rect.height / 2);
+        var endPoint = new lu.Point(rect.width, rect.height / 2);
 
         return new lu.Line(startPoint, endPoint);
     }

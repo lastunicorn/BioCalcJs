@@ -22,15 +22,15 @@ lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalc
 lu.bioControls.common.paintDataCalculation.TodayMarkerCalculator = function() {
 
     var rawPaintData = null;
-    var canvas = null;
+    var rect = null;
     
 	// --------------------------------------------------------------------------
 	// Functions - "public"
 	// --------------------------------------------------------------------------
 	
-    this.calculate = function(data, canvasElement) {
+    this.calculate = function(data, rectangle) {
         rawPaintData = data;
-        canvas = canvasElement;
+        rect = rectangle;
         
         return calculateTodayRectangle();
     };
@@ -43,11 +43,11 @@ lu.bioControls.common.paintDataCalculation.TodayMarkerCalculator = function() {
             return null;
         }
 
-        var xStep = (canvas.width) / rawPaintData.totalDays;
+        var xStep = (rect.width) / rawPaintData.totalDays;
         var x = todayIndex * xStep;
         var y = 0;
         var width = xStep;
-        var height = canvas.height;
+        var height = rect.height;
 
         return {
             rectangle: new lu.Rectangle(x, y, width, height),

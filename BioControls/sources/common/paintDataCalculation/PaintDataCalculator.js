@@ -31,13 +31,13 @@ lu.bioControls.common.paintDataCalculation.PaintDataCalculator = function() {
     // Functions - "public"
     // --------------------------------------------------------------------------
 
-    this.calculate = function(data, canvasElement) {
+    this.calculate = function(data, rectangle) {
         return {
-            biorhythms: biorhythmCurvesCalculator.calculate(data, canvasElement),
-            gridLines: gridLinesCalculator.calculate(data, canvasElement),
-            dayLabels: dayLabelsCalculator.calculate(data, canvasElement),
-            todayMarker: todayMarkerCalculator.calculate(data, canvasElement),
-            xDayMarker: xDayMarkerCalculator.calculate(data, canvasElement)
+            biorhythms: biorhythmCurvesCalculator.calculate(data, rectangle),
+            gridLines: gridLinesCalculator.calculate(data, rectangle),
+            dayLabels: dayLabelsCalculator.calculate(data, rectangle),
+            todayMarker: todayMarkerCalculator.calculate(data, rectangle),
+            xDayMarker: xDayMarkerCalculator.calculate(data, rectangle)
         };
     };
 

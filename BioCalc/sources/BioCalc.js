@@ -422,8 +422,9 @@
         }
 
         function initializeControls() {
-
-            biorhythmView = new lu.bioControls.BiorhythmView("bioCanvas");
+            
+            var canvas = document.getElementById("bioCanvas");
+            biorhythmView = new lu.bioControls.BiorhythmView(canvas);
             biorhythmView.firstDayChanged.subscribe(onBiorhythmViewFirstDayChanged);
             biorhythmView.xDayIndexChanged.subscribe(onBiorhythmViewXDayIndexChanged);
 

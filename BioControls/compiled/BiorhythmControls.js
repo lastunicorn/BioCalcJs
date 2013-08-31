@@ -1,16 +1,13 @@
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
-lu.bioControls.BiorhythmView = function(id) {
-  var canvas = null;
+lu.bioControls.BiorhythmView = function(canvas) {
   var obj = this;
   var scroller = null;
   var biorhythms = new lu.List;
   var biorhythmAddedEvent = new lu.Event;
   this.biorhythmAdded = biorhythmAddedEvent.client;
-  this.subscribeToBiorhythmAdded = biorhythmAddedEvent.subscribe;
   var biorhythmRemovedEvent = new lu.Event;
   this.biorhythmRemoved = biorhythmRemovedEvent.client;
-  this.subscribeToBiorhythmRemoved = biorhythmRemovedEvent.subscribe;
   this.addBiorhythm = function addBiorhythm(biorhythmShape) {
     biorhythms.add(biorhythmShape)
   };
@@ -68,23 +65,20 @@ lu.bioControls.BiorhythmView = function(id) {
   var firstDay = lu.DateUtil.addDays(Date.now(), -7);
   var firstDayChangedEvent = new lu.Event;
   this.firstDayChanged = firstDayChangedEvent.client;
-  this.setFirstDay = setFirstDay;
+  Object.defineProperty(this, "firstDay", {enumerable:true, configurable:false, get:getFirstDay, set:setFirstDay});
+  function getFirstDay() {
+    return firstDay
+  }
   function setFirstDay(value) {
     firstDay = value;
     firstDayChangedEvent.raise(obj, value);
     paint()
   }
-  this.getFirstDay = getFirstDay;
-  function getFirstDay() {
-    return firstDay
-  }
-  Object.defineProperty(this, "firstDay", {enumerable:true, configurable:false, get:getFirstDay, set:setFirstDay});
   function incrementFirstDay(value) {
     var date = new Date(firstDay.getTime());
     date.setDate(date.getDate() + value);
     setFirstDay(date)
   }
-  this.subscribeToFirstDayChanged = firstDayChangedEvent.subscribe;
   Object.defineProperty(this, "lastDay", {enumerable:true, configurable:false, get:getLastDay});
   function getLastDay() {
     return lu.DateUtil.addDays(firstDay, totalDays - 1)
@@ -96,37 +90,34 @@ lu.bioControls.BiorhythmView = function(id) {
   var isGridVisible = true;
   var isGridVisibleChangedEvent = new lu.Event;
   this.isGridVisibleChanged = isGridVisibleChangedEvent.client;
-  this.setGridVisibility = setGridVisibility;
+  Object.defineProperty(this, "isGridVisible", {enumerable:true, configurable:false, get:getGridVisibility, set:setGridVisibility});
+  function getGridVisibility() {
+    return isGridVisible
+  }
   function setGridVisibility(value) {
     isGridVisible = Boolean(value);
     isGridVisibleChangedEvent.raise(obj, value);
     paint()
   }
-  this.getGridVisibility = getGridVisibility;
-  function getGridVisibility() {
-    return isGridVisible
-  }
-  Object.defineProperty(this, "isGridVisible", {enumerable:true, configurable:false, get:getGridVisibility, set:setGridVisibility});
-  this.subscribeToGridVisibilityChanged = isGridVisibleChangedEvent.subscribe;
   var totalDays = 30;
   var totalDaysChangedEvent = new lu.Event;
   this.totalDaysChanged = totalDaysChangedEvent.client;
-  this.setTotalDays = setTotalDays;
+  Object.defineProperty(this, "totalDays", {enumerable:true, configurable:false, get:getTotalDays, set:setTotalDays});
+  function getTotalDays() {
+    return totalDays
+  }
   function setTotalDays(value) {
     totalDays = value;
     totalDaysChangedEvent.raise(obj, value);
     paint()
   }
-  this.getTotalDays = getTotalDays;
-  function getTotalDays() {
-    return totalDays
-  }
-  Object.defineProperty(this, "totalDays", {enumerable:true, configurable:false, get:getTotalDays, set:setTotalDays});
-  this.subscribeToTotalDaysChanged = totalDaysChangedEvent.subscribe;
   var xDayIndex = 7;
   var xDayIndexChangedEvent = new lu.Event;
   this.xDayIndexChanged = xDayIndexChangedEvent.client;
-  this.setXDayIndex = setXDayIndex;
+  Object.defineProperty(this, "xDayIndex", {enumerable:true, configurable:false, get:getXDayIndex, set:setXDayIndex});
+  function getXDayIndex() {
+    return xDayIndex
+  }
   function setXDayIndex(value) {
     if(xDayIndex === value || value < 0 || value >= totalDays) {
       return
@@ -135,222 +126,174 @@ lu.bioControls.BiorhythmView = function(id) {
     xDayIndexChangedEvent.raise(obj, value);
     paint()
   }
-  this.getXDayIndex = getXDayIndex;
-  function getXDayIndex() {
-    return xDayIndex
-  }
-  Object.defineProperty(this, "xDayIndex", {enumerable:true, configurable:false, get:getXDayIndex, set:setXDayIndex});
-  this.subscribeToXDayIndexChanged = xDayIndexChangedEvent.subscribe;
   var gridColor = "#d3d3d3";
   var gridColorChangedEvent = new lu.Event;
   this.gridColorChanged = gridColorChangedEvent.client;
-  this.setGridColor = setGridColor;
+  Object.defineProperty(this, "gridColor", {enumerable:true, configurable:false, get:getGridColor, set:setGridColor});
+  function getGridColor() {
+    return xDayIndex
+  }
   function setGridColor(value) {
     gridColor = value;
     gridColorChangedEvent.raise(obj, value);
     paint()
   }
-  this.getGridColor = getGridColor;
-  function getGridColor() {
-    return xDayIndex
-  }
-  Object.defineProperty(this, "gridColor", {enumerable:true, configurable:false, get:getGridColor, set:setGridColor});
-  this.subscribeToGridColorChanged = gridColorChangedEvent.subscribe;
   var areDayNumbersVisible = true;
   var areDayNumbersVisibleChangedEvent = new lu.Event;
   this.areDayNumbersVisibleChanged = areDayNumbersVisibleChangedEvent.client;
-  this.setDayNumbersVisibility = setDayNumbersVisibility;
+  Object.defineProperty(this, "areDayNumbersVisible", {enumerable:true, configurable:false, get:getDayNumbersVisibility, set:setDayNumbersVisibility});
+  function getDayNumbersVisibility() {
+    return areDayNumbersVisible
+  }
   function setDayNumbersVisibility(value) {
     areDayNumbersVisible = value;
     areDayNumbersVisibleChangedEvent.raise(obj, value);
     paint()
   }
-  this.getDayNumbersVisibility = getDayNumbersVisibility;
-  function getDayNumbersVisibility() {
-    return areDayNumbersVisible
-  }
-  Object.defineProperty(this, "areDayNumbersVisible", {enumerable:true, configurable:false, get:getDayNumbersVisibility, set:setDayNumbersVisibility});
-  this.subscribeToDayNumbersVisibilityChanged = areDayNumbersVisibleChangedEvent.subscribe;
   var areWeekDaysVisible = true;
   var areWeekDaysVisibleChangedEvent = new lu.Event;
   this.areWeekDaysVisibleChanged = areWeekDaysVisibleChangedEvent.client;
-  this.setWeekDaysVisibility = setWeekDaysVisibility;
+  Object.defineProperty(this, "areWeekDaysVisible", {enumerable:true, configurable:false, get:getWeekDaysVisibility, set:setWeekDaysVisibility});
+  function getWeekDaysVisibility() {
+    return areWeekDaysVisible
+  }
   function setWeekDaysVisibility(value) {
     areWeekDaysVisible = value;
     areWeekDaysVisibleChangedEvent.raise(obj, value);
     paint()
   }
-  this.getWeekDaysVisibility = getWeekDaysVisibility;
-  function getWeekDaysVisibility() {
-    return areWeekDaysVisible
-  }
-  Object.defineProperty(this, "areWeekDaysVisible", {enumerable:true, configurable:false, get:getWeekDaysVisibility, set:setWeekDaysVisibility});
-  this.subscribeToWeekDaysVisibilityChanged = areWeekDaysVisibleChangedEvent.subscribe;
   var dayNumbersPosition = lu.DayLabelPosition.top;
   var dayNumbersPositionChangedEvent = new lu.Event;
   this.dayNumbersPositionChanged = dayNumbersPositionChangedEvent.client;
-  this.setDayNumbersPosition = setDayNumbersPosition;
+  Object.defineProperty(this, "dayNumbersPosition", {enumerable:true, configurable:false, get:getDayNumbersPosition, set:setDayNumbersPosition});
+  function getDayNumbersPosition() {
+    return dayNumbersPosition
+  }
   function setDayNumbersPosition(value) {
     dayNumbersPosition = value;
     dayNumbersPositionChangedEvent.raise(obj, value);
     paint()
   }
-  this.getDayNumbersPosition = getDayNumbersPosition;
-  function getDayNumbersPosition() {
-    return dayNumbersPosition
-  }
-  Object.defineProperty(this, "dayNumbersPosition", {enumerable:true, configurable:false, get:getDayNumbersPosition, set:setDayNumbersPosition});
-  this.subscribeToTodayNumbersPositionChanged = dayNumbersPositionChangedEvent.subscribe;
   var weekDaysPosition = lu.DayLabelPosition.bottom;
   var weekDaysPositionChangedEvent = new lu.Event;
   this.weekDaysPositionChanged = weekDaysPositionChangedEvent.client;
-  this.setWeekDaysPosition = setWeekDaysPosition;
+  Object.defineProperty(this, "weekDaysPosition", {enumerable:true, configurable:false, get:getWeekDaysPosition, set:setWeekDaysPosition});
+  function getWeekDaysPosition() {
+    return weekDaysPosition
+  }
   function setWeekDaysPosition(value) {
     weekDaysPosition = value;
     weekDaysPositionChangedEvent.raise(obj, value);
     paint()
   }
-  this.getWeekDaysPosition = getWeekDaysPosition;
-  function getWeekDaysPosition() {
-    return weekDaysPosition
-  }
-  Object.defineProperty(this, "weekDaysPosition", {enumerable:true, configurable:false, get:getWeekDaysPosition, set:setWeekDaysPosition});
-  this.subscribeToWeekDaysPositionChanged = weekDaysPositionChangedEvent.subscribe;
   var areSundaysEmphasized = true;
   var areSundaysEmphasizedChangedEvent = new lu.Event;
   this.areSundaysEmphasizedChanged = areSundaysEmphasizedChangedEvent.client;
-  this.setAreSundaysEmphasized = setAreSundaysEmphasized;
+  Object.defineProperty(this, "areSundaysEmphasized", {enumerable:true, configurable:false, get:getAreSundaysEmphasized, set:setAreSundaysEmphasized});
+  function getAreSundaysEmphasized() {
+    return areSundaysEmphasized
+  }
   function setAreSundaysEmphasized(value) {
     areSundaysEmphasized = value;
     areSundaysEmphasizedChangedEvent.raise(obj, value);
     paint()
   }
-  this.getAreSundaysEmphasized = getAreSundaysEmphasized;
-  function getAreSundaysEmphasized() {
-    return areSundaysEmphasized
-  }
-  Object.defineProperty(this, "areSundaysEmphasized", {enumerable:true, configurable:false, get:getAreSundaysEmphasized, set:setAreSundaysEmphasized});
-  this.subscribeToAreSundaysEmphasizedChanged = areSundaysEmphasizedChangedEvent.subscribe;
   var foreColor = "#b0b0b0";
   var foreColorChangedEvent = new lu.Event;
   this.foreColorChanged = foreColorChangedEvent.client;
-  this.setForeColor = setForeColor;
+  Object.defineProperty(this, "foreColor", {enumerable:true, configurable:false, get:getForeColor, set:setForeColor});
+  function getForeColor() {
+    return foreColor
+  }
   function setForeColor(value) {
     foreColor = value;
     foreColorChangedEvent.raise(obj, value);
     paint()
   }
-  this.getForeColor = getForeColor;
-  function getForeColor() {
-    return foreColor
-  }
-  Object.defineProperty(this, "foreColor", {enumerable:true, configurable:false, get:getForeColor, set:setForeColor});
-  this.subscribeToForeColorChanged = foreColorChangedEvent.subscribe;
   var sundaysColor = "#ff0000";
   var sundaysColorChangedEvent = new lu.Event;
   this.sundaysColorChanged = sundaysColorChangedEvent.client;
-  this.setSundaysColor = setSundaysColor;
+  Object.defineProperty(this, "sundaysColor", {enumerable:true, configurable:false, get:getSundaysColor, set:setSundaysColor});
+  function getSundaysColor() {
+    return sundaysColor
+  }
   function setSundaysColor(value) {
     sundaysColor = value;
     sundaysColorChangedEvent.raise(obj, value);
     paint()
   }
-  this.getSundaysColor = getSundaysColor;
-  function getSundaysColor() {
-    return sundaysColor
-  }
-  Object.defineProperty(this, "sundaysColor", {enumerable:true, configurable:false, get:getSundaysColor, set:setSundaysColor});
-  this.subscribeToSundaysColorChanged = sundaysColorChangedEvent.subscribe;
   var font = "12px Arial";
   var fontChangedEvent = new lu.Event;
   this.fontChanged = fontChangedEvent.client;
-  this.setFont = setFont;
+  Object.defineProperty(this, "font", {enumerable:true, configurable:false, get:getFont, set:setFont});
+  function getFont() {
+    return font
+  }
   function setFont(value) {
     font = value;
     fontChangedEvent.raise(obj, value);
     paint()
   }
-  this.getFont = getFont;
-  function getFont() {
-    return font
-  }
-  Object.defineProperty(this, "font", {enumerable:true, configurable:false, get:getFont, set:setFont});
-  this.subscribeToFontChanged = fontChangedEvent.subscribe;
   var sundaysFont = "italic 12px Arial";
   var sundaysFontChangedEvent = new lu.Event;
   this.sundaysFontChanged = sundaysFontChangedEvent.client;
-  this.setSundaysFont = setSundaysFont;
+  Object.defineProperty(this, "sundaysFont", {enumerable:true, configurable:false, get:getSundaysFont, set:setSundaysFont});
+  function getSundaysFont() {
+    return sundaysFont
+  }
   function setSundaysFont(value) {
     sundaysFont = value;
     sundaysFontChangedEvent.raise(obj, value);
     paint()
   }
-  this.getSundaysFont = getSundaysFont;
-  function getSundaysFont() {
-    return sundaysFont
-  }
-  Object.defineProperty(this, "sundaysFont", {enumerable:true, configurable:false, get:getSundaysFont, set:setSundaysFont});
-  this.subscribeToSundaysFontChanged = sundaysFontChangedEvent.subscribe;
   var todayBackColor = "#ffe4b5";
   var todayBackColorChangedEvent = new lu.Event;
   this.todayBackColorChanged = todayBackColorChangedEvent.client;
-  this.setTodayBackColor = setTodayBackColor;
+  Object.defineProperty(this, "todayBackColor", {enumerable:true, configurable:false, get:getTodayBackColor, set:setTodayBackColor});
+  function getTodayBackColor() {
+    return todayBackColor
+  }
   function setTodayBackColor(value) {
     todayBackColor = value;
     todayBackColorChangedEvent.raise(obj, value);
     paint()
   }
-  this.getTodayBackColor = getTodayBackColor;
-  function getTodayBackColor() {
-    return todayBackColor
-  }
-  Object.defineProperty(this, "todayBackColor", {enumerable:true, configurable:false, get:getTodayBackColor, set:setTodayBackColor});
-  this.subscribeToTodayBackColorChanged = todayBackColorChangedEvent.subscribe;
   var isXDayVisible = true;
   var isXDayVisibleChangedEvent = new lu.Event;
   this.isXDayVisibleChanged = isXDayVisibleChangedEvent.client;
-  this.setXDayVisibility = setXDayVisibility;
+  Object.defineProperty(this, "isXDayVisible", {enumerable:true, configurable:false, get:getXDayVisibility, set:setXDayVisibility});
+  function getXDayVisibility() {
+    return isXDayVisible
+  }
   function setXDayVisibility(value) {
     isXDayVisible = value;
     isXDayVisibleChangedEvent.raise(obj, value);
     paint()
   }
-  this.getXDayVisibility = getXDayVisibility;
-  function getXDayVisibility() {
-    return isXDayVisible
-  }
-  Object.defineProperty(this, "isXDayVisible", {enumerable:true, configurable:false, get:getXDayVisibility, set:setXDayVisibility});
-  this.subscribeToXDayVisibilityChanged = isXDayVisibleChangedEvent.subscribe;
   var xDayBorderColor = "#000000";
   var xDayBorderColorChangedEvent = new lu.Event;
   this.xDayBorderColorChanged = xDayBorderColorChangedEvent.client;
-  this.setXDayBorderColor = setXDayBorderColor;
+  Object.defineProperty(this, "xDayBorderColor", {enumerable:true, configurable:false, get:getXDayBorderColor, set:setXDayBorderColor});
+  function getXDayBorderColor() {
+    return xDayBorderColor
+  }
   function setXDayBorderColor(value) {
     xDayBorderColor = value;
     xDayBorderColorChangedEvent.raise(obj, value);
     paint()
   }
-  this.getXDayBorderColor = getXDayBorderColor;
-  function getXDayBorderColor() {
-    return xDayBorderColor
-  }
-  Object.defineProperty(this, "xDayBorderColor", {enumerable:true, configurable:false, get:getXDayBorderColor, set:setXDayBorderColor});
-  this.subscribeToXDayBorderColorChanged = xDayBorderColorChangedEvent.subscribe;
   var xDayBorderWidth = 2;
   var xDayBorderWidthChangedEvent = new lu.Event;
   this.xDayBorderWidthChanged = xDayBorderWidthChangedEvent.client;
-  this.setXDayBorderWidth = setXDayBorderWidth;
+  Object.defineProperty(this, "xDayBorderWidth", {enumerable:true, configurable:false, get:getXDayBorderWidth, set:setXDayBorderWidth});
+  function getXDayBorderWidth() {
+    return xDayBorderWidth
+  }
   function setXDayBorderWidth(value) {
     xDayBorderWidth = value;
     xDayBorderWidthChangedEvent.raise(obj, value);
     paint()
   }
-  this.getXDayBorderWidth = getXDayBorderWidth;
-  function getXDayBorderWidth() {
-    return xDayBorderWidth
-  }
-  Object.defineProperty(this, "xDayBorderWidth", {enumerable:true, configurable:false, get:getXDayBorderWidth, set:setXDayBorderWidth});
-  this.subscribeToXDayBorderWidthChanged = xDayBorderWidthChangedEvent.subscribe;
   var painter = null;
   var paintSuspendCount = 0;
   this.suspendPaint = suspendPaint;
@@ -393,7 +336,6 @@ lu.bioControls.BiorhythmView = function(id) {
     evt.stepLength = canvas.width / totalDays
   }
   (function initialize() {
-    canvas = document.getElementById(id);
     scroller = new lu.bioControls.Scroller({element:canvas, onDragStart:onDragStart, onDrag:onDrag});
     biorhythms.itemAdded.subscribe(onBiorhithmAdded);
     biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
@@ -506,7 +448,7 @@ lu.bioControls.Scroller = function(configuration) {
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
-Object.defineProperty(lu.bioControls, "version", {value:"1.4.0", writable:false, enumerable:true, configurable:false});
+Object.defineProperty(lu.bioControls, "version", {value:"2.0.0", writable:false, enumerable:true, configurable:false});
 lu.bioControls.getVersion = function() {
   return lu.bioControls.version
 };

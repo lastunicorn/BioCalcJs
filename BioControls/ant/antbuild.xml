@@ -54,6 +54,8 @@
 
 			<sources dir="${basedir}/sources/common/biorhythmModel">
 				<file name="BiorhythmShape.js" />
+				<file name="BiorhythmShapesCreator.js" />
+				<file name="BiorhythmShapeSet.js" />
 				<file name="CommonBiorhythmShapes.js" />
 			</sources>
 

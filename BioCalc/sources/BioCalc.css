@@ -65,6 +65,11 @@ a[target="_blank"] {
 	top: 2px;
 }
 
+.external-link {
+	background: url('images/external_link.png') no-repeat right center;
+	padding-right: 11px;
+}
+
 /* Debug
 ----------------------------------------------------------------------------- */
 

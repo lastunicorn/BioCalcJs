@@ -27,6 +27,11 @@ lu.bioControls.common.biorhythmModel = lu.bioControls.common.biorhythmModel || {
  */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
 
+    var primaryBiorhythmsSet = null;
+    var secondaryBiorhythmsSet = null;
+    var extraBiorhythmsSet = null;
+    var iChingBiorhythmsSet = null;
+
     var physicalShape = null;
     var emotionalShape = null;
     var intellectualShape = null;
@@ -45,32 +50,80 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
     var spiritualShape = null;
 
     function createBiorhythmShapes() {
-        physicalShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape();
-        emotionalShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape();
-        intellectualShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape();
-        intuitiveShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape();
+        var biorhythmShapesCreator = lu.bioControls.common.biorhythmModel.BiorhythShapesCreator;
 
-        passionShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape();
-        passionShape.isVisible = false;
-        masteryShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape();
-        masteryShape.isVisible = false;
-        wisdomShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape();
-        wisdomShape.isVisible = false;
+        // Create primary biorhythms
 
-        perceptionShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape();
-        perceptionShape.isVisible = false;
-        psychicShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape();
-        psychicShape.isVisible = false;
-        successShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape();
-        successShape.isVisible = false;
+        physicalShape = biorhythmShapesCreator.createPhysicalBiorhythmShape();
+        emotionalShape = biorhythmShapesCreator.createEmotionalBiorhythmShape();
+        intellectualShape = biorhythmShapesCreator.createIntellectualBiorhythmShape();
+        intuitiveShape = biorhythmShapesCreator.createIntuitiveBiorhythmShape();
 
-        estheticShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape();
-        estheticShape.isVisible = false;
-        selfAwarenessShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape();
-        selfAwarenessShape.isVisible = false;
-        spiritualShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape();
-        spiritualShape.isVisible = false;
+        var primaryBiorhythmShapes = [ physicalShape, emotionalShape, intellectualShape, intuitiveShape ];
+        primaryBiorhythmsSet = new lu.bioControls.common.biorhythmModel.BiorhythmShapeSet(primaryBiorhythmShapes);
+
+        // Create secondary biorhythms
+
+        passionShape = biorhythmShapesCreator.createPassionBiorhythmShape();
+        masteryShape = biorhythmShapesCreator.createMasteryBiorhythmShape();
+        wisdomShape = biorhythmShapesCreator.createWisdomBiorhythmShape();
+
+        var secondaryBiorhythmShapes = [ passionShape, masteryShape, wisdomShape ];
+        secondaryBiorhythmsSet = new lu.bioControls.common.biorhythmModel.BiorhythmShapeSet(secondaryBiorhythmShapes);
+        secondaryBiorhythmsSet.hideAll();
+
+        // Create extra biorhythms
+
+        perceptionShape = biorhythmShapesCreator.createPerceptionBiorhythmShape();
+        psychicShape = biorhythmShapesCreator.createPsychicBiorhythmShape();
+        successShape = biorhythmShapesCreator.createSuccessBiorhythmShape();
+
+        var extraBiorhythmShapes = [ perceptionShape, psychicShape, successShape ];
+        extraBiorhythmsSet = new lu.bioControls.common.biorhythmModel.BiorhythmShapeSet(extraBiorhythmShapes);
+        extraBiorhythmsSet.hideAll();
+
+        // Create i-ching biorhythms
+
+        estheticShape = biorhythmShapesCreator.createEstheticBiorhythmShape();
+        selfAwarenessShape = biorhythmShapesCreator.createSelfAwarenessBiorhythmShape();
+        spiritualShape = biorhythmShapesCreator.createSpiritualBiorhythmShape();
+
+        var iChingBiorhythmShapes = [ estheticShape, selfAwarenessShape, spiritualShape ];
+        iChingBiorhythmsSet = new lu.bioControls.common.biorhythmModel.BiorhythmShapeSet(iChingBiorhythmShapes);
+        iChingBiorhythmsSet.hideAll();
     }
+
+    Object.defineProperty(this, "primaryBiorhythmShapes", {
+        enumerable: true,
+        configurable: false,
+        get: function() {
+            return primaryBiorhythmsSet;
+        }
+    });
+
+    Object.defineProperty(this, "secondaryBiorhythmShapes", {
+        enumerable: true,
+        configurable: false,
+        get: function() {
+            return secondaryBiorhythmsSet;
+        }
+    });
+
+    Object.defineProperty(this, "extraBiorhythmShapes", {
+        enumerable: true,
+        configurable: false,
+        get: function() {
+            return extraBiorhythmsSet;
+        }
+    });
+
+    Object.defineProperty(this, "iChingBiorhythmShapes", {
+        enumerable: true,
+        configurable: false,
+        get: function() {
+            return iChingBiorhythmsSet;
+        }
+    });
 
     this.getPhysicalShape = getPhysicalShape;
 
@@ -132,42 +185,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getIntuitiveShape
     });
 
+    /**
+     * @deprecated Use primaryBiorhythmShapes property instead.
+     */
     this.getPrimaryBiorhythmShapes = function getPrimaryBiorhythmShapes() {
-        return [ physicalShape, emotionalShape, intellectualShape, intuitiveShape ];
-    };
-
-    this.isAnyPrimaryVisible = function() {
-        if (physicalShape.isVisible) {
-            return true;
-        }
-
-        if (emotionalShape.isVisible) {
-            return true;
-        }
-
-        if (intellectualShape.isVisible) {
-            return true;
-        }
-
-        if (intuitiveShape.isVisible) {
-            return true;
-        }
-
-        return false;
-    };
-
-    this.showPrimary = function(value) {
-        if (value === undefined || value) {
-            physicalShape.isVisible = true;
-            emotionalShape.isVisible = true;
-            intellectualShape.isVisible = true;
-            intuitiveShape.isVisible = true;
-        } else {
-            physicalShape.isVisible = false;
-            emotionalShape.isVisible = false;
-            intellectualShape.isVisible = false;
-            intuitiveShape.isVisible = false;
-        }
+        return primaryBiorhythmsSet.items;
     };
 
     this.getPassionShape = getPassionShape;
@@ -215,36 +237,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getWisdomShape
     });
 
+    /**
+     * @deprecated Use secondaryBiorhythmShapes property instead.
+     */
     this.getSecondaryBiorhythmShapes = function getSecondaryBiorhythmShapes() {
-        return [ passionShape, masteryShape, wisdomShape ];
-    };
-
-    this.isAnySecondaryVisible = function() {
-        if (passionShape.isVisible) {
-            return true;
-        }
-
-        if (masteryShape.isVisible) {
-            return true;
-        }
-
-        if (wisdomShape.isVisible) {
-            return true;
-        }
-
-        return false;
-    };
-
-    this.showSecondary = function(value) {
-        if (value === undefined || value) {
-            passionShape.isVisible = true;
-            masteryShape.isVisible = true;
-            wisdomShape.isVisible = true;
-        } else {
-            passionShape.isVisible = false;
-            masteryShape.isVisible = false;
-            wisdomShape.isVisible = false;
-        }
+        return secondaryBiorhythmsSet.items;
     };
 
     this.getPerceptionShape = getPerceptionShape;
@@ -292,36 +289,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getSuccessShape
     });
 
+    /**
+     * @deprecated Use extraBiorhythmShapes property instead.
+     */
     this.getExtraBiorhythmShapes = function getExtraBiorhythmShapes() {
-        return [ perceptionShape, psychicShape, successShape ];
-    };
-
-    this.isAnyExtraVisible = function() {
-        if (perceptionShape.isVisible) {
-            return true;
-        }
-
-        if (psychicShape.isVisible) {
-            return true;
-        }
-
-        if (successShape.isVisible) {
-            return true;
-        }
-
-        return false;
-    };
-
-    this.showExtra = function(value) {
-        if (value === undefined || value) {
-            perceptionShape.isVisible = true;
-            psychicShape.isVisible = true;
-            successShape.isVisible = true;
-        } else {
-            perceptionShape.isVisible = false;
-            psychicShape.isVisible = false;
-            successShape.isVisible = false;
-        }
+        return extraBiorhythmsSet.items;
     };
 
     this.getEstheticShape = getEstheticShape;
@@ -369,36 +341,11 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getSpiritualShape
     });
 
+    /**
+     * @deprecated Use iChingBiorhythmShapes property instead.
+     */
     this.getIChingBiorhythmShapes = function getIChingBiorhythmShapes() {
-        return [ estheticShape, selfAwarenessShape, spiritualShape ];
-    };
-
-    this.isAnyIChingVisible = function() {
-        if (estheticShape.isVisible) {
-            return true;
-        }
-
-        if (selfAwarenessShape.isVisible) {
-            return true;
-        }
-
-        if (spiritualShape.isVisible) {
-            return true;
-        }
-
-        return false;
-    };
-
-    this.showIChing = function(value) {
-        if (value === undefined || value) {
-            estheticShape.isVisible = true;
-            selfAwarenessShape.isVisible = true;
-            spiritualShape.isVisible = true;
-        } else {
-            estheticShape.isVisible = false;
-            selfAwarenessShape.isVisible = false;
-            spiritualShape.isVisible = false;
-        }
+        return iChingBiorhythmsSet.items;
     };
 
     this.getAll = getAll;
@@ -425,182 +372,141 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
     }());
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday = new Date(1980, 05, 13);
 
 // -----------------------------------------------------------------------------
 // Primary Biorhythms
 // -----------------------------------------------------------------------------
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#ff0000"; // Red
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPhysicalBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.EmotionalBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#32cd32"; // LimeGreen
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createEmotionalBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.IntellectualBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#1e90ff"; // DodgerBlue
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createIntellectualBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.IntuitiveBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#ffa500"; // Orange
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createIntuitiveBiorhythmShape;
 };
 
 // -----------------------------------------------------------------------------
 // Secondary Biorhythms
 // -----------------------------------------------------------------------------
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.PassionBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#ff0000"; // Red
-    shape.setLineStyle(lu.LineStyle.dash);
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPassionBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.MasteryBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#1e90ff"; // DodgerBlue
-    shape.setLineStyle(lu.LineStyle.dashDot);
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createMasteryBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.WisdomBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#32cd32"; // LimeGreen
-    shape.setLineStyle(lu.LineStyle.dashDotDot);
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createWisdomBiorhythmShape;
 };
 
 // -----------------------------------------------------------------------------
 // Extra Biorhythms
 // -----------------------------------------------------------------------------
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.PerceptionBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#ff0000"; // Red
-    shape.setLineStyle(lu.LineStyle.dash);
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPerceptionBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.PsychicBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#32cd32"; // LimeGreen
-    shape.setLineStyle(lu.LineStyle.dashDot);
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPsychicBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.SuccessBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#1e90ff"; // DodgerBlue
-    shape.setLineStyle(lu.LineStyle.dashDotDot);
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSuccessBiorhythmShape;
 };
 
 // -----------------------------------------------------------------------------
 // I-Ching Biorhythms
 // -----------------------------------------------------------------------------
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.EstheticBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#ff0000"; // Red
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createEstheticBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#1e90ff"; // DodgerBlue
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSelfAwarenessBiorhythmShape;
 };
 
+/**
+ * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
+ *             object instead.
+ */
 lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape = function() {
-    var biorhythm = new lu.bioControls.core.biorhythms.SpiritualBiorhythm();
-
-    var shape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
-    shape.name = biorhythm.name + " Shape";
-    shape.biorhythm = biorhythm;
-    shape.color = "#ffa500"; // Orange
-    shape.birthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-
-    return shape;
+    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
+    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSpiritualBiorhythmShape;
 };

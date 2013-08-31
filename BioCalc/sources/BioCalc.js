@@ -294,37 +294,37 @@
     }
 
     function onOptionsDialogOpen() {
-        var isAnyPrimaryVisible = commonBiorhythmShapes.isAnyPrimaryVisible();
+        var isAnyPrimaryVisible = commonBiorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
         $primaryBiorhythmsCheckbox.prop("checked", isAnyPrimaryVisible);
 
-        var isAnySecondaryVisible = commonBiorhythmShapes.isAnySecondaryVisible();
+        var isAnySecondaryVisible = commonBiorhythmShapes.secondaryBiorhythmShapes.isAnyVisible();
         $secondaryBiorhythmsCheckbox.prop("checked", isAnySecondaryVisible);
 
-        var isAnyExtraVisible = commonBiorhythmShapes.isAnyExtraVisible();
+        var isAnyExtraVisible = commonBiorhythmShapes.extraBiorhythmShapes.isAnyVisible();
         $extraBiorhythmsCheckbox.prop("checked", isAnyExtraVisible);
 
-        var isAnyIChingVisible = commonBiorhythmShapes.isAnyIChingVisible();
+        var isAnyIChingVisible = commonBiorhythmShapes.iChingBiorhythmShapes.isAnyVisible();
         $iChingBiorhythmsCheckbox.prop("checked", isAnyIChingVisible);
     }
 
     function onPrimaryCheckboxChange() {
         var isChecked = $primaryBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.showPrimary(isChecked);
+        commonBiorhythmShapes.primaryBiorhythmShapes.showAll(isChecked);
     }
 
     function onSecondaryCheckboxChange() {
         var isChecked = $secondaryBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.showSecondary(isChecked);
+        commonBiorhythmShapes.secondaryBiorhythmShapes.showAll(isChecked);
     }
 
     function onExtraCheckboxChange() {
         var isChecked = $extraBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.showExtra(isChecked);
+        commonBiorhythmShapes.extraBiorhythmShapes.showAll(isChecked);
     }
 
     function onIChingCheckboxChange() {
         var isChecked = $iChingBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.showIChing(isChecked);
+        commonBiorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
     }
 
     // --------------------------------------------------------------------------
@@ -479,8 +479,8 @@
 
             $aboutDialog.dialog({
                 modal: true,
-                height: 420,
-                width: 560,
+                height: 480,
+                width: 480,
                 autoOpen: false,
                 buttons: {
                     Close: onAboutDialogCloseClicked

@@ -40,6 +40,12 @@
     var $birthdayButtons = null;
     var $aboutDialogTabSet = null;
     var $helpDialogTabSet = null;
+    var $optionsButton = null;
+    var $optionsDialog = null;
+    var $primaryBiorhythmsCheckbox = null;
+    var $secondaryBiorhythmsCheckbox = null;
+    var $extraBiorhythmsCheckbox = null;
+    var $iChingBiorhythmsCheckbox = null;
     var configManager = null;
     var config = null;
     var model = null;
@@ -279,6 +285,48 @@
         $aboutDialog.dialog("open");
     }
 
+    function onOptionsButtonClick() {
+        $optionsDialog.dialog("open");
+    }
+
+    function onOptionsDialogCloseClicked() {
+        $optionsDialog.dialog("close");
+    }
+
+    function onOptionsDialogOpen() {
+        var isAnyPrimaryVisible = commonBiorhythmShapes.isAnyPrimaryVisible();
+        $primaryBiorhythmsCheckbox.prop("checked", isAnyPrimaryVisible);
+
+        var isAnySecondaryVisible = commonBiorhythmShapes.isAnySecondaryVisible();
+        $secondaryBiorhythmsCheckbox.prop("checked", isAnySecondaryVisible);
+
+        var isAnyExtraVisible = commonBiorhythmShapes.isAnyExtraVisible();
+        $extraBiorhythmsCheckbox.prop("checked", isAnyExtraVisible);
+
+        var isAnyIChingVisible = commonBiorhythmShapes.isAnyIChingVisible();
+        $iChingBiorhythmsCheckbox.prop("checked", isAnyIChingVisible);
+    }
+
+    function onPrimaryCheckboxChange() {
+        var isChecked = $primaryBiorhythmsCheckbox.prop("checked");
+        commonBiorhythmShapes.showPrimary(isChecked);
+    }
+
+    function onSecondaryCheckboxChange() {
+        var isChecked = $secondaryBiorhythmsCheckbox.prop("checked");
+        commonBiorhythmShapes.showSecondary(isChecked);
+    }
+
+    function onExtraCheckboxChange() {
+        var isChecked = $extraBiorhythmsCheckbox.prop("checked");
+        commonBiorhythmShapes.showExtra(isChecked);
+    }
+
+    function onIChingCheckboxChange() {
+        var isChecked = $iChingBiorhythmsCheckbox.prop("checked");
+        commonBiorhythmShapes.showIChing(isChecked);
+    }
+
     // --------------------------------------------------------------------------
     // Initializer
     // --------------------------------------------------------------------------
@@ -365,6 +413,12 @@
             $xDayInfoContainer = $("#xDayInfoContainer");
             $aboutDialogTabSet = $("#aboutDialog .tabs");
             $helpDialogTabSet = $("#helpDialog .tabs");
+            $optionsButton = $("#optionsButton");
+            $optionsDialog = $("#optionsDialog");
+            $primaryBiorhythmsCheckbox = $("#primaryBiorhythmsCheckbox");
+            $secondaryBiorhythmsCheckbox = $("#secondaryBiorhythmsCheckbox");
+            $extraBiorhythmsCheckbox = $("#extraBiorhythmsCheckbox");
+            $iChingBiorhythmsCheckbox = $("#iChingBiorhythmsCheckbox");
         }
 
         function initializeControls() {
@@ -481,6 +535,32 @@
             $resetBirthdayButton.click(onResetBirthdayButtonClick);
 
             $birthdayButtons.buttonset();
+
+            $optionsButton.button();
+            $optionsButton.click(onOptionsButtonClick);
+
+            $optionsDialog.dialog({
+                height: 360,
+                width: 480,
+                autoOpen: false,
+                buttons: {
+                    Close: onOptionsDialogCloseClicked
+                },
+                show: {
+                    effect: "puff",
+                    duration: 300
+                },
+                hide: {
+                    effect: "puff",
+                    duration: 300
+                },
+                open: onOptionsDialogOpen
+            });
+
+            $primaryBiorhythmsCheckbox.change(onPrimaryCheckboxChange);
+            $secondaryBiorhythmsCheckbox.change(onSecondaryCheckboxChange);
+            $extraBiorhythmsCheckbox.change(onExtraCheckboxChange);
+            $iChingBiorhythmsCheckbox.change(onIChingCheckboxChange);
         }
     }());
 }());

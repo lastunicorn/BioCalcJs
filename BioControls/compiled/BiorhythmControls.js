@@ -962,6 +962,34 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   this.getPrimaryBiorhythmShapes = function getPrimaryBiorhythmShapes() {
     return[physicalShape, emotionalShape, intellectualShape, intuitiveShape]
   };
+  this.isAnyPrimaryVisible = function() {
+    if(physicalShape.isVisible) {
+      return true
+    }
+    if(emotionalShape.isVisible) {
+      return true
+    }
+    if(intellectualShape.isVisible) {
+      return true
+    }
+    if(intuitiveShape.isVisible) {
+      return true
+    }
+    return false
+  };
+  this.showPrimary = function(value) {
+    if(value === undefined || value) {
+      physicalShape.isVisible = true;
+      emotionalShape.isVisible = true;
+      intellectualShape.isVisible = true;
+      intuitiveShape.isVisible = true
+    }else {
+      physicalShape.isVisible = false;
+      emotionalShape.isVisible = false;
+      intellectualShape.isVisible = false;
+      intuitiveShape.isVisible = false
+    }
+  };
   this.getPassionShape = getPassionShape;
   function getPassionShape() {
     return passionShape
@@ -979,6 +1007,29 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   Object.defineProperty(this, "wisdomShape", {enumerable:true, configurable:false, get:getWisdomShape});
   this.getSecondaryBiorhythmShapes = function getSecondaryBiorhythmShapes() {
     return[passionShape, masteryShape, wisdomShape]
+  };
+  this.isAnySecondaryVisible = function() {
+    if(passionShape.isVisible) {
+      return true
+    }
+    if(masteryShape.isVisible) {
+      return true
+    }
+    if(wisdomShape.isVisible) {
+      return true
+    }
+    return false
+  };
+  this.showSecondary = function(value) {
+    if(value === undefined || value) {
+      passionShape.isVisible = true;
+      masteryShape.isVisible = true;
+      wisdomShape.isVisible = true
+    }else {
+      passionShape.isVisible = false;
+      masteryShape.isVisible = false;
+      wisdomShape.isVisible = false
+    }
   };
   this.getPerceptionShape = getPerceptionShape;
   function getPerceptionShape() {
@@ -998,6 +1049,29 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   this.getExtraBiorhythmShapes = function getExtraBiorhythmShapes() {
     return[perceptionShape, psychicShape, successShape]
   };
+  this.isAnyExtraVisible = function() {
+    if(perceptionShape.isVisible) {
+      return true
+    }
+    if(psychicShape.isVisible) {
+      return true
+    }
+    if(successShape.isVisible) {
+      return true
+    }
+    return false
+  };
+  this.showExtra = function(value) {
+    if(value === undefined || value) {
+      perceptionShape.isVisible = true;
+      psychicShape.isVisible = true;
+      successShape.isVisible = true
+    }else {
+      perceptionShape.isVisible = false;
+      psychicShape.isVisible = false;
+      successShape.isVisible = false
+    }
+  };
   this.getEstheticShape = getEstheticShape;
   function getEstheticShape() {
     return estheticShape
@@ -1015,6 +1089,29 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   Object.defineProperty(this, "spiritualShape", {enumerable:true, configurable:false, get:getSpiritualShape});
   this.getIChingBiorhythmShapes = function getIChingBiorhythmShapes() {
     return[estheticShape, selfAwarenessShape, spiritualShape]
+  };
+  this.isAnyIChingVisible = function() {
+    if(estheticShape.isVisible) {
+      return true
+    }
+    if(selfAwarenessShape.isVisible) {
+      return true
+    }
+    if(spiritualShape.isVisible) {
+      return true
+    }
+    return false
+  };
+  this.showIChing = function(value) {
+    if(value === undefined || value) {
+      estheticShape.isVisible = true;
+      selfAwarenessShape.isVisible = true;
+      spiritualShape.isVisible = true
+    }else {
+      estheticShape.isVisible = false;
+      selfAwarenessShape.isVisible = false;
+      spiritualShape.isVisible = false
+    }
   };
   this.getAll = getAll;
   function getAll() {

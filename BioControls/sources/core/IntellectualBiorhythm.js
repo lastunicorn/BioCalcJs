@@ -27,6 +27,7 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
  */
 lu.bioControls.core.biorhythms.IntellectualBiorhythm = function() {
     var biorhythm = null;
+    var obj = this;
 
     /**
      * @deprecated
@@ -42,12 +43,46 @@ lu.bioControls.core.biorhythms.IntellectualBiorhythm = function() {
         configurable: false
     });
 
+    /**
+     * @deprecated Use period property instead
+     */
     this.getPeriodLength = function() {
         return biorhythm.period;
     };
 
-    this.getValue = function(dayIndex) {
-        return biorhythm.getValue(dayIndex);
+    Object.defineProperty(this, "period", {
+        enumerable: true,
+        configurable: false,
+        get: function() {
+            return biorhythm.period;
+        }
+    });
+
+    var birthdayChangedEvent = new lu.Event();
+    this.birthdayChanged = birthdayChangedEvent.client;
+
+    Object.defineProperty(this, "birthday", {
+        enumerable: true,
+        configurable: false,
+        get: getBirthday,
+        set: setBirthday
+    });
+
+    function getBirthday() {
+        return biorhythm.birthday;
+    }
+    
+    function setBirthday(value) {
+        if (value === biorhythm.birthday) {
+            return;
+        }
+
+        biorhythm.birthday = value;
+        birthdayChangedEvent.raise(obj, value);
+    }
+
+    this.getValue = function(day) {
+        return biorhythm.getValue(day);
     };
 
     (function initialize() {

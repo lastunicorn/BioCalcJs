@@ -26,12 +26,19 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
  */
 lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
 
+    var birthday = Date(80, 05, 13);
     var values = [];
 
     /**
      * @deprecated Use the period property instead.
      */
     this.getPeriodLength = getPeriod;
+
+    Object.defineProperty(this, "period", {
+        enumerable: true,
+        configurable: false,
+        get: getPeriod
+    });
 
     function getPeriod() {
         return period;
@@ -45,13 +52,38 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
         generateValues();
     };
 
-    Object.defineProperty(this, "period", {
+    Object.defineProperty(this, "birthday", {
         enumerable: true,
         configurable: false,
-        get: getPeriod
+        get: getBirthday,
+        set: setBirthday
     });
 
-    this.getValue = function(dayIndex) {
+    function getBirthday() {
+        return birthday;
+    }
+
+    function setBirthday(value) {
+        if (typeof value !== "object" || !(value instanceof Date)) {
+            throw "birthday should be a Date.";
+        }
+
+        birthday = value;
+    }
+
+    this.getValue = function(day) {
+        if (typeof day === "number") {
+            return getValueByIndex(day);
+        }
+
+        if (typeof day === "object" && day instanceof Date) {
+            return getValueByDate(day);
+        }
+
+        return 0;
+    };
+
+    function getValueByIndex(dayIndex) {
         if (period == 0) {
             return 0;
         }
@@ -63,7 +95,14 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
         }
 
         return values[index];
-    };
+    }
+
+    function getValueByDate(date) {
+        var milisecondsLived = date - birthday;
+        var daysLived = Math.floor(milisecondsLived / 1000 / 60 / 60 / 24);
+
+        return getValueByIndex(daysLived);
+    }
 
     function generateValues() {
         values = [];

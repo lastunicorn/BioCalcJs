@@ -59,7 +59,7 @@ lu.bioControls.BiorhythmView = function(id) {
     try {
       var list = biorhythms.toArray();
       for(var i = 0;i < list.length;i++) {
-        list[i].birthday = birthday
+        list[i].biorhythm.birthday = birthday
       }
     }finally {
       resumePaint()
@@ -788,22 +788,17 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     nameChangedEvent.raise(obj, value)
   }
   Object.defineProperty(this, "name", {enumerable:true, configurable:false, get:getName, set:setName});
-  var birthday = Date(80, 5, 13);
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
   this.subscribeToBirthdayChanged = birthdayChangedEvent.subscribe;
   this.unsubscribeFromBirthdayChanged = birthdayChangedEvent.unsubscribe;
   this.getBirthday = getBirthday;
   function getBirthday() {
-    return birthday
+    return biorhythm.birthday
   }
   this.setBirthday = setBirthday;
   function setBirthday(value) {
-    if(value === birthday) {
-      return
-    }
-    birthday = value;
-    birthdayChangedEvent.raise(obj, value)
+    biorhythm.birthday = value
   }
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
   var biorhythm = null;
@@ -820,8 +815,17 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     if(value === biorhythm) {
       return
     }
+    if(biorhythm && biorhythm.birthdayChanged && biorhythm.birthdayChanged.unsubscribe) {
+      biorhythm.birthdayChanged.unsubscribe(onBirthdayChanged)
+    }
     biorhythm = value;
+    if(biorhythm && biorhythm.birthdayChanged && biorhythm.birthdayChanged.unsubscribe) {
+      biorhythm.birthdayChanged.subscribe(onBirthdayChanged)
+    }
     biorhythmChangedEvent.raise(obj, value)
+  }
+  function onBirthdayChanged(arg) {
+    birthdayChangedEvent.raise(obj, arg)
   }
   Object.defineProperty(this, "biorhythm", {enumerable:true, configurable:false, get:getBiorhythm, set:setBiorhythm});
   var color = null;
@@ -1215,7 +1219,7 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   this.setBirthdayOnAll = function(birthday) {
     var biorhythms = getAll();
     for(var i = 0;i < biorhythms.length;i++) {
-      biorhythms[i].setBirthday(birthday)
+      biorhythms[i].biorhythm.birthday = birthday
     }
   };
   (function initialize() {
@@ -1297,23 +1301,21 @@ lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function(
         continue
       }
       var biorhythm = biorhythmShape.getBiorhythm();
-      var birthday = biorhythmShape.getBirthday();
-      points = calculateBiorhythmPoints(biorhythm, birthday);
+      points = calculateBiorhythmPoints(biorhythm);
       values.push({points:points, color:biorhythmShape.getColor(), lineWidth:biorhythmShape.getLineWidth(), lineStyle:biorhythmShape.getLineStyle()})
     }
     return values
   }
-  function calculateBiorhythmPoints(biorhythm, birthday) {
+  function calculateBiorhythmPoints(biorhythm) {
     var xStep = canvas.width / rawPaintData.totalDays;
     var xOffset = xStep / 2;
     var yOffset = margin + (canvas.height - 2 * margin) / 2;
     var amplitude = canvas.height / 2 - 2 * margin;
-    var milisecondsLived = rawPaintData.firstDay - birthday;
-    var daysLived = Math.floor(milisecondsLived / 1E3 / 60 / 60 / 24);
     var points = [];
     for(var index = 0;index < rawPaintData.totalDays;index++) {
       var x = xOffset + index * xStep;
-      var y = yOffset - biorhythm.getValue(daysLived + index) * amplitude;
+      var date = new Date(rawPaintData.firstDay.getTime() + index * 24 * 60 * 60 * 1E3);
+      var y = yOffset - biorhythm.getValue(date) * amplitude;
       points[index] = new lu.Point(x, y)
     }
     return points
@@ -1730,8 +1732,19 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
-  this.getValue = function(dayIndex) {
-    return(biorhythmA.getValue(dayIndex) + biorhythmB.getValue(dayIndex)) / 2
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythmA.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythmA.birthday) {
+      return
+    }
+    biorhythmA.birthday = value;
+    biorhythmB.birthday = value
+  }
+  this.getValue = function(day) {
+    return(biorhythmA.getValue(day) + biorhythmB.getValue(day)) / 2
   }
 };
 var lu = lu || {};
@@ -1740,6 +1753,7 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.EmotionalBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Emotional"
   };
@@ -1747,8 +1761,24 @@ lu.bioControls.core.biorhythms.EmotionalBiorhythm = function() {
   this.getPeriodLength = function() {
     return biorhythm.period
   };
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
+    return biorhythm.period
+  }});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(28)
@@ -1760,6 +1790,7 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.EstheticBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Esthetic"
   };
@@ -1767,8 +1798,24 @@ lu.bioControls.core.biorhythms.EstheticBiorhythm = function() {
   this.getPeriodLength = function() {
     return biorhythm.period
   };
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
+    return biorhythm.period
+  }});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(43)
@@ -1780,6 +1827,7 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.IntellectualBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Intellectual"
   };
@@ -1787,8 +1835,24 @@ lu.bioControls.core.biorhythms.IntellectualBiorhythm = function() {
   this.getPeriodLength = function() {
     return biorhythm.period
   };
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
+    return biorhythm.period
+  }});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(33)
@@ -1800,6 +1864,7 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.IntuitiveBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Intuitive"
   };
@@ -1807,8 +1872,24 @@ lu.bioControls.core.biorhythms.IntuitiveBiorhythm = function() {
   this.getPeriodLength = function() {
     return biorhythm.period
   };
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
+    return biorhythm.period
+  }});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(38)
@@ -1820,12 +1901,26 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.MasteryBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Mastery"
   };
   Object.defineProperty(this, "name", {value:"Mastery", writable:false, enumerable:true, configurable:false});
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm;
@@ -1839,12 +1934,26 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PassionBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Passion"
   };
   Object.defineProperty(this, "name", {value:"Passion", writable:false, enumerable:true, configurable:false});
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm;
@@ -1858,12 +1967,26 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PerceptionBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Perception"
   };
   Object.defineProperty(this, "name", {value:"Perception", writable:false, enumerable:true, configurable:false});
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     var physicalBiorhythm = new lu.bioControls.core.biorhythms.PhysicalBiorhythm;
@@ -1877,6 +2000,7 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PhysicalBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Physical"
   };
@@ -1884,8 +2008,24 @@ lu.bioControls.core.biorhythms.PhysicalBiorhythm = function() {
   this.getPeriodLength = function() {
     return biorhythm.period
   };
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
+    return biorhythm.period
+  }});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(23)
@@ -1897,12 +2037,26 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PsychicBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Psychic"
   };
   Object.defineProperty(this, "name", {value:"Psychic", writable:false, enumerable:true, configurable:false});
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     var emotionalBiorhythm = new lu.bioControls.core.biorhythms.EmotionalBiorhythm;
@@ -1916,6 +2070,7 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Self Awareness"
   };
@@ -1923,8 +2078,24 @@ lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function() {
   this.getPeriodLength = function() {
     return biorhythm.period
   };
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
+    return biorhythm.period
+  }});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(48)
@@ -1935,8 +2106,10 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
+  var birthday = Date(80, 5, 13);
   var values = [];
   this.getPeriodLength = getPeriod;
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
   function getPeriod() {
     return period
   }
@@ -1944,8 +2117,26 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
     period = value;
     generateValues()
   };
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  this.getValue = function(dayIndex) {
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return birthday
+  }
+  function setBirthday(value) {
+    if(typeof value !== "object" || !(value instanceof Date)) {
+      throw"birthday should be a Date.";
+    }
+    birthday = value
+  }
+  this.getValue = function(day) {
+    if(typeof day === "number") {
+      return getValueByIndex(day)
+    }
+    if(typeof day === "object" && day instanceof Date) {
+      return getValueByDate(day)
+    }
+    return 0
+  };
+  function getValueByIndex(dayIndex) {
     if(period == 0) {
       return 0
     }
@@ -1954,7 +2145,12 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
       index += period
     }
     return values[index]
-  };
+  }
+  function getValueByDate(date) {
+    var milisecondsLived = date - birthday;
+    var daysLived = Math.floor(milisecondsLived / 1E3 / 60 / 60 / 24);
+    return getValueByIndex(daysLived)
+  }
   function generateValues() {
     values = [];
     for(var i = 0;i < period;i++) {
@@ -1978,6 +2174,7 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SpiritualBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Spiritual"
   };
@@ -1985,8 +2182,24 @@ lu.bioControls.core.biorhythms.SpiritualBiorhythm = function() {
   this.getPeriodLength = function() {
     return biorhythm.period
   };
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
+    return biorhythm.period
+  }});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(53)
@@ -1998,12 +2211,26 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SuccessBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Success"
   };
   Object.defineProperty(this, "name", {value:"Success", writable:false, enumerable:true, configurable:false});
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     var intellectualBiorhythm = new lu.bioControls.core.biorhythms.IntellectualBiorhythm;
@@ -2017,12 +2244,26 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.WisdomBiorhythm = function() {
   var biorhythm = null;
+  var obj = this;
   this.getName = function() {
     return"Wisdom"
   };
   Object.defineProperty(this, "name", {value:"Wisdom", writable:false, enumerable:true, configurable:false});
-  this.getValue = function(dayIndex) {
-    return biorhythm.getValue(dayIndex)
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
   };
   (function initialize() {
     var emotionalBiorhythm = new lu.bioControls.core.biorhythms.EmotionalBiorhythm;

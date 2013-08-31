@@ -51,9 +51,8 @@ lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function(
 				continue;
 			}
 		
-            var biorhythm = biorhythmShape.getBiorhythm();
-            var birthday = biorhythmShape.getBirthday(); 
-			points = calculateBiorhythmPoints(biorhythm, birthday);
+            var biorhythm = biorhythmShape.getBiorhythm(); 
+			points = calculateBiorhythmPoints(biorhythm);
 			
 			values.push({
 				points: points,
@@ -66,21 +65,22 @@ lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function(
 		return values;
 	}
 
-	function calculateBiorhythmPoints(biorhythm, birthday)
+	function calculateBiorhythmPoints(biorhythm)
 	{
 		var xStep = (canvas.width) / rawPaintData.totalDays;
 		var xOffset = xStep / 2;
 		var yOffset = margin + (canvas.height - 2 * margin) / 2;
 		var amplitude = canvas.height / 2 - 2 * margin;
 
-        var milisecondsLived = rawPaintData.firstDay - birthday;
-        var daysLived = Math.floor(milisecondsLived/ 1000 / 60 / 60 / 24);
+        //var milisecondsLived = rawPaintData.firstDay - birthday;
+        //var daysLived = Math.floor(milisecondsLived/ 1000 / 60 / 60 / 24);
         
 		var points = [];
 
 		for (var index = 0; index < rawPaintData.totalDays; index++) { 
 			var x = xOffset + index * xStep;
-			var y = yOffset - biorhythm.getValue(daysLived + index) * amplitude;
+			var date = new Date(rawPaintData.firstDay.getTime() + index * 24 * 60 * 60 * 1000);
+			var y = yOffset - biorhythm.getValue(date) * amplitude;
 
 			points[index] = new lu.Point(x, y);
 		}

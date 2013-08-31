@@ -32,7 +32,27 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
  */
 lu.bioControls.core.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
 
-    this.getValue = function(dayIndex) {
-        return (biorhythmA.getValue(dayIndex) + biorhythmB.getValue(dayIndex)) / 2;
+    Object.defineProperty(this, "birthday", {
+        enumerable: true,
+        configurable: false,
+        get: getBirthday,
+        set: setBirthday
+    });
+
+    function getBirthday() {
+        return biorhythmA.birthday;
+    }
+
+    function setBirthday(value) {
+        if (value === biorhythmA.birthday) {
+            return;
+        }
+
+        biorhythmA.birthday = value;
+        biorhythmB.birthday = value;
+    }
+
+    this.getValue = function(day) {
+        return (biorhythmA.getValue(day) + biorhythmB.getValue(day)) / 2;
     };
 };

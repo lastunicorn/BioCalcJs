@@ -363,7 +363,7 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         var biorhythms = getAll();
 
         for ( var i = 0; i < biorhythms.length; i++) {
-            biorhythms[i].setBirthday(birthday);
+            biorhythms[i].biorhythm.birthday = birthday;
         }
     };
 

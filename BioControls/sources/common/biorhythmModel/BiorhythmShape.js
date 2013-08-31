@@ -80,7 +80,6 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     // Birthday
     // --------------------------------------------------------------------------
 
-    var birthday = Date(80, 05, 13);
     var birthdayChangedEvent = new lu.Event();
     this.birthdayChanged = birthdayChangedEvent.client;
 
@@ -97,24 +96,19 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     this.getBirthday = getBirthday;
 
     /**
-     * @deprecated Use the birthday property instead.
+     * @deprecated Use the biorhythm property instead.
      */
     function getBirthday() {
-        return birthday;
+        return biorhythm.birthday;
     }
 
     this.setBirthday = setBirthday;
 
     /**
-     * @deprecated Use the birthday property instead.
+     * @deprecated Use the biorhythm property instead.
      */
     function setBirthday(value) {
-        if (value === birthday) {
-            return;
-        }
-
-        birthday = value;
-        birthdayChangedEvent.raise(obj, value);
+        biorhythm.birthday = value;
     }
 
     Object.defineProperty(this, "birthday", {
@@ -161,8 +155,21 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
             return;
         }
 
+        if (biorhythm && biorhythm.birthdayChanged && biorhythm.birthdayChanged.unsubscribe) {
+            biorhythm.birthdayChanged.unsubscribe(onBirthdayChanged);
+        }
+
         biorhythm = value;
+
+        if (biorhythm && biorhythm.birthdayChanged && biorhythm.birthdayChanged.unsubscribe) {
+            biorhythm.birthdayChanged.subscribe(onBirthdayChanged);
+        }
+
         biorhythmChangedEvent.raise(obj, value);
+    }
+
+    function onBirthdayChanged(arg) {
+        birthdayChangedEvent.raise(obj, arg);
     }
 
     Object.defineProperty(this, "biorhythm", {

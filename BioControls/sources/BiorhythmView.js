@@ -117,7 +117,7 @@ lu.bioControls.BiorhythmView = function(id) {
         try {
             var list = biorhythms.toArray();
             for ( var i = 0; i < list.length; i++) {
-                list[i].birthday = birthday;
+                list[i].biorhythm.birthday = birthday;
             }
         }
         finally {

@@ -45,7 +45,7 @@ lu.bioControls.common.painting.TodayMarkerPainter = function() {
         var rect = dataToPaint.rectangle;
 
         paintContext.beginPath();
-        paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
+        paintContext.rect(rect.left, rect.top, rect.width, rect.height);
         paintContext.fillStyle = dataToPaint.color;
         paintContext.fill();
     }

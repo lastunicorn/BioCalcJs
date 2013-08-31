@@ -86,7 +86,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#ff0000"; // Red
-        shape.setLineStyle(lu.LineStyle.dash);
+        shape.lineStyle = lu.LineStyle.dash;
         shape.birthday = this.defaultBirthday;
 
         return shape;
@@ -99,7 +99,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#1e90ff"; // DodgerBlue
-        shape.setLineStyle(lu.LineStyle.dashDot);
+        shape.lineStyle = lu.LineStyle.dashDot;
         shape.birthday = this.defaultBirthday;
 
         return shape;
@@ -112,7 +112,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#32cd32"; // LimeGreen
-        shape.setLineStyle(lu.LineStyle.dashDotDot);
+        shape.lineStyle = lu.LineStyle.dashDotDot;
         shape.birthday = this.defaultBirthday;
 
         return shape;
@@ -129,7 +129,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#ff0000"; // Red
-        shape.setLineStyle(lu.LineStyle.dash);
+        shape.lineStyle = lu.LineStyle.dash;
         shape.birthday = this.defaultBirthday;
 
         return shape;
@@ -142,7 +142,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#32cd32"; // LimeGreen
-        shape.setLineStyle(lu.LineStyle.dashDot);
+        shape.lineStyle = lu.LineStyle.dashDot;
         shape.birthday = this.defaultBirthday;
 
         return shape;
@@ -155,7 +155,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#1e90ff"; // DodgerBlue
-        shape.setLineStyle(lu.LineStyle.dashDotDot);
+        shape.lineStyle = lu.LineStyle.dashDotDot;
         shape.birthday = this.defaultBirthday;
 
         return shape;

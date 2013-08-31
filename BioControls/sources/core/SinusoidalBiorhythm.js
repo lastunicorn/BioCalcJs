@@ -29,11 +29,6 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
     var birthday = Date(80, 05, 13);
     var values = [];
 
-    /**
-     * @deprecated Use the period property instead.
-     */
-    this.getPeriodLength = getPeriod;
-
     Object.defineProperty(this, "period", {
         enumerable: true,
         configurable: false,
@@ -43,14 +38,6 @@ lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
     function getPeriod() {
         return period;
     }
-
-    /**
-     * @deprecated Use the constructor to pass the periodLength.
-     */
-    this.setPeriodLength = function(value) {
-        period = value;
-        generateValues();
-    };
 
     Object.defineProperty(this, "birthday", {
         enumerable: true,

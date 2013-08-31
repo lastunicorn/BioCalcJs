@@ -449,9 +449,6 @@ lu.bioControls.Scroller = function(configuration) {
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 Object.defineProperty(lu.bioControls, "version", {value:"2.0.0", writable:false, enumerable:true, configurable:false});
-lu.bioControls.getVersion = function() {
-  return lu.bioControls.version
-};
 var lu = lu || {};
 lu.DateUtil = {daysToMiliseconds:function(days) {
   return days * 24 * 60 * 60 * 1E3
@@ -500,16 +497,14 @@ lu.Event = function() {
 };
 var lu = lu || {};
 lu.Line = function(startPoint, endPoint) {
-  this.getStartPoint = getStartPoint;
+  Object.defineProperty(this, "startPoint", {enumerable:true, get:getStartPoint});
   function getStartPoint() {
     return startPoint
   }
-  this.getEndPoint = getEndPoint;
+  Object.defineProperty(this, "endPoint", {enumerable:true, get:getEndPoint});
   function getEndPoint() {
     return endPoint
   }
-  Object.defineProperty(this, "startPoint", {enumerable:true, get:getStartPoint});
-  Object.defineProperty(this, "endPoint", {enumerable:true, get:getEndPoint});
   this.toString = function() {
     return startPoint.toString() + " - " + endPoint.toString()
   };
@@ -616,16 +611,14 @@ var lu = lu || {};
 lu.MouseButton = {none:0, left:1, middle:2, right:3};
 var lu = lu || {};
 lu.Point = function(x, y) {
-  this.getX = getX;
+  Object.defineProperty(this, "x", {enumerable:true, get:getX});
   function getX() {
     return x
   }
-  this.getY = getY;
+  Object.defineProperty(this, "y", {enumerable:true, get:getY});
   function getY() {
     return y
   }
-  Object.defineProperty(this, "x", {enumerable:true, get:getX});
-  Object.defineProperty(this, "y", {enumerable:true, get:getY});
   this.toString = function() {
     return"[" + x + "; " + y + "]"
   };
@@ -640,26 +633,22 @@ lu.Point = function(x, y) {
 };
 var lu = lu || {};
 lu.Rectangle = function(left, top, width, height) {
-  this.getLeft = getLeft;
+  Object.defineProperty(this, "left", {enumerable:true, get:getLeft});
   function getLeft() {
     return left
   }
-  Object.defineProperty(this, "left", {enumerable:true, get:getLeft});
-  this.getTop = getTop;
+  Object.defineProperty(this, "top", {enumerable:true, get:getTop});
   function getTop() {
     return top
   }
-  Object.defineProperty(this, "top", {enumerable:true, get:getTop});
-  this.getWidth = getWidth;
+  Object.defineProperty(this, "width", {enumerable:true, get:getWidth});
   function getWidth() {
     return width
   }
-  Object.defineProperty(this, "width", {enumerable:true, get:getWidth});
-  this.getHeight = getHeight;
+  Object.defineProperty(this, "height", {enumerable:true, get:getHeight});
   function getHeight() {
     return height
   }
-  Object.defineProperty(this, "height", {enumerable:true, get:getHeight});
   this.toString = function() {
     return"[" + left.toString() + ", " + top.toString() + "] w\x3d" + width.toString() + "; h\x3d" + height.toString()
   };
@@ -720,13 +709,10 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
   var name = "New Biorhythm Shape";
   var nameChangedEvent = new lu.Event;
   this.nameChanged = nameChangedEvent.client;
-  this.subscribeToNameChanged = nameChangedEvent.subscribe;
-  this.unsubscribeFromNameChanged = nameChangedEvent.unsubscribe;
-  this.getName = getName;
+  Object.defineProperty(this, "name", {enumerable:true, configurable:false, get:getName, set:setName});
   function getName() {
     return name
   }
-  this.setName = setName;
   function setName(value) {
     if(value === name) {
       return
@@ -734,30 +720,22 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     name = value;
     nameChangedEvent.raise(obj, value)
   }
-  Object.defineProperty(this, "name", {enumerable:true, configurable:false, get:getName, set:setName});
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
-  this.subscribeToBirthdayChanged = birthdayChangedEvent.subscribe;
-  this.unsubscribeFromBirthdayChanged = birthdayChangedEvent.unsubscribe;
-  this.getBirthday = getBirthday;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
   function getBirthday() {
     return biorhythm.birthday
   }
-  this.setBirthday = setBirthday;
   function setBirthday(value) {
     biorhythm.birthday = value
   }
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
   var biorhythm = null;
   var biorhythmChangedEvent = new lu.Event;
   this.biorhythmChanged = biorhythmChangedEvent.client;
-  this.subscribeToBiorhythmChanged = biorhythmChangedEvent.subscribe;
-  this.unsubscribeFromBiorhythmChanged = biorhythmChangedEvent.unsubscribe;
-  this.getBiorhythm = getBiorhythm;
+  Object.defineProperty(this, "biorhythm", {enumerable:true, configurable:false, get:getBiorhythm, set:setBiorhythm});
   function getBiorhythm() {
     return biorhythm
   }
-  this.setBiorhythm = setBiorhythm;
   function setBiorhythm(value) {
     if(value === biorhythm) {
       return
@@ -774,17 +752,13 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
   function onBirthdayChanged(arg) {
     birthdayChangedEvent.raise(obj, arg)
   }
-  Object.defineProperty(this, "biorhythm", {enumerable:true, configurable:false, get:getBiorhythm, set:setBiorhythm});
   var color = null;
   var colorChangedEvent = new lu.Event;
   this.colorChanged = colorChangedEvent.client;
-  this.subscribeToColorChanged = colorChangedEvent.subscribe;
-  this.unsubscribeFromColorChanged = colorChangedEvent.unsubscribe;
-  this.getColor = getColor;
+  Object.defineProperty(this, "color", {enumerable:true, configurable:false, get:getColor, set:setColor});
   function getColor() {
     return color
   }
-  this.setColor = setColor;
   function setColor(value) {
     if(value === color) {
       return
@@ -792,17 +766,13 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     color = value;
     colorChangedEvent.raise(obj, value)
   }
-  Object.defineProperty(this, "color", {enumerable:true, configurable:false, get:getColor, set:setColor});
   var isVisible = true;
   var isVisibleChangedEvent = new lu.Event;
   this.isVisibleChanged = isVisibleChangedEvent.client;
-  this.subscribeToIsVisibleChanged = isVisibleChangedEvent.subscribe;
-  this.unsubscribeFromIsVisibleChanged = isVisibleChangedEvent.unsubscribe;
-  this.getIsVisible = getIsVisible;
+  Object.defineProperty(this, "isVisible", {enumerable:true, configurable:false, get:getIsVisible, set:setIsVisible});
   function getIsVisible() {
     return isVisible
   }
-  this.setIsVisible = setIsVisible;
   function setIsVisible(value) {
     if(value === isVisible) {
       return
@@ -810,17 +780,13 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     isVisible = value;
     isVisibleChangedEvent.raise(obj, value)
   }
-  Object.defineProperty(this, "isVisible", {enumerable:true, configurable:false, get:getIsVisible, set:setIsVisible});
   var lineWidth = 1;
   var lineWidthChangedEvent = new lu.Event;
   this.lineWidthChanged = lineWidthChangedEvent.client;
-  this.subscribeToLineWidthChanged = lineWidthChangedEvent.subscribe;
-  this.unsubscribeFromLineWidthChanged = lineWidthChangedEvent.unsubscribe;
-  this.getLineWidth = getLineWidth;
+  Object.defineProperty(this, "lineWidth", {enumerable:true, configurable:false, get:getLineWidth, set:setLineWidth});
   function getLineWidth() {
     return lineWidth
   }
-  this.setLineWidth = setLineWidth;
   function setLineWidth(value) {
     if(value === lineWidth) {
       return
@@ -828,17 +794,13 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     lineWidth = value;
     lineWidthChangedEvent.raise(obj, value)
   }
-  Object.defineProperty(this, "lineWidth", {enumerable:true, configurable:false, get:getLineWidth, set:setLineWidth});
   var lineStyle = lu.LineStyle.solid;
   var lineStyleChangedEvent = new lu.Event;
   this.lineStyleChanged = lineStyleChangedEvent.client;
-  this.subscribeToLineStyleChanged = lineStyleChangedEvent.subscribe;
-  this.unsubscribeFromLineStyleChanged = lineStyleChangedEvent.unsubscribe;
-  this.getLineStyle = getLineStyle;
+  Object.defineProperty(this, "lineStyle", {enumerable:true, configurable:false, get:getLineStyle, set:setLineStyle});
   function getLineStyle() {
     return lineStyle
   }
-  this.setLineStyle = setLineStyle;
   function setLineStyle(value) {
     if(value === lineStyle) {
       return
@@ -846,7 +808,6 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     lineStyle = value;
     lineStyleChangedEvent.raise(obj, value)
   }
-  Object.defineProperty(this, "lineStyle", {enumerable:true, configurable:false, get:getLineStyle, set:setLineStyle})
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -890,7 +851,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {defaultBirthday:ne
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#ff0000";
-  shape.setLineStyle(lu.LineStyle.dash);
+  shape.lineStyle = lu.LineStyle.dash;
   shape.birthday = this.defaultBirthday;
   return shape
 }, createMasteryBiorhythmShape:function() {
@@ -899,7 +860,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {defaultBirthday:ne
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#1e90ff";
-  shape.setLineStyle(lu.LineStyle.dashDot);
+  shape.lineStyle = lu.LineStyle.dashDot;
   shape.birthday = this.defaultBirthday;
   return shape
 }, createWisdomBiorhythmShape:function() {
@@ -908,7 +869,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {defaultBirthday:ne
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#32cd32";
-  shape.setLineStyle(lu.LineStyle.dashDotDot);
+  shape.lineStyle = lu.LineStyle.dashDotDot;
   shape.birthday = this.defaultBirthday;
   return shape
 }, createPerceptionBiorhythmShape:function() {
@@ -917,7 +878,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {defaultBirthday:ne
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#ff0000";
-  shape.setLineStyle(lu.LineStyle.dash);
+  shape.lineStyle = lu.LineStyle.dash;
   shape.birthday = this.defaultBirthday;
   return shape
 }, createPsychicBiorhythmShape:function() {
@@ -926,7 +887,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {defaultBirthday:ne
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#32cd32";
-  shape.setLineStyle(lu.LineStyle.dashDot);
+  shape.lineStyle = lu.LineStyle.dashDot;
   shape.birthday = this.defaultBirthday;
   return shape
 }, createSuccessBiorhythmShape:function() {
@@ -935,7 +896,7 @@ lu.bioControls.common.biorhythmModel.BiorhythShapesCreator = {defaultBirthday:ne
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#1e90ff";
-  shape.setLineStyle(lu.LineStyle.dashDotDot);
+  shape.lineStyle = lu.LineStyle.dashDotDot;
   shape.birthday = this.defaultBirthday;
   return shape
 }, createEstheticBiorhythmShape:function() {
@@ -1082,83 +1043,58 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   Object.defineProperty(this, "iChingBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
     return iChingBiorhythmsSet
   }});
-  this.getPhysicalShape = getPhysicalShape;
+  Object.defineProperty(this, "physicalShape", {enumerable:true, configurable:false, get:getPhysicalShape});
   function getPhysicalShape() {
     return physicalShape
   }
-  Object.defineProperty(this, "physicalShape", {enumerable:true, configurable:false, get:getPhysicalShape});
-  this.getEmotionalShape = getEmotionalShape;
+  Object.defineProperty(this, "emotionalShape", {enumerable:true, configurable:false, get:getEmotionalShape});
   function getEmotionalShape() {
     return emotionalShape
   }
-  Object.defineProperty(this, "emotionalShape", {enumerable:true, configurable:false, get:getEmotionalShape});
-  this.getIntellectualShape = getIntellectualShape;
+  Object.defineProperty(this, "intellectualShape", {enumerable:true, configurable:false, get:getIntellectualShape});
   function getIntellectualShape() {
     return intellectualShape
   }
-  Object.defineProperty(this, "intellectualShape", {enumerable:true, configurable:false, get:getIntellectualShape});
-  this.getIntuitiveShape = getIntuitiveShape;
+  Object.defineProperty(this, "intuitiveShape", {enumerable:true, configurable:false, get:getIntuitiveShape});
   function getIntuitiveShape() {
     return intuitiveShape
   }
-  Object.defineProperty(this, "intuitiveShape", {enumerable:true, configurable:false, get:getIntuitiveShape});
-  this.getPrimaryBiorhythmShapes = function getPrimaryBiorhythmShapes() {
-    return primaryBiorhythmsSet.items
-  };
-  this.getPassionShape = getPassionShape;
+  Object.defineProperty(this, "passionShape", {enumerable:true, configurable:false, get:getPassionShape});
   function getPassionShape() {
     return passionShape
   }
-  Object.defineProperty(this, "passionShape", {enumerable:true, configurable:false, get:getPassionShape});
-  this.getMasteryShape = getMasteryShape;
+  Object.defineProperty(this, "masteryShape", {enumerable:true, configurable:false, get:getMasteryShape});
   function getMasteryShape() {
     return masteryShape
   }
-  Object.defineProperty(this, "masteryShape", {enumerable:true, configurable:false, get:getMasteryShape});
-  this.getWisdomShape = getWisdomShape;
+  Object.defineProperty(this, "wisdomShape", {enumerable:true, configurable:false, get:getWisdomShape});
   function getWisdomShape() {
     return wisdomShape
   }
-  Object.defineProperty(this, "wisdomShape", {enumerable:true, configurable:false, get:getWisdomShape});
-  this.getSecondaryBiorhythmShapes = function getSecondaryBiorhythmShapes() {
-    return secondaryBiorhythmsSet.items
-  };
-  this.getPerceptionShape = getPerceptionShape;
+  Object.defineProperty(this, "perceptionShape", {enumerable:true, configurable:false, get:getPerceptionShape});
   function getPerceptionShape() {
     return perceptionShape
   }
-  Object.defineProperty(this, "perceptionShape", {enumerable:true, configurable:false, get:getPerceptionShape});
-  this.getPsychicShape = getPsychicShape;
+  Object.defineProperty(this, "psychicShape", {enumerable:true, configurable:false, get:getPsychicShape});
   function getPsychicShape() {
     return psychicShape
   }
-  Object.defineProperty(this, "psychicShape", {enumerable:true, configurable:false, get:getPsychicShape});
-  this.getSuccessShape = getSuccessShape;
+  Object.defineProperty(this, "successShape", {enumerable:true, configurable:false, get:getSuccessShape});
   function getSuccessShape() {
     return successShape
   }
-  Object.defineProperty(this, "successShape", {enumerable:true, configurable:false, get:getSuccessShape});
-  this.getExtraBiorhythmShapes = function getExtraBiorhythmShapes() {
-    return extraBiorhythmsSet.items
-  };
-  this.getEstheticShape = getEstheticShape;
+  Object.defineProperty(this, "estheticShape", {enumerable:true, configurable:false, get:getEstheticShape});
   function getEstheticShape() {
     return estheticShape
   }
-  Object.defineProperty(this, "estheticShape", {enumerable:true, configurable:false, get:getEstheticShape});
-  this.getSelfAwarenessShape = getSelfAwarenessShape;
+  Object.defineProperty(this, "selfAwarenessShape", {enumerable:true, configurable:false, get:getSelfAwarenessShape});
   function getSelfAwarenessShape() {
     return selfAwarenessShape
   }
-  Object.defineProperty(this, "selfAwarenessShape", {enumerable:true, configurable:false, get:getSelfAwarenessShape});
-  this.getSpiritualShape = getSpiritualShape;
+  Object.defineProperty(this, "spiritualShape", {enumerable:true, configurable:false, get:getSpiritualShape});
   function getSpiritualShape() {
     return spiritualShape
   }
-  Object.defineProperty(this, "spiritualShape", {enumerable:true, configurable:false, get:getSpiritualShape});
-  this.getIChingBiorhythmShapes = function getIChingBiorhythmShapes() {
-    return iChingBiorhythmsSet.items
-  };
   this.getAll = getAll;
   function getAll() {
     return[physicalShape, emotionalShape, intellectualShape, intuitiveShape, passionShape, masteryShape, wisdomShape, perceptionShape, psychicShape, successShape, estheticShape, selfAwarenessShape, spiritualShape]
@@ -1172,59 +1108,6 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
   (function initialize() {
     createBiorhythmShapes()
   })()
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday = new Date(1980, 5, 13);
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPhysicalBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createEmotionalBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createIntellectualBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createIntuitiveBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPassionBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createMasteryBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createWisdomBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPerceptionBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPsychicBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSuccessBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createEstheticBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSelfAwarenessBiorhythmShape
-};
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape = function() {
-  lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-  return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSpiritualBiorhythmShape
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -1244,12 +1127,11 @@ lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function(
     var points;
     for(var i = 0;i < rawPaintData.biorhythmShapes.length;i++) {
       var biorhythmShape = rawPaintData.biorhythmShapes[i];
-      if(!biorhythmShape.getIsVisible()) {
+      if(!biorhythmShape.isVisible) {
         continue
       }
-      var biorhythm = biorhythmShape.getBiorhythm();
-      points = calculateBiorhythmPoints(biorhythm);
-      values.push({points:points, color:biorhythmShape.getColor(), lineWidth:biorhythmShape.getLineWidth(), lineStyle:biorhythmShape.getLineStyle()})
+      points = calculateBiorhythmPoints(biorhythmShape.biorhythm);
+      values.push({points:points, color:biorhythmShape.color, lineWidth:biorhythmShape.lineWidth, lineStyle:biorhythmShape.lLineStyle})
     }
     return values
   }
@@ -1261,7 +1143,7 @@ lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function(
     var points = [];
     for(var index = 0;index < rawPaintData.totalDays;index++) {
       var x = xOffset + index * xStep;
-      var date = new Date(rawPaintData.firstDay.getTime() + index * 24 * 60 * 60 * 1E3);
+      var date = lu.DateUtil.addDays(rawPaintData.firstDay, index);
       var y = yOffset - biorhythm.getValue(date) * amplitude;
       points[index] = new lu.Point(x, y)
     }
@@ -1478,7 +1360,7 @@ lu.bioControls.common.painting.BiorhythmCurvesPainter = function() {
     paintContext.lineJoin = "round";
     paintContext.beginPath();
     for(var i = 0;i < biorhythmData.points.length;i++) {
-      paintContext.lineTo(biorhythmData.points[i].getX(), biorhythmData.points[i].getY())
+      paintContext.lineTo(biorhythmData.points[i].x, biorhythmData.points[i].y)
     }
     paintContext.stroke()
   }
@@ -1571,7 +1453,7 @@ lu.bioControls.common.painting.DayLabelsPainter = function() {
         paintContext.font = dataToPaint.font
       }
     }
-    paintContext.fillText(label.text, label.location.getX(), label.location.getY())
+    paintContext.fillText(label.text, label.location.x, label.location.y)
   }
 };
 var lu = lu || {};
@@ -1601,8 +1483,8 @@ lu.bioControls.common.painting.GridLinesPainter = function() {
   }
   function paintLine(line) {
     paintContext.beginPath();
-    paintContext.moveTo(line.startPoint.getX(), line.startPoint.getY());
-    paintContext.lineTo(line.endPoint.getX(), line.endPoint.getY());
+    paintContext.moveTo(line.startPoint.x, line.startPoint.y);
+    paintContext.lineTo(line.endPoint.x, line.endPoint.y);
     paintContext.stroke()
   }
   function setLinePattern(linePattern) {
@@ -1632,7 +1514,7 @@ lu.bioControls.common.painting.TodayMarkerPainter = function() {
   function paintTodayMarker() {
     var rect = dataToPaint.rectangle;
     paintContext.beginPath();
-    paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
+    paintContext.rect(rect.left, rect.top, rect.width, rect.height);
     paintContext.fillStyle = dataToPaint.color;
     paintContext.fill()
   }
@@ -1659,7 +1541,7 @@ lu.bioControls.common.painting.XDayMarkerPainter = function() {
     var rect = dataToPaint.rectangle;
     setLinePattern(null);
     paintContext.beginPath();
-    paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
+    paintContext.rect(rect.left, rect.top, rect.width, rect.height);
     paintContext.strokeStyle = dataToPaint.lineColor;
     paintContext.lineWidth = dataToPaint.lineWidth;
     paintContext.stroke()
@@ -1700,16 +1582,11 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.EmotionalBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Emotional"
-  };
   Object.defineProperty(this, "name", {value:"Emotional", writable:false, enumerable:true, configurable:false});
-  this.getPeriodLength = function() {
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
     return biorhythm.period
-  };
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
-    return biorhythm.period
-  }});
+  }
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
@@ -1737,16 +1614,11 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.EstheticBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Esthetic"
-  };
   Object.defineProperty(this, "name", {value:"Esthetic", writable:false, enumerable:true, configurable:false});
-  this.getPeriodLength = function() {
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
     return biorhythm.period
-  };
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
-    return biorhythm.period
-  }});
+  }
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
@@ -1774,16 +1646,11 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.IntellectualBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Intellectual"
-  };
   Object.defineProperty(this, "name", {value:"Intellectual", writable:false, enumerable:true, configurable:false});
-  this.getPeriodLength = function() {
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
     return biorhythm.period
-  };
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
-    return biorhythm.period
-  }});
+  }
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
@@ -1811,16 +1678,11 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.IntuitiveBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Intuitive"
-  };
   Object.defineProperty(this, "name", {value:"Intuitive", writable:false, enumerable:true, configurable:false});
-  this.getPeriodLength = function() {
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
     return biorhythm.period
-  };
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
-    return biorhythm.period
-  }});
+  }
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
@@ -1848,9 +1710,6 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.MasteryBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Mastery"
-  };
   Object.defineProperty(this, "name", {value:"Mastery", writable:false, enumerable:true, configurable:false});
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
@@ -1881,9 +1740,6 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PassionBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Passion"
-  };
   Object.defineProperty(this, "name", {value:"Passion", writable:false, enumerable:true, configurable:false});
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
@@ -1914,9 +1770,6 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PerceptionBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Perception"
-  };
   Object.defineProperty(this, "name", {value:"Perception", writable:false, enumerable:true, configurable:false});
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
@@ -1947,16 +1800,11 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PhysicalBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Physical"
-  };
   Object.defineProperty(this, "name", {value:"Physical", writable:false, enumerable:true, configurable:false});
-  this.getPeriodLength = function() {
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
     return biorhythm.period
-  };
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
-    return biorhythm.period
-  }});
+  }
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
@@ -1984,9 +1832,6 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.PsychicBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Psychic"
-  };
   Object.defineProperty(this, "name", {value:"Psychic", writable:false, enumerable:true, configurable:false});
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
@@ -2017,16 +1862,11 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Self Awareness"
-  };
   Object.defineProperty(this, "name", {value:"Self Awareness", writable:false, enumerable:true, configurable:false});
-  this.getPeriodLength = function() {
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
     return biorhythm.period
-  };
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
-    return biorhythm.period
-  }});
+  }
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
@@ -2054,15 +1894,10 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SinusoidalBiorhythm = function(period) {
   var birthday = Date(80, 5, 13);
   var values = [];
-  this.getPeriodLength = getPeriod;
   Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
   function getPeriod() {
     return period
   }
-  this.setPeriodLength = function(value) {
-    period = value;
-    generateValues()
-  };
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
   function getBirthday() {
     return birthday
@@ -2121,16 +1956,11 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SpiritualBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Spiritual"
-  };
   Object.defineProperty(this, "name", {value:"Spiritual", writable:false, enumerable:true, configurable:false});
-  this.getPeriodLength = function() {
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
     return biorhythm.period
-  };
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:function() {
-    return biorhythm.period
-  }});
+  }
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
@@ -2158,9 +1988,6 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.SuccessBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Success"
-  };
   Object.defineProperty(this, "name", {value:"Success", writable:false, enumerable:true, configurable:false});
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
@@ -2191,9 +2018,6 @@ lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 lu.bioControls.core.biorhythms.WisdomBiorhythm = function() {
   var biorhythm = null;
   var obj = this;
-  this.getName = function() {
-    return"Wisdom"
-  };
   Object.defineProperty(this, "name", {value:"Wisdom", writable:false, enumerable:true, configurable:false});
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;

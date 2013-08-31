@@ -30,33 +30,23 @@ var lu = lu || {};
  */
 lu.Point = function(x, y) {
 
-    /**
-     * @deprecated
-     */
-    this.getX = getX;
-
-    function getX() {
-        return x;
-    }
-
-    /**
-     * @deprecated
-     */
-    this.getY = getY;
-
-    function getY() {
-        return y;
-    }
-
     Object.defineProperty(this, "x", {
         enumerable: true,
         get: getX
     });
 
+    function getX() {
+        return x;
+    }
+
     Object.defineProperty(this, "y", {
         enumerable: true,
         get: getY
     });
+
+    function getY() {
+        return y;
+    }
 
     this.toString = function() {
         return "[" + x + "; " + y + "]";

@@ -20,8 +20,8 @@ lu.bioControls.core = lu.bioControls.core || {};
 lu.bioControls.core.biorhythms = lu.bioControls.core.biorhythms || {};
 
 /**
- * Represents the self awareness biorhythm. It is a sinusoidal biorhythm with the
- * period of 48 days.
+ * Represents the self awareness biorhythm. It is a sinusoidal biorhythm with
+ * the period of 48 days.
  * 
  * @returns {lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm}
  */
@@ -29,34 +29,22 @@ lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function() {
     var biorhythm = null;
     var obj = this;
 
-    /**
-     * @deprecated
-     */
-    this.getName = function() {
-        return "Self Awareness";
-    };
-    
-    Object.defineProperty(this, "name",{
+    Object.defineProperty(this, "name", {
         value: "Self Awareness",
         writable: false,
         enumerable: true,
         configurable: false
     });
 
-    /**
-     * @deprecated Use period property instead
-     */
-    this.getPeriodLength = function() {
-        return biorhythm.period;
-    };
-
     Object.defineProperty(this, "period", {
         enumerable: true,
         configurable: false,
-        get: function() {
-            return biorhythm.period;
-        }
+        get: getPeriod
     });
+
+    function getPeriod() {
+        return biorhythm.period;
+    }
 
     var birthdayChangedEvent = new lu.Event();
     this.birthdayChanged = birthdayChangedEvent.client;
@@ -71,7 +59,7 @@ lu.bioControls.core.biorhythms.SelfAwarenessBiorhythm = function() {
     function getBirthday() {
         return biorhythm.birthday;
     }
-    
+
     function setBirthday(value) {
         if (value === biorhythm.birthday) {
             return;

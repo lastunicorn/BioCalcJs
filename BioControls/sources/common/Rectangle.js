@@ -18,27 +18,13 @@ var lu = lu || {};
 
 lu.Rectangle = function(left, top, width, height) {
 
-    /**
-     * @deprecated
-     */
-    this.getLeft = getLeft;
-
-    function getLeft() {
-        return left;
-    }
-
     Object.defineProperty(this, "left", {
         enumerable: true,
         get: getLeft
     });
 
-    /**
-     * @deprecated
-     */
-    this.getTop = getTop;
-
-    function getTop() {
-        return top;
+    function getLeft() {
+        return left;
     }
 
     Object.defineProperty(this, "top", {
@@ -46,13 +32,8 @@ lu.Rectangle = function(left, top, width, height) {
         get: getTop
     });
 
-    /**
-     * @deprecated
-     */
-    this.getWidth = getWidth;
-
-    function getWidth() {
-        return width;
+    function getTop() {
+        return top;
     }
 
     Object.defineProperty(this, "width", {
@@ -60,19 +41,18 @@ lu.Rectangle = function(left, top, width, height) {
         get: getWidth
     });
 
-    /**
-     * @deprecated
-     */
-    this.getHeight = getHeight;
-
-    function getHeight() {
-        return height;
+    function getWidth() {
+        return width;
     }
 
     Object.defineProperty(this, "height", {
         enumerable: true,
         get: getHeight
     });
+
+    function getHeight() {
+        return height;
+    }
 
     this.toString = function() {
         return "[" + left.toString() + ", " + top.toString() + "] w=" + width.toString() + "; h=" + height.toString();

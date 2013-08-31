@@ -29,14 +29,7 @@ lu.bioControls.core.biorhythms.PassionBiorhythm = function() {
     var biorhythm = null;
     var obj = this;
 
-    /**
-     * @deprecated
-     */
-    this.getName = function() {
-        return "Passion";
-    };
-    
-    Object.defineProperty(this, "name",{
+    Object.defineProperty(this, "name", {
         value: "Passion",
         writable: false,
         enumerable: true,
@@ -56,7 +49,7 @@ lu.bioControls.core.biorhythms.PassionBiorhythm = function() {
     function getBirthday() {
         return biorhythm.birthday;
     }
-    
+
     function setBirthday(value) {
         if (value === biorhythm.birthday) {
             return;

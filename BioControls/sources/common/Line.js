@@ -29,33 +29,23 @@ var lu = lu || {};
  */
 lu.Line = function(startPoint, endPoint) {
 
-    /**
-     * @deprecated
-     */
-    this.getStartPoint = getStartPoint;
-
-    function getStartPoint() {
-        return startPoint;
-    }
-
-    /**
-     * @deprecated
-     */
-    this.getEndPoint = getEndPoint;
-
-    function getEndPoint() {
-        return endPoint;
-    }
-
     Object.defineProperty(this, "startPoint", {
         enumerable: true,
         get: getStartPoint
     });
 
+    function getStartPoint() {
+        return startPoint;
+    }
+
     Object.defineProperty(this, "endPoint", {
         enumerable: true,
         get: getEndPoint
     });
+
+    function getEndPoint() {
+        return endPoint;
+    }
 
     this.toString = function() {
         return startPoint.toString() + " - " + endPoint.toString();

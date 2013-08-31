@@ -49,9 +49,9 @@ lu.bioControls.common.painting.XDayMarkerPainter = function() {
         var rect = dataToPaint.rectangle;
 
         setLinePattern(null);
-        
+
         paintContext.beginPath();
-        paintContext.rect(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight());
+        paintContext.rect(rect.left, rect.top, rect.width, rect.height);
         paintContext.strokeStyle = dataToPaint.lineColor;
         paintContext.lineWidth = dataToPaint.lineWidth;
         paintContext.stroke();

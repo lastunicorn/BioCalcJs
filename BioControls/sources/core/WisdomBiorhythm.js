@@ -29,14 +29,7 @@ lu.bioControls.core.biorhythms.WisdomBiorhythm = function() {
     var biorhythm = null;
     var obj = this;
 
-    /**
-     * @deprecated
-     */
-    this.getName = function() {
-        return "Wisdom";
-    };
-    
-    Object.defineProperty(this, "name",{
+    Object.defineProperty(this, "name", {
         value: "Wisdom",
         writable: false,
         enumerable: true,
@@ -56,7 +49,7 @@ lu.bioControls.core.biorhythms.WisdomBiorhythm = function() {
     function getBirthday() {
         return biorhythm.birthday;
     }
-    
+
     function setBirthday(value) {
         if (value === biorhythm.birthday) {
             return;

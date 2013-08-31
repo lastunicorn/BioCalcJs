@@ -62,6 +62,6 @@ lu.bioControls.common.painting.DayLabelsPainter = function() {
             }
         }
 
-        paintContext.fillText(label.text, label.location.getX(), label.location.getY());
+        paintContext.fillText(label.text, label.location.x, label.location.y);
     }
 };

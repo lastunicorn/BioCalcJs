@@ -23,10 +23,3 @@ Object.defineProperty(lu.bioControls, "version", {
     enumerable: true,
     configurable: false
 });
-
-/**
- * Deprecated
- */
-lu.bioControls.getVersion = function() {
-    return lu.bioControls.version;
-};

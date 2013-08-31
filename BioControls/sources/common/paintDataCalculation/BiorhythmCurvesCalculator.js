@@ -20,71 +20,67 @@ lu.bioControls.common = lu.bioControls.common || {};
 lu.bioControls.common.paintDataCalculation = lu.bioControls.common.paintDataCalculation || {};
 
 lu.bioControls.common.paintDataCalculation.BiorhythmCurvesCalculator = function() {
-    
+
     var rawPaintData = null;
     var rect = null;
     var margin = 10;
-    
-	// --------------------------------------------------------------------------
-	// Functions - "public"
-	// --------------------------------------------------------------------------
-	
+
+    // --------------------------------------------------------------------------
+    // Functions - "public"
+    // --------------------------------------------------------------------------
+
     this.calculate = function(data, rectangle) {
         rawPaintData = data;
         rect = rectangle;
-        
+
         return calculateBiorhythms();
     };
-    
-	// --------------------------------------------------------------------------
-	// Functions - "private"
-	// --------------------------------------------------------------------------
-	
+
+    // --------------------------------------------------------------------------
+    // Functions - "private"
+    // --------------------------------------------------------------------------
+
     function calculateBiorhythms() {
-		var values = [];
-		var points;
-		
-		for (var i = 0; i < rawPaintData.biorhythmShapes.length; i++) {
+        var values = [];
+        var points;
+
+        for ( var i = 0; i < rawPaintData.biorhythmShapes.length; i++) {
             var biorhythmShape = rawPaintData.biorhythmShapes[i];
+
+            if (!biorhythmShape.isVisible) {
+                continue;
+            }
+
+            points = calculateBiorhythmPoints(biorhythmShape.biorhythm);
+
+            values.push({
+                points: points,
+                color: biorhythmShape.color,
+                lineWidth: biorhythmShape.lineWidth,
+                lineStyle: biorhythmShape.lLineStyle
+            });
+        }
+
+        return values;
+    }
+
+    function calculateBiorhythmPoints(biorhythm) {
+        var xStep = (rect.width) / rawPaintData.totalDays;
+        var xOffset = xStep / 2;
+        var yOffset = margin + (rect.height - 2 * margin) / 2;
+        var amplitude = rect.height / 2 - 2 * margin;
+
+        var points = [];
+
+        for ( var index = 0; index < rawPaintData.totalDays; index++) {
+            var x = xOffset + index * xStep;
             
-			if(!biorhythmShape.getIsVisible()) {
-				continue;
-			}
-		
-            var biorhythm = biorhythmShape.getBiorhythm(); 
-			points = calculateBiorhythmPoints(biorhythm);
-			
-			values.push({
-				points: points,
-				color: biorhythmShape.getColor(),
-				lineWidth: biorhythmShape.getLineWidth(),
-				lineStyle: biorhythmShape.getLineStyle()
-			});
-		}
+            var date = lu.DateUtil.addDays(rawPaintData.firstDay, index);
+            var y = yOffset - biorhythm.getValue(date) * amplitude;
 
-		return values;
-	}
+            points[index] = new lu.Point(x, y);
+        }
 
-	function calculateBiorhythmPoints(biorhythm)
-	{
-		var xStep = (rect.width) / rawPaintData.totalDays;
-		var xOffset = xStep / 2;
-		var yOffset = margin + (rect.height - 2 * margin) / 2;
-		var amplitude = rect.height / 2 - 2 * margin;
-
-        //var milisecondsLived = rawPaintData.firstDay - birthday;
-        //var daysLived = Math.floor(milisecondsLived/ 1000 / 60 / 60 / 24);
-        
-		var points = [];
-
-		for (var index = 0; index < rawPaintData.totalDays; index++) { 
-			var x = xOffset + index * xStep;
-			var date = new Date(rawPaintData.firstDay.getTime() + index * 24 * 60 * 60 * 1000);
-			var y = yOffset - biorhythm.getValue(date) * amplitude;
-
-			points[index] = new lu.Point(x, y);
-		}
-
-		return points;
-	}
+        return points;
+    }
 };

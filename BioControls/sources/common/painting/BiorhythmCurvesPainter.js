@@ -53,7 +53,7 @@ lu.bioControls.common.painting.BiorhythmCurvesPainter = function() {
         paintContext.beginPath();
 
         for ( var i = 0; i < biorhythmData.points.length; i++) {
-            paintContext.lineTo(biorhythmData.points[i].getX(), biorhythmData.points[i].getY());
+            paintContext.lineTo(biorhythmData.points[i].x, biorhythmData.points[i].y);
         }
 
         paintContext.stroke();

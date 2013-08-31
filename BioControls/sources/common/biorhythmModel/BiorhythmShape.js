@@ -36,30 +36,17 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var nameChangedEvent = new lu.Event();
     this.nameChanged = nameChangedEvent.client;
 
-    /**
-     * deprecated
-     */
-    this.subscribeToNameChanged = nameChangedEvent.subscribe;
+    Object.defineProperty(this, "name", {
+        enumerable: true,
+        configurable: false,
+        get: getName,
+        set: setName
+    });
 
-    /**
-     * deprecated
-     */
-    this.unsubscribeFromNameChanged = nameChangedEvent.unsubscribe;
-
-    this.getName = getName;
-
-    /**
-     * @deprecated Use the name property instead.
-     */
     function getName() {
         return name;
     }
 
-    this.setName = setName;
-
-    /**
-     * @deprecated Use the name property instead.
-     */
     function setName(value) {
         if (value === name) {
             return;
@@ -69,13 +56,6 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         nameChangedEvent.raise(obj, value);
     }
 
-    Object.defineProperty(this, "name", {
-        enumerable: true,
-        configurable: false,
-        get: getName,
-        set: setName
-    });
-
     // --------------------------------------------------------------------------
     // Birthday
     // --------------------------------------------------------------------------
@@ -83,40 +63,20 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var birthdayChangedEvent = new lu.Event();
     this.birthdayChanged = birthdayChangedEvent.client;
 
-    /**
-     * deprecated
-     */
-    this.subscribeToBirthdayChanged = birthdayChangedEvent.subscribe;
-
-    /**
-     * deprecated
-     */
-    this.unsubscribeFromBirthdayChanged = birthdayChangedEvent.unsubscribe;
-
-    this.getBirthday = getBirthday;
-
-    /**
-     * @deprecated Use the biorhythm property instead.
-     */
-    function getBirthday() {
-        return biorhythm.birthday;
-    }
-
-    this.setBirthday = setBirthday;
-
-    /**
-     * @deprecated Use the biorhythm property instead.
-     */
-    function setBirthday(value) {
-        biorhythm.birthday = value;
-    }
-
     Object.defineProperty(this, "birthday", {
         enumerable: true,
         configurable: false,
         get: getBirthday,
         set: setBirthday
     });
+
+    function getBirthday() {
+        return biorhythm.birthday;
+    }
+
+    function setBirthday(value) {
+        biorhythm.birthday = value;
+    }
 
     // --------------------------------------------------------------------------
     // Biorythm
@@ -126,30 +86,17 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var biorhythmChangedEvent = new lu.Event();
     this.biorhythmChanged = biorhythmChangedEvent.client;
 
-    /**
-     * deprecated
-     */
-    this.subscribeToBiorhythmChanged = biorhythmChangedEvent.subscribe;
+    Object.defineProperty(this, "biorhythm", {
+        enumerable: true,
+        configurable: false,
+        get: getBiorhythm,
+        set: setBiorhythm
+    });
 
-    /**
-     * deprecated
-     */
-    this.unsubscribeFromBiorhythmChanged = biorhythmChangedEvent.unsubscribe;
-
-    this.getBiorhythm = getBiorhythm;
-
-    /**
-     * @deprecated Use the biorhythm property instead.
-     */
     function getBiorhythm() {
         return biorhythm;
     }
 
-    this.setBiorhythm = setBiorhythm;
-
-    /**
-     * @deprecated Use the biorhythm property instead.
-     */
     function setBiorhythm(value) {
         if (value === biorhythm) {
             return;
@@ -172,13 +119,6 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         birthdayChangedEvent.raise(obj, arg);
     }
 
-    Object.defineProperty(this, "biorhythm", {
-        enumerable: true,
-        configurable: false,
-        get: getBiorhythm,
-        set: setBiorhythm
-    });
-
     // --------------------------------------------------------------------------
     // Color
     // --------------------------------------------------------------------------
@@ -187,30 +127,17 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var colorChangedEvent = new lu.Event();
     this.colorChanged = colorChangedEvent.client;
 
-    /**
-     * deprecated
-     */
-    this.subscribeToColorChanged = colorChangedEvent.subscribe;
+    Object.defineProperty(this, "color", {
+        enumerable: true,
+        configurable: false,
+        get: getColor,
+        set: setColor
+    });
 
-    /**
-     * deprecated
-     */
-    this.unsubscribeFromColorChanged = colorChangedEvent.unsubscribe;
-
-    this.getColor = getColor;
-
-    /**
-     * @deprecated Use the color property instead.
-     */
     function getColor() {
         return color;
     }
 
-    this.setColor = setColor;
-
-    /**
-     * @deprecated Use the color property instead.
-     */
     function setColor(value) {
         if (value === color) {
             return;
@@ -220,13 +147,6 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         colorChangedEvent.raise(obj, value);
     }
 
-    Object.defineProperty(this, "color", {
-        enumerable: true,
-        configurable: false,
-        get: getColor,
-        set: setColor
-    });
-
     // --------------------------------------------------------------------------
     // IsVisible
     // --------------------------------------------------------------------------
@@ -235,30 +155,17 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var isVisibleChangedEvent = new lu.Event();
     this.isVisibleChanged = isVisibleChangedEvent.client;
 
-    /**
-     * deprecated
-     */
-    this.subscribeToIsVisibleChanged = isVisibleChangedEvent.subscribe;
+    Object.defineProperty(this, "isVisible", {
+        enumerable: true,
+        configurable: false,
+        get: getIsVisible,
+        set: setIsVisible
+    });
 
-    /**
-     * deprecated
-     */
-    this.unsubscribeFromIsVisibleChanged = isVisibleChangedEvent.unsubscribe;
-
-    this.getIsVisible = getIsVisible;
-
-    /**
-     * @deprecated Use the isVisible property instead.
-     */
     function getIsVisible() {
         return isVisible;
     }
 
-    this.setIsVisible = setIsVisible;
-
-    /**
-     * @deprecated Use the isVisible property instead.
-     */
     function setIsVisible(value) {
         if (value === isVisible) {
             return;
@@ -268,13 +175,6 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         isVisibleChangedEvent.raise(obj, value);
     }
 
-    Object.defineProperty(this, "isVisible", {
-        enumerable: true,
-        configurable: false,
-        get: getIsVisible,
-        set: setIsVisible
-    });
-
     // --------------------------------------------------------------------------
     // LineWidth
     // --------------------------------------------------------------------------
@@ -283,30 +183,17 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var lineWidthChangedEvent = new lu.Event();
     this.lineWidthChanged = lineWidthChangedEvent.client;
 
-    /**
-     * deprecated
-     */
-    this.subscribeToLineWidthChanged = lineWidthChangedEvent.subscribe;
+    Object.defineProperty(this, "lineWidth", {
+        enumerable: true,
+        configurable: false,
+        get: getLineWidth,
+        set: setLineWidth
+    });
 
-    /**
-     * deprecated
-     */
-    this.unsubscribeFromLineWidthChanged = lineWidthChangedEvent.unsubscribe;
-
-    this.getLineWidth = getLineWidth;
-
-    /**
-     * @deprecated Use the lineWidth property instead.
-     */
     function getLineWidth() {
         return lineWidth;
     }
 
-    this.setLineWidth = setLineWidth;
-
-    /**
-     * @deprecated Use the lineWidth property instead.
-     */
     function setLineWidth(value) {
         if (value === lineWidth) {
             return;
@@ -316,13 +203,6 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         lineWidthChangedEvent.raise(obj, value);
     }
 
-    Object.defineProperty(this, "lineWidth", {
-        enumerable: true,
-        configurable: false,
-        get: getLineWidth,
-        set: setLineWidth
-    });
-
     // --------------------------------------------------------------------------
     // LineStyle
     // --------------------------------------------------------------------------
@@ -331,30 +211,17 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
     var lineStyleChangedEvent = new lu.Event();
     this.lineStyleChanged = lineStyleChangedEvent.client;
 
-    /**
-     * deprecated
-     */
-    this.subscribeToLineStyleChanged = lineStyleChangedEvent.subscribe;
+    Object.defineProperty(this, "lineStyle", {
+        enumerable: true,
+        configurable: false,
+        get: getLineStyle,
+        set: setLineStyle
+    });
 
-    /**
-     * deprecated
-     */
-    this.unsubscribeFromLineStyleChanged = lineStyleChangedEvent.unsubscribe;
-
-    this.getLineStyle = getLineStyle;
-
-    /**
-     * @deprecated Use the lineStyle property instead.
-     */
     function getLineStyle() {
         return lineStyle;
     }
 
-    this.setLineStyle = setLineStyle;
-
-    /**
-     * @deprecated Use the lineStyle property instead.
-     */
     function setLineStyle(value) {
         if (value === lineStyle) {
             return;
@@ -363,11 +230,4 @@ lu.bioControls.common.biorhythmModel.BiorhythmShape = function() {
         lineStyle = value;
         lineStyleChangedEvent.raise(obj, value);
     }
-
-    Object.defineProperty(this, "lineStyle", {
-        enumerable: true,
-        configurable: false,
-        get: getLineStyle,
-        set: setLineStyle
-    });
 };

@@ -125,28 +125,14 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         }
     });
 
-    this.getPhysicalShape = getPhysicalShape;
-
-    /**
-     * @deprecated
-     */
-    function getPhysicalShape() {
-        return physicalShape;
-    }
-
     Object.defineProperty(this, "physicalShape", {
         enumerable: true,
         configurable: false,
         get: getPhysicalShape
     });
 
-    this.getEmotionalShape = getEmotionalShape;
-
-    /**
-     * @deprecated
-     */
-    function getEmotionalShape() {
-        return emotionalShape;
+    function getPhysicalShape() {
+        return physicalShape;
     }
 
     Object.defineProperty(this, "emotionalShape", {
@@ -155,13 +141,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getEmotionalShape
     });
 
-    this.getIntellectualShape = getIntellectualShape;
-
-    /**
-     * @deprecated
-     */
-    function getIntellectualShape() {
-        return intellectualShape;
+    function getEmotionalShape() {
+        return emotionalShape;
     }
 
     Object.defineProperty(this, "intellectualShape", {
@@ -170,13 +151,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getIntellectualShape
     });
 
-    this.getIntuitiveShape = getIntuitiveShape;
-
-    /**
-     * @deprecated
-     */
-    function getIntuitiveShape() {
-        return intuitiveShape;
+    function getIntellectualShape() {
+        return intellectualShape;
     }
 
     Object.defineProperty(this, "intuitiveShape", {
@@ -185,20 +161,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getIntuitiveShape
     });
 
-    /**
-     * @deprecated Use primaryBiorhythmShapes property instead.
-     */
-    this.getPrimaryBiorhythmShapes = function getPrimaryBiorhythmShapes() {
-        return primaryBiorhythmsSet.items;
-    };
-
-    this.getPassionShape = getPassionShape;
-
-    /**
-     * @deprecated
-     */
-    function getPassionShape() {
-        return passionShape;
+    function getIntuitiveShape() {
+        return intuitiveShape;
     }
 
     Object.defineProperty(this, "passionShape", {
@@ -207,13 +171,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getPassionShape
     });
 
-    this.getMasteryShape = getMasteryShape;
-
-    /**
-     * @deprecated
-     */
-    function getMasteryShape() {
-        return masteryShape;
+    function getPassionShape() {
+        return passionShape;
     }
 
     Object.defineProperty(this, "masteryShape", {
@@ -222,13 +181,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getMasteryShape
     });
 
-    this.getWisdomShape = getWisdomShape;
-
-    /**
-     * @deprecated
-     */
-    function getWisdomShape() {
-        return wisdomShape;
+    function getMasteryShape() {
+        return masteryShape;
     }
 
     Object.defineProperty(this, "wisdomShape", {
@@ -237,20 +191,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getWisdomShape
     });
 
-    /**
-     * @deprecated Use secondaryBiorhythmShapes property instead.
-     */
-    this.getSecondaryBiorhythmShapes = function getSecondaryBiorhythmShapes() {
-        return secondaryBiorhythmsSet.items;
-    };
-
-    this.getPerceptionShape = getPerceptionShape;
-
-    /**
-     * @deprecated
-     */
-    function getPerceptionShape() {
-        return perceptionShape;
+    function getWisdomShape() {
+        return wisdomShape;
     }
 
     Object.defineProperty(this, "perceptionShape", {
@@ -259,13 +201,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getPerceptionShape
     });
 
-    this.getPsychicShape = getPsychicShape;
-
-    /**
-     * @deprecated
-     */
-    function getPsychicShape() {
-        return psychicShape;
+    function getPerceptionShape() {
+        return perceptionShape;
     }
 
     Object.defineProperty(this, "psychicShape", {
@@ -274,13 +211,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getPsychicShape
     });
 
-    this.getSuccessShape = getSuccessShape;
-
-    /**
-     * @deprecated
-     */
-    function getSuccessShape() {
-        return successShape;
+    function getPsychicShape() {
+        return psychicShape;
     }
 
     Object.defineProperty(this, "successShape", {
@@ -289,20 +221,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getSuccessShape
     });
 
-    /**
-     * @deprecated Use extraBiorhythmShapes property instead.
-     */
-    this.getExtraBiorhythmShapes = function getExtraBiorhythmShapes() {
-        return extraBiorhythmsSet.items;
-    };
-
-    this.getEstheticShape = getEstheticShape;
-
-    /**
-     * @deprecated
-     */
-    function getEstheticShape() {
-        return estheticShape;
+    function getSuccessShape() {
+        return successShape;
     }
 
     Object.defineProperty(this, "estheticShape", {
@@ -311,13 +231,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getEstheticShape
     });
 
-    this.getSelfAwarenessShape = getSelfAwarenessShape;
-
-    /**
-     * @deprecated
-     */
-    function getSelfAwarenessShape() {
-        return selfAwarenessShape;
+    function getEstheticShape() {
+        return estheticShape;
     }
 
     Object.defineProperty(this, "selfAwarenessShape", {
@@ -326,13 +241,8 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getSelfAwarenessShape
     });
 
-    this.getSpiritualShape = getSpiritualShape;
-
-    /**
-     * @deprecated
-     */
-    function getSpiritualShape() {
-        return spiritualShape;
+    function getSelfAwarenessShape() {
+        return selfAwarenessShape;
     }
 
     Object.defineProperty(this, "spiritualShape", {
@@ -341,12 +251,9 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         get: getSpiritualShape
     });
 
-    /**
-     * @deprecated Use iChingBiorhythmShapes property instead.
-     */
-    this.getIChingBiorhythmShapes = function getIChingBiorhythmShapes() {
-        return iChingBiorhythmsSet.items;
-    };
+    function getSpiritualShape() {
+        return spiritualShape;
+    }
 
     this.getAll = getAll;
     function getAll() {
@@ -370,143 +277,4 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
     (function initialize() {
         createBiorhythmShapes();
     }());
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday = new Date(1980, 05, 13);
-
-// -----------------------------------------------------------------------------
-// Primary Biorhythms
-// -----------------------------------------------------------------------------
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPhysicalBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPhysicalBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEmotionalBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createEmotionalBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntellectualBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createIntellectualBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createIntuitiveBiorhythmShape;
-};
-
-// -----------------------------------------------------------------------------
-// Secondary Biorhythms
-// -----------------------------------------------------------------------------
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPassionBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createMasteryBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createWisdomBiorhythmShape;
-};
-
-// -----------------------------------------------------------------------------
-// Extra Biorhythms
-// -----------------------------------------------------------------------------
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPerceptionBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createPsychicBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSuccessBiorhythmShape;
-};
-
-// -----------------------------------------------------------------------------
-// I-Ching Biorhythms
-// -----------------------------------------------------------------------------
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createEstheticBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSelfAwarenessBiorhythmShape;
-};
-
-/**
- * @deprecated Use lu.bioControls.common.biorhythmModel.BiorhythShapesCreator
- *             object instead.
- */
-lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape = function() {
-    lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.defaultBirthday = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.defaultBirthday;
-    return lu.bioControls.common.biorhythmModel.BiorhythShapesCreator.createSpiritualBiorhythmShape;
 };

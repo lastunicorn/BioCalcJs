@@ -29,13 +29,6 @@ lu.bioControls.core.biorhythms.PhysicalBiorhythm = function() {
     var biorhythm = null;
     var obj = this;
 
-    /**
-     * @deprecated
-     */
-    this.getName = function() {
-        return "Physical";
-    };
-
     Object.defineProperty(this, "name", {
         value: "Physical",
         writable: false,
@@ -43,20 +36,15 @@ lu.bioControls.core.biorhythms.PhysicalBiorhythm = function() {
         configurable: false
     });
 
-    /**
-     * @deprecated Use period property instead
-     */
-    this.getPeriodLength = function() {
-        return biorhythm.period;
-    };
-
     Object.defineProperty(this, "period", {
         enumerable: true,
         configurable: false,
-        get: function() {
-            return biorhythm.period;
-        }
+        get: getPeriod
     });
+
+    function getPeriod() {
+        return biorhythm.period;
+    }
 
     var birthdayChangedEvent = new lu.Event();
     this.birthdayChanged = birthdayChangedEvent.client;
@@ -71,7 +59,7 @@ lu.bioControls.core.biorhythms.PhysicalBiorhythm = function() {
     function getBirthday() {
         return biorhythm.birthday;
     }
-    
+
     function setBirthday(value) {
         if (value === biorhythm.birthday) {
             return;

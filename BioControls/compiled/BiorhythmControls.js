@@ -1127,7 +1127,7 @@ lu.bioControls.biorhythmView.paintDataCalculation.BiorhythmCurvesCalculator = fu
         continue
       }
       points = calculateBiorhythmPoints(biorhythmShape.biorhythm);
-      values.push({points:points, color:biorhythmShape.color, lineWidth:biorhythmShape.lineWidth, lineStyle:biorhythmShape.lLineStyle})
+      values.push({points:points, color:biorhythmShape.color, lineWidth:biorhythmShape.lineWidth, lineStyle:biorhythmShape.lineStyle})
     }
     return values
   }

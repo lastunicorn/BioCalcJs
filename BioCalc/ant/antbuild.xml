@@ -14,7 +14,7 @@
 		<copy todir="compiled/libraries">
 			<fileset dir="sources/libraries" />
 		</copy>
-		
+
 		<copy todir="compiled/images">
 			<fileset dir="sources/images" />
 		</copy>
@@ -33,7 +33,7 @@
 
 		<copy todir="compiled/libraries/BiorhythmControls">
 			<fileset dir="../BioControls/compiled">
-				<include name="*.js" />
+				<include name="**/*" />
 			</fileset>
 		</copy>
 	</target>
@@ -44,12 +44,16 @@
 		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="${file.output}">
 
 			<sources dir="${basedir}/sources">
+				<file name="AboutDialog.js" />
 				<file name="BioCalc.js" />
 				<file name="BiorhythmLegend.js" />
 				<file name="BiorhythmLegendItem.js" />
 				<file name="BiorhythmLegendWidget.js" />
 				<file name="BiorhythmViewWidget.js" />
 				<file name="ConfigManager.js" />
+				<file name="HelpDialog.js" />
+				<file name="MainToolbar.js" />
+				<file name="OptionsDialog.js" />
 				<file name="Version.js" />
 				<file name="XDayInfoItem.js" />
 				<file name="XDayInfoView.js" />

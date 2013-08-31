@@ -17,6 +17,9 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
+/**
+ * Contains the logic to load and save the configuration from/into cookies. 
+ */
 lu.bioCalc.ConfigManager = function() {
 
     var cookieName = "config";

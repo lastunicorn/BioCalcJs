@@ -17,38 +17,21 @@
 (function() {
     var biorhythmView = null;
     var commonBiorhythmShapes = null;
+    var configManager = null;
+    var config = null;
+    var model = null;
     var $bioLegend = null;
     var $birthdayTextBox = null;
     var $firstDayTextBox = null;
     var $firstDayLabel = null;
     var $lastDayTextBox = null;
     var $lastDayLabel = null;
-    var $helpButton = null;
-    var $aboutButton = null;
-    var $aboutDialog = null;
-    var $helpDialog = null;
     var $saveBirthdayButton = null;
     var $resetBirthdayButton = null;
-    var $jQueryVersionLabel = null;
-    var $jQueryUIVersionLabel = null;
-    var $bioControlsVersionLabel = null;
-    var $bioCalcVersionLabel = null;
     var $bioCanvas = null;
     var $xDayValueLabel = null;
     var $xDayInfoContainer = null;
-    var $mainToolbar = null;
     var $birthdayButtons = null;
-    var $aboutDialogTabSet = null;
-    var $helpDialogTabSet = null;
-    var $optionsButton = null;
-    var $optionsDialog = null;
-    var $primaryBiorhythmsCheckbox = null;
-    var $secondaryBiorhythmsCheckbox = null;
-    var $extraBiorhythmsCheckbox = null;
-    var $iChingBiorhythmsCheckbox = null;
-    var configManager = null;
-    var config = null;
-    var model = null;
 
     // --------------------------------------------------------------------------
     // Functions - GUI helpers
@@ -162,14 +145,6 @@
     // Functions - Event Handlers
     // --------------------------------------------------------------------------
 
-    function onAboutDialogCloseClicked() {
-        $aboutDialog.dialog("close");
-    }
-
-    function onHelpDialogCloseClicked() {
-        $helpDialog.dialog("close");
-    }
-
     function onBiorhythmViewFirstDayChanged() {
         model.firstDay = biorhythmView.firstDay;
         var lastDay = biorhythmView.lastDay;
@@ -277,56 +252,6 @@
         updateResetBirthdayButtonVisibility();
     }
 
-    function onHelpButtonClick() {
-        $helpDialog.dialog("open");
-    }
-
-    function onAboutButtonClick() {
-        $aboutDialog.dialog("open");
-    }
-
-    function onOptionsButtonClick() {
-        $optionsDialog.dialog("open");
-    }
-
-    function onOptionsDialogCloseClicked() {
-        $optionsDialog.dialog("close");
-    }
-
-    function onOptionsDialogOpen() {
-        var isAnyPrimaryVisible = commonBiorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
-        $primaryBiorhythmsCheckbox.prop("checked", isAnyPrimaryVisible);
-
-        var isAnySecondaryVisible = commonBiorhythmShapes.secondaryBiorhythmShapes.isAnyVisible();
-        $secondaryBiorhythmsCheckbox.prop("checked", isAnySecondaryVisible);
-
-        var isAnyExtraVisible = commonBiorhythmShapes.extraBiorhythmShapes.isAnyVisible();
-        $extraBiorhythmsCheckbox.prop("checked", isAnyExtraVisible);
-
-        var isAnyIChingVisible = commonBiorhythmShapes.iChingBiorhythmShapes.isAnyVisible();
-        $iChingBiorhythmsCheckbox.prop("checked", isAnyIChingVisible);
-    }
-
-    function onPrimaryCheckboxChange() {
-        var isChecked = $primaryBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.primaryBiorhythmShapes.showAll(isChecked);
-    }
-
-    function onSecondaryCheckboxChange() {
-        var isChecked = $secondaryBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.secondaryBiorhythmShapes.showAll(isChecked);
-    }
-
-    function onExtraCheckboxChange() {
-        var isChecked = $extraBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.extraBiorhythmShapes.showAll(isChecked);
-    }
-
-    function onIChingCheckboxChange() {
-        var isChecked = $iChingBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
-    }
-
     // --------------------------------------------------------------------------
     // Initializer
     // --------------------------------------------------------------------------
@@ -353,6 +278,7 @@
                 var biorhythmShapes = commonBiorhythmShapes.getAll();
 
                 biorhythmView.setBiorhythms(biorhythmShapes);
+                lu.bioCalc.OptionsDialog.setCommonBiorhythmShapes(commonBiorhythmShapes);
 
                 $bioLegend.biorhythmLegend({
                     biorhythms: biorhythmShapes
@@ -361,12 +287,6 @@
                 $xDayInfoContainer.xDayInfoView({
                     biorhythms: biorhythmShapes
                 });
-
-                $jQueryVersionLabel.html($.fn.jquery);
-                $jQueryUIVersionLabel.html($.ui.version);
-                $bioControlsVersionLabel.html(lu.bioControls.version);
-
-                $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
 
                 updateBirthdayInUi();
                 updateFirstDayInUi();
@@ -388,189 +308,84 @@
                 });
             });
         });
-
-        function createControls() {
-            $bioCanvas = $("#bioCanvas");
-            $bioLegend = $("#bioLegend");
-            $birthdayTextBox = $("#birthdayTextBox");
-            $firstDayLabel = $("#firstDayLabel");
-            $firstDayTextBox = $("#firstDayTextBox");
-            $lastDayLabel = $("#lastDayLabel");
-            $lastDayTextBox = $("#lastDayTextBox");
-            $mainToolbar = $("#mainToolbar");
-            $helpButton = $("#helpButton");
-            $aboutButton = $("#aboutButton");
-            $aboutDialog = $("#aboutDialog");
-            $helpDialog = $("#helpDialog");
-            $jQueryVersionLabel = $("#jQueryVersionLabel");
-            $jQueryUIVersionLabel = $("#jQueryUIVersionLabel");
-            $bioControlsVersionLabel = $("#bioControlsVersionLabel");
-            $bioCalcVersionLabel = $(".bio-calc-version");
-            $saveBirthdayButton = $("#saveBirthdayButton");
-            $resetBirthdayButton = $("#resetBirthdayButton");
-            $birthdayButtons = $("#birthdayButtons");
-            $xDayValueLabel = $("#xDayValueLabel");
-            $xDayInfoContainer = $("#xDayInfoContainer");
-            $aboutDialogTabSet = $("#aboutDialog .tabs");
-            $helpDialogTabSet = $("#helpDialog .tabs");
-            $optionsButton = $("#optionsButton");
-            $optionsDialog = $("#optionsDialog");
-            $primaryBiorhythmsCheckbox = $("#primaryBiorhythmsCheckbox");
-            $secondaryBiorhythmsCheckbox = $("#secondaryBiorhythmsCheckbox");
-            $extraBiorhythmsCheckbox = $("#extraBiorhythmsCheckbox");
-            $iChingBiorhythmsCheckbox = $("#iChingBiorhythmsCheckbox");
-        }
-
-        function initializeControls() {
-
-            // $("#bioCanvasContainer").biorhythmView({
-            // width: 900,
-            // height: 200
-            // });
-
-            var canvas = $("#bioCanvasContainer canvas").get(0);
-            biorhythmView = new lu.bioControls.BiorhythmView(canvas);
-            biorhythmView.firstDayChanged.subscribe(onBiorhythmViewFirstDayChanged);
-            biorhythmView.xDayIndexChanged.subscribe(onBiorhythmViewXDayIndexChanged);
-
-            $birthdayTextBox.datepicker({
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: "yy-mm-dd",
-                onSelect: onBirthdayDatePickerSelect,
-                showButtonPanel: true
-            });
-
-            $firstDayLabel.click(onFirstDayLabelClick);
-
-            $firstDayTextBox.datepicker({
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: "yy-mm-dd",
-                onSelect: onFirstDayDatePickerSelect,
-                showButtonPanel: true,
-                beforeShow: onBeforeFirstDayDatePickerShow,
-                showAnim: ""
-            });
-
-            $lastDayLabel.click(onLastDayLabelClick);
-
-            $lastDayTextBox.datepicker({
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: "yy-mm-dd",
-                onSelect: onLastDayDatePickerSelect,
-                showButtonPanel: true,
-                beforeShow: onBeforeLastDayDatePickerShow,
-                showAnim: ""
-            });
-
-            $mainToolbar.buttonset();
-
-            $helpButton.button({
-                icons: {
-                    primary: "ui-icon-help"
-                },
-                text: true
-            });
-            $helpButton.click(onHelpButtonClick);
-
-            $aboutButton.button({
-                icons: {
-                    primary: "ui-icon-star"
-                },
-                text: true
-            });
-            $aboutButton.click(onAboutButtonClick);
-
-            $aboutDialog.dialog({
-                modal: true,
-                height: 480,
-                width: 480,
-                autoOpen: false,
-                buttons: {
-                    Close: onAboutDialogCloseClicked
-                },
-                show: {
-                    effect: "puff",
-                    duration: 300
-                },
-                hide: {
-                    effect: "puff",
-                    duration: 300
-                }
-            });
-
-            $helpDialog.dialog({
-                modal: true,
-                height: 480,
-                width: 640,
-                autoOpen: false,
-                buttons: {
-                    Close: onHelpDialogCloseClicked
-                },
-                show: {
-                    effect: "puff",
-                    duration: 300
-                },
-                hide: {
-                    effect: "puff",
-                    duration: 300
-                }
-            });
-
-            $aboutDialogTabSet.tabs();
-            $helpDialogTabSet.tabs();
-
-            $saveBirthdayButton.button({
-                text: false,
-                icons: {
-                    primary: "ui-icon-disk"
-                },
-                disabled: true
-            });
-            $saveBirthdayButton.click(onSaveBirthdayButtonClick);
-
-            $resetBirthdayButton.button({
-                text: false,
-                icons: {
-                    primary: "ui-icon-close"
-                },
-                disabled: true
-            });
-            $resetBirthdayButton.click(onResetBirthdayButtonClick);
-
-            $birthdayButtons.buttonset();
-
-            $optionsButton.button({
-                icons: {
-                    primary: "ui-icon-gear"
-                }
-            });
-            $optionsButton.click(onOptionsButtonClick);
-
-            $optionsDialog.dialog({
-                height: 360,
-                width: 480,
-                autoOpen: false,
-                buttons: {
-                    Close: onOptionsDialogCloseClicked
-                },
-                show: {
-                    effect: "puff",
-                    duration: 300
-                },
-                hide: {
-                    effect: "puff",
-                    duration: 300
-                },
-                open: onOptionsDialogOpen
-            });
-
-            $primaryBiorhythmsCheckbox.change(onPrimaryCheckboxChange);
-            $secondaryBiorhythmsCheckbox.change(onSecondaryCheckboxChange);
-            $extraBiorhythmsCheckbox.change(onExtraCheckboxChange);
-            $iChingBiorhythmsCheckbox.change(onIChingCheckboxChange);
-        }
     }());
+
+    function createControls() {
+        $bioCanvas = $("#bioCanvasContainer canvas");
+        $bioLegend = $("#bioLegend");
+        $birthdayTextBox = $("#birthdayTextBox");
+        $firstDayLabel = $("#firstDayLabel");
+        $firstDayTextBox = $("#firstDayTextBox");
+        $lastDayLabel = $("#lastDayLabel");
+        $lastDayTextBox = $("#lastDayTextBox");
+        $saveBirthdayButton = $("#saveBirthdayButton");
+        $resetBirthdayButton = $("#resetBirthdayButton");
+        $birthdayButtons = $("#birthdayButtons");
+        $xDayValueLabel = $("#xDayValueLabel");
+        $xDayInfoContainer = $("#xDayInfoContainer");
+    }
+
+    function initializeControls() {
+
+        // $("#bioCanvasContainer").biorhythmView({
+        // width: 900,
+        // height: 200
+        // });
+
+        biorhythmView = new lu.bioControls.BiorhythmView($bioCanvas.get(0));
+        biorhythmView.firstDayChanged.subscribe(onBiorhythmViewFirstDayChanged);
+        biorhythmView.xDayIndexChanged.subscribe(onBiorhythmViewXDayIndexChanged);
+
+        $birthdayTextBox.datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            onSelect: onBirthdayDatePickerSelect,
+            showButtonPanel: true
+        });
+
+        $firstDayLabel.click(onFirstDayLabelClick);
+
+        $firstDayTextBox.datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            onSelect: onFirstDayDatePickerSelect,
+            showButtonPanel: true,
+            beforeShow: onBeforeFirstDayDatePickerShow,
+            showAnim: ""
+        });
+
+        $lastDayLabel.click(onLastDayLabelClick);
+
+        $lastDayTextBox.datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            onSelect: onLastDayDatePickerSelect,
+            showButtonPanel: true,
+            beforeShow: onBeforeLastDayDatePickerShow,
+            showAnim: ""
+        });
+
+        $saveBirthdayButton.button({
+            text: false,
+            icons: {
+                primary: "ui-icon-disk"
+            },
+            disabled: true
+        });
+        $saveBirthdayButton.click(onSaveBirthdayButtonClick);
+
+        $resetBirthdayButton.button({
+            text: false,
+            icons: {
+                primary: "ui-icon-close"
+            },
+            disabled: true
+        });
+        $resetBirthdayButton.click(onResetBirthdayButtonClick);
+
+        $birthdayButtons.buttonset();
+    }
 }());

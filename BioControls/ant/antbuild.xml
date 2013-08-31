@@ -12,6 +12,9 @@
 		<echo message="Deleting the compiled js file." />
 		<delete file="${file.compiled.debug}" />
 
+		<copy file="changelog.txt" todir="compiled" />
+		<copy file="license.txt" todir="compiled" />
+
 		<antcall target="compile">
 			<param name="file.output" value="${file.compiled.debug}" />
 		</antcall>
@@ -20,6 +23,9 @@
 	<target name="release">
 		<echo message="Deleting the compiled js file." />
 		<delete file="${file.compiled.release}" />
+
+		<copy file="changelog.txt" todir="compiled" />
+		<copy file="license.txt" todir="compiled" />
 
 		<antcall target="compile">
 			<param name="file.output" value="${file.compiled.release}" />

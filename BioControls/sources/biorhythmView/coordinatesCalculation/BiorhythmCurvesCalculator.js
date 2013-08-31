@@ -57,7 +57,7 @@ lu.bioControls.biorhythmView.paintDataCalculation.BiorhythmCurvesCalculator = fu
                 points: points,
                 color: biorhythmShape.color,
                 lineWidth: biorhythmShape.lineWidth,
-                lineStyle: biorhythmShape.lLineStyle
+                lineStyle: biorhythmShape.lineStyle
             });
         }
 

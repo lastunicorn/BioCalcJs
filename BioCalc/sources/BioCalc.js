@@ -125,7 +125,7 @@
     // --------------------------------------------------------------------------
 
     function generateBiorhythms() {
-        var shapes = new lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes();
+        var shapes = new lu.bioControls.biorhythmModel.CommonBiorhythmShapes();
 
         shapes.physicalShape.isVisible = true;
         shapes.emotionalShape.isVisible = true;

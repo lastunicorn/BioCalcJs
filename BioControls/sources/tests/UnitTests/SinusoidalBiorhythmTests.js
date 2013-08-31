@@ -24,20 +24,20 @@
 
     QUnit.test("constructor throws if period is not of type number.", function() {
         function toBeTested() {
-            new lu.bioControls.core.biorhythms.SinusoidalBiorhythm("5");
+            new lu.bioControls.biorhythms.SinusoidalBiorhythm("5");
         }
 
         QUnit.throws(toBeTested, "Tests that the constructor throws.");
     });
 
     QUnit.test("period is initialized with 0 if not provided.", function() {
-        var biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm();
+        var biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm();
 
         QUnit.strictEqual(biorhythm.period, 0, "Tests that the period is 0.");
     });
 
     QUnit.test("getValue returns 0 for any dayIndex if period is not provided", function() {
-        var biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm();
+        var biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm();
 
         QUnit.testMultiple([ 0, 1, 2, 3, 7, 10, 18 ], function(dayIndex) {
             QUnit.strictEqual(biorhythm.getValue(dayIndex), 0, "Tests that getValue returns 0 for " + dayIndex + ".");
@@ -45,7 +45,7 @@
     });
 
     QUnit.test("getValue returns 0 for dayIndexes that are multiple of the period.", function() {
-        var biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(8);
+        var biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(8);
 
         QUnit.testMultiple([ 0, 8, 16, 24, 32, 40, 48, 56, 64 ], function(dayIndex) {
             QUnit.strictEqual(biorhythm.getValue(dayIndex), 0, "Tests that getValue returns 0 for " + dayIndex + ".");
@@ -53,7 +53,7 @@
     });
 
     QUnit.test("getValue returns values diffeent then 0 for dayIndexes that are not multiple of the period.", function() {
-        var biorhythm = new lu.bioControls.core.biorhythms.SinusoidalBiorhythm(8);
+        var biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(8);
 
         QUnit.testMultiple([ 2, 4, 9, 10, 25, 41 ], function(dayIndex) {
             QUnit.notStrictEqual(biorhythm.getValue(dayIndex), 0, "Tests that getValue returns value different then 0 for " + dayIndex + ".");

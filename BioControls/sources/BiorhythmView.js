@@ -716,6 +716,6 @@ lu.bioControls.BiorhythmView = function(canvas) {
         biorhythms.itemAdded.subscribe(onBiorhithmAdded);
         biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
 
-        painter = new lu.bioControls.common.painting.BiorhythmViewPainter();
+        painter = new lu.bioControls.biorhythmView.painting.BiorhythmViewPainter();
     }());
 };

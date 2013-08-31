@@ -52,14 +52,14 @@
 				<file name="WeekDayNameProvider.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/common/biorhythmModel">
+			<sources dir="${basedir}/sources/biorhythmModel">
 				<file name="BiorhythmShape.js" />
 				<file name="BiorhythmShapesCreator.js" />
 				<file name="BiorhythmShapeSet.js" />
 				<file name="CommonBiorhythmShapes.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/common/paintDataCalculation">
+			<sources dir="${basedir}/sources/biorhythmView/coordinatesCalculation">
 				<file name="BiorhythmCurvesCalculator.js" />
 				<file name="DayLablesCalculator.js" />
 				<file name="GridLinesCalculator.js" />
@@ -68,7 +68,7 @@
 				<file name="XDayMarkerCalculator.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/common/painting">
+			<sources dir="${basedir}/sources/biorhythmView/painting">
 				<file name="BiorhythmCurvesPainter.js" />
 				<file name="BiorhythmViewPainter.js" />
 				<file name="DayLabelsPainter.js" />
@@ -77,7 +77,7 @@
 				<file name="XDayMarkerPainter.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/core">
+			<sources dir="${basedir}/sources/biorhythms">
 				<file name="AverageBiorhythm.js" />
 				<file name="EmotionalBiorhythm.js" />
 				<file name="EstheticBiorhythm.js" />

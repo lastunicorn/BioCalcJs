@@ -113,7 +113,7 @@ lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
     (function initialize() {
         $element = generate();
 
-        if (!(biorhythmShape instanceof lu.bioControls.common.biorhythmModel.BiorhythmShape)) {
+        if (!(biorhythmShape instanceof lu.bioControls.biorhythmModel.BiorhythmShape)) {
             return;
         }
 

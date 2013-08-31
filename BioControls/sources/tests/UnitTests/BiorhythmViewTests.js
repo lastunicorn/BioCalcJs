@@ -28,7 +28,7 @@
             lu.bioControls = lu.bioControls || {};
             lu.bioControls.common = lu.bioControls.common || {};
             lu.bioControls.common.painting = lu.bioControls.common.painting || {};
-            lu.bioControls.common.painting.BiorhythmViewPainter = function() {
+            lu.bioControls.biorhythmView.painting.BiorhythmViewPainter = function() {
                 return {
                     paint: function() {
                     }
@@ -51,7 +51,7 @@
 
     QUnit.test("addBiorhythm raises the BiorhythmAdded event.", function() {
         watchForEvent(biorhythmView.biorhythmAdded);
-        var biorhythmShape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
+        var biorhythmShape = new lu.bioControls.biorhythmModel.BiorhythmShape();
 
         biorhythmView.addBiorhythm(biorhythmShape);
 
@@ -59,7 +59,7 @@
     });
 
     QUnit.test("getBiorhythms returns biorhythm set with addBiorhythm.", function() {
-        var biorhythmShape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
+        var biorhythmShape = new lu.bioControls.biorhythmModel.BiorhythmShape();
         biorhythmView.addBiorhythm(biorhythmShape);
 
         var biorhythms = biorhythmView.getBiorhythms();
@@ -69,9 +69,9 @@
     });
 
     QUnit.test("getBiorhythms returns two biorhythms if two were set with addBiorhythm.", function() {
-        var biorhythmShape1 = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
+        var biorhythmShape1 = new lu.bioControls.biorhythmModel.BiorhythmShape();
         biorhythmView.addBiorhythm(biorhythmShape1);
-        var biorhythmShape2 = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
+        var biorhythmShape2 = new lu.bioControls.biorhythmModel.BiorhythmShape();
         biorhythmView.addBiorhythm(biorhythmShape2);
 
         var biorhythms = biorhythmView.getBiorhythms();
@@ -81,9 +81,9 @@
     });
 
     QUnit.test("getBiorhythms returns one biorhythm if two were set with addBiorhythm, but one was removed.", function() {
-        var biorhythmShape1 = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
+        var biorhythmShape1 = new lu.bioControls.biorhythmModel.BiorhythmShape();
         biorhythmView.addBiorhythm(biorhythmShape1);
-        var biorhythmShape2 = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
+        var biorhythmShape2 = new lu.bioControls.biorhythmModel.BiorhythmShape();
         biorhythmView.addBiorhythm(biorhythmShape2);
         biorhythmView.removeBiorhythm(biorhythmShape1);
 
@@ -95,7 +95,7 @@
 
     QUnit.test("removeBiorhythm raises the BiorhythmRemoved event.", function() {
         watchForEvent(biorhythmView.biorhythmRemoved);
-        var biorhythmShape = new lu.bioControls.common.biorhythmModel.BiorhythmShape();
+        var biorhythmShape = new lu.bioControls.biorhythmModel.BiorhythmShape();
         biorhythmView.addBiorhythm(biorhythmShape);
 
         biorhythmView.removeBiorhythm(biorhythmShape);

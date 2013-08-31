@@ -148,7 +148,7 @@ lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
         currentXDay = biorhythmShape.birthday;
         $element = generate();
 
-        if (!(biorhythmShape instanceof lu.bioControls.common.biorhythmModel.BiorhythmShape)) {
+        if (!(biorhythmShape instanceof lu.bioControls.biorhythmModel.BiorhythmShape)) {
             return;
         }
 

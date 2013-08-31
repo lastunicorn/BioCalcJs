@@ -1,6 +1,10 @@
 BioControls
 ===========
 
+var 1.4.0
+---------
+[Feature] I added more useful methods on CommonBiorhythmShapes constructor.
+
 ver 1.3.0
 ---------
 [Feature] I added handler on the contextmenu event to prevent the opening of the context menu on Chrome.

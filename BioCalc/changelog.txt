@@ -1,6 +1,10 @@
 BioCalc
 =======
 
+var 1.4.0
+---------
+[Feature] I added an Options panel.
+
 var 1.3.0
 ---------
 [Feature] I displayed the X day marker in the grid and the percentage values of the biorhythms for the X day in the bottom of the page.

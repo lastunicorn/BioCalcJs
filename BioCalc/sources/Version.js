@@ -18,7 +18,7 @@ var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
 Object.defineProperty(lu.bioCalc, "version", {
-    value: "1.3.0",
+    value: "1.4.0",
     writable: false,
     enumerable: true,
     configurable: false

@@ -51,25 +51,25 @@ lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes = function() {
         intuitiveShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createIntuitiveBiorhythmShape();
 
         passionShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPassionBiorhythmShape();
-        passionShape.setIsVisible(false);
+        passionShape.isVisible = false;
         masteryShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createMasteryBiorhythmShape();
-        masteryShape.setIsVisible(false);
+        masteryShape.isVisible = false;
         wisdomShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createWisdomBiorhythmShape();
-        wisdomShape.setIsVisible(false);
+        wisdomShape.isVisible = false;
 
         perceptionShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPerceptionBiorhythmShape();
-        perceptionShape.setIsVisible(false);
+        perceptionShape.isVisible = false;
         psychicShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createPsychicBiorhythmShape();
-        psychicShape.setIsVisible(false);
+        psychicShape.isVisible = false;
         successShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSuccessBiorhythmShape();
-        successShape.setIsVisible(false);
+        successShape.isVisible = false;
 
         estheticShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createEstheticBiorhythmShape();
-        estheticShape.setIsVisible(false);
+        estheticShape.isVisible = false;
         selfAwarenessShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSelfAwarenessBiorhythmShape();
-        selfAwarenessShape.setIsVisible(false);
+        selfAwarenessShape.isVisible = false;
         spiritualShape = lu.bioControls.common.biorhythmModel.CommonBiorhythmShapes.createSpiritualBiorhythmShape();
-        spiritualShape.setIsVisible(false);
+        spiritualShape.isVisible = false;
     }
 
     this.getPhysicalShape = getPhysicalShape;

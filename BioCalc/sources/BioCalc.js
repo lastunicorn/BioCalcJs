@@ -536,7 +536,11 @@
 
             $birthdayButtons.buttonset();
 
-            $optionsButton.button();
+            $optionsButton.button({
+                icons: {
+                    primary: "ui-icon-gear"
+                }
+            });
             $optionsButton.click(onOptionsButtonClick);
 
             $optionsDialog.dialog({

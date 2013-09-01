@@ -47,6 +47,11 @@
 				<!-- The order of files is important -->
 				<file name="Version.js" />
 				<file name="ConfigurationManager.js" />
+				<file name="DateFormatter.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/page">
+				<!-- The order of files is important -->
 				<file name="BioCalcPageData.js" />
 				<file name="AboutDialog.js" />
 				<file name="HelpDialog.js" />

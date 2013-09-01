@@ -31,21 +31,6 @@ lu.bioCalc.BiorhythmCharts = (function() {
     // Functions - "private"
     // --------------------------------------------------------------------------
 
-    function formatDate(date) {
-        if (!(date instanceof Date)) {
-            return "";
-        }
-
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-
-        var monthString = month < 10 ? "0" + month : "" + month;
-        var dayString = day < 10 ? "0" + day : "" + day;
-
-        return year + "-" + monthString + "-" + dayString;
-    }
-
     function publishXDay(xDay) {
         lu.bioCalc.BioCalcPageData.setXDay(xDay);
     }
@@ -55,18 +40,22 @@ lu.bioCalc.BiorhythmCharts = (function() {
     // --------------------------------------------------------------------------
 
     function onBiorhythmViewFirstDayChanged() {
+
+        // update first day
+
         firstDay = $biorhythmViewContainer.biorhythmView("option", "firstDay");
-        var lastDay = $biorhythmViewContainer.biorhythmView("option", "lastDay");
+        var firstDayAsText = lu.bioCalc.DateFormatter.formatDate(firstDay)
+        $firstDayTextBox.val(firstDayAsText);
+        $firstDayLabel.html("<< " + firstDayAsText);
 
-        $firstDayTextBox.val(formatDate(firstDay));
-        $lastDayTextBox.val(formatDate(lastDay));
+        // update last day
 
-        $firstDayLabel.html("<< " + formatDate(firstDay));
+        var lastDay = $biorhythmViewContainer.biorhythmView("getLastDay");
+        var lastDayAsText = lu.bioCalc.DateFormatter.formatDate(lastDay);
+        $lastDayTextBox.val(lastDayAsText);
+        $lastDayLabel.html(lastDayAsText + " >>");
 
-        var displayedDayCount = $biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
-        var displayedMiliseconds = lu.DateUtil.daysToMiliseconds(displayedDayCount);
-        var lastDay = new Date(firstDay.getTime() + displayedMiliseconds);
-        $lastDayLabel.html(formatDate(lastDay) + " >>");
+        // publics x day
 
         var xDay = $biorhythmViewContainer.biorhythmView("getXDay");
         publishXDay(xDay);
@@ -163,9 +152,7 @@ lu.bioCalc.BiorhythmCharts = (function() {
 
                 firstDay = lu.DateUtil.addDays(Date.now(), -7);
 
-                setTimeout(function() {
-                    $firstDayTextBox.val(formatDate(firstDay));
-                }, 0);
+                $firstDayTextBox.val(lu.bioCalc.DateFormatter.formatDate(firstDay));
                 $biorhythmViewContainer.biorhythmView("option", "firstDay", firstDay);
 
                 var xDay = $biorhythmViewContainer.biorhythmView("getXDay");

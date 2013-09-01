@@ -52,17 +52,6 @@ lu.bioCalc.BirthdaySection = (function() {
     // Functions - "private"
     // --------------------------------------------------------------------------
 
-    function formatDate(date) {
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-
-        var monthString = month < 10 ? "0" + month : "" + month;
-        var dayString = day < 10 ? "0" + day : "" + day;
-
-        return year + "-" + monthString + "-" + dayString;
-    }
-
     function updateSaveBirthdayButtonVisibility() {
         var config = lu.bioCalc.BioCalcPageData.configManager.config;
 
@@ -84,7 +73,8 @@ lu.bioCalc.BirthdaySection = (function() {
     }
 
     function updateBirthdayTextBox() {
-        $birthdayTextBox.val(formatDate(birthday));
+        var dateAsString = lu.bioCalc.DateFormatter.formatDate(birthday);
+        $birthdayTextBox.val(dateAsString);
     }
 
     function publishBirthday() {
@@ -128,7 +118,7 @@ lu.bioCalc.BirthdaySection = (function() {
 
         if (configManager) {
             configManager.config.birthday = birthday;
-            configManager.saveInCookies(config);
+            configManager.saveInCookies();
         }
 
         updateSaveBirthdayButtonVisibility();

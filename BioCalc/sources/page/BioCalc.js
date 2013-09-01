@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function() {
+(function BioCalc() {
     var commonBiorhythmShapes = null;
     var configManager = null;
 
@@ -31,19 +31,28 @@
             commonBiorhythmShapes = new lu.bioControls.biorhythmModel.CommonBiorhythmShapes();
             commonBiorhythmShapes.setBirthdayOnAll(configManager.config.birthday);
 
-            lu.bioCalc.BioCalcPageData.configManager = configManager;
-            lu.bioCalc.BioCalcPageData.setBiorhythms(commonBiorhythmShapes);
-            lu.bioCalc.BioCalcPageData.setBirthday(configManager.config.birthday);
+            initializePageData();
 
-            // Close the modal dialogs when clicking outside of them.
-            $(document.body).on("click", ".ui-widget-overlay", function() {
-                $.each($(".ui-dialog"), function() {
-                    var $dialog = $(this).children(".ui-dialog-content");
-                    if ($dialog.dialog("option", "modal")) {
-                        $dialog.dialog("close");
-                    }
-                });
-            });
+            configureModalDialogs();
         });
     }());
+
+    function initializePageData() {
+        lu.bioCalc.BioCalcPageData.configManager = configManager;
+        lu.bioCalc.BioCalcPageData.setBiorhythms(commonBiorhythmShapes);
+        lu.bioCalc.BioCalcPageData.setBirthday(configManager.config.birthday);
+    }
+
+    function configureModalDialogs() {
+        // Close the modal dialogs when clicking outside of them.
+
+        $(document.body).on("click", ".ui-widget-overlay", function() {
+            $.each($(".ui-dialog"), function() {
+                var $dialog = $(this).children(".ui-dialog-content");
+                if ($dialog.dialog("option", "modal")) {
+                    $dialog.dialog("close");
+                }
+            });
+        });
+    }
 }());

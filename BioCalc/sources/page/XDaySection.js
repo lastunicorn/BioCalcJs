@@ -22,28 +22,13 @@ lu.bioCalc.XDaySection = (function() {
     var xDay = null;
 
     // --------------------------------------------------------------------------
-    // Functions - "private"
-    // --------------------------------------------------------------------------
-
-    function formatDate(date) {
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-
-        var monthString = month < 10 ? "0" + month : "" + month;
-        var dayString = day < 10 ? "0" + day : "" + day;
-
-        return year + "-" + monthString + "-" + dayString;
-    }
-
-    // --------------------------------------------------------------------------
     // Event Handlers
     // --------------------------------------------------------------------------
 
     function onExternalXDayChanged(arg) {
         xDay = arg;
 
-        $xDayValueLabel.html(formatDate(xDay));
+        $xDayValueLabel.html(lu.bioCalc.DateFormatter.formatDate(xDay));
         $xDayInfoContainer.xDayInfoView("update", xDay);
     }
 

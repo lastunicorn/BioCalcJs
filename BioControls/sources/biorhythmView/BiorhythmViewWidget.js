@@ -67,11 +67,11 @@
             suspendPaint();
             try {
                 if (key === "biorhythms") {
-                    unsubscribeFromBiorhythmsEvents(this.options.birhythms);
+                    unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
 
                     this._super(key, value);
 
-                    subscribeToBiorhythmsEvents(this.options.birhythms);
+                    subscribeToBiorhythmsEvents(this.options.biorhythms);
                 }
 
                 if (key === "firstDay") {
@@ -99,6 +99,9 @@
                 }
 
                 if (key === "xDayIndex") {
+                    if (this.options.xDayIndex === value || value < 0 || value >= this.options.totalDays)
+                        return;
+
                     this._super(key, value);
 
                     this._trigger("xDayIndexChanged", null, {
@@ -224,7 +227,9 @@
         },
 
         suspendPaint: suspendPaint,
-        resumePaint: resumePaint
+        resumePaint: resumePaint,
+        getLastDay: getLastDay,
+        getXDay: getXDay
     });
 
     function createCanvasElement() {
@@ -239,11 +244,15 @@
     }
 
     function unsubscribeFromBiorhythmsEvents(biorhythms) {
-        if (biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
+        if (!biorhythms) {
+            return;
+        }
+
+        if (biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
             biorhythms.itemAdded.unsubscribe(onBiorhithmAdded);
         }
 
-        if (biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
+        if (biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
             biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved);
         }
 
@@ -254,11 +263,15 @@
     }
 
     function subscribeToBiorhythmsEvents(biorhythms) {
-        if (biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
+        if (!biorhythms) {
+            return;
+        }
+
+        if (biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
             biorhythms.itemAdded.subscribe(onBiorhithmAdded);
         }
 
-        if (biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
+        if (biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
             biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
         }
 
@@ -308,6 +321,10 @@
     }
 
     function getBiorhythmsArray(biorhythms) {
+        if (!biorhythms) {
+            return;
+        }
+
         if (biorhythms instanceof Array) {
             return biorhythms;
         } else {
@@ -318,6 +335,26 @@
 
         return [];
     }
+
+    // --------------------------------------------------------------------------
+    // LastDay
+    // --------------------------------------------------------------------------
+
+    function getLastDay() {
+        return lu.DateUtil.addDays(widget.options.firstDay, widget.options.totalDays - 1);
+    }
+
+    // --------------------------------------------------------------------------
+    // XDay
+    // --------------------------------------------------------------------------
+
+    function getXDay() {
+        return lu.DateUtil.addDays(widget.options.firstDay, widget.options.xDayIndex);
+    }
+
+    // --------------------------------------------------------------------------
+    // Paint
+    // --------------------------------------------------------------------------
 
     function suspendPaint() {
         paintSuspendCount++;

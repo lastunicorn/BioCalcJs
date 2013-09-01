@@ -103,12 +103,12 @@ a[target="_blank"] {
 /* Biorhythm View
 ----------------------------------------------------------------------------- */
 
-#bioCanvasContainer, #bioCanvasContainer2 {
+#biorhythmViewContainer {
 	width: 900px;
 	margin: 0 auto;
 }
 
-#bioCanvasContainer canvas, #bioCanvasContainer2 canvas {
+#biorhythmViewContainer canvas {
 	border: 1px solid #c0c0c0;
 	outline: none;
 	border-radius: 5px;

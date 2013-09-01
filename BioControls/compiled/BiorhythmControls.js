@@ -251,350 +251,6 @@ lu.WeekDayNamesProvider = function() {
 }();
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
-lu.bioControls.BiorhythmView = function(canvas) {
-  var obj = this;
-  var scroller = null;
-  var biorhythms = new lu.List;
-  var biorhythmAddedEvent = new lu.Event;
-  this.biorhythmAdded = biorhythmAddedEvent.client;
-  var biorhythmRemovedEvent = new lu.Event;
-  this.biorhythmRemoved = biorhythmRemovedEvent.client;
-  this.addBiorhythm = function addBiorhythm(biorhythmShape) {
-    biorhythms.add(biorhythmShape)
-  };
-  this.removeBiorhythm = function(biorhythmShape) {
-    biorhythms.remove(biorhythmShape)
-  };
-  this.setBiorhythms = function(biorhythmShapes) {
-    suspendPaint();
-    try {
-      biorhythms.clear();
-      biorhythms.addRange(biorhythmShapes)
-    }finally {
-      resumePaint()
-    }
-  };
-  this.getBiorhythms = function() {
-    return biorhythms.toArray()
-  };
-  function onBiorhithmAdded(biorhythmShape) {
-    biorhythmShape.nameChanged.subscribe(onBiorhithmShapeChanged);
-    biorhythmShape.birthdayChanged.subscribe(onBiorhithmShapeChanged);
-    biorhythmShape.biorhythmChanged.subscribe(onBiorhithmShapeChanged);
-    biorhythmShape.colorChanged.subscribe(onBiorhithmShapeChanged);
-    biorhythmShape.isVisibleChanged.subscribe(onBiorhithmShapeChanged);
-    biorhythmShape.lineWidthChanged.subscribe(onBiorhithmShapeChanged);
-    biorhythmShape.lineStyleChanged.subscribe(onBiorhithmShapeChanged);
-    biorhythmAddedEvent.raise(obj, biorhythmShape);
-    paint()
-  }
-  function onBiorhithmRemoved(biorhythmShape) {
-    biorhythmShape.nameChanged.unsubscribe(onBiorhithmShapeChanged);
-    biorhythmShape.birthdayChanged.unsubscribe(onBiorhithmShapeChanged);
-    biorhythmShape.biorhythmChanged.unsubscribe(onBiorhithmShapeChanged);
-    biorhythmShape.colorChanged.unsubscribe(onBiorhithmShapeChanged);
-    biorhythmShape.isVisibleChanged.unsubscribe(onBiorhithmShapeChanged);
-    biorhythmShape.lineWidthChanged.unsubscribe(onBiorhithmShapeChanged);
-    biorhythmShape.lineStyleChanged.unsubscribe(onBiorhithmShapeChanged);
-    biorhythmRemovedEvent.raise(obj, biorhythmShape);
-    paint()
-  }
-  function onBiorhithmShapeChanged() {
-    paint()
-  }
-  this.setBirthdayOnAllBiorhythms = function(birthday) {
-    suspendPaint();
-    try {
-      var list = biorhythms.toArray();
-      for(var i = 0;i < list.length;i++) {
-        list[i].biorhythm.birthday = birthday
-      }
-    }finally {
-      resumePaint()
-    }
-  };
-  var firstDay = lu.DateUtil.addDays(Date.now(), -7);
-  var firstDayChangedEvent = new lu.Event;
-  this.firstDayChanged = firstDayChangedEvent.client;
-  Object.defineProperty(this, "firstDay", {enumerable:true, configurable:false, get:getFirstDay, set:setFirstDay});
-  function getFirstDay() {
-    return firstDay
-  }
-  function setFirstDay(value) {
-    firstDay = value;
-    firstDayChangedEvent.raise(obj, value);
-    paint()
-  }
-  function incrementFirstDay(value) {
-    var date = new Date(firstDay.getTime());
-    date.setDate(date.getDate() + value);
-    setFirstDay(date)
-  }
-  Object.defineProperty(this, "lastDay", {enumerable:true, configurable:false, get:getLastDay});
-  function getLastDay() {
-    return lu.DateUtil.addDays(firstDay, totalDays - 1)
-  }
-  Object.defineProperty(this, "xDay", {enumerable:true, configurable:false, get:getXDay});
-  function getXDay() {
-    return lu.DateUtil.addDays(firstDay, xDayIndex)
-  }
-  var isGridVisible = true;
-  var isGridVisibleChangedEvent = new lu.Event;
-  this.isGridVisibleChanged = isGridVisibleChangedEvent.client;
-  Object.defineProperty(this, "isGridVisible", {enumerable:true, configurable:false, get:getGridVisibility, set:setGridVisibility});
-  function getGridVisibility() {
-    return isGridVisible
-  }
-  function setGridVisibility(value) {
-    isGridVisible = Boolean(value);
-    isGridVisibleChangedEvent.raise(obj, value);
-    paint()
-  }
-  var totalDays = 30;
-  var totalDaysChangedEvent = new lu.Event;
-  this.totalDaysChanged = totalDaysChangedEvent.client;
-  Object.defineProperty(this, "totalDays", {enumerable:true, configurable:false, get:getTotalDays, set:setTotalDays});
-  function getTotalDays() {
-    return totalDays
-  }
-  function setTotalDays(value) {
-    totalDays = value;
-    totalDaysChangedEvent.raise(obj, value);
-    paint()
-  }
-  var xDayIndex = 7;
-  var xDayIndexChangedEvent = new lu.Event;
-  this.xDayIndexChanged = xDayIndexChangedEvent.client;
-  Object.defineProperty(this, "xDayIndex", {enumerable:true, configurable:false, get:getXDayIndex, set:setXDayIndex});
-  function getXDayIndex() {
-    return xDayIndex
-  }
-  function setXDayIndex(value) {
-    if(xDayIndex === value || value < 0 || value >= totalDays) {
-      return
-    }
-    xDayIndex = value;
-    xDayIndexChangedEvent.raise(obj, value);
-    paint()
-  }
-  var gridColor = "#d3d3d3";
-  var gridColorChangedEvent = new lu.Event;
-  this.gridColorChanged = gridColorChangedEvent.client;
-  Object.defineProperty(this, "gridColor", {enumerable:true, configurable:false, get:getGridColor, set:setGridColor});
-  function getGridColor() {
-    return xDayIndex
-  }
-  function setGridColor(value) {
-    gridColor = value;
-    gridColorChangedEvent.raise(obj, value);
-    paint()
-  }
-  var areDayNumbersVisible = true;
-  var areDayNumbersVisibleChangedEvent = new lu.Event;
-  this.areDayNumbersVisibleChanged = areDayNumbersVisibleChangedEvent.client;
-  Object.defineProperty(this, "areDayNumbersVisible", {enumerable:true, configurable:false, get:getDayNumbersVisibility, set:setDayNumbersVisibility});
-  function getDayNumbersVisibility() {
-    return areDayNumbersVisible
-  }
-  function setDayNumbersVisibility(value) {
-    areDayNumbersVisible = value;
-    areDayNumbersVisibleChangedEvent.raise(obj, value);
-    paint()
-  }
-  var areWeekDaysVisible = true;
-  var areWeekDaysVisibleChangedEvent = new lu.Event;
-  this.areWeekDaysVisibleChanged = areWeekDaysVisibleChangedEvent.client;
-  Object.defineProperty(this, "areWeekDaysVisible", {enumerable:true, configurable:false, get:getWeekDaysVisibility, set:setWeekDaysVisibility});
-  function getWeekDaysVisibility() {
-    return areWeekDaysVisible
-  }
-  function setWeekDaysVisibility(value) {
-    areWeekDaysVisible = value;
-    areWeekDaysVisibleChangedEvent.raise(obj, value);
-    paint()
-  }
-  var dayNumbersPosition = lu.DayLabelPosition.top;
-  var dayNumbersPositionChangedEvent = new lu.Event;
-  this.dayNumbersPositionChanged = dayNumbersPositionChangedEvent.client;
-  Object.defineProperty(this, "dayNumbersPosition", {enumerable:true, configurable:false, get:getDayNumbersPosition, set:setDayNumbersPosition});
-  function getDayNumbersPosition() {
-    return dayNumbersPosition
-  }
-  function setDayNumbersPosition(value) {
-    dayNumbersPosition = value;
-    dayNumbersPositionChangedEvent.raise(obj, value);
-    paint()
-  }
-  var weekDaysPosition = lu.DayLabelPosition.bottom;
-  var weekDaysPositionChangedEvent = new lu.Event;
-  this.weekDaysPositionChanged = weekDaysPositionChangedEvent.client;
-  Object.defineProperty(this, "weekDaysPosition", {enumerable:true, configurable:false, get:getWeekDaysPosition, set:setWeekDaysPosition});
-  function getWeekDaysPosition() {
-    return weekDaysPosition
-  }
-  function setWeekDaysPosition(value) {
-    weekDaysPosition = value;
-    weekDaysPositionChangedEvent.raise(obj, value);
-    paint()
-  }
-  var areSundaysEmphasized = true;
-  var areSundaysEmphasizedChangedEvent = new lu.Event;
-  this.areSundaysEmphasizedChanged = areSundaysEmphasizedChangedEvent.client;
-  Object.defineProperty(this, "areSundaysEmphasized", {enumerable:true, configurable:false, get:getAreSundaysEmphasized, set:setAreSundaysEmphasized});
-  function getAreSundaysEmphasized() {
-    return areSundaysEmphasized
-  }
-  function setAreSundaysEmphasized(value) {
-    areSundaysEmphasized = value;
-    areSundaysEmphasizedChangedEvent.raise(obj, value);
-    paint()
-  }
-  var foreColor = "#b0b0b0";
-  var foreColorChangedEvent = new lu.Event;
-  this.foreColorChanged = foreColorChangedEvent.client;
-  Object.defineProperty(this, "foreColor", {enumerable:true, configurable:false, get:getForeColor, set:setForeColor});
-  function getForeColor() {
-    return foreColor
-  }
-  function setForeColor(value) {
-    foreColor = value;
-    foreColorChangedEvent.raise(obj, value);
-    paint()
-  }
-  var sundaysColor = "#ff0000";
-  var sundaysColorChangedEvent = new lu.Event;
-  this.sundaysColorChanged = sundaysColorChangedEvent.client;
-  Object.defineProperty(this, "sundaysColor", {enumerable:true, configurable:false, get:getSundaysColor, set:setSundaysColor});
-  function getSundaysColor() {
-    return sundaysColor
-  }
-  function setSundaysColor(value) {
-    sundaysColor = value;
-    sundaysColorChangedEvent.raise(obj, value);
-    paint()
-  }
-  var font = "12px Arial";
-  var fontChangedEvent = new lu.Event;
-  this.fontChanged = fontChangedEvent.client;
-  Object.defineProperty(this, "font", {enumerable:true, configurable:false, get:getFont, set:setFont});
-  function getFont() {
-    return font
-  }
-  function setFont(value) {
-    font = value;
-    fontChangedEvent.raise(obj, value);
-    paint()
-  }
-  var sundaysFont = "italic 12px Arial";
-  var sundaysFontChangedEvent = new lu.Event;
-  this.sundaysFontChanged = sundaysFontChangedEvent.client;
-  Object.defineProperty(this, "sundaysFont", {enumerable:true, configurable:false, get:getSundaysFont, set:setSundaysFont});
-  function getSundaysFont() {
-    return sundaysFont
-  }
-  function setSundaysFont(value) {
-    sundaysFont = value;
-    sundaysFontChangedEvent.raise(obj, value);
-    paint()
-  }
-  var todayBackColor = "#ffe4b5";
-  var todayBackColorChangedEvent = new lu.Event;
-  this.todayBackColorChanged = todayBackColorChangedEvent.client;
-  Object.defineProperty(this, "todayBackColor", {enumerable:true, configurable:false, get:getTodayBackColor, set:setTodayBackColor});
-  function getTodayBackColor() {
-    return todayBackColor
-  }
-  function setTodayBackColor(value) {
-    todayBackColor = value;
-    todayBackColorChangedEvent.raise(obj, value);
-    paint()
-  }
-  var isXDayVisible = true;
-  var isXDayVisibleChangedEvent = new lu.Event;
-  this.isXDayVisibleChanged = isXDayVisibleChangedEvent.client;
-  Object.defineProperty(this, "isXDayVisible", {enumerable:true, configurable:false, get:getXDayVisibility, set:setXDayVisibility});
-  function getXDayVisibility() {
-    return isXDayVisible
-  }
-  function setXDayVisibility(value) {
-    isXDayVisible = value;
-    isXDayVisibleChangedEvent.raise(obj, value);
-    paint()
-  }
-  var xDayBorderColor = "#000000";
-  var xDayBorderColorChangedEvent = new lu.Event;
-  this.xDayBorderColorChanged = xDayBorderColorChangedEvent.client;
-  Object.defineProperty(this, "xDayBorderColor", {enumerable:true, configurable:false, get:getXDayBorderColor, set:setXDayBorderColor});
-  function getXDayBorderColor() {
-    return xDayBorderColor
-  }
-  function setXDayBorderColor(value) {
-    xDayBorderColor = value;
-    xDayBorderColorChangedEvent.raise(obj, value);
-    paint()
-  }
-  var xDayBorderWidth = 2;
-  var xDayBorderWidthChangedEvent = new lu.Event;
-  this.xDayBorderWidthChanged = xDayBorderWidthChangedEvent.client;
-  Object.defineProperty(this, "xDayBorderWidth", {enumerable:true, configurable:false, get:getXDayBorderWidth, set:setXDayBorderWidth});
-  function getXDayBorderWidth() {
-    return xDayBorderWidth
-  }
-  function setXDayBorderWidth(value) {
-    xDayBorderWidth = value;
-    xDayBorderWidthChangedEvent.raise(obj, value);
-    paint()
-  }
-  var painter = null;
-  var paintSuspendCount = 0;
-  this.suspendPaint = suspendPaint;
-  function suspendPaint() {
-    paintSuspendCount++
-  }
-  this.resumePaint = resumePaint;
-  function resumePaint() {
-    if(paintSuspendCount > 0) {
-      paintSuspendCount--
-    }
-    if(paintSuspendCount == 0) {
-      paint()
-    }
-  }
-  function paint() {
-    if(paintSuspendCount > 0) {
-      return
-    }
-    if(!canvas.getContext) {
-      return
-    }
-    var rawPaintData = {biorhythmShapes:biorhythms.toArray(), firstDay:firstDay, totalDays:totalDays, xDayIndex:xDayIndex, isXDayVisible:isXDayVisible, xDayBorderColor:xDayBorderColor, xDayBorderWidth:xDayBorderWidth, gridColor:gridColor, isGridVisible:isGridVisible, todayBackColor:todayBackColor, areDayNumbersVisible:areDayNumbersVisible, areWeekDaysVisible:areWeekDaysVisible, dayNumbersPosition:dayNumbersPosition, weekDaysPosition:weekDaysPosition, areSundaysEmphasized:areSundaysEmphasized, foreColor:foreColor, 
-    sundaysColor:sundaysColor, font:font, sundaysFont:sundaysFont};
-    var context = canvas.getContext("2d");
-    var rectangle = new lu.Rectangle(0, 0, canvas.width, canvas.height);
-    painter.paint(rawPaintData, context, rectangle)
-  }
-  this.getPaintCount = function() {
-    return painter.getPaintCount()
-  };
-  function onDrag(evt) {
-    if(evt.isAlternative) {
-      setXDayIndex(getXDayIndex() + evt.steps)
-    }else {
-      incrementFirstDay(-evt.steps)
-    }
-  }
-  function onDragStart(evt) {
-    evt.stepLength = canvas.width / totalDays
-  }
-  (function initialize() {
-    scroller = new lu.bioControls.biorhythmView.Scroller({element:canvas, onDragStart:onDragStart, onDrag:onDrag});
-    biorhythms.itemAdded.subscribe(onBiorhithmAdded);
-    biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
-    painter = new lu.bioControls.biorhythmView.painting.BiorhythmViewPainter
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
 Object.defineProperty(lu.bioControls, "version", {value:"2.0.0", writable:false, enumerable:true, configurable:false});
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -679,6 +335,7 @@ lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
     if(key === "biorhythms") {
       unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
       this._super(key, value);
+      repopulate();
       subscribeToBiorhythmsEvents(this.options.biorhythms)
     }
   }});
@@ -711,22 +368,31 @@ lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
     }
   }
   function subscribeToBiorhythmsEvents(biorhythms) {
-    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
+    if(!biorhythms) {
+      return
+    }
+    if(biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
       biorhythms.itemAdded.subscribe(onBiorhithmAdded)
     }
-    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
+    if(biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
       biorhythms.itemRemoved.subscribe(onBiorhithmRemoved)
     }
   }
   function unsubscribeFromBiorhythmsEvents(biorhythms) {
-    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
+    if(!biorhythms) {
+      return
+    }
+    if(biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
       biorhythms.itemAdded.unsubscribe(onBiorhithmAdded)
     }
-    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
+    if(biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
       biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved)
     }
   }
   function getBiorhythmsArray(biorhythms) {
+    if(!biorhythms) {
+      return
+    }
     if(biorhythms instanceof Array) {
       return biorhythms
     }else {
@@ -1634,9 +1300,9 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     suspendPaint();
     try {
       if(key === "biorhythms") {
-        unsubscribeFromBiorhythmsEvents(this.options.birhythms);
+        unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
         this._super(key, value);
-        subscribeToBiorhythmsEvents(this.options.birhythms)
+        subscribeToBiorhythmsEvents(this.options.biorhythms)
       }
       if(key === "firstDay") {
         this._super(key, value);
@@ -1651,6 +1317,9 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
         this._trigger("totalDaysChanged", null, {value:this.options.totalDays})
       }
       if(key === "xDayIndex") {
+        if(this.options.xDayIndex === value || value < 0 || value >= this.options.totalDays) {
+          return
+        }
         this._super(key, value);
         this._trigger("xDayIndexChanged", null, {value:this.options.xDayIndex})
       }
@@ -1713,17 +1382,20 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     }finally {
       resumePaint()
     }
-  }, suspendPaint:suspendPaint, resumePaint:resumePaint});
+  }, suspendPaint:suspendPaint, resumePaint:resumePaint, getLastDay:getLastDay, getXDay:getXDay});
   function createCanvasElement() {
     var $canvas = $("\x3ccanvas/\x3e");
     $canvas.attr({"tabindex":"1", "width":widget.options.width, "height":widget.options.height});
     return $canvas
   }
   function unsubscribeFromBiorhythmsEvents(biorhythms) {
-    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
+    if(!biorhythms) {
+      return
+    }
+    if(biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
       biorhythms.itemAdded.unsubscribe(onBiorhithmAdded)
     }
-    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
+    if(biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
       biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved)
     }
     var biorhythmsArray = getBiorhythmsArray(biorhythms);
@@ -1732,10 +1404,13 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     }
   }
   function subscribeToBiorhythmsEvents(biorhythms) {
-    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
+    if(!biorhythms) {
+      return
+    }
+    if(biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
       biorhythms.itemAdded.subscribe(onBiorhithmAdded)
     }
-    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
+    if(biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
       biorhythms.itemRemoved.subscribe(onBiorhithmRemoved)
     }
     var biorhythmsArray = getBiorhythmsArray(biorhythms);
@@ -1775,6 +1450,9 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     paint()
   }
   function getBiorhythmsArray(biorhythms) {
+    if(!biorhythms) {
+      return
+    }
     if(biorhythms instanceof Array) {
       return biorhythms
     }else {
@@ -1783,6 +1461,12 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
       }
     }
     return[]
+  }
+  function getLastDay() {
+    return lu.DateUtil.addDays(widget.options.firstDay, widget.options.totalDays - 1)
+  }
+  function getXDay() {
+    return lu.DateUtil.addDays(widget.options.firstDay, widget.options.xDayIndex)
   }
   function suspendPaint() {
     paintSuspendCount++
@@ -2522,22 +2206,31 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
     }
   }
   function subscribeToBiorhythmsEvents(biorhythms) {
-    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
+    if(!biorhythms) {
+      return
+    }
+    if(biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
       biorhythms.itemAdded.subscribe(onBiorhithmAdded)
     }
-    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
+    if(biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
       biorhythms.itemRemoved.subscribe(onBiorhithmRemoved)
     }
   }
   function unsubscribeFromBiorhythmsEvents(biorhythms) {
-    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
+    if(!biorhythms) {
+      return
+    }
+    if(biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
       biorhythms.itemAdded.unsubscribe(onBiorhithmAdded)
     }
-    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
+    if(biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
       biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved)
     }
   }
   function getBiorhythmsArray(biorhythms) {
+    if(!biorhythms) {
+      return
+    }
     if(biorhythms instanceof Array) {
       return biorhythms
     }else {

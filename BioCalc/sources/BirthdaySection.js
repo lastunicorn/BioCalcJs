@@ -19,8 +19,6 @@ lu.bioCalc = lu.bioCalc || {};
 
 lu.bioCalc.BirthdaySection = (function() {
 
-    var obj = this;
-    var configManager = null;
     var birthday = null;
 
     var $birthdayTextBox = null;
@@ -28,7 +26,7 @@ lu.bioCalc.BirthdaySection = (function() {
     var $resetBirthdayButton = null;
     var $birthdayButtons = null;
 
-    var birthdayChangedEvent = new lu.Event();
+    var suppressBirthdayChanged = false;
 
     // --------------------------------------------------------------------------
     // Functions - GUI helpers
@@ -51,19 +49,6 @@ lu.bioCalc.BirthdaySection = (function() {
     }
 
     // --------------------------------------------------------------------------
-    // Functions - "public"
-    // --------------------------------------------------------------------------
-
-    function setBirthday(value) {
-        birthday = value;
-        updateBirthdayTextBox();
-    }
-
-    function setConfig(value) {
-        configManager = value;
-    }
-
-    // --------------------------------------------------------------------------
     // Functions - "private"
     // --------------------------------------------------------------------------
 
@@ -79,7 +64,9 @@ lu.bioCalc.BirthdaySection = (function() {
     }
 
     function updateSaveBirthdayButtonVisibility() {
-        if (birthday != null && configManager.config.birthday.getTime() == birthday.getTime()) {
+        var config = lu.bioCalc.BioCalcPageData.configManager.config;
+
+        if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
             disableSaveBirthdayButton();
         } else {
             enableSaveBirthdayButton();
@@ -87,7 +74,9 @@ lu.bioCalc.BirthdaySection = (function() {
     }
 
     function updateResetBirthdayButtonVisibility() {
-        if (birthday.getTime() == configManager.config.birthday.getTime()) {
+        var config = lu.bioCalc.BioCalcPageData.configManager.config;
+
+        if (birthday.getTime() == config.birthday.getTime()) {
             disableResetBirthdayButton();
         } else {
             enableResetBirthdayButton();
@@ -96,6 +85,10 @@ lu.bioCalc.BirthdaySection = (function() {
 
     function updateBirthdayTextBox() {
         $birthdayTextBox.val(formatDate(birthday));
+    }
+
+    function publishBirthday() {
+        lu.bioCalc.BioCalcPageData.setBirthday(birthday);
     }
 
     // --------------------------------------------------------------------------
@@ -110,25 +103,28 @@ lu.bioCalc.BirthdaySection = (function() {
         updateSaveBirthdayButtonVisibility();
         updateResetBirthdayButtonVisibility();
 
-        birthdayChangedEvent.raise(obj, newBirthday);
+        publishBirthday();
     }
 
     function onResetBirthdayButtonClick(e) {
         e.preventDefault();
         e.stopPropagation();
 
+        var configManager = lu.bioCalc.BioCalcPageData.configManager;
         birthday = configManager.config.birthday;
 
         updateBirthdayTextBox();
         updateSaveBirthdayButtonVisibility();
         updateResetBirthdayButtonVisibility();
 
-        birthdayChangedEvent.raise(obj, birthday);
+        publishBirthday();
     }
 
     function onSaveBirthdayButtonClick(e) {
         e.preventDefault();
         e.stopPropagation();
+
+        var configManager = lu.bioCalc.BioCalcPageData.configManager;
 
         if (configManager) {
             configManager.config.birthday = birthday;
@@ -139,6 +135,15 @@ lu.bioCalc.BirthdaySection = (function() {
         updateResetBirthdayButtonVisibility();
     }
 
+    function onExternalBirthdayChanged(arg) {
+        if (suppressBirthdayChanged) {
+            return;
+        }
+
+        birthday = arg;
+        updateBirthdayTextBox();
+    }
+
     // --------------------------------------------------------------------------
     // Initializer
     // --------------------------------------------------------------------------
@@ -147,6 +152,8 @@ lu.bioCalc.BirthdaySection = (function() {
         $(function() {
             create$();
             initialize$();
+
+            lu.bioCalc.BioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
         });
     }());
 
@@ -187,9 +194,5 @@ lu.bioCalc.BirthdaySection = (function() {
         $birthdayButtons.buttonset();
     }
 
-    return {
-        setBirthday: setBirthday,
-        setConfig: setConfig,
-        birthdayChanged: birthdayChangedEvent.client
-    };
+    return {};
 }());

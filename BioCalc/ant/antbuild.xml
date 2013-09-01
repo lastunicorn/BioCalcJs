@@ -47,12 +47,14 @@
 				<!-- The order of files is important -->
 				<file name="Version.js" />
 				<file name="ConfigurationManager.js" />
+				<file name="BioCalcPageData.js" />
 				<file name="AboutDialog.js" />
 				<file name="HelpDialog.js" />
 				<file name="OptionsDialog.js" />
 				<file name="BirthdaySection.js" />
 				<file name="MainToolbar.js" />
 				<file name="XDaySection.js" />
+				<file name="BiorhythmCharts.js" />
 				<file name="BioCalc.js" />
 			</sources>
 

@@ -81,26 +81,38 @@
     }
 
     function subscribeToBiorhythmsEvents(biorhythms) {
-        if (biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
+        if (!biorhythms) {
+            return;
+        }
+
+        if (biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
             biorhythms.itemAdded.subscribe(onBiorhithmAdded);
         }
 
-        if (biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
+        if (biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
             biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
         }
     }
 
     function unsubscribeFromBiorhythmsEvents(biorhythms) {
-        if (biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
+        if (!biorhythms) {
+            return;
+        }
+
+        if (biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
             biorhythms.itemAdded.unsubscribe(onBiorhithmAdded);
         }
 
-        if (biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
+        if (biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
             biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved);
         }
     }
 
     function getBiorhythmsArray(biorhythms) {
+        if (!biorhythms) {
+            return;
+        }
+
         if (biorhythms instanceof Array) {
             return biorhythms;
         } else {

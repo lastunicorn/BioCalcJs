@@ -22,18 +22,33 @@ lu.bioCalc.XDaySection = (function() {
     var xDay = null;
 
     // --------------------------------------------------------------------------
-    // Functions - "public"
+    // Functions - "private"
     // --------------------------------------------------------------------------
 
-    function setCommonBiorhythmShapes(value) {
-        $xDayInfoContainer.xDayInfoView("option", "biorhythms", value);
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+
+        var monthString = month < 10 ? "0" + month : "" + month;
+        var dayString = day < 10 ? "0" + day : "" + day;
+
+        return year + "-" + monthString + "-" + dayString;
     }
 
-    function setXDay(value) {
-        xDay = value;
+    // --------------------------------------------------------------------------
+    // Event Handlers
+    // --------------------------------------------------------------------------
+
+    function onExternalXDayChanged(arg) {
+        xDay = arg;
 
         $xDayValueLabel.html(formatDate(xDay));
         $xDayInfoContainer.xDayInfoView("update", xDay);
+    }
+
+    function onExternalBiorhythmsChanged(arg) {
+        $xDayInfoContainer.xDayInfoView("option", "biorhythms", arg);
     }
 
     // --------------------------------------------------------------------------
@@ -44,6 +59,9 @@ lu.bioCalc.XDaySection = (function() {
         $(function() {
             create$();
             initialize$();
+
+            lu.bioCalc.BioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
+            lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         });
     }());
 
@@ -58,8 +76,5 @@ lu.bioCalc.XDaySection = (function() {
         });
     }
 
-    return {
-        setXDay: setXDay,
-        setCommonBiorhythmShapes: setCommonBiorhythmShapes
-    };
+    return {};
 }());

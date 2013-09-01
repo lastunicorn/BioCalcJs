@@ -29,12 +29,12 @@ lu.bioCalc.OptionsDialog = (function() {
     var $iChingBiorhythmsCheckbox = null;
     var commonBiorhythmShapes = null;
 
+    // --------------------------------------------------------------------------
+    // Functions - "public"
+    // --------------------------------------------------------------------------
+
     function show() {
         $optionsDialog.dialog("open");
-    }
-
-    function setCommonBiorhythmShapes(value) {
-        commonBiorhythmShapes = value;
     }
 
     // --------------------------------------------------------------------------
@@ -79,6 +79,10 @@ lu.bioCalc.OptionsDialog = (function() {
         commonBiorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
     }
 
+    function onExternalBiorhythmsChanged(arg) {
+        commonBiorhythmShapes = arg;
+    }
+
     // --------------------------------------------------------------------------
     // Initializer
     // --------------------------------------------------------------------------
@@ -87,6 +91,8 @@ lu.bioCalc.OptionsDialog = (function() {
         $(function() {
             create$();
             initialize$();
+
+            lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         });
     }());
 
@@ -124,7 +130,6 @@ lu.bioCalc.OptionsDialog = (function() {
     }
 
     return {
-        show: show,
-        setCommonBiorhythmShapes: setCommonBiorhythmShapes
+        show: show
     };
 }());

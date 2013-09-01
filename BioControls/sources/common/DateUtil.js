@@ -1,4 +1,4 @@
-// BioCalc
+// BioControls
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify

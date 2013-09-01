@@ -19,6 +19,7 @@
     var $canvas = null;
     var painter = null;
     var paintSuspendCount = 0;
+    var biorhythms = null;
 
     $.widget("lastunicorn.biorhythmView", {
         options: {
@@ -58,7 +59,11 @@
 
             painter = new lu.bioControls.biorhythmView.painting.BiorhythmViewPainter();
 
-            subscribeToBiorhythmsEvents(this.options.biorhythms);
+            biorhythms = new lu.bioControls.BiorhythmsAdapter({
+                biorhythms: this.options.biorhythms,
+                onBiorhithmAdded: onBiorhithmAdded,
+                onBiorhithmRemoved: onBiorhithmRemoved
+            });
 
             paint();
         },
@@ -67,11 +72,15 @@
             suspendPaint();
             try {
                 if (key === "biorhythms") {
-                    unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
+                    biorhythms.clear();
 
                     this._super(key, value);
 
-                    subscribeToBiorhythmsEvents(this.options.biorhythms);
+                    biorhythms = new lu.bioControls.BiorhythmsAdapter({
+                        biorhythms: this.options.biorhythms,
+                        onBiorhithmAdded: onBiorhithmAdded,
+                        onBiorhithmRemoved: onBiorhithmRemoved
+                    });
                 }
 
                 if (key === "firstDay") {
@@ -232,6 +241,10 @@
         getXDay: getXDay
     });
 
+    // --------------------------------------------------------------------------
+    // Html element
+    // --------------------------------------------------------------------------
+
     function createCanvasElement() {
         var $canvas = $("<canvas/>");
         $canvas.attr({
@@ -243,42 +256,18 @@
         return $canvas;
     }
 
-    function unsubscribeFromBiorhythmsEvents(biorhythms) {
-        if (!biorhythms) {
-            return;
-        }
+    // --------------------------------------------------------------------------
+    // Biorhythms
+    // --------------------------------------------------------------------------
 
-        if (biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
-            biorhythms.itemAdded.unsubscribe(onBiorhithmAdded);
-        }
+    function onBiorhithmAdded(biorhythmShape) {
+        subscribeToBiorhythmEvents(biorhythmShape);
 
-        if (biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
-            biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved);
-        }
+        widget._trigger("biorhythmAdded", widget, {
+            value: biorhythmShape
+        });
 
-        var biorhythmsArray = getBiorhythmsArray(biorhythms);
-        for ( var i = 0; i < biorhythmsArray.length; i++) {
-            unsubscribeFromBiorhythmEvents(biorhythmsArray[i]);
-        }
-    }
-
-    function subscribeToBiorhythmsEvents(biorhythms) {
-        if (!biorhythms) {
-            return;
-        }
-
-        if (biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
-            biorhythms.itemAdded.subscribe(onBiorhithmAdded);
-        }
-
-        if (biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
-            biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
-        }
-
-        var biorhythmsArray = getBiorhythmsArray(biorhythms);
-        for ( var i = 0; i < biorhythmsArray.length; i++) {
-            subscribeToBiorhythmEvents(biorhythmsArray[i]);
-        }
+        paint();
     }
 
     function subscribeToBiorhythmEvents(biorhythmShape) {
@@ -289,12 +278,14 @@
         biorhythmShape.isVisibleChanged.subscribe(onBiorhithmShapeChanged);
         biorhythmShape.lineWidthChanged.subscribe(onBiorhithmShapeChanged);
         biorhythmShape.lineStyleChanged.subscribe(onBiorhithmShapeChanged);
-
     }
 
-    function onBiorhithmAdded(biorhythmShape) {
+    function onBiorhithmRemoved(biorhythmShape) {
         subscribeToBiorhythmEvents(biorhythmShape);
-        biorhythmAddedEvent.raise(obj, biorhythmShape);
+
+        widget._trigger("biorhythmRemoved", widget, {
+            value: biorhythmShape
+        });
 
         paint();
     }
@@ -309,31 +300,18 @@
         biorhythmShape.lineStyleChanged.unsubscribe(onBiorhithmShapeChanged);
     }
 
-    function onBiorhithmRemoved(biorhythmShape) {
-        subscribeToBiorhythmEvents(biorhythmShape);
-        biorhythmRemovedEvent.raise(obj, biorhythmShape);
-
-        paint();
-    }
-
     function onBiorhithmShapeChanged() {
         paint();
     }
 
-    function getBiorhythmsArray(biorhythms) {
-        if (!biorhythms) {
-            return;
-        }
+    // --------------------------------------------------------------------------
+    // FirstDay
+    // --------------------------------------------------------------------------
 
-        if (biorhythms instanceof Array) {
-            return biorhythms;
-        } else {
-            if ($.isFunction(biorhythms.toArray)) {
-                return biorhythms.toArray();
-            }
-        }
-
-        return [];
+    function incrementFirstDay(value) {
+        var date = new Date(widget.options.firstDay.getTime());
+        date.setDate(date.getDate() + value);
+        widget.option("firstDay", date);
     }
 
     // --------------------------------------------------------------------------
@@ -380,7 +358,7 @@
         }
 
         var rawPaintData = {
-            biorhythmShapes: getBiorhythmsArray(widget.options.biorhythms),
+            biorhythmShapes: biorhythms.toArray(),
             firstDay: widget.options.firstDay,
             totalDays: widget.options.totalDays,
             xDayIndex: widget.options.xDayIndex,
@@ -409,11 +387,9 @@
         painter.paint(rawPaintData, context, rectangle);
     }
 
-    function incrementFirstDay(value) {
-        var date = new Date(widget.options.firstDay.getTime());
-        date.setDate(date.getDate() + value);
-        widget.option("firstDay", date);
-    }
+    // --------------------------------------------------------------------------
+    // Drag/Scroll
+    // --------------------------------------------------------------------------
 
     function onDrag(evt) {
         if (evt.isAlternative) {

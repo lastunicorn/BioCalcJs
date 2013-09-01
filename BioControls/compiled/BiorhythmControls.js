@@ -1,4 +1,69 @@
 var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.BiorhythmsAdapter = function(configuration) {
+  function subscribeToBiorhythmsEvents() {
+    if(!configuration || !configuration.biorhythms) {
+      return
+    }
+    if(configuration.biorhythms.itemAdded && configuration.biorhythms.itemAdded.subscribe) {
+      configuration.biorhythms.itemAdded.subscribe(onBiorhithmAdded)
+    }
+    if(configuration.biorhythms.itemRemoved && configuration.biorhythms.itemRemoved.subscribe) {
+      configuration.biorhythms.itemRemoved.subscribe(onBiorhithmRemoved)
+    }
+  }
+  function unsubscribeFromBiorhythmsEvents() {
+    if(!configuration || !configuration.biorhythms) {
+      return
+    }
+    if(configuration.biorhythms.itemAdded && configuration.biorhythms.itemAdded.unsubscribe) {
+      configuration.biorhythms.itemAdded.unsubscribe(onBiorhithmAdded)
+    }
+    if(configuration.biorhythms.itemRemoved && configuration.biorhythms.itemRemoved.unsubscribe) {
+      configuration.biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved)
+    }
+  }
+  function onBiorhithmAdded(biorhythmShape) {
+    if($.isFunction(configuration.onBiorhithmAdded)) {
+      configuration.onBiorhithmAdded(biorhythmShape)
+    }
+  }
+  function onBiorhithmRemoved(biorhythmShape) {
+    if($.isFunction(configuration.onBiorhithmRemoved)) {
+      configuration.onBiorhithmRemoved(biorhythmShape)
+    }
+  }
+  function biorhythmsToArray() {
+    if(!configuration || !configuration.biorhythms) {
+      return
+    }
+    if(configuration.biorhythms instanceof Array) {
+      return configuration.biorhythms
+    }
+    if($.isFunction(configuration.biorhythms.toArray)) {
+      return configuration.biorhythms.toArray()
+    }
+    return[]
+  }
+  this.toArray = function() {
+    return biorhythmsToArray()
+  };
+  this.clear = function() {
+    unsubscribeFromBiorhythmsEvents();
+    var biorhythmsArray = biorhythmsToArray();
+    for(var i = 0;i < biorhythmsArray.length;i++) {
+      unsubscribeFromBiorhythmEvents(biorhythmsArray[i])
+    }
+  };
+  (function initialize() {
+    subscribeToBiorhythmsEvents();
+    var biorhythmsArray = biorhythmsToArray();
+    for(var i = 0;i < biorhythmsArray.length;i++) {
+      onBiorhithmAdded(biorhythmsArray[i])
+    }
+  })()
+};
+var lu = lu || {};
 lu.DateUtil = {daysToMiliseconds:function(days) {
   return days * 24 * 60 * 60 * 1E3
 }, addDays:function(date, daysToAdd) {
@@ -1287,6 +1352,7 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
   var $canvas = null;
   var painter = null;
   var paintSuspendCount = 0;
+  var biorhythms = null;
   $.widget("lastunicorn.biorhythmView", {options:{width:800, height:200, biorhythms:[], firstDay:lu.DateUtil.addDays(Date.now(), -7), isGridVisible:true, totalDays:30, xDayIndex:7, gridColor:"#d3d3d3", areDayNumbersVisible:true, areWeekDaysVisible:true, dayNumbersPosition:lu.DayLabelPosition.top, weekDaysPosition:lu.DayLabelPosition.bottom, areSundaysEmphasized:true, foreColor:"#b0b0b0", sundaysColor:"#ff0000", font:"12px Arial", sundaysFont:"italic 12px Arial", todayBackColor:"#ffe4b5", isXDayVisible:true, 
   xDayBorderColor:"#000000", xDayBorderWidth:2}, _create:function() {
     widget = this;
@@ -1294,15 +1360,15 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     this.element.append($canvas);
     new lu.bioControls.biorhythmView.Scroller({element:$canvas[0], onDragStart:onDragStart, onDrag:onDrag});
     painter = new lu.bioControls.biorhythmView.painting.BiorhythmViewPainter;
-    subscribeToBiorhythmsEvents(this.options.biorhythms);
+    biorhythms = new lu.bioControls.BiorhythmsAdapter({biorhythms:this.options.biorhythms, onBiorhithmAdded:onBiorhithmAdded, onBiorhithmRemoved:onBiorhithmRemoved});
     paint()
   }, _setOption:function(key, value) {
     suspendPaint();
     try {
       if(key === "biorhythms") {
-        unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
+        biorhythms.clear();
         this._super(key, value);
-        subscribeToBiorhythmsEvents(this.options.biorhythms)
+        biorhythms = new lu.bioControls.BiorhythmsAdapter({biorhythms:this.options.biorhythms, onBiorhithmAdded:onBiorhithmAdded, onBiorhithmRemoved:onBiorhithmRemoved})
       }
       if(key === "firstDay") {
         this._super(key, value);
@@ -1388,35 +1454,10 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     $canvas.attr({"tabindex":"1", "width":widget.options.width, "height":widget.options.height});
     return $canvas
   }
-  function unsubscribeFromBiorhythmsEvents(biorhythms) {
-    if(!biorhythms) {
-      return
-    }
-    if(biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
-      biorhythms.itemAdded.unsubscribe(onBiorhithmAdded)
-    }
-    if(biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
-      biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved)
-    }
-    var biorhythmsArray = getBiorhythmsArray(biorhythms);
-    for(var i = 0;i < biorhythmsArray.length;i++) {
-      unsubscribeFromBiorhythmEvents(biorhythmsArray[i])
-    }
-  }
-  function subscribeToBiorhythmsEvents(biorhythms) {
-    if(!biorhythms) {
-      return
-    }
-    if(biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
-      biorhythms.itemAdded.subscribe(onBiorhithmAdded)
-    }
-    if(biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
-      biorhythms.itemRemoved.subscribe(onBiorhithmRemoved)
-    }
-    var biorhythmsArray = getBiorhythmsArray(biorhythms);
-    for(var i = 0;i < biorhythmsArray.length;i++) {
-      subscribeToBiorhythmEvents(biorhythmsArray[i])
-    }
+  function onBiorhithmAdded(biorhythmShape) {
+    subscribeToBiorhythmEvents(biorhythmShape);
+    widget._trigger("biorhythmAdded", widget, {value:biorhythmShape});
+    paint()
   }
   function subscribeToBiorhythmEvents(biorhythmShape) {
     biorhythmShape.nameChanged.subscribe(onBiorhithmShapeChanged);
@@ -1427,9 +1468,9 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     biorhythmShape.lineWidthChanged.subscribe(onBiorhithmShapeChanged);
     biorhythmShape.lineStyleChanged.subscribe(onBiorhithmShapeChanged)
   }
-  function onBiorhithmAdded(biorhythmShape) {
+  function onBiorhithmRemoved(biorhythmShape) {
     subscribeToBiorhythmEvents(biorhythmShape);
-    biorhythmAddedEvent.raise(obj, biorhythmShape);
+    widget._trigger("biorhythmRemoved", widget, {value:biorhythmShape});
     paint()
   }
   function unsubscribeFromBiorhythmEvents(biorhythmShape) {
@@ -1441,26 +1482,13 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     biorhythmShape.lineWidthChanged.unsubscribe(onBiorhithmShapeChanged);
     biorhythmShape.lineStyleChanged.unsubscribe(onBiorhithmShapeChanged)
   }
-  function onBiorhithmRemoved(biorhythmShape) {
-    subscribeToBiorhythmEvents(biorhythmShape);
-    biorhythmRemovedEvent.raise(obj, biorhythmShape);
-    paint()
-  }
   function onBiorhithmShapeChanged() {
     paint()
   }
-  function getBiorhythmsArray(biorhythms) {
-    if(!biorhythms) {
-      return
-    }
-    if(biorhythms instanceof Array) {
-      return biorhythms
-    }else {
-      if($.isFunction(biorhythms.toArray)) {
-        return biorhythms.toArray()
-      }
-    }
-    return[]
+  function incrementFirstDay(value) {
+    var date = new Date(widget.options.firstDay.getTime());
+    date.setDate(date.getDate() + value);
+    widget.option("firstDay", date)
   }
   function getLastDay() {
     return lu.DateUtil.addDays(widget.options.firstDay, widget.options.totalDays - 1)
@@ -1486,16 +1514,11 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     if(!$canvas[0].getContext) {
       return
     }
-    var rawPaintData = {biorhythmShapes:getBiorhythmsArray(widget.options.biorhythms), firstDay:widget.options.firstDay, totalDays:widget.options.totalDays, xDayIndex:widget.options.xDayIndex, isXDayVisible:widget.options.isXDayVisible, xDayBorderColor:widget.options.xDayBorderColor, xDayBorderWidth:widget.options.xDayBorderWidth, gridColor:widget.options.gridColor, isGridVisible:widget.options.isGridVisible, todayBackColor:widget.options.todayBackColor, areDayNumbersVisible:widget.options.areDayNumbersVisible, 
-    areWeekDaysVisible:widget.options.areWeekDaysVisible, dayNumbersPosition:widget.options.dayNumbersPosition, weekDaysPosition:widget.options.weekDaysPosition, areSundaysEmphasized:widget.options.areSundaysEmphasized, foreColor:widget.options.foreColor, sundaysColor:widget.options.sundaysColor, font:widget.options.font, sundaysFont:widget.options.sundaysFont};
+    var rawPaintData = {biorhythmShapes:biorhythms.toArray(), firstDay:widget.options.firstDay, totalDays:widget.options.totalDays, xDayIndex:widget.options.xDayIndex, isXDayVisible:widget.options.isXDayVisible, xDayBorderColor:widget.options.xDayBorderColor, xDayBorderWidth:widget.options.xDayBorderWidth, gridColor:widget.options.gridColor, isGridVisible:widget.options.isGridVisible, todayBackColor:widget.options.todayBackColor, areDayNumbersVisible:widget.options.areDayNumbersVisible, areWeekDaysVisible:widget.options.areWeekDaysVisible, 
+    dayNumbersPosition:widget.options.dayNumbersPosition, weekDaysPosition:widget.options.weekDaysPosition, areSundaysEmphasized:widget.options.areSundaysEmphasized, foreColor:widget.options.foreColor, sundaysColor:widget.options.sundaysColor, font:widget.options.font, sundaysFont:widget.options.sundaysFont};
     var context = $canvas[0].getContext("2d");
     var rectangle = new lu.Rectangle(0, 0, $canvas[0].width, $canvas[0].height);
     painter.paint(rawPaintData, context, rectangle)
-  }
-  function incrementFirstDay(value) {
-    var date = new Date(widget.options.firstDay.getTime());
-    date.setDate(date.getDate() + value);
-    widget.option("firstDay", date)
   }
   function onDrag(evt) {
     if(evt.isAlternative) {

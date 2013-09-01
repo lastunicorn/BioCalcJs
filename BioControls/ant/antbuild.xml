@@ -39,6 +39,7 @@
 
 			<sources dir="${basedir}/sources/common">
 				<!-- These have to be compiled first -->
+				<file name="BiorhythmsAdapter.js" />
 				<file name="DateUtil.js" />
 				<file name="DayLabelPosition.js" />
 				<file name="Event.js" />
@@ -54,7 +55,6 @@
 			</sources>
 
 			<sources dir="${basedir}/sources">
-				<file name="BiorhythmView.js" />
 				<file name="Version.js" />
 			</sources>
 

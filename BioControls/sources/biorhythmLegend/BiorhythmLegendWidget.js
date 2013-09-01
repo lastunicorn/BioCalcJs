@@ -18,6 +18,7 @@
     var widget = null;
     var $container = null;
     var biorhythmLegendItems = [];
+    var biorhythms = null;
 
     $.widget("lastunicorn.biorhythmLegend", {
         options: {
@@ -26,17 +27,29 @@
         _create: function() {
             widget = this;
             $container = $(this.element);
+
+            biorhythms = new lu.bioControls.BiorhythmsAdapter({
+                biorhythms: this.options.biorhythms,
+                onBiorhithmAdded: onBiorhithmAdded,
+                onBiorhithmRemoved: onBiorhithmRemoved
+            });
+
             repopulate();
         },
 
         _setOption: function(key, value) {
             if (key === "biorhythms") {
-                unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
+                biorhythms.clear();
 
                 this._super(key, value);
-                repopulate();
 
-                subscribeToBiorhythmsEvents(this.options.biorhythms);
+                biorhythms = new lu.bioControls.BiorhythmsAdapter({
+                    biorhythms: this.options.biorhythms,
+                    onBiorhithmAdded: onBiorhithmAdded,
+                    onBiorhithmRemoved: onBiorhithmRemoved
+                });
+
+                repopulate();
             }
         }
     });
@@ -45,7 +58,7 @@
         $container.empty();
         biorhythmLegendItems.length = 0;
 
-        var biorhythmsArray = getBiorhythmsArray(widget.options.biorhythms);
+        var biorhythmsArray = biorhythms.toArray();
 
         for ( var i = 0; i < biorhythmsArray.length; i++) {
             createNewItem(biorhythmsArray[i]);
@@ -75,49 +88,5 @@
                 biorhythmLegendItems[i].element.remove();
             }
         }
-    }
-
-    function subscribeToBiorhythmsEvents(biorhythms) {
-        if (!biorhythms) {
-            return;
-        }
-
-        if (biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
-            biorhythms.itemAdded.subscribe(onBiorhithmAdded);
-        }
-
-        if (biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
-            biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
-        }
-    }
-
-    function unsubscribeFromBiorhythmsEvents(biorhythms) {
-        if (!biorhythms) {
-            return;
-        }
-
-        if (biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
-            biorhythms.itemAdded.unsubscribe(onBiorhithmAdded);
-        }
-
-        if (biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
-            biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved);
-        }
-    }
-
-    function getBiorhythmsArray(biorhythms) {
-        if (!biorhythms) {
-            return;
-        }
-
-        if (biorhythms instanceof Array) {
-            return biorhythms;
-        } else {
-            if ($.isFunction(biorhythms.toArray)) {
-                return biorhythms.toArray();
-            }
-        }
-
-        return [];
     }
 }(jQuery));

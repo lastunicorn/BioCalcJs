@@ -29,11 +29,32 @@ lu.bioCalc.AboutDialog = (function() {
     var $bioControlsVersionLabel = null;
     var $bioCalcVersionLabel = null;
 
+    // --------------------------------------------------------------------------
+    // Event Handlers
+    // --------------------------------------------------------------------------
+
     function onAboutDialogCloseClicked() {
         $aboutDialog.dialog("close");
     }
 
-    function createControls() {
+    // --------------------------------------------------------------------------
+    // Initializer
+    // --------------------------------------------------------------------------
+
+    (function initialize() {
+        $(function() {
+            create$();
+            initialize$();
+
+            $jQueryVersionLabel.html($.fn.jquery);
+            $jQueryUIVersionLabel.html($.ui.version);
+            $bioControlsVersionLabel.html(lu.bioControls.version);
+
+            $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
+        });
+    }());
+
+    function create$() {
         $aboutDialog = $("#aboutDialog");
         $aboutDialogTabSet = $("#aboutDialog .tabs");
         $jQueryVersionLabel = $("#jQueryVersionLabel");
@@ -42,7 +63,7 @@ lu.bioCalc.AboutDialog = (function() {
         $bioCalcVersionLabel = $(".bio-calc-version");
     }
 
-    function initializeControls() {
+    function initialize$() {
         $aboutDialog.dialog({
             modal: true,
             height: 480,
@@ -63,19 +84,6 @@ lu.bioCalc.AboutDialog = (function() {
 
         $aboutDialogTabSet.tabs();
     }
-
-    (function initialize() {
-        $(function() {
-            createControls();
-            initializeControls();
-
-            $jQueryVersionLabel.html($.fn.jquery);
-            $jQueryUIVersionLabel.html($.ui.version);
-            $bioControlsVersionLabel.html(lu.bioControls.version);
-
-            $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
-        });
-    }());
 
     return {
         show: function() {

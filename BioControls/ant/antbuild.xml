@@ -37,12 +37,8 @@
 
 		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="${file.output}">
 
-			<sources dir="${basedir}/sources">
-				<file name="BiorhythmView.js" />
-				<file name="Version.js" />
-			</sources>
-
 			<sources dir="${basedir}/sources/common">
+				<!-- These have to be compiled first -->
 				<file name="DateUtil.js" />
 				<file name="DayLabelPosition.js" />
 				<file name="Event.js" />
@@ -55,6 +51,11 @@
 				<file name="Rectangle.js" />
 				<file name="TextUtil.js" />
 				<file name="WeekDayNameProvider.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources">
+				<file name="BiorhythmView.js" />
+				<file name="Version.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythmLegend">
@@ -112,7 +113,6 @@
 
 			<sources dir="${basedir}/sources/xDayInfoView">
 				<file name="XDayInfoItem.js" />
-				<file name="XDayInfoView.js" />
 				<file name="XDayInfoViewWidget.js" />
 			</sources>
 

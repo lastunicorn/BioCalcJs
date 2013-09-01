@@ -18,26 +18,39 @@ var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
 /**
- * Contains the logic to load and save the configuration from/into cookies. 
+ * Contains the logic to load and save the configuration from/into cookies.
  */
-lu.bioCalc.ConfigManager = function() {
+lu.bioCalc.ConfigurationManager = function() {
 
     var cookieName = "config";
+    var config = null;
 
-    function loadFromCookies() {
-        $.cookie.json = true;
-        var config = $.cookie(cookieName);
+    Object.defineProperty(this, "config", {
+        enumerable: true,
+        configurable: false,
+        get: getConfig
+    });
 
-        if (config == null) {
-            config = createDefaultConfig();
-        } else {
-            ensureDefaultValues(config);
-        }
-
+    function getConfig() {
         return config;
     }
 
-    function saveInCookies(config) {
+    this.loadFromCookies = function() {
+        $.cookie.json = true;
+        var c = $.cookie(cookieName);
+
+        if (c == null) {
+            c = createDefaultConfig();
+        } else {
+            ensureDefaultValues(c);
+        }
+
+        config = c;
+
+        return config;
+    };
+
+    this.saveInCookies = function() {
         $.cookie.json = true;
 
         if (config == null) {
@@ -45,11 +58,13 @@ lu.bioCalc.ConfigManager = function() {
         }
 
         $.cookie(cookieName, config);
-    }
+    };
 
-    function removeFromCookie() {
+    this.removeFromCookie = function() {
         $.removeCookie(cookieName);
-    }
+    };
+
+    this.getDefaultBirthday = getDefaultBirthday;
 
     function getDefaultBirthday() {
         return new Date(1980, 05, 13);
@@ -70,11 +85,4 @@ lu.bioCalc.ConfigManager = function() {
             config.birthday = getDefaultBirthday();
         }
     }
-
-    return {
-        loadFromCookies: loadFromCookies,
-        saveInCookies: saveInCookies,
-        removeFromCookie: removeFromCookie,
-        getDefaultBirthday: getDefaultBirthday
-    };
 };

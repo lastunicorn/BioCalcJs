@@ -35,9 +35,25 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
     var $valueElement = null;
     var currentXDay = null;
 
-    this.getElement = function() {
+    Object.defineProperty(this, "element", {
+        enumerable: true,
+        configurable: false,
+        get: getElement
+    });
+
+    function getElement() {
         return $element;
-    };
+    }
+
+    Object.defineProperty(this, "biorhythmShape", {
+        enumerable: true,
+        configurable: false,
+        get: getBiorhythmShape
+    });
+
+    function getBiorhythmShape() {
+        return biorhythmShape;
+    }
 
     this.update = function(xDay) {
         currentXDay = xDay;

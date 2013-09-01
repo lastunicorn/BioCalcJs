@@ -17,20 +17,23 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
-/**
- * Contains the logic of the Help dialog.
- */
-lu.bioCalc.HelpDialog = (function() {
-
-    var $helpDialog = null;
-    var $helpDialogTabSet = null;
+lu.bioCalc.XDaySection = (function() {
+    var $xDayValueLabel = null;
+    var xDay = null;
 
     // --------------------------------------------------------------------------
-    // Event Handlers
+    // Functions - "public"
     // --------------------------------------------------------------------------
 
-    function onHelpDialogCloseClicked() {
-        $helpDialog.dialog("close");
+    function setCommonBiorhythmShapes(value) {
+        $xDayInfoContainer.xDayInfoView("option", "biorhythms", value);
+    }
+
+    function setXDay(value) {
+        xDay = value;
+
+        $xDayValueLabel.html(formatDate(xDay));
+        $xDayInfoContainer.xDayInfoView("update", xDay);
     }
 
     // --------------------------------------------------------------------------
@@ -45,35 +48,18 @@ lu.bioCalc.HelpDialog = (function() {
     }());
 
     function create$() {
-        $helpDialog = $("#helpDialog");
-        $helpDialogTabSet = $("#helpDialog .tabs");
+        $xDayValueLabel = $("#xDayValueLabel");
+        $xDayInfoContainer = $("#xDayInfoContainer");
     }
 
     function initialize$() {
-        $helpDialog.dialog({
-            modal: true,
-            height: 480,
-            width: 640,
-            autoOpen: false,
-            buttons: {
-                Close: onHelpDialogCloseClicked
-            },
-            show: {
-                effect: "puff",
-                duration: 300
-            },
-            hide: {
-                effect: "puff",
-                duration: 300
-            }
+        $xDayInfoContainer.xDayInfoView({
+            biorhythms: []
         });
-
-        $helpDialogTabSet.tabs();
     }
 
     return {
-        show: function() {
-            $helpDialog.dialog("open");
-        }
+        setXDay: setXDay,
+        setCommonBiorhythmShapes: setCommonBiorhythmShapes
     };
 }());

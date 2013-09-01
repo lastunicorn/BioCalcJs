@@ -29,6 +29,18 @@ lu.bioCalc.OptionsDialog = (function() {
     var $iChingBiorhythmsCheckbox = null;
     var commonBiorhythmShapes = null;
 
+    function show() {
+        $optionsDialog.dialog("open");
+    }
+
+    function setCommonBiorhythmShapes(value) {
+        commonBiorhythmShapes = value;
+    }
+
+    // --------------------------------------------------------------------------
+    // Event Handlers
+    // --------------------------------------------------------------------------
+
     function onOptionsDialogCloseClicked() {
         $optionsDialog.dialog("close");
     }
@@ -67,7 +79,18 @@ lu.bioCalc.OptionsDialog = (function() {
         commonBiorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
     }
 
-    function createControls() {
+    // --------------------------------------------------------------------------
+    // Initializer
+    // --------------------------------------------------------------------------
+
+    (function initialize() {
+        $(function() {
+            create$();
+            initialize$();
+        });
+    }());
+
+    function create$() {
         $optionsDialog = $("#optionsDialog");
         $primaryBiorhythmsCheckbox = $("#primaryBiorhythmsCheckbox");
         $secondaryBiorhythmsCheckbox = $("#secondaryBiorhythmsCheckbox");
@@ -75,7 +98,7 @@ lu.bioCalc.OptionsDialog = (function() {
         $iChingBiorhythmsCheckbox = $("#iChingBiorhythmsCheckbox");
     }
 
-    function initializeControls() {
+    function initialize$() {
         $optionsDialog.dialog({
             height: 360,
             width: 480,
@@ -100,19 +123,8 @@ lu.bioCalc.OptionsDialog = (function() {
         $iChingBiorhythmsCheckbox.change(onIChingCheckboxChange);
     }
 
-    (function initializa() {
-        $(function() {
-            createControls();
-            initializeControls();
-        });
-    }());
-
     return {
-        show: function() {
-            $optionsDialog.dialog("open");
-        },
-        setCommonBiorhythmShapes: function(value) {
-            commonBiorhythmShapes = value;
-        }
+        show: show,
+        setCommonBiorhythmShapes: setCommonBiorhythmShapes
     };
 }());

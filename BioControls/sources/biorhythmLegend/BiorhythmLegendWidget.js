@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 (function($) {
+    var widget = null;
     var $container = null;
     var biorhythmLegendItems = [];
 
@@ -23,27 +24,32 @@
             biorhythms: []
         },
         _create: function() {
+            widget = this;
             $container = $(this.element);
-            $container.empty();
-            biorhythmLegendItems.length = 0;
-
-            var biorhythmsArray = getBiorhythmsArray(this.options.biorhythms);
-
-            for ( var i = 0; i < biorhythmsArray.length; i++) {
-                createNewItem(biorhythmsArray[i]);
-            }
+            repopulate();
         },
 
         _setOption: function(key, value) {
             if (key === "biorhythms") {
-                unsubscribeFromBiorhythmsEvents(this.options.birhythms);
+                unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
 
                 this._super(key, value);
 
-                subscribeToBiorhythmsEvents(this.options.birhythms);
+                subscribeToBiorhythmsEvents(this.options.biorhythms);
             }
         }
     });
+
+    function repopulate() {
+        $container.empty();
+        biorhythmLegendItems.length = 0;
+
+        var biorhythmsArray = getBiorhythmsArray(widget.options.biorhythms);
+
+        for ( var i = 0; i < biorhythmsArray.length; i++) {
+            createNewItem(biorhythmsArray[i]);
+        }
+    }
 
     function onBiorhithmAdded(biorhythmShape) {
         createNewItem(biorhythmShape);

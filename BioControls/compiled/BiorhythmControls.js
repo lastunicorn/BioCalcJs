@@ -1,4 +1,255 @@
 var lu = lu || {};
+lu.DateUtil = {daysToMiliseconds:function(days) {
+  return days * 24 * 60 * 60 * 1E3
+}, addDays:function(date, daysToAdd) {
+  var miliseconds = daysToAdd * 24 * 60 * 60 * 1E3;
+  if(date instanceof Date) {
+    date = date.getTime()
+  }
+  if(typeof date !== "number") {
+    throw"date argument is not a real date.";
+  }
+  if(typeof daysToAdd !== "number") {
+    throw"daysToAdd should be a number.";
+  }
+  return new Date(date + miliseconds)
+}};
+var lu = lu || {};
+lu.DayLabelPosition = {top:0, aboveMiddle:1, belowMiddle:2, bottom:3};
+var lu = lu || {};
+lu.Event = function() {
+  var eventHandlers = [];
+  this.subscribe = subscribe;
+  function subscribe(eventHandler) {
+    if(typeof eventHandler !== "function") {
+      throw"eventHandler is not a function.";
+    }
+    eventHandlers.push(eventHandler)
+  }
+  this.unsubscribe = unsubscribe;
+  function unsubscribe(eventHandler) {
+    if(typeof eventHandler !== "function") {
+      throw"eventHandler is not a function.";
+    }
+    for(var i = 0;i < eventHandlers.length;i++) {
+      if(eventHandlers[i] === eventHandler) {
+        eventHandlers.splice(i, 1)
+      }
+    }
+  }
+  this.raise = function(sender, arg) {
+    for(var i = 0;i < eventHandlers.length;i++) {
+      eventHandlers[i].call(sender, arg)
+    }
+  };
+  Object.defineProperty(this, "client", {value:{subscribe:subscribe, unsubscribe:unsubscribe}, enumerable:true, configurable:false, writable:false})
+};
+var lu = lu || {};
+lu.Line = function(startPoint, endPoint) {
+  Object.defineProperty(this, "startPoint", {enumerable:true, get:getStartPoint});
+  function getStartPoint() {
+    return startPoint
+  }
+  Object.defineProperty(this, "endPoint", {enumerable:true, get:getEndPoint});
+  function getEndPoint() {
+    return endPoint
+  }
+  this.toString = function() {
+    return startPoint.toString() + " - " + endPoint.toString()
+  };
+  (function initialize() {
+    if(!(startPoint instanceof lu.Point)) {
+      throw"startPoint is undefined.";
+    }
+    if(!(endPoint instanceof lu.Point)) {
+      throw"endPoint is undefined.";
+    }
+  }).call(this)
+};
+var lu = lu || {};
+lu.LinePatternCalculator = {calculatePattern:function(lineStyle, lineWidth) {
+  switch(lineStyle) {
+    case lu.LineStyle.solid:
+      return null;
+    case lu.LineStyle.dot:
+      return[lineWidth * 1, lineWidth * 3];
+    case lu.LineStyle.dash:
+      return[lineWidth * 10, lineWidth * 5];
+    case lu.LineStyle.dashDot:
+      return[lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3];
+    case lu.LineStyle.dashDotDot:
+      return[lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3, lineWidth * 1, lineWidth * 3];
+    default:
+      return null
+  }
+}};
+var lu = lu || {};
+lu.LineStyle = {solid:0, dash:1, dot:2, dashDot:3, dashDotDot:4};
+var lu = lu || {};
+lu.List = function() {
+  var array = [];
+  var itemAddedEvent = new lu.Event;
+  this.itemAdded = itemAddedEvent.client;
+  var itemAddingEvent = new lu.Event;
+  this.itemAdding = itemAddingEvent.client;
+  var itemRemovedEvent = new lu.Event;
+  this.itemRemoved = itemRemovedEvent.client;
+  this.add = function(item) {
+    if(item === undefined || item === null) {
+      throw"item should be an object.";
+    }
+    itemAddingEvent.raise(this, item);
+    array.push(item);
+    itemAddedEvent.raise(this, item)
+  };
+  this.addRange = function(items) {
+    if(!(items instanceof Array)) {
+      return
+    }
+    var i;
+    for(i = 0;i < items.length;i++) {
+      itemAddingEvent.raise(this, items[i])
+    }
+    for(i = 0;i < items.length;i++) {
+      array.push(items[i]);
+      itemAddedEvent.raise(this, items[i])
+    }
+  };
+  this.contains = function(item) {
+    if(item === undefined || item === null) {
+      return false
+    }
+    for(var i = 0;i < array.length;i++) {
+      if(array[i] === item) {
+        return true
+      }
+    }
+    return false
+  };
+  this.count = function() {
+    return array.length
+  };
+  this.remove = function(item) {
+    for(var i = 0;i < array.length;i++) {
+      if(array[i] === item) {
+        array.splice(i, 1);
+        itemRemovedEvent.raise(this, item);
+        break
+      }
+    }
+  };
+  this.clear = function() {
+    var removedarray = this.toArray();
+    array.length = 0;
+    for(var i = 0;i < removedarray.length;i++) {
+      try {
+        itemRemovedEvent.raise(this, array[i])
+      }catch(err) {
+      }
+    }
+  };
+  this.toArray = function() {
+    var list = [];
+    for(var i = 0;i < array.length;i++) {
+      list.push(array[i])
+    }
+    return list
+  }
+};
+var lu = lu || {};
+lu.MouseButton = {none:0, left:1, middle:2, right:3};
+var lu = lu || {};
+lu.Point = function(x, y) {
+  Object.defineProperty(this, "x", {enumerable:true, get:getX});
+  function getX() {
+    return x
+  }
+  Object.defineProperty(this, "y", {enumerable:true, get:getY});
+  function getY() {
+    return y
+  }
+  this.toString = function() {
+    return"[" + x + "; " + y + "]"
+  };
+  (function initialize() {
+    if(typeof x !== "number") {
+      throw"x has to be a number.";
+    }
+    if(typeof y !== "number") {
+      throw"y has to be a number.";
+    }
+  }).call(this)
+};
+var lu = lu || {};
+lu.Rectangle = function(left, top, width, height) {
+  Object.defineProperty(this, "left", {enumerable:true, get:getLeft});
+  function getLeft() {
+    return left
+  }
+  Object.defineProperty(this, "top", {enumerable:true, get:getTop});
+  function getTop() {
+    return top
+  }
+  Object.defineProperty(this, "width", {enumerable:true, get:getWidth});
+  function getWidth() {
+    return width
+  }
+  Object.defineProperty(this, "height", {enumerable:true, get:getHeight});
+  function getHeight() {
+    return height
+  }
+  this.toString = function() {
+    return"[" + left.toString() + ", " + top.toString() + "] w\x3d" + width.toString() + "; h\x3d" + height.toString()
+  };
+  (function initialize() {
+    if(typeof left !== "number") {
+      throw"left has to be a number.";
+    }
+    if(typeof top !== "number") {
+      throw"top has to be a number.";
+    }
+    if(typeof width !== "number") {
+      throw"width has to be a number.";
+    }
+    if(typeof height !== "number") {
+      throw"height has to be a number.";
+    }
+  }).call(this)
+};
+var lu = lu || {};
+lu.TextUtil = function() {
+  function measureText(obj) {
+    if(!obj) {
+      return[0, 0]
+    }
+    var div = document.createElement("div");
+    div.innerHTML = obj.text;
+    div.style.position = "absolute";
+    div.style.top = "-100px";
+    div.style.left = "-100px";
+    div.style.font = obj.font;
+    div.style.fontWeight = obj.isBold ? "bold" : "normal";
+    div.style.fontStyle = obj.isItalic ? "italic" : "normal";
+    div.style.visibility = "hidden";
+    document.body.appendChild(div);
+    var size = [div.offsetWidth, div.offsetHeight];
+    document.body.removeChild(div);
+    return size
+  }
+  return{measureText:measureText}
+}();
+var lu = lu || {};
+lu.WeekDayNamesProvider = function() {
+  var weekDayShortNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  function getWeekDayName(weekDay) {
+    if(typeof weekDay !== "number") {
+      return""
+    }
+    return weekDayShortNames[weekDay]
+  }
+  return{getWeekDayName:getWeekDayName}
+}();
+var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.BiorhythmView = function(canvas) {
   var obj = this;
@@ -346,257 +597,6 @@ var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 Object.defineProperty(lu.bioControls, "version", {value:"2.0.0", writable:false, enumerable:true, configurable:false});
 var lu = lu || {};
-lu.DateUtil = {daysToMiliseconds:function(days) {
-  return days * 24 * 60 * 60 * 1E3
-}, addDays:function(date, daysToAdd) {
-  var miliseconds = daysToAdd * 24 * 60 * 60 * 1E3;
-  if(date instanceof Date) {
-    date = date.getTime()
-  }
-  if(typeof date !== "number") {
-    throw"date argument is not a real date.";
-  }
-  if(typeof daysToAdd !== "number") {
-    throw"daysToAdd should be a number.";
-  }
-  return new Date(date + miliseconds)
-}};
-var lu = lu || {};
-lu.DayLabelPosition = {top:0, aboveMiddle:1, belowMiddle:2, bottom:3};
-var lu = lu || {};
-lu.Event = function() {
-  var eventHandlers = [];
-  this.subscribe = subscribe;
-  function subscribe(eventHandler) {
-    if(typeof eventHandler !== "function") {
-      throw"eventHandler is not a function.";
-    }
-    eventHandlers.push(eventHandler)
-  }
-  this.unsubscribe = unsubscribe;
-  function unsubscribe(eventHandler) {
-    if(typeof eventHandler !== "function") {
-      throw"eventHandler is not a function.";
-    }
-    for(var i = 0;i < eventHandlers.length;i++) {
-      if(eventHandlers[i] === eventHandler) {
-        eventHandlers.splice(i, 1)
-      }
-    }
-  }
-  this.raise = function(sender, arg) {
-    for(var i = 0;i < eventHandlers.length;i++) {
-      eventHandlers[i].call(sender, arg)
-    }
-  };
-  Object.defineProperty(this, "client", {value:{subscribe:subscribe, unsubscribe:unsubscribe}, enumerable:true, configurable:false, writable:false})
-};
-var lu = lu || {};
-lu.Line = function(startPoint, endPoint) {
-  Object.defineProperty(this, "startPoint", {enumerable:true, get:getStartPoint});
-  function getStartPoint() {
-    return startPoint
-  }
-  Object.defineProperty(this, "endPoint", {enumerable:true, get:getEndPoint});
-  function getEndPoint() {
-    return endPoint
-  }
-  this.toString = function() {
-    return startPoint.toString() + " - " + endPoint.toString()
-  };
-  (function initialize() {
-    if(!(startPoint instanceof lu.Point)) {
-      throw"startPoint is undefined.";
-    }
-    if(!(endPoint instanceof lu.Point)) {
-      throw"endPoint is undefined.";
-    }
-  }).call(this)
-};
-var lu = lu || {};
-lu.LinePatternCalculator = {calculatePattern:function(lineStyle, lineWidth) {
-  switch(lineStyle) {
-    case lu.LineStyle.solid:
-      return null;
-    case lu.LineStyle.dot:
-      return[lineWidth * 1, lineWidth * 3];
-    case lu.LineStyle.dash:
-      return[lineWidth * 10, lineWidth * 5];
-    case lu.LineStyle.dashDot:
-      return[lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3];
-    case lu.LineStyle.dashDotDot:
-      return[lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3, lineWidth * 1, lineWidth * 3];
-    default:
-      return null
-  }
-}};
-var lu = lu || {};
-lu.LineStyle = {solid:0, dash:1, dot:2, dashDot:3, dashDotDot:4};
-var lu = lu || {};
-lu.List = function() {
-  var array = [];
-  var itemAddedEvent = new lu.Event;
-  this.itemAdded = itemAddedEvent.client;
-  var itemAddingEvent = new lu.Event;
-  this.itemAdding = itemAddingEvent.client;
-  var itemRemovedEvent = new lu.Event;
-  this.itemRemoved = itemRemovedEvent.client;
-  this.add = function(item) {
-    if(item === undefined || item === null) {
-      throw"item should be an object.";
-    }
-    itemAddingEvent.raise(this, item);
-    array.push(item);
-    itemAddedEvent.raise(this, item)
-  };
-  this.addRange = function(items) {
-    if(!(items instanceof Array)) {
-      return
-    }
-    var i;
-    for(i = 0;i < items.length;i++) {
-      itemAddingEvent.raise(this, items[i])
-    }
-    for(i = 0;i < items.length;i++) {
-      array.push(items[i]);
-      itemAddedEvent.raise(this, items[i])
-    }
-  };
-  this.contains = function(item) {
-    if(item === undefined || item === null) {
-      return false
-    }
-    for(var i = 0;i < array.length;i++) {
-      if(array[i] === item) {
-        return true
-      }
-    }
-    return false
-  };
-  this.count = function() {
-    return array.length
-  };
-  this.remove = function(item) {
-    for(var i = 0;i < array.length;i++) {
-      if(array[i] === item) {
-        array.splice(i, 1);
-        itemRemovedEvent.raise(this, item);
-        break
-      }
-    }
-  };
-  this.clear = function() {
-    var removedarray = this.toArray();
-    array.length = 0;
-    for(var i = 0;i < removedarray.length;i++) {
-      try {
-        itemRemovedEvent.raise(this, array[i])
-      }catch(err) {
-      }
-    }
-  };
-  this.toArray = function() {
-    var list = [];
-    for(var i = 0;i < array.length;i++) {
-      list.push(array[i])
-    }
-    return list
-  }
-};
-var lu = lu || {};
-lu.MouseButton = {none:0, left:1, middle:2, right:3};
-var lu = lu || {};
-lu.Point = function(x, y) {
-  Object.defineProperty(this, "x", {enumerable:true, get:getX});
-  function getX() {
-    return x
-  }
-  Object.defineProperty(this, "y", {enumerable:true, get:getY});
-  function getY() {
-    return y
-  }
-  this.toString = function() {
-    return"[" + x + "; " + y + "]"
-  };
-  (function initialize() {
-    if(typeof x !== "number") {
-      throw"x has to be a number.";
-    }
-    if(typeof y !== "number") {
-      throw"y has to be a number.";
-    }
-  }).call(this)
-};
-var lu = lu || {};
-lu.Rectangle = function(left, top, width, height) {
-  Object.defineProperty(this, "left", {enumerable:true, get:getLeft});
-  function getLeft() {
-    return left
-  }
-  Object.defineProperty(this, "top", {enumerable:true, get:getTop});
-  function getTop() {
-    return top
-  }
-  Object.defineProperty(this, "width", {enumerable:true, get:getWidth});
-  function getWidth() {
-    return width
-  }
-  Object.defineProperty(this, "height", {enumerable:true, get:getHeight});
-  function getHeight() {
-    return height
-  }
-  this.toString = function() {
-    return"[" + left.toString() + ", " + top.toString() + "] w\x3d" + width.toString() + "; h\x3d" + height.toString()
-  };
-  (function initialize() {
-    if(typeof left !== "number") {
-      throw"left has to be a number.";
-    }
-    if(typeof top !== "number") {
-      throw"top has to be a number.";
-    }
-    if(typeof width !== "number") {
-      throw"width has to be a number.";
-    }
-    if(typeof height !== "number") {
-      throw"height has to be a number.";
-    }
-  }).call(this)
-};
-var lu = lu || {};
-lu.TextUtil = function() {
-  function measureText(obj) {
-    if(!obj) {
-      return[0, 0]
-    }
-    var div = document.createElement("div");
-    div.innerHTML = obj.text;
-    div.style.position = "absolute";
-    div.style.top = "-100px";
-    div.style.left = "-100px";
-    div.style.font = obj.font;
-    div.style.fontWeight = obj.isBold ? "bold" : "normal";
-    div.style.fontStyle = obj.isItalic ? "italic" : "normal";
-    div.style.visibility = "hidden";
-    document.body.appendChild(div);
-    var size = [div.offsetWidth, div.offsetHeight];
-    document.body.removeChild(div);
-    return size
-  }
-  return{measureText:measureText}
-}();
-var lu = lu || {};
-lu.WeekDayNamesProvider = function() {
-  var weekDayShortNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-  function getWeekDayName(weekDay) {
-    if(typeof weekDay !== "number") {
-      return""
-    }
-    return weekDayShortNames[weekDay]
-  }
-  return{getWeekDayName:getWeekDayName}
-}();
-var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
@@ -668,23 +668,28 @@ lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
   })()
 };
 (function($) {
+  var widget = null;
   var $container = null;
   var biorhythmLegendItems = [];
   $.widget("lastunicorn.biorhythmLegend", {options:{biorhythms:[]}, _create:function() {
+    widget = this;
     $container = $(this.element);
+    repopulate()
+  }, _setOption:function(key, value) {
+    if(key === "biorhythms") {
+      unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
+      this._super(key, value);
+      subscribeToBiorhythmsEvents(this.options.biorhythms)
+    }
+  }});
+  function repopulate() {
     $container.empty();
     biorhythmLegendItems.length = 0;
-    var biorhythmsArray = getBiorhythmsArray(this.options.biorhythms);
+    var biorhythmsArray = getBiorhythmsArray(widget.options.biorhythms);
     for(var i = 0;i < biorhythmsArray.length;i++) {
       createNewItem(biorhythmsArray[i])
     }
-  }, _setOption:function(key, value) {
-    if(key === "biorhythms") {
-      unsubscribeFromBiorhythmsEvents(this.options.birhythms);
-      this._super(key, value);
-      subscribeToBiorhythmsEvents(this.options.birhythms)
-    }
-  }});
+  }
   function onBiorhithmAdded(biorhythmShape) {
     createNewItem(biorhythmShape)
   }
@@ -2382,9 +2387,14 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
   var $labelElement = null;
   var $valueElement = null;
   var currentXDay = null;
-  this.getElement = function() {
+  Object.defineProperty(this, "element", {enumerable:true, configurable:false, get:getElement});
+  function getElement() {
     return $element
-  };
+  }
+  Object.defineProperty(this, "biorhythmShape", {enumerable:true, configurable:false, get:getBiorhythmShape});
+  function getBiorhythmShape() {
+    return biorhythmShape
+  }
   this.update = function(xDay) {
     currentXDay = xDay;
     var percentage = calculatePercentage();
@@ -2463,46 +2473,78 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
     biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged)
   })()
 };
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
-lu.bioControls.xDayInfoView.XDayInfoView = function(biorhythmShapes, containerSelector) {
+(function($) {
+  var widget = null;
   var $container = null;
   var items = [];
-  this.populate = function() {
-    generateAndAddItems()
-  };
-  this.update = function(xDay) {
+  $.widget("lastunicorn.xDayInfoView", {_create:function() {
+    widget = this;
+    $container = $(this.element);
+    repopulate()
+  }, _setOption:function(key, value) {
+    if(key === "biorhythms") {
+      unsubscribeFromBiorhythmsEvents(this.options.biorhythms);
+      this._super(key, value);
+      repopulate();
+      subscribeToBiorhythmsEvents(this.options.biorhythms)
+    }
+  }, update:function(xDay) {
     for(var i = 0;i < items.length;i++) {
       items[i].update(xDay)
     }
-  };
-  function generateAndAddItems() {
+  }});
+  function repopulate() {
     $container.empty();
     items.length = 0;
-    for(var i = 0;i < biorhythmShapes.length;i++) {
-      generateAndAddItem(biorhythmShapes[i])
+    var biorhythmsArray = getBiorhythmsArray(widget.options.biorhythms);
+    for(var i = 0;i < biorhythmsArray.length;i++) {
+      createNewItem(biorhythmsArray[i])
     }
   }
-  function generateAndAddItem(biorhythmShape) {
-    var xDayInfoItem = new lu.bioControls.xDayInfoView.XDayInfoItem(biorhythmShape);
+  function onBiorhithmAdded(biorhythmShape) {
+    createNewItem(biorhythmShape)
+  }
+  function onBiorhithmRemoved(biorhythmShape) {
+    removeItem(biorhythmShape)
+  }
+  function createNewItem(biorhythm) {
+    var xDayInfoItem = new lu.bioControls.xDayInfoView.XDayInfoItem(biorhythm);
     items.push(xDayInfoItem);
-    var $itemElement = xDayInfoItem.getElement();
+    var $itemElement = xDayInfoItem.element;
     $container.append($itemElement)
   }
-  (function initialize() {
-    $container = $(containerSelector);
-    if($.type(biorhythmShapes) !== "array") {
-      return
+  function removeItem(biorhythm) {
+    for(var i = 0;i < items.length;i++) {
+      if(items[i].biorhythmShape === biorhythm) {
+        items.splice(i, 1);
+        items[i].element.remove()
+      }
     }
-  })()
-};
-(function($) {
-  var xDayInfoView = null;
-  $.widget("lastunicorn.xDayInfoView", {_create:function() {
-    xDayInfoView = new lu.bioControls.xDayInfoView.XDayInfoView(this.options.biorhythms, this.element);
-    xDayInfoView.populate()
-  }, update:function(xDay) {
-    xDayInfoView.update(xDay)
-  }})
+  }
+  function subscribeToBiorhythmsEvents(biorhythms) {
+    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
+      biorhythms.itemAdded.subscribe(onBiorhithmAdded)
+    }
+    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
+      biorhythms.itemRemoved.subscribe(onBiorhithmRemoved)
+    }
+  }
+  function unsubscribeFromBiorhythmsEvents(biorhythms) {
+    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
+      biorhythms.itemAdded.unsubscribe(onBiorhithmAdded)
+    }
+    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
+      biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved)
+    }
+  }
+  function getBiorhythmsArray(biorhythms) {
+    if(biorhythms instanceof Array) {
+      return biorhythms
+    }else {
+      if($.isFunction(biorhythms.toArray)) {
+        return biorhythms.toArray()
+      }
+    }
+    return[]
+  }
 })(jQuery);

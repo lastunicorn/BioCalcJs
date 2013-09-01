@@ -293,6 +293,14 @@
                 updateSaveBirthdayButtonVisibility();
                 updateResetBirthdayButtonVisibility();
                 updateXDayInfo();
+
+                $("#bioCanvasContainer2").biorhythmView({
+                    width: 900,
+                    height: 200,
+                    biorhythms: commonBiorhythmShapes,
+                    firstDayChanged: onBiorhythmViewFirstDayChanged,
+                    xDayIndexChanged: onBiorhythmViewXDayIndexChanged
+                });
             }
             finally {
                 biorhythmView.resumePaint();

@@ -273,6 +273,10 @@ lu.bioControls.biorhythmModel.CommonBiorhythmShapes = function() {
         }
     };
 
+    this.toArray = function() {
+        return getAll();
+    };
+
     (function initialize() {
         createBiorhythmShapes();
     }());

@@ -169,6 +169,10 @@ lu.bioControls.biorhythmView.Scroller = function(configuration) {
     // --------------------------------------------------------------------------
 
     (function initialize() {
+        if (!configuration.element) {
+            return;
+        }
+
         // FF doesn't recognize mousewheel as of FF3.x
         var mouseWheelEventName = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
 

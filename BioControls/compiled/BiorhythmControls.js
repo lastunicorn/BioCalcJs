@@ -997,6 +997,9 @@ lu.bioControls.biorhythmModel.CommonBiorhythmShapes = function() {
       biorhythms[i].biorhythm.birthday = birthday
     }
   };
+  this.toArray = function() {
+    return getAll()
+  };
   (function initialize() {
     createBiorhythmShapes()
   })()
@@ -1095,6 +1098,9 @@ lu.bioControls.biorhythmView.Scroller = function(configuration) {
     }
   }
   (function initialize() {
+    if(!configuration.element) {
+      return
+    }
     var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
     configuration.element.addEventListener("mousedown", onMouseDown, false);
     document.addEventListener("mousemove", onMouseMove, false);

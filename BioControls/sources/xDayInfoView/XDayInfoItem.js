@@ -1,4 +1,4 @@
-// BioCalc
+// BioControls
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
 /**
  * Represents an item in the XDayInfoView. It contains the value of one
@@ -24,9 +25,9 @@ lu.bioCalc = lu.bioCalc || {};
  * @param biorhythmShape
  *            The BiorhythmShape for which to display the X day information.
  * 
- * @returns {lu.bioCalc.XDayInfoItem}
+ * @returns {lu.bioControls.xDayInfoView.XDayInfoItem}
  */
-lu.bioCalc.XDayInfoItem = function(biorhythmShape) {
+lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
 
     var $element = null;
     var $colorElement = null;

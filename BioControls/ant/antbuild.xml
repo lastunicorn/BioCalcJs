@@ -57,6 +57,11 @@
 				<file name="WeekDayNameProvider.js" />
 			</sources>
 
+			<sources dir="${basedir}/sources/biorhythmLegend">
+				<file name="BiorhythmLegendItem.js" />
+				<file name="BiorhythmLegendWidget.js" />
+			</sources>
+
 			<sources dir="${basedir}/sources/biorhythmModel">
 				<file name="BiorhythmShape.js" />
 				<file name="BiorhythmShapesCreator.js" />
@@ -64,7 +69,26 @@
 				<file name="CommonBiorhythmShapes.js" />
 			</sources>
 
+			<sources dir="${basedir}/sources/biorhythms">
+				<file name="AverageBiorhythm.js" />
+				<file name="EmotionalBiorhythm.js" />
+				<file name="EstheticBiorhythm.js" />
+				<file name="IntellectualBiorhythm.js" />
+				<file name="IntuitiveBiorhythm.js" />
+				<file name="MasteryBiorhythm.js" />
+				<file name="PassionBiorhythm.js" />
+				<file name="PerceptionBiorhythm.js" />
+				<file name="PhysicalBiorhythm.js" />
+				<file name="PsychicBiorhythm.js" />
+				<file name="SelfAwarenessBiorhythm.js" />
+				<file name="SinusoidalBiorhythm.js" />
+				<file name="SpiritualBiorhythm.js" />
+				<file name="SuccessBiorhythm.js" />
+				<file name="WisdomBiorhythm.js" />
+			</sources>
+
 			<sources dir="${basedir}/sources/biorhythmView">
+				<file name="BiorhythmViewWidget.js" />
 				<file name="Scroller.js" />
 			</sources>
 
@@ -86,22 +110,10 @@
 				<file name="XDayMarkerPainter.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/biorhythms">
-				<file name="AverageBiorhythm.js" />
-				<file name="EmotionalBiorhythm.js" />
-				<file name="EstheticBiorhythm.js" />
-				<file name="IntellectualBiorhythm.js" />
-				<file name="IntuitiveBiorhythm.js" />
-				<file name="MasteryBiorhythm.js" />
-				<file name="PassionBiorhythm.js" />
-				<file name="PerceptionBiorhythm.js" />
-				<file name="PhysicalBiorhythm.js" />
-				<file name="PsychicBiorhythm.js" />
-				<file name="SelfAwarenessBiorhythm.js" />
-				<file name="SinusoidalBiorhythm.js" />
-				<file name="SpiritualBiorhythm.js" />
-				<file name="SuccessBiorhythm.js" />
-				<file name="WisdomBiorhythm.js" />
+			<sources dir="${basedir}/sources/xDayInfoView">
+				<file name="XDayInfoItem.js" />
+				<file name="XDayInfoView.js" />
+				<file name="XDayInfoViewWidget.js" />
 			</sources>
 
 		</jscomp>

@@ -598,6 +598,142 @@ lu.WeekDayNamesProvider = function() {
 }();
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
+lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
+  var $element = null;
+  var $legendColorTag = null;
+  var $legendLabelTag = null;
+  Object.defineProperty(this, "element", {enumerable:true, configurable:false, get:getElement});
+  function getElement() {
+    return $element
+  }
+  Object.defineProperty(this, "biorhythmShape", {enumerable:true, configurable:false, get:getBiorhythmShape});
+  function getBiorhythmShape() {
+    return biorhythmShape
+  }
+  function generate() {
+    var $div = $("\x3cdiv/\x3e");
+    $div.addClass("bio-legend-item");
+    $legendColorTag = generateLegendColorTag();
+    $legendLabelTag = generateLegendLabelTag();
+    $div.append($legendColorTag);
+    $div.append($legendLabelTag);
+    if(!biorhythmShape.isVisible) {
+      $div.hide()
+    }
+    return $div
+  }
+  function generateLegendColorTag() {
+    var $div = $("\x3cdiv/\x3e");
+    $div.addClass("color-label");
+    $div.css("background-color", biorhythmShape.color);
+    return $div
+  }
+  function generateLegendLabelTag() {
+    var $div = $("\x3cdiv/\x3e");
+    $div.addClass("bio-legend-label");
+    $div.text(biorhythmShape.biorhythm.name);
+    var biorhythmName = biorhythmShape.biorhythm.name;
+    var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
+    $div.colorpicker({inline:false, altField:$legendColorTag, altProperties:"background-color", buttonColorize:true, color:biorhythmShape.color, colorFormat:"#HEX", close:onColorPickerClosed, open:onColorPickerOpened, showOn:"click alt", title:title, parts:title ? "draggable" : "popup"});
+    return $div
+  }
+  function onColorPickerClosed(event, color) {
+    biorhythmShape.color = color.formatted
+  }
+  function onColorPickerOpened(event, color) {
+    $(this).colorpicker("setColor", biorhythmShape.color)
+  }
+  function onBiorhythmNameChanged(arg) {
+    $legendLabelTag.html(arg)
+  }
+  function onBiorhythmColorChanged(arg) {
+    $legendColorTag.css("background-color", arg)
+  }
+  function onBiorhythmVisibilityChanged(arg) {
+    if(arg) {
+      $element.show()
+    }else {
+      $element.hide()
+    }
+  }
+  (function initialize() {
+    $element = generate();
+    if(!(biorhythmShape instanceof lu.bioControls.biorhythmModel.BiorhythmShape)) {
+      return
+    }
+    biorhythmShape.nameChanged.subscribe(onBiorhythmNameChanged);
+    biorhythmShape.colorChanged.subscribe(onBiorhythmColorChanged);
+    biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged)
+  })()
+};
+(function($) {
+  var $container = null;
+  var biorhythmLegendItems = [];
+  $.widget("lastunicorn.biorhythmLegend", {options:{biorhythms:[]}, _create:function() {
+    $container = $(this.element);
+    $container.empty();
+    biorhythmLegendItems.length = 0;
+    var biorhythmsArray = getBiorhythmsArray(this.options.biorhythms);
+    for(var i = 0;i < biorhythmsArray.length;i++) {
+      createNewItem(biorhythmsArray[i])
+    }
+  }, _setOption:function(key, value) {
+    if(key === "biorhythms") {
+      unsubscribeFromBiorhythmsEvents(this.options.birhythms);
+      this._super(key, value);
+      subscribeToBiorhythmsEvents(this.options.birhythms)
+    }
+  }});
+  function onBiorhithmAdded(biorhythmShape) {
+    createNewItem(biorhythmShape)
+  }
+  function onBiorhithmRemoved(biorhythmShape) {
+    removeItem(biorhythmShape)
+  }
+  function createNewItem(biorhythm) {
+    var biorhythmLegendItem = new lu.bioControls.biorhythmLegend.BiorhythmLegendItem(biorhythm);
+    biorhythmLegendItems.push(biorhythmLegendItem);
+    var $legendItemTag = biorhythmLegendItem.element;
+    $container.prepend($legendItemTag)
+  }
+  function removeItem(biorhythm) {
+    for(var i = 0;i < biorhythmLegendItems.length;i++) {
+      if(biorhythmLegendItems[i].biorhythmShape === biorhythm) {
+        biorhythmLegendItems.splice(i, 1);
+        biorhythmLegendItems[i].element.remove()
+      }
+    }
+  }
+  function subscribeToBiorhythmsEvents(biorhythms) {
+    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
+      biorhythms.itemAdded.subscribe(onBiorhithmAdded)
+    }
+    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
+      biorhythms.itemRemoved.subscribe(onBiorhithmRemoved)
+    }
+  }
+  function unsubscribeFromBiorhythmsEvents(biorhythms) {
+    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
+      biorhythms.itemAdded.unsubscribe(onBiorhithmAdded)
+    }
+    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
+      biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved)
+    }
+  }
+  function getBiorhythmsArray(biorhythms) {
+    if(biorhythms instanceof Array) {
+      return biorhythms
+    }else {
+      if($.isFunction(biorhythms.toArray)) {
+        return biorhythms.toArray()
+      }
+    }
+    return[]
+  }
+})(jQuery);
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 lu.bioControls.biorhythmModel.BiorhythmShape = function() {
   var obj = this;
@@ -1004,6 +1140,685 @@ lu.bioControls.biorhythmModel.CommonBiorhythmShapes = function() {
     createBiorhythmShapes()
   })()
 };
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythmA.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythmA.birthday) {
+      return
+    }
+    biorhythmA.birthday = value;
+    biorhythmB.birthday = value
+  }
+  this.getValue = function(day) {
+    return(biorhythmA.getValue(day) + biorhythmB.getValue(day)) / 2
+  }
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.EmotionalBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Emotional", writable:false, enumerable:true, configurable:false});
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
+    return biorhythm.period
+  }
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(28)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.EstheticBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Esthetic", writable:false, enumerable:true, configurable:false});
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
+    return biorhythm.period
+  }
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(43)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.IntellectualBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Intellectual", writable:false, enumerable:true, configurable:false});
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
+    return biorhythm.period
+  }
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(33)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.IntuitiveBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Intuitive", writable:false, enumerable:true, configurable:false});
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
+    return biorhythm.period
+  }
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(38)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.MasteryBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Mastery", writable:false, enumerable:true, configurable:false});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm;
+    var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm;
+    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(physicalBiorhythm, intellectualBiorhythm)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.PassionBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Passion", writable:false, enumerable:true, configurable:false});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm;
+    var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm;
+    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(physicalBiorhythm, emotionalBiorhythm)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.PerceptionBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Perception", writable:false, enumerable:true, configurable:false});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm;
+    var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm;
+    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(physicalBiorhythm, intuitiveBiorhythm)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.PhysicalBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Physical", writable:false, enumerable:true, configurable:false});
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
+    return biorhythm.period
+  }
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(23)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.PsychicBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Psychic", writable:false, enumerable:true, configurable:false});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm;
+    var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm;
+    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(emotionalBiorhythm, intuitiveBiorhythm)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.SelfAwarenessBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Self Awareness", writable:false, enumerable:true, configurable:false});
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
+    return biorhythm.period
+  }
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(48)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
+  var birthday = Date(80, 5, 13);
+  var values = [];
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
+    return period
+  }
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return birthday
+  }
+  function setBirthday(value) {
+    if(typeof value !== "object" || !(value instanceof Date)) {
+      throw"birthday should be a Date.";
+    }
+    birthday = value
+  }
+  this.getValue = function(day) {
+    if(typeof day === "number") {
+      return getValueByIndex(day)
+    }
+    if(typeof day === "object" && day instanceof Date) {
+      return getValueByDate(day)
+    }
+    return 0
+  };
+  function getValueByIndex(dayIndex) {
+    if(period == 0) {
+      return 0
+    }
+    var index = dayIndex % period;
+    if(index < 0) {
+      index += period
+    }
+    return values[index]
+  }
+  function getValueByDate(date) {
+    var milisecondsLived = date - birthday;
+    var daysLived = Math.floor(milisecondsLived / 1E3 / 60 / 60 / 24);
+    return getValueByIndex(daysLived)
+  }
+  function generateValues() {
+    values = [];
+    for(var i = 0;i < period;i++) {
+      values[i] = Math.sin(i * 2 * Math.PI / period)
+    }
+  }
+  (function initialize() {
+    if(period !== undefined) {
+      if(typeof period !== "number") {
+        throw"period should be a number.";
+      }
+      generateValues()
+    }else {
+      period = 0
+    }
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.SpiritualBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Spiritual", writable:false, enumerable:true, configurable:false});
+  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
+  function getPeriod() {
+    return biorhythm.period
+  }
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(53)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.SuccessBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Success", writable:false, enumerable:true, configurable:false});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm;
+    var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm;
+    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(intellectualBiorhythm, intuitiveBiorhythm)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
+lu.bioControls.biorhythms.WisdomBiorhythm = function() {
+  var biorhythm = null;
+  var obj = this;
+  Object.defineProperty(this, "name", {value:"Wisdom", writable:false, enumerable:true, configurable:false});
+  var birthdayChangedEvent = new lu.Event;
+  this.birthdayChanged = birthdayChangedEvent.client;
+  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
+  function getBirthday() {
+    return biorhythm.birthday
+  }
+  function setBirthday(value) {
+    if(value === biorhythm.birthday) {
+      return
+    }
+    biorhythm.birthday = value;
+    birthdayChangedEvent.raise(obj, value)
+  }
+  this.getValue = function(day) {
+    return biorhythm.getValue(day)
+  };
+  (function initialize() {
+    var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm;
+    var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm;
+    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(emotionalBiorhythm, intellectualBiorhythm)
+  })()
+};
+(function($) {
+  var widget = null;
+  var $canvas = null;
+  var painter = null;
+  var paintSuspendCount = 0;
+  $.widget("lastunicorn.biorhythmView", {options:{width:800, height:200, biorhythms:[], firstDay:lu.DateUtil.addDays(Date.now(), -7), isGridVisible:true, totalDays:30, xDayIndex:7, gridColor:"#d3d3d3", areDayNumbersVisible:true, areWeekDaysVisible:true, dayNumbersPosition:lu.DayLabelPosition.top, weekDaysPosition:lu.DayLabelPosition.bottom, areSundaysEmphasized:true, foreColor:"#b0b0b0", sundaysColor:"#ff0000", font:"12px Arial", sundaysFont:"italic 12px Arial", todayBackColor:"#ffe4b5", isXDayVisible:true, 
+  xDayBorderColor:"#000000", xDayBorderWidth:2}, _create:function() {
+    widget = this;
+    $canvas = createCanvasElement();
+    this.element.append($canvas);
+    new lu.bioControls.biorhythmView.Scroller({element:$canvas[0], onDragStart:onDragStart, onDrag:onDrag});
+    painter = new lu.bioControls.biorhythmView.painting.BiorhythmViewPainter;
+    subscribeToBiorhythmsEvents(this.options.biorhythms);
+    paint()
+  }, _setOption:function(key, value) {
+    suspendPaint();
+    try {
+      if(key === "biorhythms") {
+        unsubscribeFromBiorhythmsEvents(this.options.birhythms);
+        this._super(key, value);
+        subscribeToBiorhythmsEvents(this.options.birhythms)
+      }
+      if(key === "firstDay") {
+        this._super(key, value);
+        this._trigger("firstDayChanged", null, {value:this.options.firstDay})
+      }
+      if(key === "isGridVisible") {
+        this._super(key, value);
+        this._trigger("isGridVisibleChanged", null, {value:this.options.isGridVisible})
+      }
+      if(key === "totalDays") {
+        this._super(key, value);
+        this._trigger("totalDaysChanged", null, {value:this.options.totalDays})
+      }
+      if(key === "xDayIndex") {
+        this._super(key, value);
+        this._trigger("xDayIndexChanged", null, {value:this.options.xDayIndex})
+      }
+      if(key === "gridColor") {
+        this._super(key, value);
+        this._trigger("gridColorChanged", null, {value:this.options.gridColor})
+      }
+      if(key === "areDayNumbersVisible") {
+        this._super(key, value);
+        this._trigger("areDayNumbersVisibleChanged", null, {value:this.options.areDayNumbersVisible})
+      }
+      if(key === "areWeekDaysVisible") {
+        this._super(key, value);
+        this._trigger("areWeekDaysVisibleChanged", null, {value:this.options.areWeekDaysVisible})
+      }
+      if(key === "dayNumbersPosition") {
+        this._super(key, value);
+        this._trigger("dayNumbersPositionChanged", null, {value:this.options.dayNumbersPosition})
+      }
+      if(key === "weekDaysPosition") {
+        this._super(key, value);
+        this._trigger("weekDaysPositionChanged", null, {value:this.options.weekDaysPosition})
+      }
+      if(key === "areSundaysEmphasized") {
+        this._super(key, value);
+        this._trigger("areSundaysEmphasizedChanged", null, {value:this.options.areSundaysEmphasized})
+      }
+      if(key === "foreColor") {
+        this._super(key, value);
+        this._trigger("foreColorChanged", null, {value:this.options.foreColor})
+      }
+      if(key === "sundaysColor") {
+        this._super(key, value);
+        this._trigger("sundaysColorChanged", null, {value:this.options.sundaysColor})
+      }
+      if(key === "font") {
+        this._super(key, value);
+        this._trigger("fontChanged", null, {value:this.options.font})
+      }
+      if(key === "sundaysFont") {
+        this._super(key, value);
+        this._trigger("sundaysFontChanged", null, {value:this.options.sundaysFont})
+      }
+      if(key === "todayBackColor") {
+        this._super(key, value);
+        this._trigger("todayBackColorChanged", null, {value:this.options.todayBackColor})
+      }
+      if(key === "isXDayVisible") {
+        this._super(key, value);
+        this._trigger("isXDayVisibleChanged", null, {value:this.options.isXDayVisible})
+      }
+      if(key === "xDayBorderColor") {
+        this._super(key, value);
+        this._trigger("xDayBorderColorChanged", null, {value:this.options.xDayBorderColor})
+      }
+      if(key === "xDayBorderWidth") {
+        this._super(key, value);
+        this._trigger("xDayBorderWidthChanged", null, {value:this.options.xDayBorderWidth})
+      }
+    }finally {
+      resumePaint()
+    }
+  }, suspendPaint:suspendPaint, resumePaint:resumePaint});
+  function createCanvasElement() {
+    var $canvas = $("\x3ccanvas/\x3e");
+    $canvas.attr({"tabindex":"1", "width":widget.options.width, "height":widget.options.height});
+    return $canvas
+  }
+  function unsubscribeFromBiorhythmsEvents(biorhythms) {
+    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.unsubscribe) {
+      biorhythms.itemAdded.unsubscribe(onBiorhithmAdded)
+    }
+    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.unsubscribe) {
+      biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved)
+    }
+    var biorhythmsArray = getBiorhythmsArray(biorhythms);
+    for(var i = 0;i < biorhythmsArray.length;i++) {
+      unsubscribeFromBiorhythmEvents(biorhythmsArray[i])
+    }
+  }
+  function subscribeToBiorhythmsEvents(biorhythms) {
+    if(biorhythms && biorhythms.itemAdded && biorhythms.itemAdded.subscribe) {
+      biorhythms.itemAdded.subscribe(onBiorhithmAdded)
+    }
+    if(biorhythms && biorhythms.itemRemoved && biorhythms.itemRemoved.subscribe) {
+      biorhythms.itemRemoved.subscribe(onBiorhithmRemoved)
+    }
+    var biorhythmsArray = getBiorhythmsArray(biorhythms);
+    for(var i = 0;i < biorhythmsArray.length;i++) {
+      subscribeToBiorhythmEvents(biorhythmsArray[i])
+    }
+  }
+  function subscribeToBiorhythmEvents(biorhythmShape) {
+    biorhythmShape.nameChanged.subscribe(onBiorhithmShapeChanged);
+    biorhythmShape.birthdayChanged.subscribe(onBiorhithmShapeChanged);
+    biorhythmShape.biorhythmChanged.subscribe(onBiorhithmShapeChanged);
+    biorhythmShape.colorChanged.subscribe(onBiorhithmShapeChanged);
+    biorhythmShape.isVisibleChanged.subscribe(onBiorhithmShapeChanged);
+    biorhythmShape.lineWidthChanged.subscribe(onBiorhithmShapeChanged);
+    biorhythmShape.lineStyleChanged.subscribe(onBiorhithmShapeChanged)
+  }
+  function onBiorhithmAdded(biorhythmShape) {
+    subscribeToBiorhythmEvents(biorhythmShape);
+    biorhythmAddedEvent.raise(obj, biorhythmShape);
+    paint()
+  }
+  function unsubscribeFromBiorhythmEvents(biorhythmShape) {
+    biorhythmShape.nameChanged.unsubscribe(onBiorhithmShapeChanged);
+    biorhythmShape.birthdayChanged.unsubscribe(onBiorhithmShapeChanged);
+    biorhythmShape.biorhythmChanged.unsubscribe(onBiorhithmShapeChanged);
+    biorhythmShape.colorChanged.unsubscribe(onBiorhithmShapeChanged);
+    biorhythmShape.isVisibleChanged.unsubscribe(onBiorhithmShapeChanged);
+    biorhythmShape.lineWidthChanged.unsubscribe(onBiorhithmShapeChanged);
+    biorhythmShape.lineStyleChanged.unsubscribe(onBiorhithmShapeChanged)
+  }
+  function onBiorhithmRemoved(biorhythmShape) {
+    subscribeToBiorhythmEvents(biorhythmShape);
+    biorhythmRemovedEvent.raise(obj, biorhythmShape);
+    paint()
+  }
+  function onBiorhithmShapeChanged() {
+    paint()
+  }
+  function getBiorhythmsArray(biorhythms) {
+    if(biorhythms instanceof Array) {
+      return biorhythms
+    }else {
+      if($.isFunction(biorhythms.toArray)) {
+        return biorhythms.toArray()
+      }
+    }
+    return[]
+  }
+  function suspendPaint() {
+    paintSuspendCount++
+  }
+  function resumePaint() {
+    if(paintSuspendCount > 0) {
+      paintSuspendCount--
+    }
+    if(paintSuspendCount == 0) {
+      paint()
+    }
+  }
+  function paint() {
+    if(paintSuspendCount > 0) {
+      return
+    }
+    if(!$canvas[0].getContext) {
+      return
+    }
+    var rawPaintData = {biorhythmShapes:getBiorhythmsArray(widget.options.biorhythms), firstDay:widget.options.firstDay, totalDays:widget.options.totalDays, xDayIndex:widget.options.xDayIndex, isXDayVisible:widget.options.isXDayVisible, xDayBorderColor:widget.options.xDayBorderColor, xDayBorderWidth:widget.options.xDayBorderWidth, gridColor:widget.options.gridColor, isGridVisible:widget.options.isGridVisible, todayBackColor:widget.options.todayBackColor, areDayNumbersVisible:widget.options.areDayNumbersVisible, 
+    areWeekDaysVisible:widget.options.areWeekDaysVisible, dayNumbersPosition:widget.options.dayNumbersPosition, weekDaysPosition:widget.options.weekDaysPosition, areSundaysEmphasized:widget.options.areSundaysEmphasized, foreColor:widget.options.foreColor, sundaysColor:widget.options.sundaysColor, font:widget.options.font, sundaysFont:widget.options.sundaysFont};
+    var context = $canvas[0].getContext("2d");
+    var rectangle = new lu.Rectangle(0, 0, $canvas[0].width, $canvas[0].height);
+    painter.paint(rawPaintData, context, rectangle)
+  }
+  function incrementFirstDay(value) {
+    var date = new Date(widget.options.firstDay.getTime());
+    date.setDate(date.getDate() + value);
+    widget.option("firstDay", date)
+  }
+  function onDrag(evt) {
+    if(evt.isAlternative) {
+      widget.option("xDayIndex", widget.options.xDayIndex + evt.steps)
+    }else {
+      incrementFirstDay(-evt.steps)
+    }
+  }
+  function onDragStart(evt) {
+    evt.stepLength = $canvas[0].width / widget.options.totalDays
+  }
+})(jQuery);
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
@@ -1560,472 +2375,134 @@ lu.bioControls.biorhythmView.painting.XDayMarkerPainter = function() {
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythmA.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythmA.birthday) {
-      return
-    }
-    biorhythmA.birthday = value;
-    biorhythmB.birthday = value
-  }
-  this.getValue = function(day) {
-    return(biorhythmA.getValue(day) + biorhythmB.getValue(day)) / 2
-  }
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.EmotionalBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Emotional", writable:false, enumerable:true, configurable:false});
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  function getPeriod() {
-    return biorhythm.period
-  }
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
+lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
+lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
+  var $element = null;
+  var $colorElement = null;
+  var $labelElement = null;
+  var $valueElement = null;
+  var currentXDay = null;
+  this.getElement = function() {
+    return $element
   };
-  (function initialize() {
-    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(28)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.EstheticBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Esthetic", writable:false, enumerable:true, configurable:false});
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  function getPeriod() {
-    return biorhythm.period
-  }
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
+  this.update = function(xDay) {
+    currentXDay = xDay;
+    var percentage = calculatePercentage();
+    $valueElement.text(formatPercentage(percentage))
   };
-  (function initialize() {
-    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(43)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.IntellectualBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Intellectual", writable:false, enumerable:true, configurable:false});
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  function getPeriod() {
-    return biorhythm.period
-  }
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
+  function generate() {
+    var $item = $("\x3cdiv/\x3e");
+    $item.addClass("x-day-item");
+    $colorElement = generateColorTag();
+    $labelElement = generateLabelTag();
+    $valueElement = generateValueTag();
+    $item.append($colorElement);
+    $item.append($labelElement);
+    $item.append(" \x3d ");
+    $item.append($valueElement);
+    if(!biorhythmShape.isVisible) {
+      $item.hide()
     }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
+    return $item
   }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(33)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.IntuitiveBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Intuitive", writable:false, enumerable:true, configurable:false});
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  function getPeriod() {
-    return biorhythm.period
+  function generateColorTag() {
+    var $item = $("\x3cspan/\x3e");
+    $item.addClass("color-label");
+    $item.css("background-color", biorhythmShape.color);
+    return $item
   }
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
+  function generateLabelTag() {
+    var $div = $("\x3cspan/\x3e");
+    $div.text(biorhythmShape.biorhythm.name);
+    return $div
   }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
+  function generateValueTag() {
+    var $item = $("\x3cspan/\x3e");
+    var percentage = calculatePercentage();
+    $item.text(formatPercentage(percentage));
+    return $item
   }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(38)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.MasteryBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Mastery", writable:false, enumerable:true, configurable:false});
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm;
-    var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm;
-    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(physicalBiorhythm, intellectualBiorhythm)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.PassionBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Passion", writable:false, enumerable:true, configurable:false});
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm;
-    var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm;
-    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(physicalBiorhythm, emotionalBiorhythm)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.PerceptionBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Perception", writable:false, enumerable:true, configurable:false});
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm;
-    var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm;
-    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(physicalBiorhythm, intuitiveBiorhythm)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.PhysicalBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Physical", writable:false, enumerable:true, configurable:false});
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  function getPeriod() {
-    return biorhythm.period
-  }
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(23)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.PsychicBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Psychic", writable:false, enumerable:true, configurable:false});
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm;
-    var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm;
-    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(emotionalBiorhythm, intuitiveBiorhythm)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.SelfAwarenessBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Self Awareness", writable:false, enumerable:true, configurable:false});
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  function getPeriod() {
-    return biorhythm.period
-  }
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(48)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
-  var birthday = Date(80, 5, 13);
-  var values = [];
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  function getPeriod() {
-    return period
-  }
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return birthday
-  }
-  function setBirthday(value) {
-    if(typeof value !== "object" || !(value instanceof Date)) {
-      throw"birthday should be a Date.";
-    }
-    birthday = value
-  }
-  this.getValue = function(day) {
-    if(typeof day === "number") {
-      return getValueByIndex(day)
-    }
-    if(typeof day === "object" && day instanceof Date) {
-      return getValueByDate(day)
-    }
-    return 0
-  };
-  function getValueByIndex(dayIndex) {
-    if(period == 0) {
-      return 0
-    }
-    var index = dayIndex % period;
-    if(index < 0) {
-      index += period
-    }
-    return values[index]
-  }
-  function getValueByDate(date) {
-    var milisecondsLived = date - birthday;
+  function calculatePercentage() {
+    var biorhythm = biorhythmShape.biorhythm;
+    var milisecondsLived = currentXDay - biorhythmShape.birthday;
     var daysLived = Math.floor(milisecondsLived / 1E3 / 60 / 60 / 24);
-    return getValueByIndex(daysLived)
+    var value = biorhythm.getValue(daysLived);
+    var percentage = value * 100;
+    return Math.round(percentage)
   }
-  function generateValues() {
-    values = [];
-    for(var i = 0;i < period;i++) {
-      values[i] = Math.sin(i * 2 * Math.PI / period)
-    }
-  }
-  (function initialize() {
-    if(period !== undefined) {
-      if(typeof period !== "number") {
-        throw"period should be a number.";
-      }
-      generateValues()
+  function formatPercentage(value) {
+    if(typeof value === "number") {
+      return value.toString() + "%"
     }else {
-      period = 0
+      return"?%"
     }
+  }
+  function onBiorhythmNameChanged(arg) {
+    $labelElement.text(arg)
+  }
+  function onBiorhythmColorChanged(arg) {
+    $colorElement.css("background-color", arg)
+  }
+  function onBiorhythmVisibilityChanged(arg) {
+    if($element) {
+      if(arg) {
+        $element.show()
+      }else {
+        $element.hide()
+      }
+    }
+  }
+  (function initialize() {
+    currentXDay = biorhythmShape.birthday;
+    $element = generate();
+    if(!(biorhythmShape instanceof lu.bioControls.biorhythmModel.BiorhythmShape)) {
+      return
+    }
+    biorhythmShape.nameChanged.subscribe(onBiorhythmNameChanged);
+    biorhythmShape.colorChanged.subscribe(onBiorhythmColorChanged);
+    biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged)
   })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.SpiritualBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Spiritual", writable:false, enumerable:true, configurable:false});
-  Object.defineProperty(this, "period", {enumerable:true, configurable:false, get:getPeriod});
-  function getPeriod() {
-    return biorhythm.period
+lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
+lu.bioControls.xDayInfoView.XDayInfoView = function(biorhythmShapes, containerSelector) {
+  var $container = null;
+  var items = [];
+  this.populate = function() {
+    generateAndAddItems()
+  };
+  this.update = function(xDay) {
+    for(var i = 0;i < items.length;i++) {
+      items[i].update(xDay)
+    }
+  };
+  function generateAndAddItems() {
+    $container.empty();
+    items.length = 0;
+    for(var i = 0;i < biorhythmShapes.length;i++) {
+      generateAndAddItem(biorhythmShapes[i])
+    }
   }
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
+  function generateAndAddItem(biorhythmShape) {
+    var xDayInfoItem = new lu.bioControls.xDayInfoView.XDayInfoItem(biorhythmShape);
+    items.push(xDayInfoItem);
+    var $itemElement = xDayInfoItem.getElement();
+    $container.append($itemElement)
   }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
+  (function initialize() {
+    $container = $(containerSelector);
+    if($.type(biorhythmShapes) !== "array") {
       return
     }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(53)
   })()
 };
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.SuccessBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Success", writable:false, enumerable:true, configurable:false});
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm;
-    var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm;
-    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(intellectualBiorhythm, intuitiveBiorhythm)
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
-lu.bioControls.biorhythms.WisdomBiorhythm = function() {
-  var biorhythm = null;
-  var obj = this;
-  Object.defineProperty(this, "name", {value:"Wisdom", writable:false, enumerable:true, configurable:false});
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    if(value === biorhythm.birthday) {
-      return
-    }
-    biorhythm.birthday = value;
-    birthdayChangedEvent.raise(obj, value)
-  }
-  this.getValue = function(day) {
-    return biorhythm.getValue(day)
-  };
-  (function initialize() {
-    var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm;
-    var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm;
-    biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(emotionalBiorhythm, intellectualBiorhythm)
-  })()
-};
+(function($) {
+  var xDayInfoView = null;
+  $.widget("lastunicorn.xDayInfoView", {_create:function() {
+    xDayInfoView = new lu.bioControls.xDayInfoView.XDayInfoView(this.options.biorhythms, this.element);
+    xDayInfoView.populate()
+  }, update:function(xDay) {
+    xDayInfoView.update(xDay)
+  }})
+})(jQuery);

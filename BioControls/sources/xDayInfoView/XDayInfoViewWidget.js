@@ -1,4 +1,4 @@
-// BioCalc
+// BioControls
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 
     $.widget("lastunicorn.xDayInfoView", {
         _create: function() {
-            xDayInfoView = new lu.bioCalc.XDayInfoView(this.options.biorhythms, this.element);
+            xDayInfoView = new lu.bioControls.xDayInfoView.XDayInfoView(this.options.biorhythms, this.element);
             xDayInfoView.populate();
         },
 

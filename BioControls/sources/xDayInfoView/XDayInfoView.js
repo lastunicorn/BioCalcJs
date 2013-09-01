@@ -1,4 +1,4 @@
-// BioCalc
+// BioControls
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
 /**
  * Displays in a container the percentage for each biorhythm in a list for a
@@ -27,9 +28,9 @@ lu.bioCalc = lu.bioCalc || {};
  * @param containerSelector
  *            The jQuery selector of the continer in which to display the data.
  * 
- * @returns {lu.bioCalc.XDayInfoView}
+ * @returns {lu.bioControls.xDayInfoView.XDayInfoView}
  */
-lu.bioCalc.XDayInfoView = function(biorhythmShapes, containerSelector) {
+lu.bioControls.xDayInfoView.XDayInfoView = function(biorhythmShapes, containerSelector) {
 
     var $container = null;
     var items = [];
@@ -54,7 +55,7 @@ lu.bioCalc.XDayInfoView = function(biorhythmShapes, containerSelector) {
     }
 
     function generateAndAddItem(biorhythmShape) {
-        var xDayInfoItem = new lu.bioCalc.XDayInfoItem(biorhythmShape);
+        var xDayInfoItem = new lu.bioControls.xDayInfoView.XDayInfoItem(biorhythmShape);
         items.push(xDayInfoItem);
 
         var $itemElement = xDayInfoItem.getElement();

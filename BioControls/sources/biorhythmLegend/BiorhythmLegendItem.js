@@ -1,4 +1,4 @@
-﻿// BioCalc
+﻿// BioControls
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,17 +15,34 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
-lu.bioCalc.BiorhythmLegendItem = function(biorhythmShape) {
+lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
 
     var $element = null;
     var $legendColorTag = null;
     var $legendLabelTag = null;
 
-    this.getElement = function() {
+    Object.defineProperty(this, "element", {
+        enumerable: true,
+        configurable: false,
+        get: getElement
+    });
+
+    function getElement() {
         return $element;
-    };
+    }
+
+    Object.defineProperty(this, "biorhythmShape", {
+        enumerable: true,
+        configurable: false,
+        get: getBiorhythmShape
+    });
+
+    function getBiorhythmShape() {
+        return biorhythmShape;
+    }
 
     function generate() {
         var $div = $("<div/>");

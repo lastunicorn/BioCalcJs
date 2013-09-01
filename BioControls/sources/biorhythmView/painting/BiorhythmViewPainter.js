@@ -48,7 +48,7 @@ lu.bioControls.biorhythmView.painting.BiorhythmViewPainter = function() {
         rect = rectangle;
         context = canvasContext;
 
-        var paintDataCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.PaintDataCalculator();
+        var paintDataCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.PaintDataCalculator();
         var dataToPaint = paintDataCalculator.calculate(rawPaintData, rect);
 
         paintAll(dataToPaint);

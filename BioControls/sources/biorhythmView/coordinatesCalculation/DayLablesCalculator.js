@@ -17,9 +17,9 @@
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
-lu.bioControls.biorhythmView.paintDataCalculation = lu.bioControls.biorhythmView.paintDataCalculation || {};
+lu.bioControls.biorhythmView.coordinatesCalculation = lu.bioControls.biorhythmView.coordinatesCalculation || {};
 
-lu.bioControls.biorhythmView.paintDataCalculation.DayLablesCalculator = function() {
+lu.bioControls.biorhythmView.coordinatesCalculation.DayLablesCalculator = function() {
 
     var rawPaintData = null;
     var rect = null;

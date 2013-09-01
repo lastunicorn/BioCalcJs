@@ -16,6 +16,7 @@
 
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 
 /**
  * Implements the functionality of horizontal scrolling for an html element. It
@@ -37,7 +38,7 @@ lu.bioControls = lu.bioControls || {};
  *            Method called when the user drags the mouse left or right the
  *            number of pixels specified when the drag process was started.
  */
-lu.bioControls.Scroller = function(configuration) {
+lu.bioControls.biorhythmView.Scroller = function(configuration) {
 
     var defaultStepLength = 1;
     var stepLength = 1;

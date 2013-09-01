@@ -17,9 +17,9 @@
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
-lu.bioControls.biorhythmView.paintDataCalculation = lu.bioControls.biorhythmView.paintDataCalculation || {};
+lu.bioControls.biorhythmView.coordinatesCalculation = lu.bioControls.biorhythmView.coordinatesCalculation || {};
 
-lu.bioControls.biorhythmView.paintDataCalculation.PaintDataCalculator = function() {
+lu.bioControls.biorhythmView.coordinatesCalculation.PaintDataCalculator = function() {
 
     var biorhythmCurvesCalculator = null;
     var gridLinesCalculator = null;
@@ -46,10 +46,10 @@ lu.bioControls.biorhythmView.paintDataCalculation.PaintDataCalculator = function
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        biorhythmCurvesCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.BiorhythmCurvesCalculator();
-        gridLinesCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.GridLinesCalculator();
-        dayLabelsCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.DayLablesCalculator();
-        todayMarkerCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.TodayMarkerCalculator();
-        xDayMarkerCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.XDayMarkerCalculator();
+        biorhythmCurvesCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.BiorhythmCurvesCalculator();
+        gridLinesCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.GridLinesCalculator();
+        dayLabelsCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.DayLablesCalculator();
+        todayMarkerCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.TodayMarkerCalculator();
+        xDayMarkerCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.XDayMarkerCalculator();
     }());
 };

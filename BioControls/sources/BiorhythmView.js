@@ -707,7 +707,7 @@ lu.bioControls.BiorhythmView = function(canvas) {
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        scroller = new lu.bioControls.Scroller({
+        scroller = new lu.bioControls.biorhythmView.Scroller({
             element: canvas,
             onDragStart: onDragStart,
             onDrag: onDrag

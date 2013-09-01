@@ -336,114 +336,10 @@ lu.bioControls.BiorhythmView = function(canvas) {
     evt.stepLength = canvas.width / totalDays
   }
   (function initialize() {
-    scroller = new lu.bioControls.Scroller({element:canvas, onDragStart:onDragStart, onDrag:onDrag});
+    scroller = new lu.bioControls.biorhythmView.Scroller({element:canvas, onDragStart:onDragStart, onDrag:onDrag});
     biorhythms.itemAdded.subscribe(onBiorhithmAdded);
     biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
     painter = new lu.bioControls.biorhythmView.painting.BiorhythmViewPainter
-  })()
-};
-var lu = lu || {};
-lu.bioControls = lu.bioControls || {};
-lu.bioControls.Scroller = function(configuration) {
-  var defaultStepLength = 1;
-  var stepLength = 1;
-  var isCtrlPressed = false;
-  var buttonPressed = lu.MouseButton.none;
-  var currentDayIndex = 0;
-  var isDragging = false;
-  function raiseOnDragStart(arg) {
-    if(typeof configuration.onDragStart === "function") {
-      configuration.onDragStart(arg)
-    }
-  }
-  function raiseOnDrag(arg) {
-    if(typeof configuration.onDrag === "function") {
-      configuration.onDrag(arg)
-    }
-  }
-  function calculateStepLength() {
-    var arg = {};
-    raiseOnDragStart(arg);
-    if(typeof arg.stepLength === "number") {
-      return arg.stepLength
-    }else {
-      return defaultStepLength
-    }
-  }
-  function onMouseDown(evt) {
-    var isLeftOrRightButton = evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right;
-    if(!isLeftOrRightButton) {
-      return
-    }
-    var rect = configuration.element.getBoundingClientRect();
-    var clickX = evt.clientX - rect.left;
-    stepLength = calculateStepLength();
-    currentDayIndex = Math.floor(clickX / stepLength);
-    buttonPressed = evt.which;
-    isDragging = true
-  }
-  function onMouseMove(evt) {
-    if(!isDragging) {
-      return
-    }
-    evt.preventDefault();
-    evt.stopPropagation();
-    var rect = configuration.element.getBoundingClientRect();
-    var clickX = evt.clientX - rect.left;
-    var index = Math.floor(clickX / stepLength);
-    var steps = index - currentDayIndex;
-    if(steps == 0) {
-      return
-    }
-    currentDayIndex = index;
-    var isAlternative = isCtrlPressed || buttonPressed === lu.MouseButton.right;
-    raiseOnDrag({steps:steps, isAlternative:isAlternative})
-  }
-  function onMouseUp(evt) {
-    if(isDragging) {
-      isDragging = false;
-      buttonPressed = lu.MouseButton.none
-    }else {
-      evt.preventDefault();
-      evt.stopPropagation()
-    }
-  }
-  function onWheel(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
-    var delta = evt.detail ? evt.detail : evt.wheelDelta / -120;
-    raiseOnDrag({steps:delta, isAlternative:false})
-  }
-  function onKeyDown(evt) {
-    if(evt.keyCode === 17) {
-      isCtrlPressed = true
-    }
-  }
-  function onKeyUp(evt) {
-    if(evt.keyCode === 17) {
-      isCtrlPressed = false
-    }
-  }
-  function onContextMenu(evt) {
-    evt.preventDefault();
-    evt.stopPropagation()
-  }
-  function onSelectStart(evt) {
-    if(isDragging) {
-      evt.preventDefault();
-      evt.stopPropagation()
-    }
-  }
-  (function initialize() {
-    var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
-    configuration.element.addEventListener("mousedown", onMouseDown, false);
-    document.addEventListener("mousemove", onMouseMove, false);
-    document.addEventListener("mouseup", onMouseUp, false);
-    configuration.element.addEventListener(mouseWheelEventName, onWheel, false);
-    document.addEventListener("keydown", onKeyDown, false);
-    document.addEventListener("keyup", onKeyUp, false);
-    configuration.element.addEventListener("contextmenu", onContextMenu, false);
-    document.addEventListener("selectstart", onSelectStart, false)
   })()
 };
 var lu = lu || {};
@@ -1108,8 +1004,113 @@ lu.bioControls.biorhythmModel.CommonBiorhythmShapes = function() {
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
-lu.bioControls.biorhythmView.paintDataCalculation = lu.bioControls.biorhythmView.paintDataCalculation || {};
-lu.bioControls.biorhythmView.paintDataCalculation.BiorhythmCurvesCalculator = function() {
+lu.bioControls.biorhythmView.Scroller = function(configuration) {
+  var defaultStepLength = 1;
+  var stepLength = 1;
+  var isCtrlPressed = false;
+  var buttonPressed = lu.MouseButton.none;
+  var currentDayIndex = 0;
+  var isDragging = false;
+  function raiseOnDragStart(arg) {
+    if(typeof configuration.onDragStart === "function") {
+      configuration.onDragStart(arg)
+    }
+  }
+  function raiseOnDrag(arg) {
+    if(typeof configuration.onDrag === "function") {
+      configuration.onDrag(arg)
+    }
+  }
+  function calculateStepLength() {
+    var arg = {};
+    raiseOnDragStart(arg);
+    if(typeof arg.stepLength === "number") {
+      return arg.stepLength
+    }else {
+      return defaultStepLength
+    }
+  }
+  function onMouseDown(evt) {
+    var isLeftOrRightButton = evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right;
+    if(!isLeftOrRightButton) {
+      return
+    }
+    var rect = configuration.element.getBoundingClientRect();
+    var clickX = evt.clientX - rect.left;
+    stepLength = calculateStepLength();
+    currentDayIndex = Math.floor(clickX / stepLength);
+    buttonPressed = evt.which;
+    isDragging = true
+  }
+  function onMouseMove(evt) {
+    if(!isDragging) {
+      return
+    }
+    evt.preventDefault();
+    evt.stopPropagation();
+    var rect = configuration.element.getBoundingClientRect();
+    var clickX = evt.clientX - rect.left;
+    var index = Math.floor(clickX / stepLength);
+    var steps = index - currentDayIndex;
+    if(steps == 0) {
+      return
+    }
+    currentDayIndex = index;
+    var isAlternative = isCtrlPressed || buttonPressed === lu.MouseButton.right;
+    raiseOnDrag({steps:steps, isAlternative:isAlternative})
+  }
+  function onMouseUp(evt) {
+    if(isDragging) {
+      isDragging = false;
+      buttonPressed = lu.MouseButton.none
+    }else {
+      evt.preventDefault();
+      evt.stopPropagation()
+    }
+  }
+  function onWheel(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    var delta = evt.detail ? evt.detail : evt.wheelDelta / -120;
+    raiseOnDrag({steps:delta, isAlternative:false})
+  }
+  function onKeyDown(evt) {
+    if(evt.keyCode === 17) {
+      isCtrlPressed = true
+    }
+  }
+  function onKeyUp(evt) {
+    if(evt.keyCode === 17) {
+      isCtrlPressed = false
+    }
+  }
+  function onContextMenu(evt) {
+    evt.preventDefault();
+    evt.stopPropagation()
+  }
+  function onSelectStart(evt) {
+    if(isDragging) {
+      evt.preventDefault();
+      evt.stopPropagation()
+    }
+  }
+  (function initialize() {
+    var mouseWheelEventName = /Firefox/i.test(navigator.userAgent) ? "DOMMouseScroll" : "mousewheel";
+    configuration.element.addEventListener("mousedown", onMouseDown, false);
+    document.addEventListener("mousemove", onMouseMove, false);
+    document.addEventListener("mouseup", onMouseUp, false);
+    configuration.element.addEventListener(mouseWheelEventName, onWheel, false);
+    document.addEventListener("keydown", onKeyDown, false);
+    document.addEventListener("keyup", onKeyUp, false);
+    configuration.element.addEventListener("contextmenu", onContextMenu, false);
+    document.addEventListener("selectstart", onSelectStart, false)
+  })()
+};
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
+lu.bioControls.biorhythmView.coordinatesCalculation = lu.bioControls.biorhythmView.coordinatesCalculation || {};
+lu.bioControls.biorhythmView.coordinatesCalculation.BiorhythmCurvesCalculator = function() {
   var rawPaintData = null;
   var rect = null;
   var margin = 10;
@@ -1149,8 +1150,8 @@ lu.bioControls.biorhythmView.paintDataCalculation.BiorhythmCurvesCalculator = fu
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
-lu.bioControls.biorhythmView.paintDataCalculation = lu.bioControls.biorhythmView.paintDataCalculation || {};
-lu.bioControls.biorhythmView.paintDataCalculation.DayLablesCalculator = function() {
+lu.bioControls.biorhythmView.coordinatesCalculation = lu.bioControls.biorhythmView.coordinatesCalculation || {};
+lu.bioControls.biorhythmView.coordinatesCalculation.DayLablesCalculator = function() {
   var rawPaintData = null;
   var rect = null;
   var textHeight = 12;
@@ -1216,8 +1217,8 @@ lu.bioControls.biorhythmView.paintDataCalculation.DayLablesCalculator = function
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
-lu.bioControls.biorhythmView.paintDataCalculation = lu.bioControls.biorhythmView.paintDataCalculation || {};
-lu.bioControls.biorhythmView.paintDataCalculation.GridLinesCalculator = function() {
+lu.bioControls.biorhythmView.coordinatesCalculation = lu.bioControls.biorhythmView.coordinatesCalculation || {};
+lu.bioControls.biorhythmView.coordinatesCalculation.GridLinesCalculator = function() {
   var rawPaintData = null;
   var rect = null;
   this.calculate = function(data, rectangle) {
@@ -1254,8 +1255,8 @@ lu.bioControls.biorhythmView.paintDataCalculation.GridLinesCalculator = function
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
-lu.bioControls.biorhythmView.paintDataCalculation = lu.bioControls.biorhythmView.paintDataCalculation || {};
-lu.bioControls.biorhythmView.paintDataCalculation.PaintDataCalculator = function() {
+lu.bioControls.biorhythmView.coordinatesCalculation = lu.bioControls.biorhythmView.coordinatesCalculation || {};
+lu.bioControls.biorhythmView.coordinatesCalculation.PaintDataCalculator = function() {
   var biorhythmCurvesCalculator = null;
   var gridLinesCalculator = null;
   var dayLabelsCalculator = null;
@@ -1265,18 +1266,18 @@ lu.bioControls.biorhythmView.paintDataCalculation.PaintDataCalculator = function
     return{biorhythms:biorhythmCurvesCalculator.calculate(data, rectangle), gridLines:gridLinesCalculator.calculate(data, rectangle), dayLabels:dayLabelsCalculator.calculate(data, rectangle), todayMarker:todayMarkerCalculator.calculate(data, rectangle), xDayMarker:xDayMarkerCalculator.calculate(data, rectangle)}
   };
   (function initialize() {
-    biorhythmCurvesCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.BiorhythmCurvesCalculator;
-    gridLinesCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.GridLinesCalculator;
-    dayLabelsCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.DayLablesCalculator;
-    todayMarkerCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.TodayMarkerCalculator;
-    xDayMarkerCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.XDayMarkerCalculator
+    biorhythmCurvesCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.BiorhythmCurvesCalculator;
+    gridLinesCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.GridLinesCalculator;
+    dayLabelsCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.DayLablesCalculator;
+    todayMarkerCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.TodayMarkerCalculator;
+    xDayMarkerCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.XDayMarkerCalculator
   })()
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
-lu.bioControls.biorhythmView.paintDataCalculation = lu.bioControls.biorhythmView.paintDataCalculation || {};
-lu.bioControls.biorhythmView.paintDataCalculation.TodayMarkerCalculator = function() {
+lu.bioControls.biorhythmView.coordinatesCalculation = lu.bioControls.biorhythmView.coordinatesCalculation || {};
+lu.bioControls.biorhythmView.coordinatesCalculation.TodayMarkerCalculator = function() {
   var rawPaintData = null;
   var rect = null;
   this.calculate = function(data, rectangle) {
@@ -1310,8 +1311,8 @@ lu.bioControls.biorhythmView.paintDataCalculation.TodayMarkerCalculator = functi
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
-lu.bioControls.biorhythmView.paintDataCalculation = lu.bioControls.biorhythmView.paintDataCalculation || {};
-lu.bioControls.biorhythmView.paintDataCalculation.XDayMarkerCalculator = function() {
+lu.bioControls.biorhythmView.coordinatesCalculation = lu.bioControls.biorhythmView.coordinatesCalculation || {};
+lu.bioControls.biorhythmView.coordinatesCalculation.XDayMarkerCalculator = function() {
   var rawPaintData = null;
   var rect = null;
   this.calculate = function(data, rectangle) {
@@ -1391,7 +1392,7 @@ lu.bioControls.biorhythmView.painting.BiorhythmViewPainter = function() {
     rawPaintData = data;
     rect = rectangle;
     context = canvasContext;
-    var paintDataCalculator = new lu.bioControls.biorhythmView.paintDataCalculation.PaintDataCalculator;
+    var paintDataCalculator = new lu.bioControls.biorhythmView.coordinatesCalculation.PaintDataCalculator;
     var dataToPaint = paintDataCalculator.calculate(rawPaintData, rect);
     paintAll(dataToPaint)
   };

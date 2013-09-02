@@ -59,7 +59,7 @@
 				<file name="BirthdaySection.js" />
 				<file name="MainToolbar.js" />
 				<file name="XDaySection.js" />
-				<file name="BiorhythmCharts.js" />
+				<file name="ChartsSection.js" />
 				<file name="BioCalc.js" />
 			</sources>
 

@@ -8,7 +8,8 @@ var 2.0.0
 [Feature] I added more useful methods in CommonBiorhythmShapes constructor.
 [Feature] I created a jQuery widget (biorhythmView) to replace the BiorhythmView object.
 [Feature] I created the biorhythmLegend jQuery widget that displays in a div the legend of the charts.
-[Feature] I created the xDayInfoView jQuery widget that displays in a div the biorhythm percentages for the x day. 
+[Feature] I created the xDayInfoView jQuery widget that displays in a div the biorhythm percentages for the x day.
+[Change] External libraries are necessary (jQuery, jQuery UI, jQuery.colorpicker)
 
 ver 1.3.0
 ---------

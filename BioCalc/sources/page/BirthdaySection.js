@@ -78,7 +78,13 @@ lu.bioCalc.BirthdaySection = (function() {
     }
 
     function publishBirthday() {
-        lu.bioCalc.BioCalcPageData.setBirthday(birthday);
+        suppressBirthdayChanged = true;
+        try {
+            lu.bioCalc.BioCalcPageData.setBirthday(birthday);
+        }
+        finally {
+            suppressBirthdayChanged = false;
+        }
     }
 
     // --------------------------------------------------------------------------

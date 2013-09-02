@@ -17,7 +17,7 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
-lu.bioCalc.BiorhythmCharts = (function() {
+lu.bioCalc.ChartsSection = (function() {
 
     var $biorhythmViewContainer = null;
     var $firstDayTextBox = null;
@@ -25,40 +25,45 @@ lu.bioCalc.BiorhythmCharts = (function() {
     var $lastDayTextBox = null;
     var $lastDayLabel = null;
     var $bioLegend = null;
-    var firstDay = null;
 
     // --------------------------------------------------------------------------
     // Functions - "private"
     // --------------------------------------------------------------------------
 
-    function publishXDay(xDay) {
+    function publishCurrentXDay() {
+        var xDay = $biorhythmViewContainer.biorhythmView("getXDay");
         lu.bioCalc.BioCalcPageData.setXDay(xDay);
     }
 
+    function setFirstDayLabel(date){
+        var firstDayAsText = lu.bioCalc.DateFormatter.formatDate(date);
+        $firstDayTextBox.val(firstDayAsText);
+        $firstDayLabel.html("<< " + firstDayAsText);
+    }
+
+    function setLastDayLabel(date) {
+        var lastDayAsText = lu.bioCalc.DateFormatter.formatDate(date);
+        $lastDayTextBox.val(lastDayAsText);
+        $lastDayLabel.html(lastDayAsText + " >>");
+    }
+    
+    function setFirstDayToCharts(date){
+        $biorhythmViewContainer.biorhythmView("option", "firstDay", date);
+    }
+    
     // --------------------------------------------------------------------------
     // Functions - Event Handlers
     // --------------------------------------------------------------------------
 
     function onBiorhythmViewFirstDayChanged() {
 
-        // update first day
-
-        firstDay = $biorhythmViewContainer.biorhythmView("option", "firstDay");
-        var firstDayAsText = lu.bioCalc.DateFormatter.formatDate(firstDay)
-        $firstDayTextBox.val(firstDayAsText);
-        $firstDayLabel.html("<< " + firstDayAsText);
-
-        // update last day
+        var firstDay = $biorhythmViewContainer.biorhythmView("option", "firstDay");
+        setFirstDayLabel(firstDay);
 
         var lastDay = $biorhythmViewContainer.biorhythmView("getLastDay");
-        var lastDayAsText = lu.bioCalc.DateFormatter.formatDate(lastDay);
-        $lastDayTextBox.val(lastDayAsText);
-        $lastDayLabel.html(lastDayAsText + " >>");
+        setLastDayLabel(lastDay);
 
-        // publics x day
-
-        var xDay = $biorhythmViewContainer.biorhythmView("getXDay");
-        publishXDay(xDay);
+        publishCurrentXDay();
     }
 
     function onFirstDayLabelClick() {
@@ -68,8 +73,8 @@ lu.bioCalc.BiorhythmCharts = (function() {
     }
 
     function onFirstDayDatePickerSelect() {
-        firstDay = $(this).datepicker("getDate");
-        $biorhythmViewContainer.biorhythmView("option", "firstDay", firstDay);
+        var firstDay = $(this).datepicker("getDate");
+        setFirstDayToCharts(firstDay);
     }
 
     function onBeforeFirstDayDatePickerShow(input, inst) {
@@ -100,9 +105,9 @@ lu.bioCalc.BiorhythmCharts = (function() {
         var lastDay = $(this).datepicker("getDate");
 
         var displayedDayCount = $biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
-        firstDay = lu.DateUtil.addDays(lastDay, -displayedDayCount);
+        var firstDay = lu.DateUtil.addDays(lastDay, -displayedDayCount);
 
-        $biorhythmViewContainer.biorhythmView("option", "firstDay", firstDay);
+        setFirstDayToCharts(firstDay);
     }
 
     function onBeforeLastDayDatePickerShow(input, inst) {
@@ -124,13 +129,20 @@ lu.bioCalc.BiorhythmCharts = (function() {
     }
 
     function onBiorhythmViewXDayIndexChanged(sender, arg) {
-        var xDay = $biorhythmViewContainer.biorhythmView("getXDay");
-        publishXDay(xDay);
+        publishCurrentXDay();
     }
 
     function onExternalBirthdayChanged(arg) {
-        var xDay = $biorhythmViewContainer.biorhythmView("getXDay");
-        publishXDay(xDay);
+        $biorhythmViewContainer.biorhythmView("suspendPaint");
+        try {
+            var biorhythms = lu.bioCalc.BioCalcPageData.getBiorhythms();
+            biorhythms.setBirthdayOnAll(arg);
+        }
+        finally {
+            $biorhythmViewContainer.biorhythmView("resumePaint");
+        }
+
+        publishCurrentXDay();
     }
 
     function onExternalBiorhythmsChanged(arg) {
@@ -150,13 +162,12 @@ lu.bioCalc.BiorhythmCharts = (function() {
             $biorhythmViewContainer.biorhythmView("suspendPaint");
             try {
 
-                firstDay = lu.DateUtil.addDays(Date.now(), -7);
+                var firstDay = lu.DateUtil.addDays(Date.now(), -7);
 
-                $firstDayTextBox.val(lu.bioCalc.DateFormatter.formatDate(firstDay));
-                $biorhythmViewContainer.biorhythmView("option", "firstDay", firstDay);
+                setFirstDayLabel(firstDay);
+                setFirstDayToCharts(firstDay);
 
-                var xDay = $biorhythmViewContainer.biorhythmView("getXDay");
-                publishXDay(xDay);
+                publishCurrentXDay();
 
                 lu.bioCalc.BioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
                 lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);

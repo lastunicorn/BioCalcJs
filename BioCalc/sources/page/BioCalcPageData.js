@@ -37,6 +37,7 @@ lu.bioCalc.BioCalcPageData = (function() {
             birthday = value;
             birthdayChangedEvent.raise(this, value);
         },
+        
         xDayChanged: xDayChangedEvent.client,
         getXDay: function() {
             return xDay;
@@ -45,6 +46,7 @@ lu.bioCalc.BioCalcPageData = (function() {
             xDay = value;
             xDayChangedEvent.raise(this, value);
         },
+        
         biorhythmsChanged: biorhythmsChangedEvent.client,
         getBiorhythms: function() {
             return biorhythms;

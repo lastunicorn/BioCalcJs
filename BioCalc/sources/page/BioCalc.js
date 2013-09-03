@@ -28,7 +28,7 @@
             configManager = new lu.bioCalc.ConfigurationManager();
             configManager.loadFromCookies();
 
-            commonBiorhythmShapes = new lu.bioControls.biorhythmModel.CommonBiorhythmShapes();
+            commonBiorhythmShapes = new lu.bioControls.biorhythmModel.CommonBiorhythmsContainer();
             commonBiorhythmShapes.setBirthdayOnAll(configManager.config.birthday);
 
             initializePageData();

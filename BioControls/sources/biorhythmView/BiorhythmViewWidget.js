@@ -57,7 +57,7 @@
                 onDrag: onDrag
             });
 
-            painter = new lu.bioControls.biorhythmView.painting.BiorhythmViewPainter();
+            painter = new lu.bioControls.biorhythmView.painting.Painter();
 
             biorhythms = new lu.bioControls.BiorhythmsAdapter({
                 biorhythms: this.options.biorhythms,

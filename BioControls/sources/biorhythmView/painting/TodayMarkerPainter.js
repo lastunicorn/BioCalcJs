@@ -27,26 +27,49 @@ lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting ||
  */
 lu.bioControls.biorhythmView.painting.TodayMarkerPainter = function() {
 
+    var paintData = null;
     var paintContext = null;
-    var dataToPaint = null;
+    var paintRectangle = null;
 
-    this.paint = function(context, data) {
+    this.paint = function(data, context, rectangle) {
+        paintData = data;
+        paintRectangle = rectangle;
         paintContext = context;
-        dataToPaint = data;
 
-        if (!dataToPaint) {
-            return;
+        var rectangle = calculateTodayRectangle();
+        if (rectangle) {
+            paintTodayMarker(rectangle, paintData.todayBackColor);
         }
-
-        paintTodayMarker();
     };
 
-    function paintTodayMarker() {
-        var rect = dataToPaint.rectangle;
+    function calculateTodayRectangle() {
+        var todayIndex = calculateTodayIndex();
 
+        var isTodayVisible = todayIndex >= 0 && todayIndex < paintData.totalDays;
+        if (!isTodayVisible) {
+            return null;
+        }
+
+        var xStep = (paintRectangle.width) / paintData.totalDays;
+        var x = todayIndex * xStep;
+        var y = 0;
+        var width = xStep;
+        var height = paintRectangle.height;
+
+        return new lu.Rectangle(x, y, width, height);
+    }
+
+    function calculateTodayIndex() {
+        var today = lu.DateUtil.getDateComponent(new Date());
+        var firstDay = lu.DateUtil.getDateComponent(paintData.firstDay);
+        var todayIndexInMiliseconds = today - firstDay;
+        return lu.DateUtil.milisecondsToWholeDays(todayIndexInMiliseconds);
+    }
+
+    function paintTodayMarker(rectangle, color) {
         paintContext.beginPath();
-        paintContext.rect(rect.left, rect.top, rect.width, rect.height);
-        paintContext.fillStyle = dataToPaint.color;
+        paintContext.rect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
+        paintContext.fillStyle = color;
         paintContext.fill();
     }
 };

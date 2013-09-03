@@ -28,7 +28,7 @@
             lu.bioControls = lu.bioControls || {};
             lu.bioControls.common = lu.bioControls.common || {};
             lu.bioControls.common.painting = lu.bioControls.common.painting || {};
-            lu.bioControls.biorhythmView.painting.BiorhythmViewPainter = function() {
+            lu.bioControls.biorhythmView.painting.Painter = function() {
                 return {
                     paint: function() {
                     }

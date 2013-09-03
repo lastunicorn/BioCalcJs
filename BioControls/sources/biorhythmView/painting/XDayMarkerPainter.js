@@ -27,33 +27,42 @@ lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting ||
  */
 lu.bioControls.biorhythmView.painting.XDayMarkerPainter = function() {
 
+    var paintData = null;
     var paintContext = null;
-    var dataToPaint = null;
+    var paintRectangle = null;
 
-    this.paint = function(context, data) {
+    this.paint = function(data, context, rectangle) {
+        paintData = data;
+        paintRectangle = rectangle;
         paintContext = context;
-        dataToPaint = data;
 
-        if (!dataToPaint) {
-            return;
+        var data = calculateXDayMarker();
+        if (data) {
+            paintXDayMarker(data);
         }
-
-        paintXDayMarker();
     };
 
-    function paintXDayMarker() {
-        if (!dataToPaint) {
-            return;
+    function calculateXDayMarker() {
+        if (!paintData.isXDayVisible) {
+            return null;
         }
 
-        var rect = dataToPaint.rectangle;
+        var xStep = (paintRectangle.width) / paintData.totalDays;
+        var x = xStep * paintData.xDayIndex;
+        var y = 0;
+        var width = xStep;
+        var height = paintRectangle.height;
 
+        return new lu.Rectangle(x, y, width, height);
+    }
+
+    function paintXDayMarker(rectangle) {
         setLinePattern(null);
 
         paintContext.beginPath();
-        paintContext.rect(rect.left, rect.top, rect.width, rect.height);
-        paintContext.strokeStyle = dataToPaint.lineColor;
-        paintContext.lineWidth = dataToPaint.lineWidth;
+        paintContext.rect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
+        paintContext.strokeStyle = paintData.xDayBorderColor;
+        paintContext.lineWidth = paintData.xDayBorderWidth;
         paintContext.stroke();
     }
 

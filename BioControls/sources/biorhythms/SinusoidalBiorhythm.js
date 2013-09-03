@@ -85,7 +85,7 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
 
     function getValueByDate(date) {
         var milisecondsLived = date - birthday;
-        var daysLived = Math.floor(milisecondsLived / 1000 / 60 / 60 / 24);
+        var daysLived = lu.DateUtil.milisecondsToWholeDays(milisecondsLived);
 
         return getValueByIndex(daysLived);
     }

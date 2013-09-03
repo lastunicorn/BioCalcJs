@@ -67,7 +67,7 @@
 				<file name="BiorhythmShape.js" />
 				<file name="BiorhythmShapesCreator.js" />
 				<file name="BiorhythmShapeSet.js" />
-				<file name="CommonBiorhythmShapes.js" />
+				<file name="CommonBiorhythmsContainer.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythms">
@@ -93,18 +93,9 @@
 				<file name="Scroller.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/biorhythmView/coordinatesCalculation">
-				<file name="BiorhythmCurvesCalculator.js" />
-				<file name="DayLablesCalculator.js" />
-				<file name="GridLinesCalculator.js" />
-				<file name="PaintDataCalculator.js" />
-				<file name="TodayMarkerCalculator.js" />
-				<file name="XDayMarkerCalculator.js" />
-			</sources>
-
 			<sources dir="${basedir}/sources/biorhythmView/painting">
 				<file name="BiorhythmCurvesPainter.js" />
-				<file name="BiorhythmViewPainter.js" />
+				<file name="Painter.js" />
 				<file name="DayLabelsPainter.js" />
 				<file name="GridLinesPainter.js" />
 				<file name="TodayMarkerPainter.js" />

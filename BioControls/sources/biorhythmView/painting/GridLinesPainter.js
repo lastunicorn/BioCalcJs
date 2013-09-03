@@ -27,31 +27,48 @@ lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting ||
  */
 lu.bioControls.biorhythmView.painting.GridLinesPainter = function() {
 
+    var paintData = null;
     var paintContext = null;
-    var dataToPaint = null;
+    var paintRectangle = null;
 
-    this.paint = function(context, data) {
+    this.paint = function(data, context, rectangle) {
+        paintData = data;
+        paintRectangle = rectangle;
         paintContext = context;
-        dataToPaint = data;
 
-        var isGridVisible = dataToPaint && dataToPaint.lines && dataToPaint.lines.length > 0;
-
-        if (!isGridVisible) {
+        if (!paintData.isGridVisible) {
             return;
         }
 
-        paintGrid();
+        for ( var i = 0; i < paintData.totalDays - 1; i++) {
+            paintContext.strokeStyle = paintData.gridColor;
+            paintContext.lineWidth = 1;
+            paintContext.lineJoin = "round";
+            setLinePattern(null);
+
+            var line = calculateDaySeparatorLine(i);
+            paintLine(line);
+        }
+
+        var axis = calculateXAxis();
+        paintLine(axis);
     };
 
-    function paintGrid() {
-        paintContext.strokeStyle = dataToPaint.color;
-        paintContext.lineWidth = 1;
-        paintContext.lineJoin = "round";
-        setLinePattern(null);
+    function calculateDaySeparatorLine(dayIndex) {
+        var xStep = (paintRectangle.width) / paintData.totalDays;
+        var index = dayIndex + 1;
 
-        for ( var i = 0; i < dataToPaint.lines.length; i++) {
-            paintLine(dataToPaint.lines[i]);
-        }
+        var startPoint = new lu.Point(xStep * index, 0);
+        var endPoint = new lu.Point(xStep * index, paintRectangle.height);
+
+        return new lu.Line(startPoint, endPoint);
+    }
+
+    function calculateXAxis() {
+        var startPoint = new lu.Point(0, paintRectangle.height / 2);
+        var endPoint = new lu.Point(paintRectangle.width, paintRectangle.height / 2);
+
+        return new lu.Line(startPoint, endPoint);
     }
 
     function paintLine(line) {

@@ -120,7 +120,7 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
         var biorhythm = biorhythmShape.biorhythm;
 
         var milisecondsLived = currentXDay - biorhythmShape.birthday;
-        var daysLived = Math.floor(milisecondsLived / 1000 / 60 / 60 / 24);
+        var daysLived = lu.DateUtil.milisecondsToWholeDays(milisecondsLived);
         var value = biorhythm.getValue(daysLived);
         var percentage = value * 100;
 

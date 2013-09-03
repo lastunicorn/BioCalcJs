@@ -20,6 +20,14 @@ lu.DateUtil = {
     daysToMiliseconds: function(days) {
         return days * 24 * 60 * 60 * 1000;
     },
+    
+    milisecondsToDays: function(miliseconds){
+        return miliseconds / 1000 / 60 / 60 / 24;
+    },
+    
+    milisecondsToWholeDays: function(miliseconds){
+        return Math.floor(this.milisecondsToDays(miliseconds));
+    },
 
     addDays: function(date, daysToAdd) {
         var miliseconds = daysToAdd * 24 * 60 * 60 * 1000;
@@ -37,5 +45,9 @@ lu.DateUtil = {
         }
 
         return new Date(date + miliseconds);
+    },
+
+    getDateComponent: function(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }
 };

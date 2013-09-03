@@ -15,12 +15,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 (function($) {
-    var widget = null;
-    var $canvas = null;
-    var painter = null;
-    var paintSuspendCount = 0;
-    var biorhythms = null;
-
     $.widget("lastunicorn.biorhythmView", {
         options: {
             width: 800,
@@ -47,46 +41,45 @@
         },
 
         _create: function() {
-            widget = this;
-            $canvas = createCanvasElement();
-            this.element.append($canvas);
+            this._$canvas = this._createCanvasElement();
+            this.element.append(this._$canvas);
 
             new lu.bioControls.biorhythmView.Scroller({
-                element: $canvas[0],
-                onDragStart: onDragStart,
-                onDrag: onDrag
+                element: this._$canvas[0],
+                onDrag: $.proxy(this._onDrag, this),
+                onDragStart: $.proxy(this._onDragStart, this)
             });
 
-            painter = new lu.bioControls.biorhythmView.painting.Painter();
+            this._painter = new lu.bioControls.biorhythmView.painting.Painter();
 
-            biorhythms = new lu.bioControls.BiorhythmsAdapter({
+            this._biorhythms = new lu.bioControls.BiorhythmsAdapter({
                 biorhythms: this.options.biorhythms,
-                onBiorhithmAdded: onBiorhithmAdded,
-                onBiorhithmRemoved: onBiorhithmRemoved
+                onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
+                onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
             });
 
-            paint();
+            this._paint();
         },
 
         _setOption: function(key, value) {
-            suspendPaint();
+            this.suspendPaint();
             try {
                 if (key === "biorhythms") {
-                    biorhythms.clear();
+                    this._biorhythms.clear();
 
                     this._super(key, value);
 
-                    biorhythms = new lu.bioControls.BiorhythmsAdapter({
+                    this._biorhythms = new lu.bioControls.BiorhythmsAdapter({
                         biorhythms: this.options.biorhythms,
-                        onBiorhithmAdded: onBiorhithmAdded,
-                        onBiorhithmRemoved: onBiorhithmRemoved
+                        onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
+                        onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
                     });
                 }
 
                 if (key === "firstDay") {
                     this._super(key, value);
 
-                    this._trigger("firstDayChanged", null, {
+                    this._trigger("firstDayChanged", this, {
                         value: this.options.firstDay
                     });
                 }
@@ -94,7 +87,7 @@
                 if (key === "isGridVisible") {
                     this._super(key, value);
 
-                    this._trigger("isGridVisibleChanged", null, {
+                    this._trigger("isGridVisibleChanged", this, {
                         value: this.options.isGridVisible
                     });
                 }
@@ -102,7 +95,7 @@
                 if (key === "totalDays") {
                     this._super(key, value);
 
-                    this._trigger("totalDaysChanged", null, {
+                    this._trigger("totalDaysChanged", this, {
                         value: this.options.totalDays
                     });
                 }
@@ -113,7 +106,7 @@
 
                     this._super(key, value);
 
-                    this._trigger("xDayIndexChanged", null, {
+                    this._trigger("xDayIndexChanged", this, {
                         value: this.options.xDayIndex
                     });
                 }
@@ -121,7 +114,7 @@
                 if (key === "gridColor") {
                     this._super(key, value);
 
-                    this._trigger("gridColorChanged", null, {
+                    this._trigger("gridColorChanged", this, {
                         value: this.options.gridColor
                     });
                 }
@@ -129,7 +122,7 @@
                 if (key === "areDayNumbersVisible") {
                     this._super(key, value);
 
-                    this._trigger("areDayNumbersVisibleChanged", null, {
+                    this._trigger("areDayNumbersVisibleChanged", this, {
                         value: this.options.areDayNumbersVisible
                     });
                 }
@@ -137,7 +130,7 @@
                 if (key === "areWeekDaysVisible") {
                     this._super(key, value);
 
-                    this._trigger("areWeekDaysVisibleChanged", null, {
+                    this._trigger("areWeekDaysVisibleChanged", this, {
                         value: this.options.areWeekDaysVisible
                     });
                 }
@@ -145,7 +138,7 @@
                 if (key === "dayNumbersPosition") {
                     this._super(key, value);
 
-                    this._trigger("dayNumbersPositionChanged", null, {
+                    this._trigger("dayNumbersPositionChanged", this, {
                         value: this.options.dayNumbersPosition
                     });
                 }
@@ -153,7 +146,7 @@
                 if (key === "weekDaysPosition") {
                     this._super(key, value);
 
-                    this._trigger("weekDaysPositionChanged", null, {
+                    this._trigger("weekDaysPositionChanged", this, {
                         value: this.options.weekDaysPosition
                     });
                 }
@@ -161,7 +154,7 @@
                 if (key === "areSundaysEmphasized") {
                     this._super(key, value);
 
-                    this._trigger("areSundaysEmphasizedChanged", null, {
+                    this._trigger("areSundaysEmphasizedChanged", this, {
                         value: this.options.areSundaysEmphasized
                     });
                 }
@@ -169,7 +162,7 @@
                 if (key === "foreColor") {
                     this._super(key, value);
 
-                    this._trigger("foreColorChanged", null, {
+                    this._trigger("foreColorChanged", this, {
                         value: this.options.foreColor
                     });
                 }
@@ -177,7 +170,7 @@
                 if (key === "sundaysColor") {
                     this._super(key, value);
 
-                    this._trigger("sundaysColorChanged", null, {
+                    this._trigger("sundaysColorChanged", this, {
                         value: this.options.sundaysColor
                     });
                 }
@@ -185,7 +178,7 @@
                 if (key === "font") {
                     this._super(key, value);
 
-                    this._trigger("fontChanged", null, {
+                    this._trigger("fontChanged", this, {
                         value: this.options.font
                     });
                 }
@@ -193,7 +186,7 @@
                 if (key === "sundaysFont") {
                     this._super(key, value);
 
-                    this._trigger("sundaysFontChanged", null, {
+                    this._trigger("sundaysFontChanged", this, {
                         value: this.options.sundaysFont
                     });
                 }
@@ -201,7 +194,7 @@
                 if (key === "todayBackColor") {
                     this._super(key, value);
 
-                    this._trigger("todayBackColorChanged", null, {
+                    this._trigger("todayBackColorChanged", this, {
                         value: this.options.todayBackColor
                     });
                 }
@@ -209,7 +202,7 @@
                 if (key === "isXDayVisible") {
                     this._super(key, value);
 
-                    this._trigger("isXDayVisibleChanged", null, {
+                    this._trigger("isXDayVisibleChanged", this, {
                         value: this.options.isXDayVisible
                     });
                 }
@@ -217,7 +210,7 @@
                 if (key === "xDayBorderColor") {
                     this._super(key, value);
 
-                    this._trigger("xDayBorderColorChanged", null, {
+                    this._trigger("xDayBorderColorChanged", this, {
                         value: this.options.xDayBorderColor
                     });
                 }
@@ -225,181 +218,179 @@
                 if (key === "xDayBorderWidth") {
                     this._super(key, value);
 
-                    this._trigger("xDayBorderWidthChanged", null, {
+                    this._trigger("xDayBorderWidthChanged", this, {
                         value: this.options.xDayBorderWidth
                     });
                 }
             }
             finally {
-                resumePaint();
+                this.resumePaint();
             }
         },
 
-        suspendPaint: suspendPaint,
-        resumePaint: resumePaint,
-        getLastDay: getLastDay,
-        getXDay: getXDay
+        // --------------------------------------------------------------------------
+        // Html element
+        // --------------------------------------------------------------------------
+
+        _createCanvasElement: function() {
+            var $canvas = $("<canvas/>");
+            $canvas.attr({
+                "tabindex": "1",
+                "width": this.options.width,
+                "height": this.options.height
+            });
+
+            return $canvas;
+        },
+
+        // --------------------------------------------------------------------------
+        // FirstDay
+        // --------------------------------------------------------------------------
+
+        _incrementFirstDay: function(value) {
+            var date = new Date(this.options.firstDay.getTime());
+            date.setDate(date.getDate() + value);
+            this.option("firstDay", date);
+        },
+
+        // --------------------------------------------------------------------------
+        // LastDay
+        // --------------------------------------------------------------------------
+
+        getLastDay: function() {
+            return lu.DateUtil.addDays(this.options.firstDay, this.options.totalDays - 1);
+        },
+
+        // --------------------------------------------------------------------------
+        // XDay
+        // --------------------------------------------------------------------------
+
+        getXDay: function() {
+            return lu.DateUtil.addDays(this.options.firstDay, this.options.xDayIndex);
+        },
+
+        // --------------------------------------------------------------------------
+        // Biorhythms
+        // --------------------------------------------------------------------------
+
+        _onBiorhithmAdded: function(biorhythmShape) {
+            this._subscribeToBiorhythmEvents(biorhythmShape);
+
+            this._trigger("biorhythmAdded", this, {
+                value: biorhythmShape
+            });
+
+            this._paint();
+        },
+
+        _subscribeToBiorhythmEvents: function(biorhythmShape) {
+            biorhythmShape.nameChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.birthdayChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.biorhythmChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.colorChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.isVisibleChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.lineWidthChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.lineStyleChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+        },
+
+        _onBiorhithmRemoved: function(biorhythmShape) {
+            this._subscribeToBiorhythmEvents(biorhythmShape);
+
+            this._trigger("biorhythmRemoved", this, {
+                value: biorhythmShape
+            });
+
+            this._paint();
+        },
+
+        _unsubscribeFromBiorhythmEvents: function(biorhythmShape) {
+            biorhythmShape.nameChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.birthdayChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.biorhythmChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.colorChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.isVisibleChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.lineWidthChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.lineStyleChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+        },
+
+        _onBiorhithmShapeChanged: function() {
+            this._paint();
+        },
+
+        // --------------------------------------------------------------------------
+        // Paint
+        // --------------------------------------------------------------------------
+
+        _paintSuspendCount: 0,
+
+        suspendPaint: function() {
+            this._paintSuspendCount++;
+        },
+
+        resumePaint: function() {
+            if (this._paintSuspendCount > 0) {
+                this._paintSuspendCount--;
+            }
+
+            if (this._paintSuspendCount == 0) {
+                this._paint();
+            }
+        },
+
+        _paint: function() {
+            if (this._paintSuspendCount > 0) {
+                return;
+            }
+
+            if (!this._$canvas[0].getContext) {
+                return;
+            }
+
+            var rawPaintData = {
+                biorhythmShapes: this._biorhythms.toArray(),
+                firstDay: this.options.firstDay,
+                totalDays: this.options.totalDays,
+                xDayIndex: this.options.xDayIndex,
+                isXDayVisible: this.options.isXDayVisible,
+                xDayBorderColor: this.options.xDayBorderColor,
+                xDayBorderWidth: this.options.xDayBorderWidth,
+                gridColor: this.options.gridColor,
+                isGridVisible: this.options.isGridVisible,
+                todayBackColor: this.options.todayBackColor,
+
+                areDayNumbersVisible: this.options.areDayNumbersVisible,
+                areWeekDaysVisible: this.options.areWeekDaysVisible,
+                dayNumbersPosition: this.options.dayNumbersPosition,
+                weekDaysPosition: this.options.weekDaysPosition,
+                areSundaysEmphasized: this.options.areSundaysEmphasized,
+
+                foreColor: this.options.foreColor,
+                sundaysColor: this.options.sundaysColor,
+                font: this.options.font,
+                sundaysFont: this.options.sundaysFont
+            };
+
+            var canvasElement = this._$canvas[0];
+            var context = canvasElement.getContext('2d');
+            var rectangle = new lu.Rectangle(0, 0, canvasElement.width, canvasElement.height);
+
+            this._painter.paint(rawPaintData, context, rectangle);
+        },
+
+        // --------------------------------------------------------------------------
+        // Drag/Scroll
+        // --------------------------------------------------------------------------
+
+        _onDrag: function(evt) {
+            if (evt.isAlternative) {
+                this.option("xDayIndex", this.options.xDayIndex + evt.steps);
+            } else {
+                this._incrementFirstDay(-evt.steps);
+            }
+        },
+
+        _onDragStart: function(evt) {
+            evt.stepLength = this._$canvas[0].width / this.options.totalDays;
+        }
     });
-
-    // --------------------------------------------------------------------------
-    // Html element
-    // --------------------------------------------------------------------------
-
-    function createCanvasElement() {
-        var $canvas = $("<canvas/>");
-        $canvas.attr({
-            "tabindex": "1",
-            "width": widget.options.width,
-            "height": widget.options.height
-        });
-
-        return $canvas;
-    }
-
-    // --------------------------------------------------------------------------
-    // Biorhythms
-    // --------------------------------------------------------------------------
-
-    function onBiorhithmAdded(biorhythmShape) {
-        subscribeToBiorhythmEvents(biorhythmShape);
-
-        widget._trigger("biorhythmAdded", widget, {
-            value: biorhythmShape
-        });
-
-        paint();
-    }
-
-    function subscribeToBiorhythmEvents(biorhythmShape) {
-        biorhythmShape.nameChanged.subscribe(onBiorhithmShapeChanged);
-        biorhythmShape.birthdayChanged.subscribe(onBiorhithmShapeChanged);
-        biorhythmShape.biorhythmChanged.subscribe(onBiorhithmShapeChanged);
-        biorhythmShape.colorChanged.subscribe(onBiorhithmShapeChanged);
-        biorhythmShape.isVisibleChanged.subscribe(onBiorhithmShapeChanged);
-        biorhythmShape.lineWidthChanged.subscribe(onBiorhithmShapeChanged);
-        biorhythmShape.lineStyleChanged.subscribe(onBiorhithmShapeChanged);
-    }
-
-    function onBiorhithmRemoved(biorhythmShape) {
-        subscribeToBiorhythmEvents(biorhythmShape);
-
-        widget._trigger("biorhythmRemoved", widget, {
-            value: biorhythmShape
-        });
-
-        paint();
-    }
-
-    function unsubscribeFromBiorhythmEvents(biorhythmShape) {
-        biorhythmShape.nameChanged.unsubscribe(onBiorhithmShapeChanged);
-        biorhythmShape.birthdayChanged.unsubscribe(onBiorhithmShapeChanged);
-        biorhythmShape.biorhythmChanged.unsubscribe(onBiorhithmShapeChanged);
-        biorhythmShape.colorChanged.unsubscribe(onBiorhithmShapeChanged);
-        biorhythmShape.isVisibleChanged.unsubscribe(onBiorhithmShapeChanged);
-        biorhythmShape.lineWidthChanged.unsubscribe(onBiorhithmShapeChanged);
-        biorhythmShape.lineStyleChanged.unsubscribe(onBiorhithmShapeChanged);
-    }
-
-    function onBiorhithmShapeChanged() {
-        paint();
-    }
-
-    // --------------------------------------------------------------------------
-    // FirstDay
-    // --------------------------------------------------------------------------
-
-    function incrementFirstDay(value) {
-        var date = new Date(widget.options.firstDay.getTime());
-        date.setDate(date.getDate() + value);
-        widget.option("firstDay", date);
-    }
-
-    // --------------------------------------------------------------------------
-    // LastDay
-    // --------------------------------------------------------------------------
-
-    function getLastDay() {
-        return lu.DateUtil.addDays(widget.options.firstDay, widget.options.totalDays - 1);
-    }
-
-    // --------------------------------------------------------------------------
-    // XDay
-    // --------------------------------------------------------------------------
-
-    function getXDay() {
-        return lu.DateUtil.addDays(widget.options.firstDay, widget.options.xDayIndex);
-    }
-
-    // --------------------------------------------------------------------------
-    // Paint
-    // --------------------------------------------------------------------------
-
-    function suspendPaint() {
-        paintSuspendCount++;
-    }
-
-    function resumePaint() {
-        if (paintSuspendCount > 0) {
-            paintSuspendCount--;
-        }
-
-        if (paintSuspendCount == 0) {
-            paint();
-        }
-    }
-
-    function paint() {
-        if (paintSuspendCount > 0) {
-            return;
-        }
-
-        if (!$canvas[0].getContext) {
-            return;
-        }
-
-        var rawPaintData = {
-            biorhythmShapes: biorhythms.toArray(),
-            firstDay: widget.options.firstDay,
-            totalDays: widget.options.totalDays,
-            xDayIndex: widget.options.xDayIndex,
-            isXDayVisible: widget.options.isXDayVisible,
-            xDayBorderColor: widget.options.xDayBorderColor,
-            xDayBorderWidth: widget.options.xDayBorderWidth,
-            gridColor: widget.options.gridColor,
-            isGridVisible: widget.options.isGridVisible,
-            todayBackColor: widget.options.todayBackColor,
-
-            areDayNumbersVisible: widget.options.areDayNumbersVisible,
-            areWeekDaysVisible: widget.options.areWeekDaysVisible,
-            dayNumbersPosition: widget.options.dayNumbersPosition,
-            weekDaysPosition: widget.options.weekDaysPosition,
-            areSundaysEmphasized: widget.options.areSundaysEmphasized,
-
-            foreColor: widget.options.foreColor,
-            sundaysColor: widget.options.sundaysColor,
-            font: widget.options.font,
-            sundaysFont: widget.options.sundaysFont
-        };
-
-        var context = $canvas[0].getContext('2d');
-        var rectangle = new lu.Rectangle(0, 0, $canvas[0].width, $canvas[0].height);
-
-        painter.paint(rawPaintData, context, rectangle);
-    }
-
-    // --------------------------------------------------------------------------
-    // Drag/Scroll
-    // --------------------------------------------------------------------------
-
-    function onDrag(evt) {
-        if (evt.isAlternative) {
-            widget.option("xDayIndex", widget.options.xDayIndex + evt.steps);
-        } else {
-            incrementFirstDay(-evt.steps);
-        }
-    }
-
-    function onDragStart(evt) {
-        evt.stepLength = $canvas[0].width / widget.options.totalDays;
-    }
 }(jQuery));

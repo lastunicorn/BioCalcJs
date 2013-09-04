@@ -228,6 +228,13 @@
             }
         },
 
+        destroy: function() {
+            this._$element.remove();
+
+            // Call the base destroy function.
+            $.Widget.prototype.destroy.call(this);
+        },
+
         // --------------------------------------------------------------------------
         // Html element
         // --------------------------------------------------------------------------
@@ -257,6 +264,10 @@
         // LastDay
         // --------------------------------------------------------------------------
 
+        /**
+         * Calculates and returns the date of the last day displayed by the
+         * control.
+         */
         getLastDay: function() {
             return lu.DateUtil.addDays(this.options.firstDay, this.options.totalDays - 1);
         },
@@ -265,6 +276,9 @@
         // XDay
         // --------------------------------------------------------------------------
 
+        /**
+         * Calculates and returns the date of the X day.
+         */
         getXDay: function() {
             return lu.DateUtil.addDays(this.options.firstDay, this.options.xDayIndex);
         },
@@ -294,7 +308,7 @@
         },
 
         _onBiorhithmRemoved: function(biorhythmShape) {
-            this._subscribeToBiorhythmEvents(biorhythmShape);
+            this._unsubscribeFromBiorhythmEvents(biorhythmShape);
 
             this._trigger("biorhythmRemoved", this, {
                 value: biorhythmShape
@@ -323,10 +337,18 @@
 
         _paintSuspendCount: 0,
 
+        /**
+         * Inhibits the repainting of the control until the {resumePaint} is
+         * called. If this method is called multiple times, {resumePaint} has to
+         * be called the same amount of times for the paint to be resumed.
+         */
         suspendPaint: function() {
             this._paintSuspendCount++;
         },
 
+        /**
+         * Cancels the effect of a single call of the {suspendPaint} method.
+         */
         resumePaint: function() {
             if (this._paintSuspendCount > 0) {
                 this._paintSuspendCount--;

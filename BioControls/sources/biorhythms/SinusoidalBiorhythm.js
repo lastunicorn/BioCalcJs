@@ -19,7 +19,8 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
 /**
- * Represents a sinusoidal biorhythm.
+ * Represents a sinusoidal biorhythm that has a period in days and a starting
+ * day named birthday.
  * 
  * @returns {lu.bioControls.biorhythms.SinusoidalBiorhythm}
  */

@@ -1415,6 +1415,9 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     }finally {
       this.resumePaint()
     }
+  }, destroy:function() {
+    this._$element.remove();
+    $.Widget.prototype.destroy.call(this)
   }, _createCanvasElement:function() {
     var $canvas = $("\x3ccanvas/\x3e");
     $canvas.attr({"tabindex":"1", "width":this.options.width, "height":this.options.height});
@@ -1440,7 +1443,7 @@ lu.bioControls.biorhythms.WisdomBiorhythm = function() {
     biorhythmShape.lineWidthChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
     biorhythmShape.lineStyleChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this))
   }, _onBiorhithmRemoved:function(biorhythmShape) {
-    this._subscribeToBiorhythmEvents(biorhythmShape);
+    this._unsubscribeFromBiorhythmEvents(biorhythmShape);
     this._trigger("biorhythmRemoved", this, {value:biorhythmShape});
     this._paint()
   }, _unsubscribeFromBiorhythmEvents:function(biorhythmShape) {

@@ -63,11 +63,11 @@ lu.bioControls.biorhythmView.Scroller = function(configuration) {
         var arg = {};
         raiseOnDragStart(arg);
 
-        if (typeof (arg.stepLength) === "number") {
-            return arg.stepLength;
-        } else {
+        if (typeof (arg.stepLength) !== "number") {
             return defaultStepLength;
         }
+
+        return arg.stepLength;
     }
 
     function onMouseDown(evt) {

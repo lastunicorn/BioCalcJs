@@ -22,6 +22,9 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
  * Represents a sinusoidal biorhythm that has a period in days and a starting
  * day named birthday.
  * 
+ * @param period
+ *            The period in days of the biorhythm.
+ * 
  * @returns {lu.bioControls.biorhythms.SinusoidalBiorhythm}
  */
 lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {

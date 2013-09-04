@@ -29,8 +29,6 @@ lu.Event = function() {
      * @param eventHandler
      *            The function to be registered.
      */
-    this.subscribe = subscribe;
-
     function subscribe(eventHandler) {
         if (typeof (eventHandler) !== "function") {
             throw "eventHandler is not a function.";
@@ -38,7 +36,6 @@ lu.Event = function() {
 
         eventHandlers.push(eventHandler);
     }
-    ;
 
     /**
      * Unregisters a previously registered function.
@@ -46,8 +43,6 @@ lu.Event = function() {
      * @param eventHandler
      *            The function to be unregistered.
      */
-    this.unsubscribe = unsubscribe;
-
     function unsubscribe(eventHandler) {
         if (typeof (eventHandler) !== "function") {
             throw "eventHandler is not a function.";
@@ -59,7 +54,6 @@ lu.Event = function() {
             }
         }
     }
-    ;
 
     /**
      * It calls all the eventHandlers previously subscribed to this event.
@@ -67,6 +61,10 @@ lu.Event = function() {
      * @param sender
      *            The object on which the subscribers will be run. This object
      *            will be the "this" object.
+     * 
+     * @param arg
+     *            The argument containing some data to be sent to all the
+     *            handlers.
      */
     this.raise = function(sender, arg) {
         for ( var i = 0; i < eventHandlers.length; i++) {

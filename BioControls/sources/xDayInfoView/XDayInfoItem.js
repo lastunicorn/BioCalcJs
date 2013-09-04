@@ -119,7 +119,7 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
     function calculatePercentage() {
         var biorhythm = biorhythmShape.biorhythm;
 
-        var milisecondsLived = currentXDay - biorhythmShape.birthday;
+        var milisecondsLived = currentXDay - biorhythmShape.biorhythm.birthday;
         var daysLived = lu.DateUtil.milisecondsToWholeDays(milisecondsLived);
         var value = biorhythm.getValue(daysLived);
         var percentage = value * 100;
@@ -128,11 +128,11 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
     }
 
     function formatPercentage(value) {
-        if (typeof value === "number") {
-            return value.toString() + "%";
-        } else {
+        if (typeof value !== "number") {
             return "?%";
         }
+
+        return value.toString() + "%";
     }
 
     // --------------------------------------------------------------------------
@@ -162,7 +162,7 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        currentXDay = biorhythmShape.birthday;
+        currentXDay = biorhythmShape.biorhythm.birthday;
         $element = generate();
 
         if (!(biorhythmShape instanceof lu.bioControls.biorhythmModel.BiorhythmShape)) {

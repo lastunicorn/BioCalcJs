@@ -90,14 +90,12 @@ lu.DayLabelPosition = {top:0, aboveMiddle:1, belowMiddle:2, bottom:3};
 var lu = lu || {};
 lu.Event = function() {
   var eventHandlers = [];
-  this.subscribe = subscribe;
   function subscribe(eventHandler) {
     if(typeof eventHandler !== "function") {
       throw"eventHandler is not a function.";
     }
     eventHandlers.push(eventHandler)
   }
-  this.unsubscribe = unsubscribe;
   function unsubscribe(eventHandler) {
     if(typeof eventHandler !== "function") {
       throw"eventHandler is not a function.";
@@ -303,7 +301,8 @@ lu.TextUtil = function() {
     div.style.fontStyle = obj.isItalic ? "italic" : "normal";
     div.style.visibility = "hidden";
     document.body.appendChild(div);
-    var size = [div.offsetWidth, div.offsetHeight];
+    var size;
+    size = [div.offsetWidth, div.offsetHeight];
     document.body.removeChild(div);
     return size
   }
@@ -311,7 +310,8 @@ lu.TextUtil = function() {
 }();
 var lu = lu || {};
 lu.WeekDayNamesProvider = function() {
-  var weekDayShortNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  var weekDayShortNames;
+  weekDayShortNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
   function getWeekDayName(weekDay) {
     if(typeof weekDay !== "number") {
       return""
@@ -462,13 +462,6 @@ lu.bioControls.biorhythmModel.BiorhythmShape = function() {
   }
   var birthdayChangedEvent = new lu.Event;
   this.birthdayChanged = birthdayChangedEvent.client;
-  Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
-  function getBirthday() {
-    return biorhythm.birthday
-  }
-  function setBirthday(value) {
-    biorhythm.birthday = value
-  }
   var biorhythm = null;
   var biorhythmChangedEvent = new lu.Event;
   this.biorhythmChanged = biorhythmChangedEvent.client;
@@ -554,113 +547,113 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 lu.bioControls.biorhythmModel.BiorhythShapesCreator = {defaultBirthday:new Date(1980, 5, 13), createPhysicalBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#ff0000";
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createEmotionalBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#32cd32";
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createIntellectualBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#1e90ff";
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createIntuitiveBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#ffa500";
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createPassionBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.PassionBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#ff0000";
   shape.lineStyle = lu.LineStyle.dash;
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createMasteryBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.MasteryBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#1e90ff";
   shape.lineStyle = lu.LineStyle.dashDot;
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createWisdomBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.WisdomBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#32cd32";
   shape.lineStyle = lu.LineStyle.dashDotDot;
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createPerceptionBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.PerceptionBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#ff0000";
   shape.lineStyle = lu.LineStyle.dash;
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createPsychicBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.PsychicBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#32cd32";
   shape.lineStyle = lu.LineStyle.dashDot;
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createSuccessBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.SuccessBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#1e90ff";
   shape.lineStyle = lu.LineStyle.dashDotDot;
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createEstheticBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.EstheticBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#ff0000";
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createSelfAwarenessBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.SelfAwarenessBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#1e90ff";
-  shape.birthday = this.defaultBirthday;
   return shape
 }, createSpiritualBiorhythmShape:function() {
   var biorhythm = new lu.bioControls.biorhythms.SpiritualBiorhythm;
+  biorhythm.birthday = this.defaultBirthday;
   var shape = new lu.bioControls.biorhythmModel.BiorhythmShape;
   shape.name = biorhythm.name + " Shape";
   shape.biorhythm = biorhythm;
   shape.color = "#ffa500";
-  shape.birthday = this.defaultBirthday;
   return shape
 }};
 var lu = lu || {};
@@ -837,9 +830,9 @@ lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
     return[physicalShape, emotionalShape, intellectualShape, intuitiveShape, passionShape, masteryShape, wisdomShape, perceptionShape, psychicShape, successShape, estheticShape, selfAwarenessShape, spiritualShape]
   }
   this.setBirthdayOnAll = function(birthday) {
-    var biorhythms = getAll();
-    for(var i = 0;i < biorhythms.length;i++) {
-      biorhythms[i].biorhythm.birthday = birthday
+    var biorhythmShapes = getAll();
+    for(var i = 0;i < biorhythmShapes.length;i++) {
+      biorhythmShapes[i].biorhythm.birthday = birthday
     }
   };
   this.toArray = function() {
@@ -1511,11 +1504,10 @@ lu.bioControls.biorhythmView.Scroller = function(configuration) {
   function calculateStepLength() {
     var arg = {};
     raiseOnDragStart(arg);
-    if(typeof arg.stepLength === "number") {
-      return arg.stepLength
-    }else {
+    if(typeof arg.stepLength !== "number") {
       return defaultStepLength
     }
+    return arg.stepLength
   }
   function onMouseDown(evt) {
     var isLeftOrRightButton = evt.which === lu.MouseButton.left || evt.which === lu.MouseButton.right;
@@ -1976,18 +1968,17 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
   }
   function calculatePercentage() {
     var biorhythm = biorhythmShape.biorhythm;
-    var milisecondsLived = currentXDay - biorhythmShape.birthday;
+    var milisecondsLived = currentXDay - biorhythmShape.biorhythm.birthday;
     var daysLived = lu.DateUtil.milisecondsToWholeDays(milisecondsLived);
     var value = biorhythm.getValue(daysLived);
     var percentage = value * 100;
     return Math.round(percentage)
   }
   function formatPercentage(value) {
-    if(typeof value === "number") {
-      return value.toString() + "%"
-    }else {
+    if(typeof value !== "number") {
       return"?%"
     }
+    return value.toString() + "%"
   }
   function onBiorhythmNameChanged(arg) {
     $labelElement.text(arg)
@@ -2005,7 +1996,7 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
     }
   }
   (function initialize() {
-    currentXDay = biorhythmShape.birthday;
+    currentXDay = biorhythmShape.biorhythm.birthday;
     $element = generate();
     if(!(biorhythmShape instanceof lu.bioControls.biorhythmModel.BiorhythmShape)) {
       return

@@ -18,7 +18,8 @@ var lu = lu || {};
 
 lu.WeekDayNamesProvider = (function() {
 
-    var weekDayShortNames = [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" ];
+    var weekDayShortNames;
+    weekDayShortNames = [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" ];
 
     function getWeekDayName(weekDay) {
         if (typeof (weekDay) !== "number") {

@@ -266,10 +266,10 @@ lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
     }
 
     this.setBirthdayOnAll = function(birthday) {
-        var biorhythms = getAll();
+        var biorhythmShapes = getAll();
 
-        for ( var i = 0; i < biorhythms.length; i++) {
-            biorhythms[i].biorhythm.birthday = birthday;
+        for ( var i = 0; i < biorhythmShapes.length; i++) {
+            biorhythmShapes[i].biorhythm.birthday = birthday;
         }
     };
 

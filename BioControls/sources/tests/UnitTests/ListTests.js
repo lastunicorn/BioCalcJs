@@ -56,15 +56,15 @@
     });
 
     QUnit.test("itemAdding event provides the item that was added.", function() {
-        var item = {};
+        var expectedItem = {};
         var actualItem = null;
         biorhythmList.itemAdding.subscribe(function(item) {
             actualItem = item;
         });
 
-        biorhythmList.add(item);
+        biorhythmList.add(expectedItem);
 
-        QUnit.strictEqual(actualItem, item, "Tests that the provided item is the same with the one that was added.");
+        QUnit.strictEqual(actualItem, expectedItem, "Tests that the provided item is the same with the one that was added.");
     });
 
     QUnit.test("Raise itemAdded event when a new item is added to the array.", function() {
@@ -79,15 +79,15 @@
     });
 
     QUnit.test("itemAdded event provides the item that was added.", function() {
-        var item = {};
+        var expectedItem = {};
         var actualItem = null;
         biorhythmList.itemAdded.subscribe(function(item) {
             actualItem = item;
         });
 
-        biorhythmList.add(item);
+        biorhythmList.add(expectedItem);
 
-        QUnit.strictEqual(actualItem, item, "Tests that the provided item is the same with the one that was added.");
+        QUnit.strictEqual(actualItem, expectedItem, "Tests that the provided item is the same with the one that was added.");
     });
 
     QUnit.test("itemAdded event is not raised anymore if itemAdding event throws.", function() {

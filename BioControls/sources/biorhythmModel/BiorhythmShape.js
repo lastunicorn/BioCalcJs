@@ -62,21 +62,6 @@ lu.bioControls.biorhythmModel.BiorhythmShape = function() {
     var birthdayChangedEvent = new lu.Event();
     this.birthdayChanged = birthdayChangedEvent.client;
 
-    Object.defineProperty(this, "birthday", {
-        enumerable: true,
-        configurable: false,
-        get: getBirthday,
-        set: setBirthday
-    });
-
-    function getBirthday() {
-        return biorhythm.birthday;
-    }
-
-    function setBirthday(value) {
-        biorhythm.birthday = value;
-    }
-
     // --------------------------------------------------------------------------
     // Biorythm
     // --------------------------------------------------------------------------

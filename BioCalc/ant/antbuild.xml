@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <project name="BioCalc" default="main" basedir=".">
-	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="../BioControls/ExternalTools/ClosureCompiler/compiler.jar" />
+	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="${closurecompiler.filepath}" />
 
 	<target name="main">
 

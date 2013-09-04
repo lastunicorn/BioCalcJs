@@ -2,7 +2,7 @@
 
 <project default="debug" basedir=".">
 
-	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="ExternalTools/ClosureCompiler/compiler.jar" />
+	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="${closurecompiler.filepath}" />
 
 	<property name="dir.compiled" value="compiled" />
 	<property name="file.compiled.debug" value="${dir.compiled}/BiorhythmControls.js" />

@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+/// <reference path="../../libraries/qUnit/qunit-1.12.0.js" />
+/// <reference path="QUnitExtensions.js" />
+/// <reference path="../../common/Point.js" />
+
 // -------------------------------------------------------------------------
 // constructor tests
 // -------------------------------------------------------------------------

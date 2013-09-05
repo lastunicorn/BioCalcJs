@@ -14,14 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/// <reference src="../../libraries/qUnit/qunit-1.12.0.js"/>
-/// <reference src="../../sources/common/Event.js/"/>
+/// <reference path="../../libraries/qUnit/qunit-1.12.0.js" />
+/// <reference path="../../common/Event.js" />
 
 (function() {
     var ev = null;
 
     // --------------------------------------------------------------------------
-    // subscribe methos
+    // subscribe method
     // --------------------------------------------------------------------------
 
     QUnit.module("Event Tests - subscribe method", {
@@ -35,7 +35,7 @@
 
     QUnit.test("subscribe() method throws if subscribe a null.", function() {
         function toBeTested() {
-            ev.subscribe(null);
+            ev.client.subscribe(null);
         }
 
         QUnit.throws(toBeTested, "Tests that throws if subscribe a null.");
@@ -43,7 +43,7 @@
 
     QUnit.test("subscribe() method throws if subscribe an undefined.", function() {
         function toBeTested() {
-            ev.subscribe(undefined);
+            ev.client.subscribe(undefined);
         }
 
         QUnit.throws(toBeTested, "Tests that throws if subscribe an undefined.");
@@ -51,7 +51,7 @@
 
     QUnit.test("subscribe() method throws if subscribe a number.", function() {
         function toBeTested() {
-            ev.subscribe(1);
+            ev.client.subscribe(1);
         }
 
         QUnit.throws(toBeTested, "Tests that throws if subscribe a number.");
@@ -59,7 +59,7 @@
 
     QUnit.test("subscribe() method throws if subscribe an object.", function() {
         function toBeTested() {
-            ev.subscribe({});
+            ev.client.subscribe({});
         }
 
         QUnit.throws(toBeTested, "Tests that throws if subscribe an object.");
@@ -70,7 +70,7 @@
         function evHandler() {
             handlerWasCalled = true;
         }
-        ev.subscribe(evHandler);
+        ev.client.subscribe(evHandler);
 
         ev.raise();
 
@@ -86,8 +86,8 @@
         function evHandler2() {
             handler2WasCalled++;
         }
-        ev.subscribe(evHandler1);
-        ev.subscribe(evHandler2);
+        ev.client.subscribe(evHandler1);
+        ev.client.subscribe(evHandler2);
 
         ev.raise();
 
@@ -97,7 +97,7 @@
 }());
 
 // --------------------------------------------------------------------------
-// unsubscribe methos
+// unsubscribe method
 // --------------------------------------------------------------------------
 
 (function() {
@@ -114,7 +114,7 @@
 
     QUnit.test("unsubscribe() method throws if unsubscribe a null.", function() {
         function toBeTested() {
-            ev.unsubscribe(null);
+            ev.client.unsubscribe(null);
         }
 
         QUnit.throws(toBeTested, "Tests that throws if unsubscribe a null.");
@@ -122,7 +122,7 @@
 
     QUnit.test("unsubscribe() method throws if unsubscribe an undefined.", function() {
         function toBeTested() {
-            ev.unsubscribe(undefined);
+            ev.client.unsubscribe(undefined);
         }
 
         QUnit.throws(toBeTested, "Tests that throws if unsubscribe an undefined.");
@@ -130,7 +130,7 @@
 
     QUnit.test("unsubscribe() method throws if unsubscribe a number.", function() {
         function toBeTested() {
-            ev.unsubscribe(1);
+            ev.client.unsubscribe(1);
         }
 
         QUnit.throws(toBeTested, "Tests that throws if unsubscribe a number.");
@@ -138,7 +138,7 @@
 
     QUnit.test("unsubscribe() method throws if subscribe an object.", function() {
         function toBeTested() {
-            ev.unsubscribe({});
+            ev.client.unsubscribe({});
         }
 
         QUnit.throws(toBeTested, "Tests that throws if unsubscribe an object.");
@@ -149,8 +149,8 @@
         function evHandler() {
             handlerCallCount++;
         }
-        ev.subscribe(evHandler);
-        ev.unsubscribe(evHandler);
+        ev.client.subscribe(evHandler);
+        ev.client.unsubscribe(evHandler);
 
         ev.raise();
 
@@ -163,7 +163,7 @@
         function evHandler() {
             actualSender = this;
         }
-        ev.subscribe(evHandler);
+        ev.client.subscribe(evHandler);
 
         ev.raise(expectedSender);
 
@@ -176,7 +176,7 @@
         function evHandler(evArg) {
             actualArgument = evArg;
         }
-        ev.subscribe(evHandler);
+        ev.client.subscribe(evHandler);
 
         ev.raise(null, expectedArgument);
 
@@ -192,9 +192,9 @@
         function evHandler2() {
             handler2CallCount++;
         }
-        ev.subscribe(evHandler1);
-        ev.subscribe(evHandler2);
-        ev.unsubscribe(evHandler1);
+        ev.client.subscribe(evHandler1);
+        ev.client.subscribe(evHandler2);
+        ev.client.unsubscribe(evHandler1);
 
         ev.raise();
 
@@ -204,7 +204,7 @@
 }());
 
 // --------------------------------------------------------------------------
-// event property
+// client property
 // --------------------------------------------------------------------------
 
 (function() {
@@ -222,12 +222,12 @@
     QUnit.test("event property returns an object that contains the subscribe method.", function() {
         var actual = ev.client.subscribe;
         
-        QUnit.strictEqual(actual, ev.subscribe, "Tests that event property returns an object containing the subscribe method.");
+        QUnit.strictEqual(actual, ev.client.subscribe, "Tests that event property returns an object containing the subscribe method.");
     });
 
     QUnit.test("event property returns an object that contains the unsubscribe method.", function() {
         var actual = ev.client.unsubscribe;
         
-        QUnit.strictEqual(actual, ev.unsubscribe, "Tests that event property returns an object containing the unsubscribe method.");
+        QUnit.strictEqual(actual, ev.client.unsubscribe, "Tests that event property returns an object containing the unsubscribe method.");
     });
 }());

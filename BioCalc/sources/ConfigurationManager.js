@@ -76,13 +76,13 @@ lu.bioCalc.ConfigurationManager = function() {
         return config;
     }
 
-    function ensureDefaultValues(config) {
-        if ($.type(config.birthday) === "string") {
-            config.birthday = new Date(config.birthday);
+    function ensureDefaultValues(c) {
+        if ($.type(c.birthday) === "string") {
+            c.birthday = new Date(c.birthday);
         }
 
-        if ($.type(config.birthday) !== "date") {
-            config.birthday = getDefaultBirthday();
+        if ($.type(c.birthday) !== "date") {
+            c.birthday = getDefaultBirthday();
         }
     }
 };

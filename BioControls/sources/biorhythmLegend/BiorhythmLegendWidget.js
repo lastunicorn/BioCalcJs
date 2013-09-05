@@ -15,78 +15,74 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 (function($) {
-    var widget = null;
-    var $container = null;
-    var biorhythmLegendItems = [];
-    var biorhythms = null;
-
     $.widget("lastunicorn.biorhythmLegend", {
         options: {
             biorhythms: []
         },
+
         _create: function() {
-            widget = this;
-            $container = $(this.element);
+            this._$container = $(this.element);
+            this._items = [];
 
-            biorhythms = new lu.bioControls.BiorhythmsAdapter({
-                biorhythms: this.options.biorhythms,
-                onBiorhithmAdded: onBiorhithmAdded,
-                onBiorhithmRemoved: onBiorhithmRemoved
-            });
+            this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
 
-            repopulate();
+            this._repopulate();
         },
 
         _setOption: function(key, value) {
             if (key === "biorhythms") {
-                biorhythms.clear();
+                this._biorhythms.clear();
 
                 this._super(key, value);
 
-                biorhythms = new lu.bioControls.BiorhythmsAdapter({
-                    biorhythms: this.options.biorhythms,
-                    onBiorhithmAdded: onBiorhithmAdded,
-                    onBiorhithmRemoved: onBiorhithmRemoved
-                });
+                this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
 
-                repopulate();
+                this._repopulate();
+            }
+        },
+
+        _createBiorhythmsAdapter: function(biorhythms) {
+            return new lu.bioControls.BiorhythmsAdapter({
+                biorhythms: biorhythms,
+                onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
+                onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
+            });
+        },
+
+        _repopulate: function() {
+            this._$container.empty();
+            this._items.length = 0;
+
+            var biorhythmsArray = this._biorhythms.toArray();
+
+            for ( var i = 0; i < biorhythmsArray.length; i++) {
+                this._createNewItem(biorhythmsArray[i]);
+            }
+        },
+
+        _onBiorhithmAdded: function(biorhythmShape) {
+            this._createNewItem(biorhythmShape);
+        },
+
+        _onBiorhithmRemoved: function(biorhythmShape) {
+            this._removeItem(biorhythmShape);
+        },
+
+        _createNewItem: function(biorhythm) {
+            var biorhythmLegendItem = new lu.bioControls.biorhythmLegend.BiorhythmLegendItem(biorhythm);
+            this._items.push(biorhythmLegendItem);
+
+            var $legendItemTag = biorhythmLegendItem.element;
+            this._$container.prepend($legendItemTag);
+        },
+
+        _removeItem: function(biorhythm) {
+            for ( var i = 0; i < this._items.length; i++) {
+                if (this._items[i].biorhythmShape === biorhythm) {
+                    this._items.splice(i, 1);
+                    this._items[i].element.remove();
+                }
             }
         }
     });
-
-    function repopulate() {
-        $container.empty();
-        biorhythmLegendItems.length = 0;
-
-        var biorhythmsArray = biorhythms.toArray();
-
-        for ( var i = 0; i < biorhythmsArray.length; i++) {
-            createNewItem(biorhythmsArray[i]);
-        }
-    }
-
-    function onBiorhithmAdded(biorhythmShape) {
-        createNewItem(biorhythmShape);
-    }
-
-    function onBiorhithmRemoved(biorhythmShape) {
-        removeItem(biorhythmShape);
-    }
-
-    function createNewItem(biorhythm) {
-        var biorhythmLegendItem = new lu.bioControls.biorhythmLegend.BiorhythmLegendItem(biorhythm);
-        biorhythmLegendItems.push(biorhythmLegendItem);
-
-        var $legendItemTag = biorhythmLegendItem.element;
-        $container.prepend($legendItemTag);
-    }
-
-    function removeItem(biorhythm) {
-        for ( var i = 0; i < biorhythmLegendItems.length; i++) {
-            if (biorhythmLegendItems[i].biorhythmShape === biorhythm) {
-                biorhythmLegendItems.splice(i, 1);
-                biorhythmLegendItems[i].element.remove();
-            }
-        }
-    }
 }(jQuery));

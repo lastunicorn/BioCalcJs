@@ -19,6 +19,8 @@ lu.bioCalc = lu.bioCalc || {};
 
 /**
  * Contains the logic of the main tool bar.
+ * 
+ * @returns {lu.bioCalc.MainToolbar}
  */
 lu.bioCalc.MainToolbar = (function() {
 

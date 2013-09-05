@@ -19,6 +19,8 @@ lu.bioCalc = lu.bioCalc || {};
 
 /**
  * Contains the logic of the Options dialog.
+ * 
+ * @returns {lu.bioCalc.OptionsDialog}
  */
 lu.bioCalc.OptionsDialog = (function() {
 

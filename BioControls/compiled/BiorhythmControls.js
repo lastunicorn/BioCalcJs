@@ -395,51 +395,44 @@ lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
   })()
 };
 (function($) {
-  var widget = null;
-  var $container = null;
-  var biorhythmLegendItems = [];
-  var biorhythms = null;
   $.widget("lastunicorn.biorhythmLegend", {options:{biorhythms:[]}, _create:function() {
-    widget = this;
-    $container = $(this.element);
-    biorhythms = new lu.bioControls.BiorhythmsAdapter({biorhythms:this.options.biorhythms, onBiorhithmAdded:onBiorhithmAdded, onBiorhithmRemoved:onBiorhithmRemoved});
-    repopulate()
+    this._$container = $(this.element);
+    this._items = [];
+    this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
+    this._repopulate()
   }, _setOption:function(key, value) {
     if(key === "biorhythms") {
-      biorhythms.clear();
+      this._biorhythms.clear();
       this._super(key, value);
-      biorhythms = new lu.bioControls.BiorhythmsAdapter({biorhythms:this.options.biorhythms, onBiorhithmAdded:onBiorhithmAdded, onBiorhithmRemoved:onBiorhithmRemoved});
-      repopulate()
+      this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
+      this._repopulate()
     }
-  }});
-  function repopulate() {
-    $container.empty();
-    biorhythmLegendItems.length = 0;
-    var biorhythmsArray = biorhythms.toArray();
+  }, _createBiorhythmsAdapter:function(biorhythms) {
+    return new lu.bioControls.BiorhythmsAdapter({biorhythms:biorhythms, onBiorhithmAdded:$.proxy(this._onBiorhithmAdded, this), onBiorhithmRemoved:$.proxy(this._onBiorhithmRemoved, this)})
+  }, _repopulate:function() {
+    this._$container.empty();
+    this._items.length = 0;
+    var biorhythmsArray = this._biorhythms.toArray();
     for(var i = 0;i < biorhythmsArray.length;i++) {
-      createNewItem(biorhythmsArray[i])
+      this._createNewItem(biorhythmsArray[i])
     }
-  }
-  function onBiorhithmAdded(biorhythmShape) {
-    createNewItem(biorhythmShape)
-  }
-  function onBiorhithmRemoved(biorhythmShape) {
-    removeItem(biorhythmShape)
-  }
-  function createNewItem(biorhythm) {
+  }, _onBiorhithmAdded:function(biorhythmShape) {
+    this._createNewItem(biorhythmShape)
+  }, _onBiorhithmRemoved:function(biorhythmShape) {
+    this._removeItem(biorhythmShape)
+  }, _createNewItem:function(biorhythm) {
     var biorhythmLegendItem = new lu.bioControls.biorhythmLegend.BiorhythmLegendItem(biorhythm);
-    biorhythmLegendItems.push(biorhythmLegendItem);
+    this._items.push(biorhythmLegendItem);
     var $legendItemTag = biorhythmLegendItem.element;
-    $container.prepend($legendItemTag)
-  }
-  function removeItem(biorhythm) {
-    for(var i = 0;i < biorhythmLegendItems.length;i++) {
-      if(biorhythmLegendItems[i].biorhythmShape === biorhythm) {
-        biorhythmLegendItems.splice(i, 1);
-        biorhythmLegendItems[i].element.remove()
+    this._$container.prepend($legendItemTag)
+  }, _removeItem:function(biorhythm) {
+    for(var i = 0;i < this._items.length;i++) {
+      if(this._items[i].biorhythmShape === biorhythm) {
+        this._items.splice(i, 1);
+        this._items[i].element.remove()
       }
     }
-  }
+  }})
 })(jQuery);
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -2007,53 +2000,46 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
   })()
 };
 (function($) {
-  var widget = null;
-  var $container = null;
-  var items = [];
-  var biorhythms = null;
   $.widget("lastunicorn.xDayInfoView", {_create:function() {
-    widget = this;
-    $container = $(this.element);
-    biorhythms = new lu.bioControls.BiorhythmsAdapter({biorhythms:this.options.biorhythms, onBiorhithmAdded:onBiorhithmAdded, onBiorhithmRemoved:onBiorhithmRemoved});
-    repopulate()
+    this._$container = $(this.element);
+    this._items = [];
+    this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
+    this._repopulate()
   }, _setOption:function(key, value) {
     if(key === "biorhythms") {
-      biorhythms.clear();
+      this._biorhythms.clear();
       this._super(key, value);
-      biorhythms = new lu.bioControls.BiorhythmsAdapter({biorhythms:this.options.biorhythms, onBiorhithmAdded:onBiorhithmAdded, onBiorhithmRemoved:onBiorhithmRemoved});
-      repopulate()
+      this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
+      this._repopulate()
     }
   }, update:function(xDay) {
-    for(var i = 0;i < items.length;i++) {
-      items[i].update(xDay)
+    for(var i = 0;i < this._items.length;i++) {
+      this._items[i].update(xDay)
     }
-  }});
-  function repopulate() {
-    $container.empty();
-    items.length = 0;
-    var biorhythmsArray = biorhythms.toArray();
+  }, _createBiorhythmsAdapter:function(biorhythms) {
+    return new lu.bioControls.BiorhythmsAdapter({biorhythms:biorhythms, onBiorhithmAdded:$.proxy(this._onBiorhithmAdded, this), onBiorhithmRemoved:$.proxy(this._onBiorhithmRemoved, this)})
+  }, _repopulate:function() {
+    this._$container.empty();
+    this._items.length = 0;
+    var biorhythmsArray = this._biorhythms.toArray();
     for(var i = 0;i < biorhythmsArray.length;i++) {
-      createNewItem(biorhythmsArray[i])
+      this._createNewItem(biorhythmsArray[i])
     }
-  }
-  function onBiorhithmAdded(biorhythmShape) {
-    createNewItem(biorhythmShape)
-  }
-  function onBiorhithmRemoved(biorhythmShape) {
-    removeItem(biorhythmShape)
-  }
-  function createNewItem(biorhythm) {
+  }, _onBiorhithmAdded:function(biorhythmShape) {
+    this._createNewItem(biorhythmShape)
+  }, _onBiorhithmRemoved:function(biorhythmShape) {
+    this._removeItem(biorhythmShape)
+  }, _createNewItem:function(biorhythm) {
     var xDayInfoItem = new lu.bioControls.xDayInfoView.XDayInfoItem(biorhythm);
-    items.push(xDayInfoItem);
+    this._items.push(xDayInfoItem);
     var $itemElement = xDayInfoItem.element;
-    $container.append($itemElement)
-  }
-  function removeItem(biorhythm) {
-    for(var i = 0;i < items.length;i++) {
-      if(items[i].biorhythmShape === biorhythm) {
-        items.splice(i, 1);
-        items[i].element.remove()
+    this._$container.append($itemElement)
+  }, _removeItem:function(biorhythm) {
+    for(var i = 0;i < this._items.length;i++) {
+      if(this._items[i].biorhythmShape === biorhythm) {
+        this._items.splice(i, 1);
+        this._items[i].element.remove()
       }
     }
-  }
+  }})
 })(jQuery);

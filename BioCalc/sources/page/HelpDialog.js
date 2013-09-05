@@ -19,6 +19,8 @@ lu.bioCalc = lu.bioCalc || {};
 
 /**
  * Contains the logic of the Help dialog.
+ * 
+ * @returns {lu.bioCalc.HelpDialog}
  */
 lu.bioCalc.HelpDialog = (function() {
 

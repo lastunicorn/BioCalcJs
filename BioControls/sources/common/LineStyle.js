@@ -16,10 +16,13 @@
 
 var lu = lu || {};
 
+/**
+ * An enum with the possible styles that can be used to draw a line.
+ */
 lu.LineStyle = {
-	solid: 0,
-	dash: 1,
-	dot: 2,
-	dashDot: 3,
-	dashDotDot: 4
+    solid: 0,
+    dash: 1,
+    dot: 2,
+    dashDot: 3,
+    dashDotDot: 4
 };

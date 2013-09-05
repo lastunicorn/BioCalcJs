@@ -17,18 +17,43 @@
 var lu = lu || {};
 
 lu.DateUtil = {
+    /**
+     * Returns the number of milliseconds contained in the specified number of
+     * days.
+     * 
+     * @returns {Number} The number of milliseconds.
+     */
     daysToMiliseconds: function(days) {
         return days * 24 * 60 * 60 * 1000;
     },
-    
-    milisecondsToDays: function(miliseconds){
+
+    /**
+     * Returns the number of days represented by the specified number of
+     * milliseconds.
+     * 
+     * @returns {Number} A float representing the number of days.
+     */
+    milisecondsToDays: function(miliseconds) {
         return miliseconds / 1000 / 60 / 60 / 24;
     },
-    
-    milisecondsToWholeDays: function(miliseconds){
+
+    /**
+     * Returns the number of whole days represented by the specified number of
+     * milliseconds. The remaining milliseconds, that cannot form another whole
+     * day, are ignored.
+     * 
+     * @returns {Number} An int representing the number of whole days.
+     */
+    milisecondsToWholeDays: function(miliseconds) {
         return Math.floor(this.milisecondsToDays(miliseconds));
     },
 
+    /**
+     * Gets a {Date}, adds the specifide number of days to it and returns
+     * another instance of {Date}.
+     * 
+     * @returns {Date} A new instance of {Date}.
+     */
     addDays: function(date, daysToAdd) {
         var miliseconds = daysToAdd * 24 * 60 * 60 * 1000;
 
@@ -47,6 +72,12 @@ lu.DateUtil = {
         return new Date(date + miliseconds);
     },
 
+    /**
+     * Gets a {Date} and returns another instance of {Date} containing only the
+     * date component (year, month, day) of the received one.
+     * 
+     * @returns {Date} A new instance of {Date}.
+     */
     getDateComponent: function(date) {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }

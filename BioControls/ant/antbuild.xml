@@ -41,7 +41,6 @@
 				<!-- These have to be compiled first -->
 				<file name="BiorhythmsAdapter.js" />
 				<file name="DateUtil.js" />
-				<file name="DayLabelPosition.js" />
 				<file name="Event.js" />
 				<file name="Line.js" />
 				<file name="LinePatternCalculator.js" />
@@ -51,7 +50,6 @@
 				<file name="Point.js" />
 				<file name="Rectangle.js" />
 				<file name="TextUtil.js" />
-				<file name="WeekDayNameProvider.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources">
@@ -89,6 +87,8 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythmView">
+				<file name="DayLabelPosition.js" />
+				<file name="WeekDayNameProvider.js" />
 				<file name="BiorhythmViewWidget.js" />
 				<file name="Scroller.js" />
 			</sources>

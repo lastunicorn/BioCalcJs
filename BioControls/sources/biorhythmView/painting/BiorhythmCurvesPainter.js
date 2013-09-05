@@ -80,7 +80,7 @@ lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter = function() {
     }
 
     function paintBiorhythm(biorhythmPaintData) {
-        var linePattern = lu.LinePatternCalculator.calculatePattern(biorhythmPaintData.lineStyle, biorhythmPaintData.lineWidth);
+        var linePattern = lu.LinePatternCalculator.createPattern(biorhythmPaintData.lineStyle, biorhythmPaintData.lineWidth);
         setLinePattern(linePattern);
 
         paintContext.strokeStyle = biorhythmPaintData.color;

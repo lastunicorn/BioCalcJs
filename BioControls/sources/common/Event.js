@@ -56,6 +56,21 @@ lu.Event = function() {
     }
 
     /**
+     * Gets an object containing the subscribe and unsubscribe methods. This is
+     * useful to expose to subscribers instead of exposing the whole {lu.Event}
+     * object.
+     */
+    Object.defineProperty(this, "client", {
+        value: {
+            subscribe: subscribe,
+            unsubscribe: unsubscribe
+        },
+        enumerable: true,
+        configurable: false,
+        writable: false
+    });
+
+    /**
      * It calls all the eventHandlers previously subscribed to this event.
      * 
      * @param sender
@@ -71,19 +86,4 @@ lu.Event = function() {
             eventHandlers[i].call(sender, arg);
         }
     };
-
-    /**
-     * Gets an object containing the subscribe and unsubscribe methods. This is
-     * useful to expose to subscribers instead of exposing the whole {lu.Event}
-     * object.
-     */
-    Object.defineProperty(this, "client", {
-        value: {
-            subscribe: subscribe,
-            unsubscribe: unsubscribe
-        },
-        enumerable: true,
-        configurable: false,
-        writable: false
-    });
 };

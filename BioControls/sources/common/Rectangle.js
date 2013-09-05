@@ -16,6 +16,25 @@
 
 var lu = lu || {};
 
+/**
+ * Represents a geometric rectangle in the cartesian reference system.
+ * 
+ * @param left
+ *            {Number} The x coordinate of the top-left corner of the rectangle.
+ * 
+ * @param top
+ *            {Number} The y coordinate of the top-left corner of the rectangle.
+ * 
+ * @param width
+ *            {Number} The distance between the left and the rigth margins of
+ *            the rectangle.
+ * 
+ * @param height
+ *            {Number} The distance between the top and the bottom margins of
+ *            the rectangle.
+ * 
+ * @returns {lu.Rectangle}
+ */
 lu.Rectangle = function(left, top, width, height) {
 
     Object.defineProperty(this, "left", {

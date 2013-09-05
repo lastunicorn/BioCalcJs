@@ -27,8 +27,8 @@
             gridColor: "#d3d3d3", // LightGray
             areDayNumbersVisible: true,
             areWeekDaysVisible: true,
-            dayNumbersPosition: lu.DayLabelPosition.top,
-            weekDaysPosition: lu.DayLabelPosition.bottom,
+            dayNumbersPosition: lu.bioControls.biorhythmView.DayLabelPosition.top,
+            weekDaysPosition: lu.bioControls.biorhythmView.DayLabelPosition.bottom,
             areSundaysEmphasized: true,
             foreColor: "#b0b0b0",
             sundaysColor: "#ff0000", // Red
@@ -65,7 +65,7 @@
             this.suspendPaint();
             try {
                 if (key === "biorhythms") {
-                    this._biorhythms.clear();
+                    this._biorhythms.destroy();
 
                     this._super(key, value);
 
@@ -230,8 +230,8 @@
 
         destroy: function() {
             this._$element.remove();
+            this._biorhythms.destroy();
 
-            // Call the base destroy function.
             $.Widget.prototype.destroy.call(this);
         },
 

@@ -18,6 +18,27 @@ var lu = lu || {};
 
 lu.TextUtil = (function() {
 
+    /**
+     * Measures the size in pixels that the specified text has when is drawn
+     * using the specified font.
+     * 
+     * @param obj
+     *            {Object} Congfiguration object.
+     * 
+     * @param obj.text
+     *            {String} The text to be measured.
+     * 
+     * @param obj.font
+     *            {String} The font used to draw the text.
+     * 
+     * @param obj.isBold
+     *            {Boolean} Specifies if the text should be drawn using bold.
+     * 
+     * @param obj.isItalic
+     *            {Boolean} Specifies if the text should be drawn using italic.
+     * 
+     * @returns {Array} An array of two items representing the width and height.
+     */
     function measureText(obj) {
         if (!obj) {
             return [ 0, 0 ];

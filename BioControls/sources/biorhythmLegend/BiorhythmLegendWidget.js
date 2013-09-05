@@ -31,7 +31,7 @@
 
         _setOption: function(key, value) {
             if (key === "biorhythms") {
-                this._biorhythms.clear();
+                this._biorhythms.destroy();
 
                 this._super(key, value);
 
@@ -43,8 +43,8 @@
 
         destroy: function() {
             this.element.empty();
+            this._biorhythms.destroy();
 
-            // Call the base destroy function.
             $.Widget.prototype.destroy.call(this);
         },
 

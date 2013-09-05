@@ -15,10 +15,16 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 
-lu.DayLabelPosition = {
-	top: 0,
-    aboveMiddle : 1,
+/**
+ * An enum with the possible positions for the day labels of the biorhythmView
+ * control.
+ */
+lu.bioControls.biorhythmView.DayLabelPosition = {
+    top: 0,
+    aboveMiddle: 1,
     belowMiddle: 2,
     bottom: 3
 };

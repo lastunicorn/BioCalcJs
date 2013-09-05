@@ -17,7 +17,54 @@
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 
+/**
+ * An adapter that takes an object and provides an array of BiorhythShapes.
+ * 
+ * @param configuration
+ *            {Object} Configuration object containing different options needed
+ *            by the instance.
+ * 
+ * @param configuration.biorhythms
+ *            {Array | Object} If the object received is an Array, the same
+ *            array is provided further. If the object provided is any other
+ *            type of object and it has the toArray method, this method is used
+ *            to obtain an array that is provided further.
+ * 
+ * @param configuration.onBiorhithmAdded
+ *            {Function} If the object received has itemAdded property and it
+ *            represents an event (have the subscribe method), this function is
+ *            used to hook up to the event.
+ * 
+ * @param configuration.onBiorhithmRemoved
+ *            {Function} If the object received has itemRemoved property and it
+ *            represents an event (have the unsubscribe method), this function
+ *            is used to hook up to the event.
+ * 
+ * @returns {lu.bioControls.BiorhythmsAdapter}
+ */
 lu.bioControls.BiorhythmsAdapter = function(configuration) {
+
+    /**
+     * Returns an array of biorhythms.
+     * 
+     * @returns {Array} an array of biorhythms.
+     */
+    this.toArray = function() {
+        return biorhythmsToArray();
+    };
+
+    /**
+     * Unsubscribes from the events if needed. The biorhythms in the array are
+     * not changed in any way.
+     */
+    this.destroy = function() {
+        unsubscribeFromBiorhythmsEvents();
+
+        var biorhythmsArray = biorhythmsToArray();
+        for ( var i = 0; i < biorhythmsArray.length; i++) {
+            unsubscribeFromBiorhythmEvents(biorhythmsArray[i]);
+        }
+    };
 
     function subscribeToBiorhythmsEvents() {
         if (!configuration || !configuration.biorhythms) {
@@ -74,19 +121,6 @@ lu.bioControls.BiorhythmsAdapter = function(configuration) {
 
         return [];
     }
-
-    this.toArray = function() {
-        return biorhythmsToArray();
-    };
-
-    this.clear = function() {
-        unsubscribeFromBiorhythmsEvents();
-
-        var biorhythmsArray = biorhythmsToArray();
-        for ( var i = 0; i < biorhythmsArray.length; i++) {
-            unsubscribeFromBiorhythmEvents(biorhythmsArray[i]);
-        }
-    };
 
     (function initialize() {
         subscribeToBiorhythmsEvents();

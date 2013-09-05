@@ -17,15 +17,15 @@
 var lu = lu || {};
 
 /**
- * Represents a point determined by two values in the cartesian reference
- * system.
+ * Represents a geometric point determined by two values in the cartesian
+ * reference system.
  * 
  * @param x
  *            The x coordinate of the point.
- *            
+ * 
  * @param y
  *            The y coordinate of the point.
- *            
+ * 
  * @returns {lu.Point}
  */
 lu.Point = function(x, y) {

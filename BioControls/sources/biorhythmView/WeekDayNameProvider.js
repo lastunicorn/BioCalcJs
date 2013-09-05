@@ -15,8 +15,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 
-lu.WeekDayNamesProvider = (function() {
+lu.bioControls.biorhythmView.WeekDayNamesProvider = (function() {
 
     var weekDayShortNames;
     weekDayShortNames = [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" ];

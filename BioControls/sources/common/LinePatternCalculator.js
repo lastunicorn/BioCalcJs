@@ -17,7 +17,24 @@
 var lu = lu || {};
 
 lu.LinePatternCalculator = {
-    calculatePattern: function(lineStyle, lineWidth) {
+    /**
+     * Creates a new line pattern based on the requested style and the line
+     * width. The pattern is an array of numbers. The numbers from the odd
+     * positions represents the length (in pixels) of the filled segments. The
+     * numbers from the even positions represents the gaps (in pixels) between
+     * those segments.
+     * 
+     * @param lineStyle
+     *            {lu.LineStyle} The style based on which to create the pattern.
+     * 
+     * @param lineWidth
+     *            {Number} The width of the line on which the pattern will be
+     *            applied. This is used to scale the gaps according to the
+     *            width.
+     * 
+     * @returns {Array} An array of numbers representing the pattern.
+     */
+    createPattern: function(lineStyle, lineWidth) {
         switch (lineStyle) {
             case lu.LineStyle.solid:
                 return null;

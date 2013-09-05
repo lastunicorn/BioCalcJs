@@ -20,7 +20,8 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting || {};
 
 /**
- * Paints the labels of the month days and week days using an html canvas context object.
+ * Paints the labels of the month days and week days using an html canvas
+ * context object.
  * 
  * @returns {lu.bioControls.biorhythmView.painting.DayLabelsPainter}
  */
@@ -36,7 +37,6 @@ lu.bioControls.biorhythmView.painting.DayLabelsPainter = function() {
         paintData = data;
         paintRectangle = rectangle;
         paintContext = context;
-
 
         calculateTextSize();
         calculateDayLabels();
@@ -54,7 +54,7 @@ lu.bioControls.biorhythmView.painting.DayLabelsPainter = function() {
 
         paintContext.textAlign = "center";
         paintContext.textBaseline = "middle";
-        
+
         currentFont = null;
 
         for ( var i = 0; i < paintData.totalDays; i++) {
@@ -86,26 +86,30 @@ lu.bioControls.biorhythmView.painting.DayLabelsPainter = function() {
 
     function calculateDayNumberPaintInfo(i, day) {
         var text = day.getDate().toString();
-        var location = calculateDayNumberLocation(i, paintData.dayNumbersPosition);
+        var position = calculateDayNumberLocation(i, paintData.dayNumbersPosition);
         var isEmphasized = paintData.areSundaysEmphasized && day.getDay() === 0;
 
-        return {
+        var paintInfo = {
             text: text,
-            location: location,
+            position: position,
             isEmphasized: isEmphasized
         };
+
+        return paintInfo;
     }
 
     function calculateWeekDayPaintInfo(day, i) {
-        var text = lu.WeekDayNamesProvider.getWeekDayName(day.getDay());
-        var location = calculateDayNumberLocation(i, paintData.weekDaysPosition);
+        var text = lu.bioControls.biorhythmView.WeekDayNamesProvider.getWeekDayName(day.getDay());
+        var position = calculateDayNumberLocation(i, paintData.weekDaysPosition);
         var isEmphasized = paintData.areSundaysEmphasized && day.getDay() === 0;
 
-        return {
+        var paintInfo = {
             text: text,
-            location: location,
+            position: position,
             isEmphasized: isEmphasized
         };
+
+        return paintInfo;
     }
 
     function calculateDayNumberLocation(index, position) {
@@ -113,17 +117,17 @@ lu.bioControls.biorhythmView.painting.DayLabelsPainter = function() {
         var daysFontHeight = (textHeight + 3) / 2;
 
         switch (position) {
-            case lu.DayLabelPosition.top:
+            case lu.bioControls.biorhythmView.DayLabelPosition.top:
                 return new lu.Point(xStep * index + xStep / 2, daysFontHeight);
 
             default:
-            case lu.DayLabelPosition.aboveMiddle:
+            case lu.bioControls.biorhythmView.DayLabelPosition.aboveMiddle:
                 return new lu.Point(xStep * index + xStep / 2, paintRectangle.height / 2 - daysFontHeight);
 
-            case lu.DayLabelPosition.belowMiddle:
+            case lu.bioControls.biorhythmView.DayLabelPosition.belowMiddle:
                 return new lu.Point(xStep * index + xStep / 2, paintRectangle.height / 2 + daysFontHeight);
 
-            case lu.DayLabelPosition.bottom:
+            case lu.bioControls.biorhythmView.DayLabelPosition.bottom:
                 return new lu.Point(xStep * index + xStep / 2, paintRectangle.height - daysFontHeight);
         }
     }
@@ -141,6 +145,6 @@ lu.bioControls.biorhythmView.painting.DayLabelsPainter = function() {
             }
         }
 
-        paintContext.fillText(label.text, label.location.x, label.location.y);
+        paintContext.fillText(label.text, label.position.x, label.position.y);
     }
 };

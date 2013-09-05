@@ -16,9 +16,12 @@
 
 var lu = lu || {};
 
+/**
+ * An enum with the standard buttons of a mouse.
+ */
 lu.MouseButton = {
-	none: 0,
-	left: 1,
-	middle: 2,
-	right: 3
+    none: 0,
+    left: 1,
+    middle: 2,
+    right: 3
 };

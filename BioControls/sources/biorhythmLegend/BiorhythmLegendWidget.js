@@ -21,7 +21,7 @@
         },
 
         _create: function() {
-            this._$container = $(this.element);
+            this.element.empty();
             this._items = [];
 
             this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
@@ -41,6 +41,13 @@
             }
         },
 
+        destroy: function() {
+            this.element.empty();
+
+            // Call the base destroy function.
+            $.Widget.prototype.destroy.call(this);
+        },
+
         _createBiorhythmsAdapter: function(biorhythms) {
             return new lu.bioControls.BiorhythmsAdapter({
                 biorhythms: biorhythms,
@@ -50,7 +57,7 @@
         },
 
         _repopulate: function() {
-            this._$container.empty();
+            this.element.empty();
             this._items.length = 0;
 
             var biorhythmsArray = this._biorhythms.toArray();
@@ -73,7 +80,7 @@
             this._items.push(biorhythmLegendItem);
 
             var $legendItemTag = biorhythmLegendItem.element;
-            this._$container.prepend($legendItemTag);
+            this.element.prepend($legendItemTag);
         },
 
         _removeItem: function(biorhythm) {

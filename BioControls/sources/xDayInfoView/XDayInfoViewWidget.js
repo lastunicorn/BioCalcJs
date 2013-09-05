@@ -16,8 +16,12 @@
 
 (function($) {
     $.widget("lastunicorn.xDayInfoView", {
+        options: {
+            biorhythms: []
+        },
+
         _create: function() {
-            this._$container = $(this.element);
+            this.element.empty();
             this._items = [];
 
             this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
@@ -37,6 +41,13 @@
             }
         },
 
+        destroy: function() {
+            this.element.empty();
+
+            // Call the base destroy function.
+            $.Widget.prototype.destroy.call(this);
+        },
+
         update: function(xDay) {
             for ( var i = 0; i < this._items.length; i++) {
                 this._items[i].update(xDay);
@@ -52,7 +63,7 @@
         },
 
         _repopulate: function() {
-            this._$container.empty();
+            this.element.empty();
             this._items.length = 0;
 
             var biorhythmsArray = this._biorhythms.toArray();
@@ -75,7 +86,7 @@
             this._items.push(xDayInfoItem);
 
             var $itemElement = xDayInfoItem.element;
-            this._$container.append($itemElement);
+            this.element.append($itemElement);
         },
 
         _removeItem: function(biorhythm) {

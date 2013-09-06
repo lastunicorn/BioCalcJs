@@ -42,6 +42,17 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
         return period;
     }
 
+    function setPeriod(value) {
+        if (typeof period !== "number") {
+            throw "period should be a number.";
+        }
+
+        generateValues();
+    }
+
+    var birthdayChangedEvent = new lu.Event();
+    this.birthdayChanged = birthdayChangedEvent.client;
+
     Object.defineProperty(this, "birthday", {
         enumerable: true,
         configurable: false,
@@ -58,7 +69,12 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
             throw "birthday should be a Date.";
         }
 
+        if (value === birthday) {
+            return;
+        }
+
         birthday = value;
+        birthdayChangedEvent.raise(this, value);
     }
 
     this.getValue = function(day) {
@@ -103,14 +119,6 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
     }
 
     (function initialize() {
-        if (period !== undefined) {
-            if (typeof period !== "number") {
-                throw "period should be a number.";
-            }
-
-            generateValues();
-        } else {
-            period = 0;
-        }
+        setPeriod(period);
     }());
 };

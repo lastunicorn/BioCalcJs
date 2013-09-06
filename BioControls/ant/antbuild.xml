@@ -42,6 +42,7 @@
 				<file name="BiorhythmsAdapter.js" />
 				<file name="DateUtil.js" />
 				<file name="Event.js" />
+				<file name="Inheritance.js" />
 				<file name="Line.js" />
 				<file name="LinePatternCalculator.js" />
 				<file name="LineStyle.js" />
@@ -69,6 +70,7 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythms">
+				<file name="SinusoidalBiorhythm.js" />
 				<file name="AverageBiorhythm.js" />
 				<file name="EmotionalBiorhythm.js" />
 				<file name="EstheticBiorhythm.js" />
@@ -80,7 +82,6 @@
 				<file name="PhysicalBiorhythm.js" />
 				<file name="PsychicBiorhythm.js" />
 				<file name="SelfAwarenessBiorhythm.js" />
-				<file name="SinusoidalBiorhythm.js" />
 				<file name="SpiritualBiorhythm.js" />
 				<file name="SuccessBiorhythm.js" />
 				<file name="WisdomBiorhythm.js" />

@@ -25,8 +25,6 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
  * @returns {lu.bioControls.biorhythms.PsychicBiorhythm}
  */
 lu.bioControls.biorhythms.PsychicBiorhythm = function() {
-    var biorhythm = null;
-    var obj = this;
 
     Object.defineProperty(this, "name", {
         value: "Psychic",
@@ -35,37 +33,12 @@ lu.bioControls.biorhythms.PsychicBiorhythm = function() {
         configurable: false
     });
 
-    var birthdayChangedEvent = new lu.Event();
-    this.birthdayChanged = birthdayChangedEvent.client;
-
-    Object.defineProperty(this, "birthday", {
-        enumerable: true,
-        configurable: false,
-        get: getBirthday,
-        set: setBirthday
-    });
-
-    function getBirthday() {
-        return biorhythm.birthday;
-    }
-
-    function setBirthday(value) {
-        if (value === biorhythm.birthday) {
-            return;
-        }
-
-        biorhythm.birthday = value;
-        birthdayChangedEvent.raise(obj, value);
-    }
-
-    this.getValue = function(day) {
-        return biorhythm.getValue(day);
-    };
-
     (function initialize() {
         var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm();
         var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm();
 
-        biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(emotionalBiorhythm, intuitiveBiorhythm);
-    }());
+        lu.bioControls.biorhythms.AverageBiorhythm.call(this, emotionalBiorhythm, intuitiveBiorhythm);
+    }).call(this);
 };
+
+lu.inherit(lu.bioControls.biorhythms.PsychicBiorhythm, lu.bioControls.biorhythms.AverageBiorhythm);

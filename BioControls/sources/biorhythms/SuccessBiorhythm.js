@@ -25,9 +25,7 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
  * @returns {lu.bioControls.biorhythms.SuccessBiorhythm}
  */
 lu.bioControls.biorhythms.SuccessBiorhythm = function() {
-    var biorhythm = null;
-    var obj = this;
-
+    
     Object.defineProperty(this, "name", {
         value: "Success",
         writable: false,
@@ -35,37 +33,12 @@ lu.bioControls.biorhythms.SuccessBiorhythm = function() {
         configurable: false
     });
 
-    var birthdayChangedEvent = new lu.Event();
-    this.birthdayChanged = birthdayChangedEvent.client;
-
-    Object.defineProperty(this, "birthday", {
-        enumerable: true,
-        configurable: false,
-        get: getBirthday,
-        set: setBirthday
-    });
-
-    function getBirthday() {
-        return biorhythm.birthday;
-    }
-
-    function setBirthday(value) {
-        if (value === biorhythm.birthday) {
-            return;
-        }
-
-        biorhythm.birthday = value;
-        birthdayChangedEvent.raise(obj, value);
-    }
-
-    this.getValue = function(day) {
-        return biorhythm.getValue(day);
-    };
-
     (function initialize() {
         var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm();
         var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm();
 
-        biorhythm = new lu.bioControls.biorhythms.AverageBiorhythm(intellectualBiorhythm, intuitiveBiorhythm);
-    }());
+        lu.bioControls.biorhythms.AverageBiorhythm.call(this, intellectualBiorhythm, intuitiveBiorhythm);
+    }).call(this);
 };
+
+lu.inherit(lu.bioControls.biorhythms.SuccessBiorhythm, lu.bioControls.biorhythms.AverageBiorhythm);

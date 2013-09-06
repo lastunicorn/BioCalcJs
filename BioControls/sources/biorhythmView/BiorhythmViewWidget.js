@@ -299,7 +299,7 @@
 
         _subscribeToBiorhythmEvents: function(biorhythmShape) {
             biorhythmShape.nameChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
-            biorhythmShape.birthdayChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.biorhythm.birthdayChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.biorhythmChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.colorChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.isVisibleChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
@@ -319,7 +319,7 @@
 
         _unsubscribeFromBiorhythmEvents: function(biorhythmShape) {
             biorhythmShape.nameChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
-            biorhythmShape.birthdayChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+            biorhythmShape.biorhythm.birthdayChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.biorhythmChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.colorChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.isVisibleChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));

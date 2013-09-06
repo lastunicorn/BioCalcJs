@@ -448,8 +448,6 @@ lu.bioControls.biorhythmModel.BiorhythmShape = function() {
     name = value;
     nameChangedEvent.raise(obj, value)
   }
-  var birthdayChangedEvent = new lu.Event;
-  this.birthdayChanged = birthdayChangedEvent.client;
   var biorhythm = null;
   var biorhythmChangedEvent = new lu.Event;
   this.biorhythmChanged = biorhythmChangedEvent.client;
@@ -461,17 +459,8 @@ lu.bioControls.biorhythmModel.BiorhythmShape = function() {
     if(value === biorhythm) {
       return
     }
-    if(biorhythm && biorhythm.birthdayChanged && biorhythm.birthdayChanged.unsubscribe) {
-      biorhythm.birthdayChanged.unsubscribe(onBirthdayChanged)
-    }
     biorhythm = value;
-    if(biorhythm && biorhythm.birthdayChanged && biorhythm.birthdayChanged.unsubscribe) {
-      biorhythm.birthdayChanged.subscribe(onBirthdayChanged)
-    }
     biorhythmChangedEvent.raise(obj, value)
-  }
-  function onBirthdayChanged(arg) {
-    birthdayChangedEvent.raise(obj, arg)
   }
   var color = null;
   var colorChangedEvent = new lu.Event;
@@ -695,6 +684,11 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
       items[i].isVisible = false
     }
   };
+  this.setBirthdayOnAll = function(birthday) {
+    for(var i = 0;i < items.length;i++) {
+      items[i].biorhythm.birthday = birthday
+    }
+  };
   (function initialize() {
     if(typeof items !== "object" || !(items instanceof Array)) {
       throw"items must be an array of BiorhythmShape objects.";
@@ -704,63 +698,11 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
-lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
-  var primaryBiorhythmsSet = null;
-  var secondaryBiorhythmsSet = null;
-  var extraBiorhythmsSet = null;
-  var iChingBiorhythmsSet = null;
+lu.bioControls.biorhythmModel.PrimaryBiorhythms = function() {
   var physicalShape = null;
   var emotionalShape = null;
   var intellectualShape = null;
   var intuitiveShape = null;
-  var passionShape = null;
-  var masteryShape = null;
-  var wisdomShape = null;
-  var perceptionShape = null;
-  var psychicShape = null;
-  var successShape = null;
-  var estheticShape = null;
-  var selfAwarenessShape = null;
-  var spiritualShape = null;
-  function createBiorhythmShapes() {
-    var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
-    physicalShape = biorhythmShapesCreator.createPhysicalBiorhythmShape();
-    emotionalShape = biorhythmShapesCreator.createEmotionalBiorhythmShape();
-    intellectualShape = biorhythmShapesCreator.createIntellectualBiorhythmShape();
-    intuitiveShape = biorhythmShapesCreator.createIntuitiveBiorhythmShape();
-    var primaryBiorhythmShapes = [physicalShape, emotionalShape, intellectualShape, intuitiveShape];
-    primaryBiorhythmsSet = new lu.bioControls.biorhythmModel.BiorhythmShapeSet(primaryBiorhythmShapes);
-    passionShape = biorhythmShapesCreator.createPassionBiorhythmShape();
-    masteryShape = biorhythmShapesCreator.createMasteryBiorhythmShape();
-    wisdomShape = biorhythmShapesCreator.createWisdomBiorhythmShape();
-    var secondaryBiorhythmShapes = [passionShape, masteryShape, wisdomShape];
-    secondaryBiorhythmsSet = new lu.bioControls.biorhythmModel.BiorhythmShapeSet(secondaryBiorhythmShapes);
-    secondaryBiorhythmsSet.hideAll();
-    perceptionShape = biorhythmShapesCreator.createPerceptionBiorhythmShape();
-    psychicShape = biorhythmShapesCreator.createPsychicBiorhythmShape();
-    successShape = biorhythmShapesCreator.createSuccessBiorhythmShape();
-    var extraBiorhythmShapes = [perceptionShape, psychicShape, successShape];
-    extraBiorhythmsSet = new lu.bioControls.biorhythmModel.BiorhythmShapeSet(extraBiorhythmShapes);
-    extraBiorhythmsSet.hideAll();
-    estheticShape = biorhythmShapesCreator.createEstheticBiorhythmShape();
-    selfAwarenessShape = biorhythmShapesCreator.createSelfAwarenessBiorhythmShape();
-    spiritualShape = biorhythmShapesCreator.createSpiritualBiorhythmShape();
-    var iChingBiorhythmShapes = [estheticShape, selfAwarenessShape, spiritualShape];
-    iChingBiorhythmsSet = new lu.bioControls.biorhythmModel.BiorhythmShapeSet(iChingBiorhythmShapes);
-    iChingBiorhythmsSet.hideAll()
-  }
-  Object.defineProperty(this, "primaryBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
-    return primaryBiorhythmsSet
-  }});
-  Object.defineProperty(this, "secondaryBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
-    return secondaryBiorhythmsSet
-  }});
-  Object.defineProperty(this, "extraBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
-    return extraBiorhythmsSet
-  }});
-  Object.defineProperty(this, "iChingBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
-    return iChingBiorhythmsSet
-  }});
   Object.defineProperty(this, "physicalShape", {enumerable:true, configurable:false, get:getPhysicalShape});
   function getPhysicalShape() {
     return physicalShape
@@ -777,6 +719,23 @@ lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
   function getIntuitiveShape() {
     return intuitiveShape
   }
+  (function initialize() {
+    var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
+    physicalShape = biorhythmShapesCreator.createPhysicalBiorhythmShape();
+    emotionalShape = biorhythmShapesCreator.createEmotionalBiorhythmShape();
+    intellectualShape = biorhythmShapesCreator.createIntellectualBiorhythmShape();
+    intuitiveShape = biorhythmShapesCreator.createIntuitiveBiorhythmShape();
+    lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [physicalShape, emotionalShape, intellectualShape, intuitiveShape])
+  }).call(this)
+};
+lu.inherit(lu.bioControls.biorhythmModel.PrimaryBiorhythms, lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
+lu.bioControls.biorhythmModel.SecondaryBiorhythms = function() {
+  var passionShape = null;
+  var masteryShape = null;
+  var wisdomShape = null;
   Object.defineProperty(this, "passionShape", {enumerable:true, configurable:false, get:getPassionShape});
   function getPassionShape() {
     return passionShape
@@ -789,6 +748,22 @@ lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
   function getWisdomShape() {
     return wisdomShape
   }
+  (function initialize() {
+    var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
+    passionShape = biorhythmShapesCreator.createPassionBiorhythmShape();
+    masteryShape = biorhythmShapesCreator.createMasteryBiorhythmShape();
+    wisdomShape = biorhythmShapesCreator.createWisdomBiorhythmShape();
+    lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [passionShape, masteryShape, wisdomShape])
+  }).call(this)
+};
+lu.inherit(lu.bioControls.biorhythmModel.SecondaryBiorhythms, lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
+lu.bioControls.biorhythmModel.ExtraBiorhythms = function() {
+  var perceptionShape = null;
+  var psychicShape = null;
+  var successShape = null;
   Object.defineProperty(this, "perceptionShape", {enumerable:true, configurable:false, get:getPerceptionShape});
   function getPerceptionShape() {
     return perceptionShape
@@ -801,6 +776,22 @@ lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
   function getSuccessShape() {
     return successShape
   }
+  (function initialize() {
+    var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
+    perceptionShape = biorhythmShapesCreator.createPerceptionBiorhythmShape();
+    psychicShape = biorhythmShapesCreator.createPsychicBiorhythmShape();
+    successShape = biorhythmShapesCreator.createSuccessBiorhythmShape();
+    lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [perceptionShape, psychicShape, successShape])
+  }).call(this)
+};
+lu.inherit(lu.bioControls.biorhythmModel.ExtraBiorhythms, lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
+lu.bioControls.biorhythmModel.IChingBiorhythms = function() {
+  var estheticShape = null;
+  var selfAwarenessShape = null;
+  var spiritualShape = null;
   Object.defineProperty(this, "estheticShape", {enumerable:true, configurable:false, get:getEstheticShape});
   function getEstheticShape() {
     return estheticShape
@@ -813,22 +804,66 @@ lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
   function getSpiritualShape() {
     return spiritualShape
   }
-  this.getAll = getAll;
-  function getAll() {
-    return[physicalShape, emotionalShape, intellectualShape, intuitiveShape, passionShape, masteryShape, wisdomShape, perceptionShape, psychicShape, successShape, estheticShape, selfAwarenessShape, spiritualShape]
-  }
+  (function initialize() {
+    var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
+    estheticShape = biorhythmShapesCreator.createEstheticBiorhythmShape();
+    selfAwarenessShape = biorhythmShapesCreator.createSelfAwarenessBiorhythmShape();
+    spiritualShape = biorhythmShapesCreator.createSpiritualBiorhythmShape();
+    lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [estheticShape, selfAwarenessShape, spiritualShape])
+  }).call(this)
+};
+lu.inherit(lu.bioControls.biorhythmModel.IChingBiorhythms, lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+var lu = lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
+lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
+  var primaryBiorhythmsSet = null;
+  Object.defineProperty(this, "primaryBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
+    return primaryBiorhythmsSet
+  }});
+  var secondaryBiorhythmsSet = null;
+  Object.defineProperty(this, "secondaryBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
+    return secondaryBiorhythmsSet
+  }});
+  var extraBiorhythmsSet = null;
+  Object.defineProperty(this, "extraBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
+    return extraBiorhythmsSet
+  }});
+  var iChingBiorhythmsSet = null;
+  Object.defineProperty(this, "iChingBiorhythmShapes", {enumerable:true, configurable:false, get:function() {
+    return iChingBiorhythmsSet
+  }});
   this.setBirthdayOnAll = function(birthday) {
-    var biorhythmShapes = getAll();
-    for(var i = 0;i < biorhythmShapes.length;i++) {
-      biorhythmShapes[i].biorhythm.birthday = birthday
-    }
+    primaryBiorhythmsSet.setBirthdayOnAll(birthday);
+    secondaryBiorhythmsSet.setBirthdayOnAll(birthday);
+    extraBiorhythmsSet.setBirthdayOnAll(birthday);
+    iChingBiorhythmsSet.setBirthdayOnAll(birthday)
   };
   this.toArray = function() {
-    return getAll()
+    var list = [];
+    addRange(primaryBiorhythmsSet.items, list);
+    addRange(secondaryBiorhythmsSet.items, list);
+    addRange(extraBiorhythmsSet.items, list);
+    addRange(iChingBiorhythmsSet.items, list);
+    return list
   };
+  function addRange(source, destination) {
+    for(var i = 0;i < source.length;i++) {
+      destination.push(source[i])
+    }
+  }
   (function initialize() {
     createBiorhythmShapes()
-  })()
+  })();
+  function createBiorhythmShapes() {
+    primaryBiorhythmsSet = new lu.bioControls.biorhythmModel.PrimaryBiorhythms;
+    secondaryBiorhythmsSet = new lu.bioControls.biorhythmModel.SecondaryBiorhythms;
+    secondaryBiorhythmsSet.hideAll();
+    extraBiorhythmsSet = new lu.bioControls.biorhythmModel.ExtraBiorhythms;
+    extraBiorhythmsSet.hideAll();
+    iChingBiorhythmsSet = new lu.bioControls.biorhythmModel.IChingBiorhythms;
+    iChingBiorhythmsSet.hideAll()
+  }
 };
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
@@ -1206,7 +1241,7 @@ lu.bioControls.biorhythmView.WeekDayNamesProvider = function() {
     this._paint()
   }, _subscribeToBiorhythmEvents:function(biorhythmShape) {
     biorhythmShape.nameChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
-    biorhythmShape.birthdayChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
+    biorhythmShape.biorhythm.birthdayChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
     biorhythmShape.biorhythmChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
     biorhythmShape.colorChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
     biorhythmShape.isVisibleChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
@@ -1218,7 +1253,7 @@ lu.bioControls.biorhythmView.WeekDayNamesProvider = function() {
     this._paint()
   }, _unsubscribeFromBiorhythmEvents:function(biorhythmShape) {
     biorhythmShape.nameChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
-    biorhythmShape.birthdayChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
+    biorhythmShape.biorhythm.birthdayChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
     biorhythmShape.biorhythmChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
     biorhythmShape.colorChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
     biorhythmShape.isVisibleChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));

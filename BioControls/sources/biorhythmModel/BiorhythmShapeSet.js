@@ -90,6 +90,12 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
             items[i].isVisible = false;
         }
     };
+    
+    this.setBirthdayOnAll = function(birthday) {
+        for ( var i = 0; i < items.length; i++) {
+            items[i].biorhythm.birthday = birthday;
+        }
+    };
 
     (function initialize() {
         if (typeof items !== "object" || !(items instanceof Array)) {

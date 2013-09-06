@@ -66,6 +66,10 @@
 				<file name="BiorhythmShape.js" />
 				<file name="BiorhythmShapesCreator.js" />
 				<file name="BiorhythmShapeSet.js" />
+				<file name="PrimaryBiorhythms.js" />
+				<file name="SecondaryBiorhythms.js" />
+				<file name="ExtraBiorhythms.js" />
+				<file name="IChingBiorhythms.js" />
 				<file name="CommonBiorhythmsContainer.js" />
 			</sources>
 

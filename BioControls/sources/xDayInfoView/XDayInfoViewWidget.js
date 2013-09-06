@@ -85,8 +85,7 @@
             var xDayInfoItem = new lu.bioControls.xDayInfoView.XDayInfoItem(biorhythm);
             this._items.push(xDayInfoItem);
 
-            var $itemElement = xDayInfoItem.element;
-            this.element.append($itemElement);
+            this.element.append(xDayInfoItem.element);
         },
 
         _removeItem: function(biorhythm) {

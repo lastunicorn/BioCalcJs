@@ -19,11 +19,11 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
 /**
- * Represents a sinusoidal biorhythm that has a period in days and a starting
- * day named birthday.
+ * Represents a biorhythm that has a sinusoidal form.
  * 
  * @param period
- *            The period in days of the biorhythm.
+ *            An integer (number of days) that represents the period of the
+ *            sinusoid function.
  * 
  * @returns {lu.bioControls.biorhythms.SinusoidalBiorhythm}
  */
@@ -40,6 +40,15 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
 
     function getPeriod() {
         return period;
+    }
+
+    function setPeriod(value) {
+        if (typeof period !== "number") {
+            throw "period should be a number.";
+        }
+
+        period = value;
+        generateValues();
     }
 
     Object.defineProperty(this, "birthday", {
@@ -95,7 +104,7 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
     }
 
     function generateValues() {
-        values = [];
+        values.length = 0;
 
         for ( var i = 0; i < period; i++) {
             values[i] = Math.sin(i * 2 * Math.PI / period);
@@ -103,14 +112,39 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
     }
 
     (function initialize() {
-        if (period !== undefined) {
-            if (typeof period !== "number") {
-                throw "period should be a number.";
-            }
-
-            generateValues();
-        } else {
-            period = 0;
-        }
+        setPeriod(period);
     }());
 };
+
+lu.bioControls.biorhythms.CustomBiorhythm = function() {
+
+    Object.defineProperty(this, "name", {
+        value: "Physical",
+        writable: false,
+        enumerable: true,
+        configurable: false
+    });
+
+    lu.bioControls.biorhythms.SinusoidalBiorhythm.call(this, 10);
+};
+
+lu.bioControls.biorhythms.CustomBiorhythm.prototype = Object.create(lu.bioControls.biorhythms.SinusoidalBiorhythm.prototype);
+lu.bioControls.biorhythms.CustomBiorhythm.prototype.constructor = lu.bioControls.biorhythms.CustomBiorhythm;
+
+// inherit(lu.bioControls.biorhythms.CustomBiorhythm,
+// lu.bioControls.biorhythms.SinusoidalBiorhythm);
+//
+// function inherit(obj, base) {
+// obj.prototype = Object.create(base.prototype);
+// obj.prototype.constructor = obj;
+// }
+
+// function inherit(obj, base){
+// function FakeBase() {
+// }
+// FakeBase.prototype = base.prototype;
+//
+// obj.prototype = new FakeBase();
+// obj.prototype.constructor = obj;
+// }
+

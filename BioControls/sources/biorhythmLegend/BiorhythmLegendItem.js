@@ -18,6 +18,9 @@ var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
+/**
+ * Creates and interacts with an item displayed by the biorhythmLegend widget.
+ */
 lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
 
     var $element = null;

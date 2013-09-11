@@ -1,4 +1,1 @@
-ExternalTools\Chutzpah\chutzpah.console.exe /path "./UnitTests"
-
-@echo.
-@pause
+..\..\..\..\ExternalTools\Chutzpah\chutzpah.console.exe /path "./UnitTests"

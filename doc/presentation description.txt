@@ -1,0 +1,7 @@
+The BioCalc application - Through the dark waters of the javascript inheritance
+ - Inheritance mechanism
+ - Duck typing
+
+Starting from the architecture of a small application that I developped in the last two months, I want to discuss the inheritance mechanism in javascript: what can be done, what cannot be done, what are the differences compared to C# or Java.
+
+Advancing further into the darkness of the BioCalc application, I will talk about "Duck typing". In javascript you don't check the type of the object, instead you check if the object has the methods you wanna call.

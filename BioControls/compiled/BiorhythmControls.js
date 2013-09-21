@@ -1156,6 +1156,13 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
   function getPeriod() {
     return period
   }
+  function setPeriod(value) {
+    if(typeof period !== "number") {
+      throw"period should be a number.";
+    }
+    period = value;
+    generateValues()
+  }
   Object.defineProperty(this, "birthday", {enumerable:true, configurable:false, get:getBirthday, set:setBirthday});
   function getBirthday() {
     return birthday
@@ -1191,22 +1198,21 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
     return getValueByIndex(daysLived)
   }
   function generateValues() {
-    values = [];
+    values.length = 0;
     for(var i = 0;i < period;i++) {
       values[i] = Math.sin(i * 2 * Math.PI / period)
     }
   }
   (function initialize() {
-    if(period !== undefined) {
-      if(typeof period !== "number") {
-        throw"period should be a number.";
-      }
-      generateValues()
-    }else {
-      period = 0
-    }
+    setPeriod(period)
   })()
 };
+lu.bioControls.biorhythms.CustomBiorhythm = function() {
+  Object.defineProperty(this, "name", {value:"Physical", writable:false, enumerable:true, configurable:false});
+  lu.bioControls.biorhythms.SinusoidalBiorhythm.call(this, 10)
+};
+lu.bioControls.biorhythms.CustomBiorhythm.prototype = Object.create(lu.bioControls.biorhythms.SinusoidalBiorhythm.prototype);
+lu.bioControls.biorhythms.CustomBiorhythm.prototype.constructor = lu.bioControls.biorhythms.CustomBiorhythm;
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
@@ -2047,8 +2053,7 @@ lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
   }, _createNewItem:function(biorhythm) {
     var xDayInfoItem = new lu.bioControls.xDayInfoView.XDayInfoItem(biorhythm);
     this._items.push(xDayInfoItem);
-    var $itemElement = xDayInfoItem.element;
-    this.element.append($itemElement)
+    this.element.append(xDayInfoItem.element)
   }, _removeItem:function(biorhythm) {
     for(var i = 0;i < this._items.length;i++) {
       if(this._items[i].biorhythmShape === biorhythm) {

@@ -62,7 +62,7 @@ lu.bioControls.BiorhythmsAdapter = function(configuration) {
 
         var biorhythmsArray = biorhythmsToArray();
         for ( var i = 0; i < biorhythmsArray.length; i++) {
-            unsubscribeFromBiorhythmEvents(biorhythmsArray[i]);
+            onBiorhithmRemoved(biorhythmsArray[i]);
         }
     };
 
@@ -71,11 +71,11 @@ lu.bioControls.BiorhythmsAdapter = function(configuration) {
             return;
         }
 
-        if (configuration.biorhythms.itemAdded && configuration.biorhythms.itemAdded.subscribe) {
+        if (configuration.biorhythms.itemAdded && $.isFunction(configuration.biorhythms.itemAdded.subscribe)) {
             configuration.biorhythms.itemAdded.subscribe(onBiorhithmAdded);
         }
 
-        if (configuration.biorhythms.itemRemoved && configuration.biorhythms.itemRemoved.subscribe) {
+        if (configuration.biorhythms.itemRemoved && $.isFunction(configuration.biorhythms.itemRemoved.subscribe)) {
             configuration.biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
         }
     }
@@ -85,30 +85,30 @@ lu.bioControls.BiorhythmsAdapter = function(configuration) {
             return;
         }
 
-        if (configuration.biorhythms.itemAdded && configuration.biorhythms.itemAdded.unsubscribe) {
+        if (configuration.biorhythms.itemAdded && $.isFunction(configuration.biorhythms.itemAdded.unsubscribe)) {
             configuration.biorhythms.itemAdded.unsubscribe(onBiorhithmAdded);
         }
 
-        if (configuration.biorhythms.itemRemoved && configuration.biorhythms.itemRemoved.unsubscribe) {
+        if (configuration.biorhythms.itemRemoved && $.isFunction(configuration.biorhythms.itemRemoved.unsubscribe)) {
             configuration.biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved);
         }
     }
 
     function onBiorhithmAdded(biorhythmShape) {
         if ($.isFunction(configuration.onBiorhithmAdded)) {
-            configuration.onBiorhithmAdded(biorhythmShape);
+            configuration.onBiorhithmAdded.call(this, biorhythmShape);
         }
     }
 
     function onBiorhithmRemoved(biorhythmShape) {
         if ($.isFunction(configuration.onBiorhithmRemoved)) {
-            configuration.onBiorhithmRemoved(biorhythmShape);
+            configuration.onBiorhithmRemoved.call(this, biorhythmShape);
         }
     }
 
     function biorhythmsToArray() {
         if (!configuration || !configuration.biorhythms) {
-            return;
+            return [];
         }
 
         if (configuration.biorhythms instanceof Array) {

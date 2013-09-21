@@ -51,6 +51,9 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
         generateValues();
     }
 
+    var birthdayChangedEvent = new lu.Event();
+    this.birthdayChanged = birthdayChangedEvent.client;
+
     Object.defineProperty(this, "birthday", {
         enumerable: true,
         configurable: false,
@@ -67,7 +70,12 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
             throw "birthday should be a Date.";
         }
 
+        if (value === birthday) {
+            return;
+        }
+
         birthday = value;
+        birthdayChangedEvent.raise(this, value);
     }
 
     this.getValue = function(day) {

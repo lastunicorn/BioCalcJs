@@ -56,13 +56,6 @@ lu.bioControls.biorhythmModel.BiorhythmShape = function() {
     }
 
     // --------------------------------------------------------------------------
-    // Birthday
-    // --------------------------------------------------------------------------
-
-    var birthdayChangedEvent = new lu.Event();
-    this.birthdayChanged = birthdayChangedEvent.client;
-
-    // --------------------------------------------------------------------------
     // Biorythm
     // --------------------------------------------------------------------------
 
@@ -86,21 +79,9 @@ lu.bioControls.biorhythmModel.BiorhythmShape = function() {
             return;
         }
 
-        if (biorhythm && biorhythm.birthdayChanged && biorhythm.birthdayChanged.unsubscribe) {
-            biorhythm.birthdayChanged.unsubscribe(onBirthdayChanged);
-        }
-
         biorhythm = value;
 
-        if (biorhythm && biorhythm.birthdayChanged && biorhythm.birthdayChanged.unsubscribe) {
-            biorhythm.birthdayChanged.subscribe(onBirthdayChanged);
-        }
-
         biorhythmChangedEvent.raise(obj, value);
-    }
-
-    function onBirthdayChanged(arg) {
-        birthdayChangedEvent.raise(obj, arg);
     }
 
     // --------------------------------------------------------------------------

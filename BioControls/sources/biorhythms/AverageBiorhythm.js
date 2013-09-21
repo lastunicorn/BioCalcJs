@@ -31,6 +31,9 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
  */
 lu.bioControls.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
 
+    var birthdayChangedEvent = new lu.Event();
+    this.birthdayChanged = birthdayChangedEvent.client;
+
     Object.defineProperty(this, "birthday", {
         enumerable: true,
         configurable: false,
@@ -43,15 +46,31 @@ lu.bioControls.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
     }
 
     function setBirthday(value) {
-        if (value === biorhythmA.birthday) {
+        if (typeof value !== "object" || !(value instanceof Date)) {
+            throw "birthday should be a Date.";
+        }
+
+        if (value === biorhythmA.birthday && value === biorhythmB.birthday) {
             return;
         }
 
         biorhythmA.birthday = value;
         biorhythmB.birthday = value;
+
+        birthdayChangedEvent.raise(this, value);
     }
 
     this.getValue = function(day) {
         return (biorhythmA.getValue(day) + biorhythmB.getValue(day)) / 2;
     };
+
+    (function initialize() {
+        if (!biorhythmA) {
+            throw "biorhythmA should be an object.";
+        }
+
+        if (!biorhythmB) {
+            throw "biorhythmB should be an object.";
+        }
+    }).call(this);
 };

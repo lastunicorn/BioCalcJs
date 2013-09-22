@@ -20,3 +20,12 @@ lu.inherit = function(obj, base) {
     obj.prototype = Object.create(base.prototype);
     obj.prototype.constructor = obj;
 };
+
+// if (typeof Function.prototype.inherit === "undefined") {
+// Function.prototype.inherit = function(base) {
+// this.prototype = Object.create(base.prototype);
+// this.prototype.constructor = this;
+// };
+// } else{
+// throw "Function.prototype.inherit already exists.";
+// }

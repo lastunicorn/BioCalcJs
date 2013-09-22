@@ -19,7 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
 /**
- * Represents a biorhythm that is an average of two other biorhythms.
+ * Represents a biorhythm calculated as an average of two other biorhythms.
  * 
  * @param biorhythmA
  *            The first biorhythm used to calculate the average.

@@ -123,36 +123,3 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
         setPeriod(period);
     }());
 };
-
-lu.bioControls.biorhythms.CustomBiorhythm = function() {
-
-    Object.defineProperty(this, "name", {
-        value: "Physical",
-        writable: false,
-        enumerable: true,
-        configurable: false
-    });
-
-    lu.bioControls.biorhythms.SinusoidalBiorhythm.call(this, 10);
-};
-
-lu.bioControls.biorhythms.CustomBiorhythm.prototype = Object.create(lu.bioControls.biorhythms.SinusoidalBiorhythm.prototype);
-lu.bioControls.biorhythms.CustomBiorhythm.prototype.constructor = lu.bioControls.biorhythms.CustomBiorhythm;
-
-// inherit(lu.bioControls.biorhythms.CustomBiorhythm,
-// lu.bioControls.biorhythms.SinusoidalBiorhythm);
-//
-// function inherit(obj, base) {
-// obj.prototype = Object.create(base.prototype);
-// obj.prototype.constructor = obj;
-// }
-
-// function inherit(obj, base){
-// function FakeBase() {
-// }
-// FakeBase.prototype = base.prototype;
-//
-// obj.prototype = new FakeBase();
-// obj.prototype.constructor = obj;
-// }
-

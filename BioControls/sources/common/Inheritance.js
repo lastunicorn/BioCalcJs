@@ -16,7 +16,18 @@
 
 var lu = lu || {};
 
-lu.inherit = function(obj, base) {
-    obj.prototype = Object.create(base.prototype);
-    obj.prototype.constructor = obj;
+/**
+ * Links two constructor functions in the way that the first one (ctor) will
+ * inherit the second one (baseCtor). An object created by the ctor function
+ * will have in its prototype chain the prototype from the baseCtor function.
+ * 
+ * @param ctor
+ *            The constructor function that should inherit the second one.
+ * 
+ * @param baseCtor
+ *            The base constructor function.
+ */
+lu.inherit = function(ctor, baseCtor) {
+    ctor.prototype = Object.create(baseCtor.prototype);
+    ctor.prototype.constructor = ctor;
 };

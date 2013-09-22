@@ -31,3 +31,12 @@ lu.inherit = function(ctor, baseCtor) {
     ctor.prototype = Object.create(baseCtor.prototype);
     ctor.prototype.constructor = ctor;
 };
+
+// if (typeof Function.prototype.inherit === "undefined") {
+// Function.prototype.inherit = function(base) {
+// this.prototype = Object.create(base.prototype);
+// this.prototype.constructor = this;
+// };
+// } else{
+// throw "Function.prototype.inherit already exists.";
+// }

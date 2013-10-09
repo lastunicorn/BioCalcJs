@@ -56,13 +56,13 @@ lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet = function() {
 
     (function initialize() {
         var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
-        
+
         passionShape = biorhythmShapesCreator.createPassionBiorhythmShape();
         masteryShape = biorhythmShapesCreator.createMasteryBiorhythmShape();
         wisdomShape = biorhythmShapesCreator.createWisdomBiorhythmShape();
-        
+
         lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [ passionShape, masteryShape, wisdomShape ]);
     }).call(this);
 };
 
-lu.inherit(lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet, lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet.inherit(lu.bioControls.biorhythmModel.BiorhythmShapeSet);

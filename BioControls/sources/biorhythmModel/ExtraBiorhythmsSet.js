@@ -65,4 +65,4 @@ lu.bioControls.biorhythmModel.ExtraBiorhythmsSet = function() {
     }).call(this);
 };
 
-lu.inherit(lu.bioControls.biorhythmModel.ExtraBiorhythmsSet, lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+lu.bioControls.biorhythmModel.ExtraBiorhythmsSet.inherit(lu.bioControls.biorhythmModel.BiorhythmShapeSet);

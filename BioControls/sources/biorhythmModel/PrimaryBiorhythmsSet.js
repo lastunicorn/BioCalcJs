@@ -67,14 +67,14 @@ lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet = function() {
 
     (function initialize() {
         var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
-        
+
         physicalShape = biorhythmShapesCreator.createPhysicalBiorhythmShape();
         emotionalShape = biorhythmShapesCreator.createEmotionalBiorhythmShape();
         intellectualShape = biorhythmShapesCreator.createIntellectualBiorhythmShape();
         intuitiveShape = biorhythmShapesCreator.createIntuitiveBiorhythmShape();
-        
+
         lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [ physicalShape, emotionalShape, intellectualShape, intuitiveShape ]);
     }).call(this);
 };
 
-lu.inherit(lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet, lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet.inherit(lu.bioControls.biorhythmModel.BiorhythmShapeSet);

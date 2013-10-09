@@ -1,1 +1,1 @@
-..\..\..\..\ExternalTools\Chutzpah\chutzpah.console.exe /path "./UnitTests"
+..\..\..\ExternalTools\Chutzpah\chutzpah.console.exe /path "./UnitTests"

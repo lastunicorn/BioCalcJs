@@ -50,7 +50,13 @@ lu.bioControls.biorhythmView.painting.Painter = function() {
         clearCanvas(paintContext);
 
         for ( var i = 0; i < painters.length; i++) {
-            painters[i].paint(paintData, paintContext, paintRectangle);
+            runPainter(painters[i]);
+        }
+    }
+
+    function runPainter(painter) {
+        if ($.isFunction(painter.paint)) {
+            painter.paint(paintData, paintContext, paintRectangle);
         }
     }
 

@@ -25,6 +25,10 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
  * holds the ctrl key while scrolling or he scrolls using the right mouse
  * button.
  * 
+ * @param configuration
+ *            Contains the configuration data for the Scroller module to be
+ *            properly initiated.
+ * 
  * @param configuration.element
  *            The element on which to implement scrolling mechanism.
  * 

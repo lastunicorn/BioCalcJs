@@ -33,7 +33,7 @@
 		<echo message="Copying external libraries." />
 
 		<copy todir="${dir.compiled}/libraries">
-			<fileset dir="sources/libraries" />
+			<fileset dir="libraries" />
 		</copy>
 	</target>
 

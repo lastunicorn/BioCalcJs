@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function(bioCalcPageData, dateFormatter) {
+(function BirthdaySection() {
 
     var birthday = null;
 
@@ -50,7 +50,7 @@
     // --------------------------------------------------------------------------
 
     function updateSaveBirthdayButtonVisibility() {
-        var config = bioCalcPageData.configManager.config;
+        var config = lu.bioCalc.BioCalcPageData.configManager.config;
 
         if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
             disableSaveBirthdayButton();
@@ -60,7 +60,7 @@
     }
 
     function updateResetBirthdayButtonVisibility() {
-        var config = bioCalcPageData.configManager.config;
+        var config = lu.bioCalc.BioCalcPageData.configManager.config;
 
         if (birthday.getTime() == config.birthday.getTime()) {
             disableResetBirthdayButton();
@@ -70,14 +70,14 @@
     }
 
     function updateBirthdayTextBox() {
-        var dateAsString = dateFormatter.formatDate(birthday);
+        var dateAsString = lu.bioCalc.DateFormatter.formatDate(birthday);
         $birthdayTextBox.val(dateAsString);
     }
 
     function publishBirthday() {
         suppressBirthdayChanged = true;
         try {
-            bioCalcPageData.setBirthday(birthday);
+            lu.bioCalc.BioCalcPageData.setBirthday(birthday);
         }
         finally {
             suppressBirthdayChanged = false;
@@ -103,7 +103,7 @@
         e.preventDefault();
         e.stopPropagation();
 
-        var configManager = bioCalcPageData.configManager;
+        var configManager = lu.bioCalc.BioCalcPageData.configManager;
         birthday = configManager.config.birthday;
 
         updateBirthdayTextBox();
@@ -117,7 +117,7 @@
         e.preventDefault();
         e.stopPropagation();
 
-        var configManager = bioCalcPageData.configManager;
+        var configManager = lu.bioCalc.BioCalcPageData.configManager;
 
         if (configManager) {
             configManager.config.birthday = birthday;
@@ -146,7 +146,7 @@
             create$();
             initialize$();
 
-            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
+            lu.bioCalc.BioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
         });
     }());
 
@@ -186,4 +186,4 @@
 
         $birthdayButtons.buttonset();
     }
-}(lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));
+}());

@@ -20,6 +20,9 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
 /**
  * Creates and interacts with an item displayed by the biorhythmLegend widget.
+ * 
+ * @param biorhythmShape
+ *            The biorhythmShape object represented by the current item.
  */
 lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
 

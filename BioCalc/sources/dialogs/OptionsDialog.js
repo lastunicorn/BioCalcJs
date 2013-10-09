@@ -22,14 +22,14 @@ lu.bioCalc = lu.bioCalc || {};
  * 
  * @returns {lu.bioCalc.OptionsDialog}
  */
-lu.bioCalc.OptionsDialog = (function(bioCalcPageData) {
+lu.bioCalc.OptionsDialog = (function() {
 
     var $optionsDialog = null;
     var $primaryBiorhythmsCheckbox = null;
     var $secondaryBiorhythmsCheckbox = null;
     var $extraBiorhythmsCheckbox = null;
     var $iChingBiorhythmsCheckbox = null;
-    var commonBiorhythmShapes = null;
+    var biorhythmShapes = null;
 
     // --------------------------------------------------------------------------
     // Functions - "public"
@@ -48,41 +48,41 @@ lu.bioCalc.OptionsDialog = (function(bioCalcPageData) {
     }
 
     function onOptionsDialogOpen() {
-        var isAnyPrimaryVisible = commonBiorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
+        var isAnyPrimaryVisible = biorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
         $primaryBiorhythmsCheckbox.prop("checked", isAnyPrimaryVisible);
 
-        var isAnySecondaryVisible = commonBiorhythmShapes.secondaryBiorhythmShapes.isAnyVisible();
+        var isAnySecondaryVisible = biorhythmShapes.secondaryBiorhythmShapes.isAnyVisible();
         $secondaryBiorhythmsCheckbox.prop("checked", isAnySecondaryVisible);
 
-        var isAnyExtraVisible = commonBiorhythmShapes.extraBiorhythmShapes.isAnyVisible();
+        var isAnyExtraVisible = biorhythmShapes.extraBiorhythmShapes.isAnyVisible();
         $extraBiorhythmsCheckbox.prop("checked", isAnyExtraVisible);
 
-        var isAnyIChingVisible = commonBiorhythmShapes.iChingBiorhythmShapes.isAnyVisible();
+        var isAnyIChingVisible = biorhythmShapes.iChingBiorhythmShapes.isAnyVisible();
         $iChingBiorhythmsCheckbox.prop("checked", isAnyIChingVisible);
     }
 
     function onPrimaryCheckboxChange() {
         var isChecked = $primaryBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.primaryBiorhythmShapes.showAll(isChecked);
+        biorhythmShapes.primaryBiorhythmShapes.showAll(isChecked);
     }
 
     function onSecondaryCheckboxChange() {
         var isChecked = $secondaryBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.secondaryBiorhythmShapes.showAll(isChecked);
+        biorhythmShapes.secondaryBiorhythmShapes.showAll(isChecked);
     }
 
     function onExtraCheckboxChange() {
         var isChecked = $extraBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.extraBiorhythmShapes.showAll(isChecked);
+        biorhythmShapes.extraBiorhythmShapes.showAll(isChecked);
     }
 
     function onIChingCheckboxChange() {
         var isChecked = $iChingBiorhythmsCheckbox.prop("checked");
-        commonBiorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
+        biorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
     }
 
     function onExternalBiorhythmsChanged(arg) {
-        commonBiorhythmShapes = arg;
+        biorhythmShapes = arg;
     }
 
     // --------------------------------------------------------------------------
@@ -94,7 +94,8 @@ lu.bioCalc.OptionsDialog = (function(bioCalcPageData) {
             create$();
             initialize$();
 
-            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+            lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+            biorhythmShapes = lu.bioCalc.BioCalcPageData.getBiorhythms();
         });
     }());
 
@@ -134,4 +135,4 @@ lu.bioCalc.OptionsDialog = (function(bioCalcPageData) {
     return {
         show: show
     };
-}(lu.bioCalc.BioCalcPageData));
+}());

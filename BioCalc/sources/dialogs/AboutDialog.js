@@ -32,6 +32,14 @@ lu.bioCalc.AboutDialog = (function() {
     var $bioCalcVersionLabel = null;
 
     // --------------------------------------------------------------------------
+    // Functions - "public"
+    // --------------------------------------------------------------------------
+
+    function show() {
+        $aboutDialog.dialog("open");
+    }
+
+    // --------------------------------------------------------------------------
     // Event Handlers
     // --------------------------------------------------------------------------
 
@@ -88,8 +96,6 @@ lu.bioCalc.AboutDialog = (function() {
     }
 
     return {
-        show: function() {
-            $aboutDialog.dialog("open");
-        }
+        show: show
     };
 }());

@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function BioCalc(ConfigurationManager, CommonBiorhythmsContainer, bioCalcPageData) {
-    var commonBiorhythmShapes = null;
+(function BioCalc() {
+    var biorhythmShapes = null;
     var configManager = null;
 
     // --------------------------------------------------------------------------
@@ -24,12 +24,11 @@
 
     (function initialize() {
         $(function() {
-
-            configManager = new ConfigurationManager();
+            configManager = new lu.bioCalc.ConfigurationManager();
             configManager.loadFromCookies();
 
-            commonBiorhythmShapes = new CommonBiorhythmsContainer();
-            commonBiorhythmShapes.setBirthdayOnAll(configManager.config.birthday);
+            biorhythmShapes = new lu.bioControls.biorhythmModel.CommonBiorhythmsContainer();
+            biorhythmShapes.setBirthdayOnAll(configManager.config.birthday);
 
             initializePageData();
 
@@ -38,9 +37,9 @@
     }());
 
     function initializePageData() {
-        bioCalcPageData.configManager = configManager;
-        bioCalcPageData.setBiorhythms(commonBiorhythmShapes);
-        bioCalcPageData.setBirthday(configManager.config.birthday);
+        lu.bioCalc.BioCalcPageData.configManager = configManager;
+        lu.bioCalc.BioCalcPageData.setBiorhythms(biorhythmShapes);
+        lu.bioCalc.BioCalcPageData.setBirthday(configManager.config.birthday);
     }
 
     function configureModalDialogs() {
@@ -55,4 +54,4 @@
             });
         });
     }
-}(lu.bioCalc.ConfigurationManager, lu.bioControls.biorhythmModel.CommonBiorhythmsContainer, lu.bioCalc.BioCalcPageData));
+}());

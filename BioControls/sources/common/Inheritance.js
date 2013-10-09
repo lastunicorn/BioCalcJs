@@ -41,13 +41,8 @@ lu.inherit = function(ctor, baseCtor) {
 };
 
 if (typeof Function.prototype.inherit === "undefined") {
-    Function.prototype.inherit = function(base) {
-        if (typeof base !== "function") {
-            throw "base parameter has to be a function";
-        }
-
-        this.prototype = Object.create(base.prototype);
-        this.prototype.constructor = this;
+    Function.prototype.inherit = function(baseCtor) {
+        lu.inherit(this, baseCtor);
     };
 } else {
     throw "Function.prototype.inherit already exists.";

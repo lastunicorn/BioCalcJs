@@ -19,7 +19,7 @@
  * 
  * @returns {lu.bioCalc.MainToolbar}
  */
-(function(helpDialog, aboutDialog, optionsDialog) {
+(function MainToolbar() {
 
     var $mainToolbar = null;
     var $helpButton = null;
@@ -27,15 +27,15 @@
     var $optionsButton = null;
 
     function onHelpButtonClick() {
-        helpDialog.show();
+        lu.bioCalc.HelpDialog.show();
     }
 
     function onAboutButtonClick() {
-        aboutDialog.show();
+        lu.bioCalc.AboutDialog.show();
     }
 
     function onOptionsButtonClick() {
-        optionsDialog.show();
+        lu.bioCalc.OptionsDialog.show();
     }
 
     function createControls() {
@@ -72,10 +72,10 @@
         $optionsButton.click(onOptionsButtonClick);
     }
 
-    (function initializa() {
+    (function initialize() {
         $(function() {
             createControls();
             initializeControls();
         });
     }());
-}(lu.bioCalc.HelpDialog, lu.bioCalc.AboutDialog, lu.bioCalc.OptionsDialog));
+}());

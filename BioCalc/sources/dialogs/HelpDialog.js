@@ -14,23 +14,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function(bioCalcPageData, dateFormatter) {
-    var $xDayValueLabel = null;
-    var xDay = null;
+var lu = lu || {};
+lu.bioCalc = lu.bioCalc || {};
+
+/**
+ * Contains the logic of the Help dialog.
+ * 
+ * @returns {lu.bioCalc.HelpDialog}
+ */
+lu.bioCalc.HelpDialog = (function() {
+
+    var $helpDialog = null;
+    var $helpDialogTabSet = null;
+
+    // --------------------------------------------------------------------------
+    // Functions - "public"
+    // --------------------------------------------------------------------------
+
+    function show() {
+        $helpDialog.dialog("open");
+    }
 
     // --------------------------------------------------------------------------
     // Event Handlers
     // --------------------------------------------------------------------------
 
-    function onExternalXDayChanged(arg) {
-        xDay = arg;
-
-        $xDayValueLabel.html(dateFormatter.formatDate(xDay));
-        $xDayInfoContainer.xDayInfoView("update", xDay);
-    }
-
-    function onExternalBiorhythmsChanged(arg) {
-        $xDayInfoContainer.xDayInfoView("option", "biorhythms", arg);
+    function onHelpDialogCloseClicked() {
+        $helpDialog.dialog("close");
     }
 
     // --------------------------------------------------------------------------
@@ -41,20 +51,37 @@
         $(function() {
             create$();
             initialize$();
-
-            bioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
-            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         });
     }());
 
     function create$() {
-        $xDayValueLabel = $("#xDayValueLabel");
-        $xDayInfoContainer = $("#xDayInfoContainer");
+        $helpDialog = $("#helpDialog");
+        $helpDialogTabSet = $("#helpDialog .tabs");
     }
 
     function initialize$() {
-        $xDayInfoContainer.xDayInfoView({
-            biorhythms: []
+        $helpDialog.dialog({
+            modal: true,
+            height: 480,
+            width: 640,
+            autoOpen: false,
+            buttons: {
+                Close: onHelpDialogCloseClicked
+            },
+            show: {
+                effect: "puff",
+                duration: 300
+            },
+            hide: {
+                effect: "puff",
+                duration: 300
+            }
         });
+
+        $helpDialogTabSet.tabs();
     }
-}(lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));
+
+    return {
+        show: show
+    };
+}());

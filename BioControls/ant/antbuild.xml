@@ -9,30 +9,43 @@
 	<property name="file.compiled.release" value="${dir.compiled}/BiorhythmControls.min.js" />
 
 	<target name="debug">
-		<echo message="Deleting the compiled js file." />
-		<delete file="${file.compiled.debug}" />
+		<antcall target="prepare.output.dir" />
 
-		<copy file="changelog.txt" todir="compiled" />
-		<copy file="license.txt" todir="compiled" />
+		<antcall target="copy.other.files" />
 
-		<antcall target="compile">
+		<antcall target="compile.js">
 			<param name="file.output" value="${file.compiled.debug}" />
 		</antcall>
 	</target>
 
 	<target name="release">
-		<echo message="Deleting the compiled js file." />
-		<delete file="${file.compiled.release}" />
+		<antcall target="prepare.output.dir" />
 
-		<copy file="changelog.txt" todir="compiled" />
-		<copy file="license.txt" todir="compiled" />
+		<antcall target="copy.other.files" />
 
-		<antcall target="compile">
+		<antcall target="compile.js">
 			<param name="file.output" value="${file.compiled.release}" />
 		</antcall>
 	</target>
 
-	<target name="compile">
+	<target name="prepare.output.dir">
+		<echo message="Creating output directory: ${dir.compiled}." />
+
+		<mkdir dir="${dir.compiled}" />
+
+		<delete includeEmptyDirs="true">
+			<fileset dir="${dir.compiled}" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="copy.other.files">
+		<echo message="Copying other files." />
+
+		<copy file="changelog.txt" todir="${dir.compiled}" />
+		<copy file="license.txt" todir="${dir.compiled}" />
+	</target>
+
+	<target name="compile.js">
 		<echo message="Compiling the js files." />
 
 		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="${file.output}">

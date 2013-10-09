@@ -14,25 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
-
-/**
- * Contains the logic of the Help dialog.
- * 
- * @returns {lu.bioCalc.HelpDialog}
- */
-lu.bioCalc.HelpDialog = (function() {
-
-    var $helpDialog = null;
-    var $helpDialogTabSet = null;
+(function XDaySection() {
+    var $xDayValueLabel = null;
+    var xDay = null;
 
     // --------------------------------------------------------------------------
     // Event Handlers
     // --------------------------------------------------------------------------
 
-    function onHelpDialogCloseClicked() {
-        $helpDialog.dialog("close");
+    function onExternalXDayChanged(arg) {
+        xDay = arg;
+
+        $xDayValueLabel.html(lu.bioCalc.DateFormatter.formatDate(xDay));
+        $xDayInfoContainer.xDayInfoView("update", xDay);
+    }
+
+    function onExternalBiorhythmsChanged(arg) {
+        $xDayInfoContainer.xDayInfoView("option", "biorhythms", arg);
     }
 
     // --------------------------------------------------------------------------
@@ -43,39 +41,20 @@ lu.bioCalc.HelpDialog = (function() {
         $(function() {
             create$();
             initialize$();
+
+            lu.bioCalc.BioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
+            lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         });
     }());
 
     function create$() {
-        $helpDialog = $("#helpDialog");
-        $helpDialogTabSet = $("#helpDialog .tabs");
+        $xDayValueLabel = $("#xDayValueLabel");
+        $xDayInfoContainer = $("#xDayInfoContainer");
     }
 
     function initialize$() {
-        $helpDialog.dialog({
-            modal: true,
-            height: 480,
-            width: 640,
-            autoOpen: false,
-            buttons: {
-                Close: onHelpDialogCloseClicked
-            },
-            show: {
-                effect: "puff",
-                duration: 300
-            },
-            hide: {
-                effect: "puff",
-                duration: 300
-            }
+        $xDayInfoContainer.xDayInfoView({
+            biorhythms: []
         });
-
-        $helpDialogTabSet.tabs();
     }
-
-    return {
-        show: function() {
-            $helpDialog.dialog("open");
-        }
-    };
 }());

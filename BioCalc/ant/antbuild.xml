@@ -3,43 +3,66 @@
 <project name="BioCalc" default="main" basedir=".">
 	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="${closurecompiler.filepath}" />
 
-	<target name="main">
+	<property name="dir.compiled" value="compiled" />
 
-		<echo message="Copying files to the compiled directory." />
+	<target name="main">
+		<antcall target="prepare.output.dir" />
+
+		<antcall target="copy.external.libraries" />
+
+		<antcall target="copy.dependency.projects" />
+
+		<antcall target="copy.other.files" />
+
+		<antcall target="compile.js">
+			<param name="file.output" value="${dir.compiled}/BioCalc.js" />
+		</antcall>
+	</target>
+
+	<target name="prepare.output.dir">
+		<echo message="Creating output directory: ${dir.compiled}." />
+
+		<mkdir dir="${dir.compiled}" />
 
 		<delete includeEmptyDirs="true">
-			<fileset dir="compiled" includes="**/*" />
+			<fileset dir="${dir.compiled}" includes="**/*" />
 		</delete>
+	</target>
 
-		<copy todir="compiled/libraries">
+	<target name="copy.external.libraries">
+		<echo message="Copying external libraries." />
+
+		<copy todir="${dir.compiled}/libraries">
 			<fileset dir="sources/libraries" />
 		</copy>
+	</target>
 
-		<copy todir="compiled/images">
-			<fileset dir="sources/images" />
-		</copy>
-
-		<copy file="sources/BioCalc.css" todir="compiled" />
-		<copy file="sources/BioCalc.html" todir="compiled" />
-
-		<copy file="changelog.txt" todir="compiled" />
-		<copy file="license.txt" todir="compiled" />
-
-		<antcall target="compile">
-			<param name="file.output" value="compiled/BioCalc.js" />
-		</antcall>
-
+	<target name="copy.dependency.projects">
 		<echo message="Copying compiled files from BioControls." />
 
-		<copy todir="compiled/libraries/BiorhythmControls">
+		<copy todir="${dir.compiled}/libraries/BiorhythmControls">
 			<fileset dir="../BioControls/compiled">
 				<include name="**/*" />
 			</fileset>
 		</copy>
 	</target>
 
-	<target name="compile">
-		<echo message="Compiling the js files." />
+	<target name="copy.other.files">
+		<echo message="Copying other files." />
+
+		<copy todir="${dir.compiled}/images">
+			<fileset dir="sources/images" />
+		</copy>
+
+		<copy file="sources/BioCalc.css" todir="${dir.compiled}" />
+		<copy file="sources/BioCalc.html" todir="${dir.compiled}" />
+
+		<copy file="changelog.txt" todir="${dir.compiled}" />
+		<copy file="license.txt" todir="${dir.compiled}" />
+	</target>
+
+	<target name="compile.js">
+		<echo message="Compiling the js files to ${file.output}." />
 
 		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="${file.output}">
 
@@ -50,17 +73,20 @@
 				<file name="DateFormatter.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/page">
+			<sources dir="${basedir}/sources/mainPage">
 				<!-- The order of files is important -->
 				<file name="BioCalcPageData.js" />
-				<file name="AboutDialog.js" />
-				<file name="HelpDialog.js" />
-				<file name="OptionsDialog.js" />
 				<file name="BirthdaySection.js" />
 				<file name="MainToolbar.js" />
 				<file name="XDaySection.js" />
 				<file name="ChartsSection.js" />
 				<file name="BioCalc.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/dialogs">
+				<file name="AboutDialog.js" />
+				<file name="HelpDialog.js" />
+				<file name="OptionsDialog.js" />
 			</sources>
 
 		</jscomp>

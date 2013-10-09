@@ -28,15 +28,27 @@ var lu = lu || {};
  *            The base constructor function.
  */
 lu.inherit = function(ctor, baseCtor) {
+    if (typeof ctor !== "function") {
+        throw "ctor parameter has to be a function";
+    }
+
+    if (typeof baseCtor !== "function") {
+        throw "baseCtor parameter has to be a function";
+    }
+
     ctor.prototype = Object.create(baseCtor.prototype);
     ctor.prototype.constructor = ctor;
 };
 
-// if (typeof Function.prototype.inherit === "undefined") {
-// Function.prototype.inherit = function(base) {
-// this.prototype = Object.create(base.prototype);
-// this.prototype.constructor = this;
-// };
-// } else{
-// throw "Function.prototype.inherit already exists.";
-// }
+if (typeof Function.prototype.inherit === "undefined") {
+    Function.prototype.inherit = function(base) {
+        if (typeof base !== "function") {
+            throw "base parameter has to be a function";
+        }
+
+        this.prototype = Object.create(base.prototype);
+        this.prototype.constructor = this;
+    };
+} else {
+    throw "Function.prototype.inherit already exists.";
+}

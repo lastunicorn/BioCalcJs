@@ -41,4 +41,4 @@ lu.bioControls.biorhythms.MasteryBiorhythm = function() {
     }).call(this);
 };
 
-lu.inherit(lu.bioControls.biorhythms.MasteryBiorhythm, lu.bioControls.biorhythms.AverageBiorhythm);
+lu.bioControls.biorhythms.MasteryBiorhythm.inherit(lu.bioControls.biorhythms.AverageBiorhythm);

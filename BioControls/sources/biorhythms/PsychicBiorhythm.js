@@ -41,4 +41,4 @@ lu.bioControls.biorhythms.PsychicBiorhythm = function() {
     }).call(this);
 };
 
-lu.inherit(lu.bioControls.biorhythms.PsychicBiorhythm, lu.bioControls.biorhythms.AverageBiorhythm);
+lu.bioControls.biorhythms.PsychicBiorhythm.inherit(lu.bioControls.biorhythms.AverageBiorhythm);

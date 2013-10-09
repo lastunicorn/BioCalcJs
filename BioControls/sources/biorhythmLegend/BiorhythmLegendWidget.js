@@ -49,7 +49,7 @@
         },
 
         _createBiorhythmsAdapter: function(biorhythms) {
-            return new lu.bioControls.BiorhythmsAdapter({
+            return new lu.bioControls.biorhythmModel.BiorhythmsAdapter({
                 biorhythms: biorhythms,
                 onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
                 onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)

@@ -16,6 +16,7 @@
 
 var lu = lu || {};
 lu.bioControls = lu.bioControls || {};
+lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
 /**
  * An adapter that takes an object and provides an array of BiorhythShapes.
@@ -40,9 +41,9 @@ lu.bioControls = lu.bioControls || {};
  *            represents an event (have the unsubscribe method), this function
  *            is used to hook up to the event.
  * 
- * @returns {lu.bioControls.BiorhythmsAdapter}
+ * @returns {lu.bioControls.biorhythmModel.BiorhythmsAdapter}
  */
-lu.bioControls.BiorhythmsAdapter = function(configuration) {
+lu.bioControls.biorhythmModel.BiorhythmsAdapter = function(configuration) {
 
     /**
      * Returns an array of biorhythms.

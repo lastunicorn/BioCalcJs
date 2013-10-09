@@ -41,4 +41,4 @@ lu.bioControls.biorhythms.PerceptionBiorhythm = function() {
     }).call(this);
 };
 
-lu.inherit(lu.bioControls.biorhythms.PerceptionBiorhythm, lu.bioControls.biorhythms.AverageBiorhythm);
+lu.bioControls.biorhythms.PerceptionBiorhythm.inherit(lu.bioControls.biorhythms.AverageBiorhythm);

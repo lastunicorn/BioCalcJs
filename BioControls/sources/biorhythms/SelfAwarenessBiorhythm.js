@@ -38,4 +38,4 @@ lu.bioControls.biorhythms.SelfAwarenessBiorhythm = function() {
     }).call(this);
 };
 
-lu.inherit(lu.bioControls.biorhythms.SelfAwarenessBiorhythm, lu.bioControls.biorhythms.SinusoidalBiorhythm);
+lu.bioControls.biorhythms.SelfAwarenessBiorhythm.inherit(lu.bioControls.biorhythms.SinusoidalBiorhythm);

@@ -52,7 +52,7 @@
 
             this._painter = new lu.bioControls.biorhythmView.painting.Painter();
 
-            this._biorhythms = new lu.bioControls.BiorhythmsAdapter({
+            this._biorhythms = new lu.bioControls.biorhythmModel.BiorhythmsAdapter({
                 biorhythms: this.options.biorhythms,
                 onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
                 onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
@@ -69,7 +69,7 @@
 
                     this._super(key, value);
 
-                    this._biorhythms = new lu.bioControls.BiorhythmsAdapter({
+                    this._biorhythms = new lu.bioControls.biorhythmModel.BiorhythmsAdapter({
                         biorhythms: this.options.biorhythms,
                         onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
                         onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)

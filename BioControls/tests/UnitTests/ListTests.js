@@ -15,8 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /// <reference path="../../libraries/qUnit/qunit-1.12.0.js" />
-/// <reference path="../../common/Event.js" />
-/// <reference path="../../common/List.js" />
+/// <reference path="../../sources/common/Event.js" />
+/// <reference path="../../sources/common/List.js" />
 
 (function() {
 

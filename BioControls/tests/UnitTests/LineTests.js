@@ -16,7 +16,7 @@
 
 /// <reference path="../../libraries/qUnit/qunit-1.12.0.js" />
 /// <reference path="QUnitExtensions.js" />
-/// <reference path="../../common/Line.js" />
+/// <reference path="../../sources/common/Line.js" />
 
 (function() {
 

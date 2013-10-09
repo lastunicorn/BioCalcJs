@@ -16,7 +16,8 @@
 
 /// <reference path="../../libraries/qUnit/qunit-1.12.0.js" />
 /// <reference path="QUnitExtensions.js" />
-/// <reference path="../../biorhythms/SinusoidalBiorhythm.js" />
+/// <reference path="../../sources/common/Event.js" />
+/// <reference path="../../sources/biorhythms/SinusoidalBiorhythm.js" />
 
 // -------------------------------------------------------------------------
 // constructor tests
@@ -60,7 +61,8 @@
         var biorhythm = new lu.bioControls.biorhythms.SinusoidalBiorhythm(8);
 
         QUnit.testMultiple([ 2, 4, 9, 10, 25, 41 ], function(dayIndex) {
-            QUnit.notStrictEqual(biorhythm.getValue(dayIndex), 0, "Tests that getValue returns value different then 0 for " + dayIndex + ".");
+            var actual = biorhythm.getValue(dayIndex);
+            QUnit.notStrictEqual(actual, 0, "Tests that getValue returns value different then 0 for " + dayIndex + ". value = " + actual + ".");
         });
     });
 }());

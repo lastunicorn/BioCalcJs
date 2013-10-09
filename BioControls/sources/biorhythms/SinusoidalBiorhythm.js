@@ -43,10 +43,6 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
     }
 
     function setPeriod(value) {
-        if (typeof period !== "number") {
-            throw "period should be a number.";
-        }
-
         period = value;
         generateValues();
     }
@@ -120,6 +116,14 @@ lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
     }
 
     (function initialize() {
-        setPeriod(period);
+        if (typeof period === "undefined") {
+            period = 0;
+        }
+
+        if (typeof period !== "number") {
+            throw "period should be a number.";
+        }
+
+        generateValues();
     }());
 };

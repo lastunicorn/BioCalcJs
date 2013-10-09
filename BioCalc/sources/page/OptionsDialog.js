@@ -22,7 +22,7 @@ lu.bioCalc = lu.bioCalc || {};
  * 
  * @returns {lu.bioCalc.OptionsDialog}
  */
-lu.bioCalc.OptionsDialog = (function() {
+lu.bioCalc.OptionsDialog = (function(bioCalcPageData) {
 
     var $optionsDialog = null;
     var $primaryBiorhythmsCheckbox = null;
@@ -94,7 +94,7 @@ lu.bioCalc.OptionsDialog = (function() {
             create$();
             initialize$();
 
-            lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         });
     }());
 
@@ -134,4 +134,4 @@ lu.bioCalc.OptionsDialog = (function() {
     return {
         show: show
     };
-}());
+}(lu.bioCalc.BioCalcPageData));

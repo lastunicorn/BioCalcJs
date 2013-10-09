@@ -14,10 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
-
-lu.bioCalc.BirthdaySection = (function() {
+(function(bioCalcPageData, dateFormatter) {
 
     var birthday = null;
 
@@ -53,7 +50,7 @@ lu.bioCalc.BirthdaySection = (function() {
     // --------------------------------------------------------------------------
 
     function updateSaveBirthdayButtonVisibility() {
-        var config = lu.bioCalc.BioCalcPageData.configManager.config;
+        var config = bioCalcPageData.configManager.config;
 
         if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
             disableSaveBirthdayButton();
@@ -63,7 +60,7 @@ lu.bioCalc.BirthdaySection = (function() {
     }
 
     function updateResetBirthdayButtonVisibility() {
-        var config = lu.bioCalc.BioCalcPageData.configManager.config;
+        var config = bioCalcPageData.configManager.config;
 
         if (birthday.getTime() == config.birthday.getTime()) {
             disableResetBirthdayButton();
@@ -73,14 +70,14 @@ lu.bioCalc.BirthdaySection = (function() {
     }
 
     function updateBirthdayTextBox() {
-        var dateAsString = lu.bioCalc.DateFormatter.formatDate(birthday);
+        var dateAsString = dateFormatter.formatDate(birthday);
         $birthdayTextBox.val(dateAsString);
     }
 
     function publishBirthday() {
         suppressBirthdayChanged = true;
         try {
-            lu.bioCalc.BioCalcPageData.setBirthday(birthday);
+            bioCalcPageData.setBirthday(birthday);
         }
         finally {
             suppressBirthdayChanged = false;
@@ -106,7 +103,7 @@ lu.bioCalc.BirthdaySection = (function() {
         e.preventDefault();
         e.stopPropagation();
 
-        var configManager = lu.bioCalc.BioCalcPageData.configManager;
+        var configManager = bioCalcPageData.configManager;
         birthday = configManager.config.birthday;
 
         updateBirthdayTextBox();
@@ -120,7 +117,7 @@ lu.bioCalc.BirthdaySection = (function() {
         e.preventDefault();
         e.stopPropagation();
 
-        var configManager = lu.bioCalc.BioCalcPageData.configManager;
+        var configManager = bioCalcPageData.configManager;
 
         if (configManager) {
             configManager.config.birthday = birthday;
@@ -149,7 +146,7 @@ lu.bioCalc.BirthdaySection = (function() {
             create$();
             initialize$();
 
-            lu.bioCalc.BioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
+            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
         });
     }());
 
@@ -189,6 +186,4 @@ lu.bioCalc.BirthdaySection = (function() {
 
         $birthdayButtons.buttonset();
     }
-
-    return {};
-}());
+}(lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));

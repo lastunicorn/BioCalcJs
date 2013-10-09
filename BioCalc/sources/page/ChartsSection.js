@@ -14,10 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
-
-lu.bioCalc.ChartsSection = (function() {
+(function(bioCalcPageData, dateFormatter, dateUtil) {
 
     var $biorhythmViewContainer = null;
     var $firstDayTextBox = null;
@@ -32,17 +29,17 @@ lu.bioCalc.ChartsSection = (function() {
 
     function publishCurrentXDay() {
         var xDay = $biorhythmViewContainer.biorhythmView("getXDay");
-        lu.bioCalc.BioCalcPageData.setXDay(xDay);
+        bioCalcPageData.setXDay(xDay);
     }
 
     function setFirstDayLabel(date){
-        var firstDayAsText = lu.bioCalc.DateFormatter.formatDate(date);
+        var firstDayAsText = dateFormatter.formatDate(date);
         $firstDayTextBox.val(firstDayAsText);
         $firstDayLabel.html("<< " + firstDayAsText);
     }
 
     function setLastDayLabel(date) {
-        var lastDayAsText = lu.bioCalc.DateFormatter.formatDate(date);
+        var lastDayAsText = dateFormatter.formatDate(date);
         $lastDayTextBox.val(lastDayAsText);
         $lastDayLabel.html(lastDayAsText + " >>");
     }
@@ -105,7 +102,7 @@ lu.bioCalc.ChartsSection = (function() {
         var lastDay = $(this).datepicker("getDate");
 
         var displayedDayCount = $biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
-        var firstDay = lu.DateUtil.addDays(lastDay, -displayedDayCount);
+        var firstDay = dateUtil.addDays(lastDay, -displayedDayCount);
 
         setFirstDayToCharts(firstDay);
     }
@@ -135,7 +132,7 @@ lu.bioCalc.ChartsSection = (function() {
     function onExternalBirthdayChanged(arg) {
         $biorhythmViewContainer.biorhythmView("suspendPaint");
         try {
-            var biorhythms = lu.bioCalc.BioCalcPageData.getBiorhythms();
+            var biorhythms = bioCalcPageData.getBiorhythms();
             biorhythms.setBirthdayOnAll(arg);
         }
         finally {
@@ -162,15 +159,15 @@ lu.bioCalc.ChartsSection = (function() {
             $biorhythmViewContainer.biorhythmView("suspendPaint");
             try {
 
-                var firstDay = lu.DateUtil.addDays(Date.now(), -7);
+                var firstDay = dateUtil.addDays(Date.now(), -7);
 
                 setFirstDayLabel(firstDay);
                 setFirstDayToCharts(firstDay);
 
                 publishCurrentXDay();
 
-                lu.bioCalc.BioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
-                lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+                bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
+                bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
             }
             finally {
                 $biorhythmViewContainer.biorhythmView("resumePaint");
@@ -222,6 +219,4 @@ lu.bioCalc.ChartsSection = (function() {
 
         $bioLegend.biorhythmLegend();
     }
-
-    return {};
-}());
+}(lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter, lu.DateUtil));

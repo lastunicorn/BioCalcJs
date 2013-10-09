@@ -14,15 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
-
 /**
  * Contains the logic of the main tool bar.
  * 
  * @returns {lu.bioCalc.MainToolbar}
  */
-lu.bioCalc.MainToolbar = (function() {
+(function(helpDialog, aboutDialog, optionsDialog) {
 
     var $mainToolbar = null;
     var $helpButton = null;
@@ -30,15 +27,15 @@ lu.bioCalc.MainToolbar = (function() {
     var $optionsButton = null;
 
     function onHelpButtonClick() {
-        lu.bioCalc.HelpDialog.show();
+        helpDialog.show();
     }
 
     function onAboutButtonClick() {
-        lu.bioCalc.AboutDialog.show();
+        aboutDialog.show();
     }
 
     function onOptionsButtonClick() {
-        lu.bioCalc.OptionsDialog.show();
+        optionsDialog.show();
     }
 
     function createControls() {
@@ -81,6 +78,4 @@ lu.bioCalc.MainToolbar = (function() {
             initializeControls();
         });
     }());
-
-    return {};
-}());
+}(lu.bioCalc.HelpDialog, lu.bioCalc.AboutDialog, lu.bioCalc.OptionsDialog));

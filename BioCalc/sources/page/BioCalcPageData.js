@@ -17,15 +17,15 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
-lu.bioCalc.BioCalcPageData = (function() {
+lu.bioCalc.BioCalcPageData = (function(Event) {
 
-    var birthdayChangedEvent = new lu.Event();
+    var birthdayChangedEvent = new Event();
     var birthday = null;
 
-    var xDayChangedEvent = new lu.Event();
+    var xDayChangedEvent = new Event();
     var xDay = null;
 
-    var biorhythmsChangedEvent = new lu.Event();
+    var biorhythmsChangedEvent = new Event();
     var biorhythms = null;
 
     return {
@@ -56,4 +56,4 @@ lu.bioCalc.BioCalcPageData = (function() {
             biorhythmsChangedEvent.raise(this, value);
         }
     };
-}());
+}(lu.Event));

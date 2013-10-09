@@ -14,10 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
-
-lu.bioCalc.XDaySection = (function() {
+(function(bioCalcPageData, dateFormatter) {
     var $xDayValueLabel = null;
     var xDay = null;
 
@@ -28,7 +25,7 @@ lu.bioCalc.XDaySection = (function() {
     function onExternalXDayChanged(arg) {
         xDay = arg;
 
-        $xDayValueLabel.html(lu.bioCalc.DateFormatter.formatDate(xDay));
+        $xDayValueLabel.html(dateFormatter.formatDate(xDay));
         $xDayInfoContainer.xDayInfoView("update", xDay);
     }
 
@@ -45,8 +42,8 @@ lu.bioCalc.XDaySection = (function() {
             create$();
             initialize$();
 
-            lu.bioCalc.BioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
-            lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+            bioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
+            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         });
     }());
 
@@ -60,6 +57,4 @@ lu.bioCalc.XDaySection = (function() {
             biorhythms: []
         });
     }
-
-    return {};
-}());
+}(lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));

@@ -18,7 +18,6 @@ var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
 lu.bioCalc.DateFormatter = {
-        
     formatDate: function(date) {
         if (!(date instanceof Date)) {
             return "";

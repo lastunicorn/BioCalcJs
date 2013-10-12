@@ -14,8 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
-lu.bioCalc = lu.bioCalc || {};
+lu.Namespacing.ensureNamespace("lu.bioCalc");
 
 lu.bioCalc.DateFormatter = (function() {
     return {

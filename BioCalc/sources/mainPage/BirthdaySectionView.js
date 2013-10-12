@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function() {
-    lu.Modules.createNamespace("lu.bioCalc");
+lu.Namespacing.ensureNamespace("lu.bioCalc");
 
+(function() {
     lu.bioCalc.BirthdaySectionView = function(presenter) {
 
         var $birthdayTextBox = null;

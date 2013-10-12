@@ -52,6 +52,7 @@
 
 			<sources dir="${basedir}/sources/common">
 				<!-- These have to be compiled first -->
+				<file name="Namespacing.js" />
 				<file name="DateUtil.js" />
 				<file name="Event.js" />
 				<file name="Inheritance.js" />

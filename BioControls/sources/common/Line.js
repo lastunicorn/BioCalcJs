@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
+window.lu = window.lu || {};
 
 /**
  * A segment of a geometric line determined by two points.

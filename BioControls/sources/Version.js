@@ -14,12 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
+window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 
-Object.defineProperty(lu.bioControls, "version", {
-    value: "2.0.0",
-    writable: false,
-    enumerable: true,
-    configurable: false
-});
+/**
+ * Creates the version string and attaches it to the base namespace of the
+ * BioControls library.
+ * 
+ * @param bioControls
+ *            The base namespace of BioCalc application.
+ */
+(function Version(bioControls) {
+
+    // --------------------------------------------------------------------------
+    // Property - version
+    // --------------------------------------------------------------------------
+
+    Object.defineProperty(bioControls, "version", {
+        value: "2.0.0",
+        writable: false,
+        enumerable: true,
+        configurable: false
+    });
+}(lu.bioControls));

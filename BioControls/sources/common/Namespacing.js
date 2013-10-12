@@ -14,30 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-var lu = lu || {};
+window.lu = window.lu || {};
 
-lu.Modules = (function() {
+lu.Namespacing = (function() {
 
-    function createNamespace(fullNamespaceName) {
+    function ensureNamespace(fullNamespaceName) {
         if (typeof fullNamespaceName !== "string") {
             return null;
         }
 
-        var namespaceNames = fullModuleName.split(".");
+        var namespaceNames = fullNamespaceName.split(".");
 
         if (namespaceNames.length === 0) {
             return null;
         }
 
-        var lastNamespace = createNamespaces(namespaceNames);
-
+        var lastNamespace = ensureNamespaceChain(namespaceNames);
+        
         return lastNamespace;
     }
 
-    function createNamespaces(namespaceNames) {
+    function ensureNamespaceChain(namespaceNames) {
         var currentNamespace = window;
 
-        for ( var i = 0; i < namespaceNames.length - 1; i++) {
+        for ( var i = 0; i < namespaceNames.length; i++) {
             currentNamespace = getOrCreateNamespace(namespaceNames[i], currentNamespace);
         }
 
@@ -86,6 +86,6 @@ lu.Modules = (function() {
 
     return {
         createModule: createModule,
-        createNamespace: createNamespace
+        ensureNamespace: ensureNamespace
     };
 }());

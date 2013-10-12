@@ -17,9 +17,23 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
-Object.defineProperty(lu.bioCalc, "version", {
-    value: "1.4.0",
-    writable: false,
-    enumerable: true,
-    configurable: false
-});
+/**
+ * Creates the version string and attaches it to the base namespace of the
+ * BioCalc application.
+ * 
+ * @param bioCalc
+ *            The base namespace of BioCalc application.
+ */
+(function Version(bioCalc) {
+
+    // --------------------------------------------------------------------------
+    // Property - version
+    // --------------------------------------------------------------------------
+
+    Object.defineProperty(bioCalc, "version", {
+        value: "1.4.0",
+        writable: false,
+        enumerable: true,
+        configurable: false
+    });
+}(lu.bioCalc));

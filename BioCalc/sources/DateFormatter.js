@@ -17,19 +17,21 @@
 var lu = lu || {};
 lu.bioCalc = lu.bioCalc || {};
 
-lu.bioCalc.DateFormatter = {
-    formatDate: function(date) {
-        if (!(date instanceof Date)) {
-            return "";
+lu.bioCalc.DateFormatter = (function() {
+    return {
+        formatDate: function(date) {
+            if (!(date instanceof Date)) {
+                return "";
+            }
+
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+
+            var monthString = month < 10 ? "0" + month : "" + month;
+            var dayString = day < 10 ? "0" + day : "" + day;
+
+            return year + "-" + monthString + "-" + dayString;
         }
-
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-
-        var monthString = month < 10 ? "0" + month : "" + month;
-        var dayString = day < 10 ? "0" + day : "" + day;
-
-        return year + "-" + monthString + "-" + dayString;
-    }
-};
+    };
+}());

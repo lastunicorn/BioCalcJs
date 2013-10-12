@@ -32,8 +32,20 @@
 	<target name="copy.external.libraries">
 		<echo message="Copying external libraries." />
 
-		<copy todir="${dir.compiled}/libraries">
-			<fileset dir="libraries" />
+		<copy todir="${dir.compiled}/libraries/ColorPicker">
+			<fileset dir="libraries/ColorPicker" />
+		</copy>
+
+		<copy todir="${dir.compiled}/libraries/jQuery">
+			<fileset dir="libraries/jQuery" />
+		</copy>
+
+		<copy todir="${dir.compiled}/libraries/jQueryCookie">
+			<fileset dir="libraries/jQueryCookie" />
+		</copy>
+
+		<copy todir="${dir.compiled}/libraries/jQueryUI">
+			<fileset dir="libraries/jQueryUI" />
 		</copy>
 	</target>
 
@@ -66,15 +78,20 @@
 
 		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="${file.output}">
 
+			<!-- The order of files is important -->
+
 			<sources dir="${basedir}/sources">
 				<!-- The order of files is important -->
 				<file name="Version.js" />
-				<file name="ConfigurationManager.js" />
 				<file name="DateFormatter.js" />
 			</sources>
 
+			<sources dir="${basedir}/sources/configuration">
+				<file name="ConfigurationLoader.js" />
+				<file name="ConfigurationService.js" />
+			</sources>
+
 			<sources dir="${basedir}/sources/mainPage">
-				<!-- The order of files is important -->
 				<file name="BioCalcPageData.js" />
 				<file name="BirthdaySection.js" />
 				<file name="MainToolbar.js" />

@@ -20,9 +20,15 @@ lu.bioCalc = lu.bioCalc || {};
 /**
  * Contains the logic of the About dialog.
  * 
+ * @param bioControlsVersion
+ *            The version of the BioControls package.
+ * 
+ * @param bioCalcVersion
+ *            The version of the current application.
+ * 
  * @returns {lu.bioCalc.AboutDialog}
  */
-lu.bioCalc.AboutDialog = (function() {
+lu.bioCalc.AboutDialog = (function(bioControlsVersion, bioCalcVersion) {
 
     var $aboutDialog = null;
     var $aboutDialogTabSet = null;
@@ -58,9 +64,9 @@ lu.bioCalc.AboutDialog = (function() {
 
             $jQueryVersionLabel.html($.fn.jquery);
             $jQueryUIVersionLabel.html($.ui.version);
-            $bioControlsVersionLabel.html(lu.bioControls.version);
+            $bioControlsVersionLabel.html(bioControlsVersion);
 
-            $bioCalcVersionLabel.html("ver " + lu.bioCalc.version);
+            $bioCalcVersionLabel.html("ver " + bioCalcVersion);
         });
     }());
 
@@ -98,4 +104,4 @@ lu.bioCalc.AboutDialog = (function() {
     return {
         show: show
     };
-}());
+}(lu.bioControls.version, lu.bioCalc.version));

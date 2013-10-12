@@ -14,9 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function BioCalc() {
+/**
+ * The main module of the BioCalc home page.
+ * 
+ * @param bioCalcPageData
+ *            The service that provides data and communication between different
+ *            modules of the page.
+ * 
+ * @param configurationService
+ *            Keeps the configuration object.
+ * 
+ * @param CommonBiorhythmsContainer
+ *            Object constructor. Creates and keeps a collection of biorhythms.
+ */
+(function BioCalc(bioCalcPageData, configurationService, CommonBiorhythmsContainer) {
     var biorhythmShapes = null;
-    var configManager = null;
 
     // --------------------------------------------------------------------------
     // Initializer
@@ -24,11 +36,8 @@
 
     (function initialize() {
         $(function() {
-            configManager = new lu.bioCalc.ConfigurationManager();
-            configManager.loadFromCookies();
-
-            biorhythmShapes = new lu.bioControls.biorhythmModel.CommonBiorhythmsContainer();
-            biorhythmShapes.setBirthdayOnAll(configManager.config.birthday);
+            biorhythmShapes = new CommonBiorhythmsContainer();
+            biorhythmShapes.setBirthdayOnAll(configurationService.config.birthday);
 
             initializePageData();
 
@@ -37,9 +46,8 @@
     }());
 
     function initializePageData() {
-        lu.bioCalc.BioCalcPageData.configManager = configManager;
-        lu.bioCalc.BioCalcPageData.setBiorhythms(biorhythmShapes);
-        lu.bioCalc.BioCalcPageData.setBirthday(configManager.config.birthday);
+        bioCalcPageData.biorhythms = biorhythmShapes;
+        bioCalcPageData.birthday = configurationService.config.birthday;
     }
 
     function configureModalDialogs() {
@@ -48,10 +56,11 @@
         $(document.body).on("click", ".ui-widget-overlay", function() {
             $.each($(".ui-dialog"), function() {
                 var $dialog = $(this).children(".ui-dialog-content");
+
                 if ($dialog.dialog("option", "modal")) {
                     $dialog.dialog("close");
                 }
             });
         });
     }
-}());
+}(lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioControls.biorhythmModel.CommonBiorhythmsContainer));

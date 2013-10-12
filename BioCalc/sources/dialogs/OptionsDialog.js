@@ -20,9 +20,13 @@ lu.bioCalc = lu.bioCalc || {};
 /**
  * Contains the logic of the Options dialog.
  * 
+ * @param bioCalcPageData
+ *            The service that provides data and communication between different
+ *            modules of the page.
+ * 
  * @returns {lu.bioCalc.OptionsDialog}
  */
-lu.bioCalc.OptionsDialog = (function() {
+lu.bioCalc.OptionsDialog = (function(bioCalcPageData) {
 
     var $optionsDialog = null;
     var $primaryBiorhythmsCheckbox = null;
@@ -94,8 +98,8 @@ lu.bioCalc.OptionsDialog = (function() {
             create$();
             initialize$();
 
-            lu.bioCalc.BioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
-            biorhythmShapes = lu.bioCalc.BioCalcPageData.getBiorhythms();
+            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+            biorhythmShapes = bioCalcPageData.biorhythms;
         });
     }());
 
@@ -135,4 +139,4 @@ lu.bioCalc.OptionsDialog = (function() {
     return {
         show: show
     };
-}());
+}(lu.bioCalc.BioCalcPageData));

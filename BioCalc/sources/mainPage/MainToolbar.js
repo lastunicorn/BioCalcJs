@@ -17,26 +17,50 @@
 /**
  * Contains the logic of the main tool bar.
  * 
+ * @param helpDialog
+ *            Represents the Help popup.
+ * 
+ * @param aboutDialog
+ *            Represents the About popup.
+ * 
+ * @param optionsDialog
+ *            Represents the Options popup.
+ * 
  * @returns {lu.bioCalc.MainToolbar}
  */
-(function MainToolbar() {
+(function MainToolbar(helpDialog, aboutDialog, optionsDialog) {
 
     var $mainToolbar = null;
     var $helpButton = null;
     var $aboutButton = null;
     var $optionsButton = null;
 
+    // --------------------------------------------------------------------------
+    // Event Handlers
+    // --------------------------------------------------------------------------
+
     function onHelpButtonClick() {
-        lu.bioCalc.HelpDialog.show();
+        helpDialog.show();
     }
 
     function onAboutButtonClick() {
-        lu.bioCalc.AboutDialog.show();
+        aboutDialog.show();
     }
 
     function onOptionsButtonClick() {
-        lu.bioCalc.OptionsDialog.show();
+        optionsDialog.show();
     }
+
+    // --------------------------------------------------------------------------
+    // Initialization
+    // --------------------------------------------------------------------------
+
+    (function initialize() {
+        $(function() {
+            createControls();
+            initializeControls();
+        });
+    }());
 
     function createControls() {
         $mainToolbar = $("#mainToolbar");
@@ -71,11 +95,4 @@
         });
         $optionsButton.click(onOptionsButtonClick);
     }
-
-    (function initialize() {
-        $(function() {
-            createControls();
-            initializeControls();
-        });
-    }());
-}());
+}(lu.bioCalc.HelpDialog, lu.bioCalc.AboutDialog, lu.bioCalc.OptionsDialog));

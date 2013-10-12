@@ -20,10 +20,22 @@ lu.Namespacing = (function() {
 
     function ensureNamespace(fullNamespaceName) {
         if (typeof fullNamespaceName !== "string") {
-            return null;
+            throw "The name of the namespace to create has to be a string.";
+        }
+
+        if (fullNamespaceName === "") {
+            throw "The name of the namespace to create has to be a non empty string.";
+        }
+
+        if (fullNamespaceName === ".") {
+            throw "The name of the namespace to create cannot be a dot [.].";
         }
 
         var namespaceNames = fullNamespaceName.split(".");
+
+        if (namespaceNames.length === 0) {
+            throw "The name of the namespace to create has to be a non empty string.";
+        }
 
         if (namespaceNames.length === 0) {
             return null;

@@ -18,27 +18,30 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-/**
- * Represents the mastery biorhythm. It is a biorhythm obtained by calculating
- * the average between physical and intellectual biorhythms.
- * 
- * @returns {lu.bioControls.biorhythms.MasteryBiorhythm}
- */
-lu.bioControls.biorhythms.MasteryBiorhythm = function() {
+(function(AverageBiorhythm) {
+    /**
+     * Represents the mastery biorhythm. It is a biorhythm obtained by
+     * calculating the average between physical and intellectual biorhythms.
+     * 
+     * @returns {lu.bioControls.biorhythms.MasteryBiorhythm}
+     */
+    lu.bioControls.biorhythms.MasteryBiorhythm = function() {
 
-    Object.defineProperty(this, "name", {
-        value: "Mastery",
-        writable: false,
-        enumerable: true,
-        configurable: false
-    });
+        Object.defineProperty(this, "name", {
+            value: "Mastery",
+            writable: false,
+            enumerable: true,
+            configurable: false
+        });
 
-    (function initialize() {
-        var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm();
-        var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm();
+        (function initialize() {
+            var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm();
+            var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm();
 
-        lu.bioControls.biorhythms.AverageBiorhythm.call(this, physicalBiorhythm, intellectualBiorhythm);
-    }).call(this);
-};
+            AverageBiorhythm.call(this, physicalBiorhythm, intellectualBiorhythm);
+        }).call(this);
+    };
 
-lu.bioControls.biorhythms.MasteryBiorhythm.inherit(lu.bioControls.biorhythms.AverageBiorhythm);
+    lu.bioControls.biorhythms.MasteryBiorhythm.inherit(AverageBiorhythm);
+
+}(lu.bioControls.biorhythms.AverageBiorhythm));

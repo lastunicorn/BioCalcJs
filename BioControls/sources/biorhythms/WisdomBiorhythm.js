@@ -18,27 +18,30 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-/**
- * Represents the success biorhythm. It is a biorhythm obtained by calculating
- * the average between emotional and intellectual biorhythms.
- * 
- * @returns {lu.bioControls.biorhythms.WisdomBiorhythm}
- */
-lu.bioControls.biorhythms.WisdomBiorhythm = function() {
+(function(AverageBiorhythm) {
+    /**
+     * Represents the success biorhythm. It is a biorhythm obtained by
+     * calculating the average between emotional and intellectual biorhythms.
+     * 
+     * @returns {lu.bioControls.biorhythms.WisdomBiorhythm}
+     */
+    lu.bioControls.biorhythms.WisdomBiorhythm = function() {
 
-    Object.defineProperty(this, "name", {
-        value: "Wisdom",
-        writable: false,
-        enumerable: true,
-        configurable: false
-    });
+        Object.defineProperty(this, "name", {
+            value: "Wisdom",
+            writable: false,
+            enumerable: true,
+            configurable: false
+        });
 
-    (function initialize() {
-        var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm();
-        var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm();
+        (function initialize() {
+            var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm();
+            var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm();
 
-        lu.bioControls.biorhythms.AverageBiorhythm.call(this, emotionalBiorhythm, intellectualBiorhythm);
-    }).call(this);
-};
+            AverageBiorhythm.call(this, emotionalBiorhythm, intellectualBiorhythm);
+        }).call(this);
+    };
 
-lu.bioControls.biorhythms.WisdomBiorhythm.inherit(lu.bioControls.biorhythms.AverageBiorhythm);
+    lu.bioControls.biorhythms.WisdomBiorhythm.inherit(AverageBiorhythm);
+
+}(lu.bioControls.biorhythms.AverageBiorhythm));

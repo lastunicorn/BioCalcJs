@@ -16,43 +16,46 @@
 
 window.lu = window.lu || {};
 
-lu.LinePatternCalculator = {
-    /**
-     * Creates a new line pattern based on the requested style and the line
-     * width. The pattern is an array of numbers. The numbers from the odd
-     * positions represents the length (in pixels) of the filled segments. The
-     * numbers from the even positions represents the gaps (in pixels) between
-     * those segments.
-     * 
-     * @param lineStyle
-     *            {lu.LineStyle} The style based on which to create the pattern.
-     * 
-     * @param lineWidth
-     *            {Number} The width of the line on which the pattern will be
-     *            applied. This is used to scale the gaps according to the
-     *            width.
-     * 
-     * @returns {Array} An array of numbers representing the pattern.
-     */
-    createPattern: function(lineStyle, lineWidth) {
-        switch (lineStyle) {
-            case lu.LineStyle.solid:
-                return null;
+lu.LinePatternCalculator = (function(LineStyle) {
+    return {
+        /**
+         * Creates a new line pattern based on the requested style and the line
+         * width. The pattern is an array of numbers. The numbers from the odd
+         * positions represents the length (in pixels) of the filled segments.
+         * The numbers from the even positions represents the gaps (in pixels)
+         * between those segments.
+         * 
+         * @param lineStyle
+         *            {lu.LineStyle} The style based on which to create the
+         *            pattern.
+         * 
+         * @param lineWidth
+         *            {Number} The width of the line on which the pattern will
+         *            be applied. This is used to scale the gaps according to
+         *            the width.
+         * 
+         * @returns {Array} An array of numbers representing the pattern.
+         */
+        createPattern: function(lineStyle, lineWidth) {
+            switch (lineStyle) {
+                case LineStyle.solid:
+                    return null;
 
-            case lu.LineStyle.dot:
-                return [ lineWidth * 1, lineWidth * 3 ];
+                case LineStyle.dot:
+                    return [ lineWidth * 1, lineWidth * 3 ];
 
-            case lu.LineStyle.dash:
-                return [ lineWidth * 10, lineWidth * 5 ];
+                case LineStyle.dash:
+                    return [ lineWidth * 10, lineWidth * 5 ];
 
-            case lu.LineStyle.dashDot:
-                return [ lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3 ];
+                case LineStyle.dashDot:
+                    return [ lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3 ];
 
-            case lu.LineStyle.dashDotDot:
-                return [ lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3, lineWidth * 1, lineWidth * 3 ];
+                case LineStyle.dashDotDot:
+                    return [ lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3, lineWidth * 1, lineWidth * 3 ];
 
-            default:
-                return null;
+                default:
+                    return null;
+            }
         }
-    }
-};
+    };
+}(lu.LineStyle));

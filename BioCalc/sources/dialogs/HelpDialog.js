@@ -19,9 +19,12 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
 /**
  * Contains the logic of the Help dialog.
  * 
+ * @param $
+ *            The jQuery object.
+ * 
  * @returns {lu.bioCalc.HelpDialog}
  */
-lu.bioCalc.HelpDialog = (function() {
+lu.bioCalc.HelpDialog = (function($) {
 
     var $helpDialog = null;
     var $helpDialogTabSet = null;
@@ -83,4 +86,4 @@ lu.bioCalc.HelpDialog = (function() {
     return {
         show: show
     };
-}());
+}(jQuery));

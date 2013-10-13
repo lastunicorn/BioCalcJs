@@ -14,21 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function($) {
+(function($, dateUtil, dayLabelPosition, Scroller, BiorhythmsAdapter, Rectangle, Painter) {
     $.widget("lastunicorn.biorhythmView", {
         options: {
             width: 800,
             height: 200,
             biorhythms: [],
-            firstDay: lu.DateUtil.addDays(Date.now(), -7),
+            firstDay: dateUtil.addDays(Date.now(), -7),
             isGridVisible: true,
             totalDays: 30,
             xDayIndex: 7,
             gridColor: "#d3d3d3", // LightGray
             areDayNumbersVisible: true,
             areWeekDaysVisible: true,
-            dayNumbersPosition: lu.bioControls.biorhythmView.DayLabelPosition.top,
-            weekDaysPosition: lu.bioControls.biorhythmView.DayLabelPosition.bottom,
+            dayNumbersPosition: dayLabelPosition.top,
+            weekDaysPosition: dayLabelPosition.bottom,
             areSundaysEmphasized: true,
             foreColor: "#b0b0b0",
             sundaysColor: "#ff0000", // Red
@@ -44,15 +44,13 @@
             this._$canvas = this._createCanvasElement();
             this.element.append(this._$canvas);
 
-            new lu.bioControls.biorhythmView.Scroller({
+            new Scroller({
                 element: this._$canvas[0],
                 onDrag: $.proxy(this._onDrag, this),
                 onDragStart: $.proxy(this._onDragStart, this)
             });
 
-            this._painter = new lu.bioControls.biorhythmView.painting.Painter();
-
-            this._biorhythms = new lu.bioControls.biorhythmModel.BiorhythmsAdapter({
+            this._biorhythms = new BiorhythmsAdapter({
                 biorhythms: this.options.biorhythms,
                 onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
                 onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
@@ -69,7 +67,7 @@
 
                     this._super(key, value);
 
-                    this._biorhythms = new lu.bioControls.biorhythmModel.BiorhythmsAdapter({
+                    this._biorhythms = new BiorhythmsAdapter({
                         biorhythms: this.options.biorhythms,
                         onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
                         onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
@@ -269,7 +267,7 @@
          * control.
          */
         getLastDay: function() {
-            return lu.DateUtil.addDays(this.options.firstDay, this.options.totalDays - 1);
+            return dateUtil.addDays(this.options.firstDay, this.options.totalDays - 1);
         },
 
         // --------------------------------------------------------------------------
@@ -280,7 +278,7 @@
          * Calculates and returns the date of the X day.
          */
         getXDay: function() {
-            return lu.DateUtil.addDays(this.options.firstDay, this.options.xDayIndex);
+            return dateUtil.addDays(this.options.firstDay, this.options.xDayIndex);
         },
 
         // --------------------------------------------------------------------------
@@ -394,9 +392,10 @@
 
             var canvasElement = this._$canvas[0];
             var context = canvasElement.getContext('2d');
-            var rectangle = new lu.Rectangle(0, 0, canvasElement.width, canvasElement.height);
+            var rectangle = new Rectangle(0, 0, canvasElement.width, canvasElement.height);
 
-            this._painter.paint(rawPaintData, context, rectangle);
+            var painter = new Painter();
+            painter.paint(rawPaintData, context, rectangle);
         },
 
         // --------------------------------------------------------------------------
@@ -415,4 +414,4 @@
             evt.stepLength = this._$canvas[0].width / this.options.totalDays;
         }
     });
-}(jQuery));
+}(jQuery, lu.DateUtil, lu.bioControls.biorhythmView.DayLabelPosition, lu.bioControls.biorhythmView.Scroller, lu.bioControls.biorhythmModel.BiorhythmsAdapter, lu.Rectangle, lu.bioControls.biorhythmView.painting.Painter));

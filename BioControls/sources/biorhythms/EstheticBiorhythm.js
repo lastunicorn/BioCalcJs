@@ -18,24 +18,27 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-/**
- * Represents the esthetic biorhythm. It is a sinusoidal biorhythm with the
- * period of 43 days.
- * 
- * @returns {lu.bioControls.biorhythms.EstheticBiorhythm}
- */
-lu.bioControls.biorhythms.EstheticBiorhythm = function() {
+(function(SinusoidalBiorhythm) {
+    /**
+     * Represents the esthetic biorhythm. It is a sinusoidal biorhythm with the
+     * period of 43 days.
+     * 
+     * @returns {lu.bioControls.biorhythms.EstheticBiorhythm}
+     */
+    lu.bioControls.biorhythms.EstheticBiorhythm = function() {
 
-    Object.defineProperty(this, "name", {
-        value: "Esthetic",
-        writable: false,
-        enumerable: true,
-        configurable: false
-    });
+        Object.defineProperty(this, "name", {
+            value: "Esthetic",
+            writable: false,
+            enumerable: true,
+            configurable: false
+        });
 
-    (function initialize() {
-        lu.bioControls.biorhythms.SinusoidalBiorhythm.call(this, 43);
-    }).call(this);
-};
+        (function initialize() {
+            SinusoidalBiorhythm.call(this, 43);
+        }).call(this);
+    };
 
-lu.bioControls.biorhythms.EstheticBiorhythm.inherit(lu.bioControls.biorhythms.SinusoidalBiorhythm);
+    lu.bioControls.biorhythms.EstheticBiorhythm.inherit(SinusoidalBiorhythm);
+
+}(lu.bioControls.biorhythms.SinusoidalBiorhythm));

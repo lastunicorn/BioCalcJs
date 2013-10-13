@@ -18,51 +18,52 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-lu.bioControls.biorhythmModel.ExtraBiorhythmsSet = function() {
+(function(BiorhythmShapeSet, biorhythmShapesCreator) {
+    lu.bioControls.biorhythmModel.ExtraBiorhythmsSet = function() {
 
-    var perceptionShape = null;
-    var psychicShape = null;
-    var successShape = null;
+        var perceptionShape = null;
+        var psychicShape = null;
+        var successShape = null;
 
-    Object.defineProperty(this, "perceptionShape", {
-        enumerable: true,
-        configurable: false,
-        get: getPerceptionShape
-    });
+        Object.defineProperty(this, "perceptionShape", {
+            enumerable: true,
+            configurable: false,
+            get: getPerceptionShape
+        });
 
-    function getPerceptionShape() {
-        return perceptionShape;
-    }
+        function getPerceptionShape() {
+            return perceptionShape;
+        }
 
-    Object.defineProperty(this, "psychicShape", {
-        enumerable: true,
-        configurable: false,
-        get: getPsychicShape
-    });
+        Object.defineProperty(this, "psychicShape", {
+            enumerable: true,
+            configurable: false,
+            get: getPsychicShape
+        });
 
-    function getPsychicShape() {
-        return psychicShape;
-    }
+        function getPsychicShape() {
+            return psychicShape;
+        }
 
-    Object.defineProperty(this, "successShape", {
-        enumerable: true,
-        configurable: false,
-        get: getSuccessShape
-    });
+        Object.defineProperty(this, "successShape", {
+            enumerable: true,
+            configurable: false,
+            get: getSuccessShape
+        });
 
-    function getSuccessShape() {
-        return successShape;
-    }
+        function getSuccessShape() {
+            return successShape;
+        }
 
-    (function initialize() {
-        var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
+        (function initialize() {
+            perceptionShape = biorhythmShapesCreator.createPerceptionBiorhythmShape();
+            psychicShape = biorhythmShapesCreator.createPsychicBiorhythmShape();
+            successShape = biorhythmShapesCreator.createSuccessBiorhythmShape();
 
-        perceptionShape = biorhythmShapesCreator.createPerceptionBiorhythmShape();
-        psychicShape = biorhythmShapesCreator.createPsychicBiorhythmShape();
-        successShape = biorhythmShapesCreator.createSuccessBiorhythmShape();
+            BiorhythmShapeSet.call(this, [ perceptionShape, psychicShape, successShape ]);
+        }).call(this);
+    };
 
-        lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [ perceptionShape, psychicShape, successShape ]);
-    }).call(this);
-};
+    lu.bioControls.biorhythmModel.ExtraBiorhythmsSet.inherit(BiorhythmShapeSet);
 
-lu.bioControls.biorhythmModel.ExtraBiorhythmsSet.inherit(lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+}(lu.bioControls.biorhythmModel.BiorhythmShapeSet, lu.bioControls.biorhythmModel.BiorhythmShapesCreator));

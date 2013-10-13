@@ -19,72 +19,74 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting || {};
 
-/**
- * Paints the lines delimiting the days and the horizontal axis using an html
- * canvas context object.
- * 
- * @returns {lu.bioControls.biorhythmView.painting.GridLinesPainter}
- */
-lu.bioControls.biorhythmView.painting.GridLinesPainter = function() {
+(function(Point, Line) {
+    /**
+     * Paints the lines delimiting the days and the horizontal axis using an
+     * html canvas context object.
+     * 
+     * @returns {lu.bioControls.biorhythmView.painting.GridLinesPainter}
+     */
+    lu.bioControls.biorhythmView.painting.GridLinesPainter = function() {
 
-    var paintData = null;
-    var paintContext = null;
-    var paintRectangle = null;
+        var paintData = null;
+        var paintContext = null;
+        var paintRectangle = null;
 
-    this.paint = function(data, context, rectangle) {
-        paintData = data;
-        paintRectangle = rectangle;
-        paintContext = context;
+        this.paint = function(data, context, rectangle) {
+            paintData = data;
+            paintRectangle = rectangle;
+            paintContext = context;
 
-        if (!paintData.isGridVisible) {
-            return;
+            if (!paintData.isGridVisible) {
+                return;
+            }
+
+            for ( var i = 0; i < paintData.totalDays - 1; i++) {
+                paintContext.strokeStyle = paintData.gridColor;
+                paintContext.lineWidth = 1;
+                paintContext.lineJoin = "round";
+                setLinePattern(null);
+
+                var line = calculateDaySeparatorLine(i);
+                paintLine(line);
+            }
+
+            var axis = calculateXAxis();
+            paintLine(axis);
+        };
+
+        function calculateDaySeparatorLine(dayIndex) {
+            var xStep = (paintRectangle.width) / paintData.totalDays;
+            var index = dayIndex + 1;
+
+            var startPoint = new Point(xStep * index, 0);
+            var endPoint = new Point(xStep * index, paintRectangle.height);
+
+            return new Line(startPoint, endPoint);
         }
 
-        for ( var i = 0; i < paintData.totalDays - 1; i++) {
-            paintContext.strokeStyle = paintData.gridColor;
-            paintContext.lineWidth = 1;
-            paintContext.lineJoin = "round";
-            setLinePattern(null);
+        function calculateXAxis() {
+            var startPoint = new Point(0, paintRectangle.height / 2);
+            var endPoint = new Point(paintRectangle.width, paintRectangle.height / 2);
 
-            var line = calculateDaySeparatorLine(i);
-            paintLine(line);
+            return new Line(startPoint, endPoint);
         }
 
-        var axis = calculateXAxis();
-        paintLine(axis);
+        function paintLine(line) {
+            paintContext.beginPath();
+            paintContext.moveTo(line.startPoint.x, line.startPoint.y);
+            paintContext.lineTo(line.endPoint.x, line.endPoint.y);
+            paintContext.stroke();
+        }
+
+        function setLinePattern(linePattern) {
+            if (paintContext.mozDash !== undefined) {
+                paintContext.mozDash = linePattern;
+            }
+
+            if (typeof (paintContext.setLineDash) === "function") {
+                paintContext.setLineDash(linePattern);
+            }
+        }
     };
-
-    function calculateDaySeparatorLine(dayIndex) {
-        var xStep = (paintRectangle.width) / paintData.totalDays;
-        var index = dayIndex + 1;
-
-        var startPoint = new lu.Point(xStep * index, 0);
-        var endPoint = new lu.Point(xStep * index, paintRectangle.height);
-
-        return new lu.Line(startPoint, endPoint);
-    }
-
-    function calculateXAxis() {
-        var startPoint = new lu.Point(0, paintRectangle.height / 2);
-        var endPoint = new lu.Point(paintRectangle.width, paintRectangle.height / 2);
-
-        return new lu.Line(startPoint, endPoint);
-    }
-
-    function paintLine(line) {
-        paintContext.beginPath();
-        paintContext.moveTo(line.startPoint.x, line.startPoint.y);
-        paintContext.lineTo(line.endPoint.x, line.endPoint.y);
-        paintContext.stroke();
-    }
-
-    function setLinePattern(linePattern) {
-        if (paintContext.mozDash !== undefined) {
-            paintContext.mozDash = linePattern;
-        }
-
-        if (typeof (paintContext.setLineDash) === "function") {
-            paintContext.setLineDash(linePattern);
-        }
-    }
-};
+}(lu.Point, lu.Line));

@@ -15,7 +15,11 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The main module of the BioCalc home page.
+ * The main module of the BioCalc home page. It creates the biorhythms to be
+ * displayed in the page.
+ * 
+ * @param $
+ *            The jQuery object.
  * 
  * @param bioCalcPageData
  *            The service that provides data and communication between different
@@ -27,7 +31,7 @@
  * @param CommonBiorhythmsContainer
  *            Object constructor. Creates and keeps a collection of biorhythms.
  */
-(function BioCalc(bioCalcPageData, configurationService, CommonBiorhythmsContainer) {
+(function BioCalc($, bioCalcPageData, configurationService, CommonBiorhythmsContainer) {
     var biorhythmShapes = null;
 
     // --------------------------------------------------------------------------
@@ -63,4 +67,4 @@
             });
         });
     }
-}(lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioControls.biorhythmModel.CommonBiorhythmsContainer));
+}(jQuery, lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioControls.biorhythmModel.CommonBiorhythmsContainer));

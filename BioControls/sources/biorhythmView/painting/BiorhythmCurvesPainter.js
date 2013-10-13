@@ -19,90 +19,92 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting || {};
 
-/**
- * Paints the biorhythm curves using an html canvas context object.
- * 
- * @returns {lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter}
- */
-lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter = function() {
+(function(Point, dateUtil, linePatternCalculator) {
+    /**
+     * Paints the biorhythm curves using an html canvas context object.
+     * 
+     * @returns {lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter}
+     */
+    lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter = function() {
 
-    var paintData = null;
-    var paintContext = null;
-    var paintRectangle = null;
-    var margin = 10;
+        var paintData = null;
+        var paintContext = null;
+        var paintRectangle = null;
+        var margin = 10;
 
-    this.paint = function(data, context, rectangle) {
+        this.paint = function(data, context, rectangle) {
 
-        paintData = data;
-        paintRectangle = rectangle;
-        paintContext = context;
+            paintData = data;
+            paintRectangle = rectangle;
+            paintContext = context;
 
-        paintBiorhythms();
-    };
+            paintBiorhythms();
+        };
 
-    function paintBiorhythms() {
-        for ( var i = 0; i < paintData.biorhythmShapes.length; i++) {
-            var biorhythmShape = paintData.biorhythmShapes[i];
+        function paintBiorhythms() {
+            for ( var i = 0; i < paintData.biorhythmShapes.length; i++) {
+                var biorhythmShape = paintData.biorhythmShapes[i];
 
-            if (!biorhythmShape.isVisible) {
-                continue;
+                if (!biorhythmShape.isVisible) {
+                    continue;
+                }
+
+                var points = calculateBiorhythmPoints(biorhythmShape.biorhythm);
+
+                paintBiorhythm({
+                    points: points,
+                    color: biorhythmShape.color,
+                    lineWidth: biorhythmShape.lineWidth,
+                    lineStyle: biorhythmShape.lineStyle
+                });
+            }
+        }
+
+        function calculateBiorhythmPoints(biorhythm) {
+            var xStep = (paintRectangle.width) / paintData.totalDays;
+            var xOffset = xStep / 2;
+            var yOffset = margin + (paintRectangle.height - 2 * margin) / 2;
+            var amplitude = paintRectangle.height / 2 - 2 * margin;
+
+            var points = [];
+
+            for ( var index = 0; index < paintData.totalDays; index++) {
+                var x = xOffset + index * xStep;
+
+                var date = dateUtil.addDays(paintData.firstDay, index);
+                var y = yOffset - biorhythm.getValue(date) * amplitude;
+
+                points[index] = new Point(x, y);
             }
 
-            var points = calculateBiorhythmPoints(biorhythmShape.biorhythm);
-
-            paintBiorhythm({
-                points: points,
-                color: biorhythmShape.color,
-                lineWidth: biorhythmShape.lineWidth,
-                lineStyle: biorhythmShape.lineStyle
-            });
-        }
-    }
-
-    function calculateBiorhythmPoints(biorhythm) {
-        var xStep = (paintRectangle.width) / paintData.totalDays;
-        var xOffset = xStep / 2;
-        var yOffset = margin + (paintRectangle.height - 2 * margin) / 2;
-        var amplitude = paintRectangle.height / 2 - 2 * margin;
-
-        var points = [];
-
-        for ( var index = 0; index < paintData.totalDays; index++) {
-            var x = xOffset + index * xStep;
-            
-            var date = lu.DateUtil.addDays(paintData.firstDay, index);
-            var y = yOffset - biorhythm.getValue(date) * amplitude;
-
-            points[index] = new lu.Point(x, y);
+            return points;
         }
 
-        return points;
-    }
+        function paintBiorhythm(biorhythmPaintData) {
+            var linePattern = linePatternCalculator.createPattern(biorhythmPaintData.lineStyle, biorhythmPaintData.lineWidth);
+            setLinePattern(linePattern);
 
-    function paintBiorhythm(biorhythmPaintData) {
-        var linePattern = lu.LinePatternCalculator.createPattern(biorhythmPaintData.lineStyle, biorhythmPaintData.lineWidth);
-        setLinePattern(linePattern);
+            paintContext.strokeStyle = biorhythmPaintData.color;
+            paintContext.lineWidth = biorhythmPaintData.lineWidth;
+            paintContext.lineJoin = "round";
 
-        paintContext.strokeStyle = biorhythmPaintData.color;
-        paintContext.lineWidth = biorhythmPaintData.lineWidth;
-        paintContext.lineJoin = "round";
+            paintContext.beginPath();
 
-        paintContext.beginPath();
+            for ( var i = 0; i < biorhythmPaintData.points.length; i++) {
+                paintContext.lineTo(biorhythmPaintData.points[i].x, biorhythmPaintData.points[i].y);
+            }
 
-        for ( var i = 0; i < biorhythmPaintData.points.length; i++) {
-            paintContext.lineTo(biorhythmPaintData.points[i].x, biorhythmPaintData.points[i].y);
+            paintContext.stroke();
         }
 
-        paintContext.stroke();
-    }
+        function setLinePattern(linePattern) {
+            if (paintContext.mozDash !== undefined) {
+                paintContext.mozDash = linePattern;
+            }
 
-    function setLinePattern(linePattern) {
-        if (paintContext.mozDash !== undefined) {
-            paintContext.mozDash = linePattern;
+            if (typeof (paintContext.setLineDash) === "function") {
+                paintContext.setLineDash(linePattern);
+            }
         }
-
-        if (typeof (paintContext.setLineDash) === "function") {
-            paintContext.setLineDash(linePattern);
-        }
-    }
-};
+    };
+}(lu.Point, lu.DateUtil, lu.LinePatternCalculator));

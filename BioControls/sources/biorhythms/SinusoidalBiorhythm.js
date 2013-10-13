@@ -18,112 +18,114 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-/**
- * Represents a biorhythm that has a sinusoidal form.
- * 
- * @param period
- *            An integer (number of days) that represents the period of the
- *            sinusoid function.
- * 
- * @returns {lu.bioControls.biorhythms.SinusoidalBiorhythm}
- */
-lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
+(function(Event, dateUtil) {
+    /**
+     * Represents a biorhythm that has a sinusoidal form.
+     * 
+     * @param period
+     *            An integer (number of days) that represents the period of the
+     *            sinusoid function.
+     * 
+     * @returns {lu.bioControls.biorhythms.SinusoidalBiorhythm}
+     */
+    lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
 
-    var birthday = Date(80, 05, 13);
-    var values = [];
+        var birthday = Date(80, 05, 13);
+        var values = [];
 
-    Object.defineProperty(this, "period", {
-        enumerable: true,
-        configurable: false,
-        get: getPeriod
-    });
+        Object.defineProperty(this, "period", {
+            enumerable: true,
+            configurable: false,
+            get: getPeriod
+        });
 
-    function getPeriod() {
-        return period;
-    }
-
-    function setPeriod(value) {
-        period = value;
-        generateValues();
-    }
-
-    var birthdayChangedEvent = new lu.Event();
-    this.birthdayChanged = birthdayChangedEvent.client;
-
-    Object.defineProperty(this, "birthday", {
-        enumerable: true,
-        configurable: false,
-        get: getBirthday,
-        set: setBirthday
-    });
-
-    function getBirthday() {
-        return birthday;
-    }
-
-    function setBirthday(value) {
-        if (typeof value !== "object" || !(value instanceof Date)) {
-            throw "birthday should be a Date.";
+        function getPeriod() {
+            return period;
         }
 
-        if (value === birthday) {
-            return;
+        function setPeriod(value) {
+            period = value;
+            generateValues();
         }
 
-        birthday = value;
-        birthdayChangedEvent.raise(this, value);
-    }
+        var birthdayChangedEvent = new Event();
+        this.birthdayChanged = birthdayChangedEvent.client;
 
-    this.getValue = function(day) {
-        if (typeof day === "number") {
-            return getValueByIndex(day);
+        Object.defineProperty(this, "birthday", {
+            enumerable: true,
+            configurable: false,
+            get: getBirthday,
+            set: setBirthday
+        });
+
+        function getBirthday() {
+            return birthday;
         }
 
-        if (typeof day === "object" && day instanceof Date) {
-            return getValueByDate(day);
+        function setBirthday(value) {
+            if (typeof value !== "object" || !(value instanceof Date)) {
+                throw "birthday should be a Date.";
+            }
+
+            if (value === birthday) {
+                return;
+            }
+
+            birthday = value;
+            birthdayChangedEvent.raise(this, value);
         }
 
-        return 0;
-    };
+        this.getValue = function(day) {
+            if (typeof day === "number") {
+                return getValueByIndex(day);
+            }
 
-    function getValueByIndex(dayIndex) {
-        if (period == 0) {
+            if (typeof day === "object" && day instanceof Date) {
+                return getValueByDate(day);
+            }
+
             return 0;
+        };
+
+        function getValueByIndex(dayIndex) {
+            if (period == 0) {
+                return 0;
+            }
+
+            var index = dayIndex % period;
+
+            if (index < 0) {
+                index += period;
+            }
+
+            return values[index];
         }
 
-        var index = dayIndex % period;
+        function getValueByDate(date) {
+            var milisecondsLived = date - birthday;
+            var daysLived = dateUtil.milisecondsToWholeDays(milisecondsLived);
 
-        if (index < 0) {
-            index += period;
+            return getValueByIndex(daysLived);
         }
 
-        return values[index];
-    }
+        function generateValues() {
+            values.length = 0;
 
-    function getValueByDate(date) {
-        var milisecondsLived = date - birthday;
-        var daysLived = lu.DateUtil.milisecondsToWholeDays(milisecondsLived);
-
-        return getValueByIndex(daysLived);
-    }
-
-    function generateValues() {
-        values.length = 0;
-
-        for ( var i = 0; i < period; i++) {
-            values[i] = Math.sin(i * 2 * Math.PI / period);
-        }
-    }
-
-    (function initialize() {
-        if (typeof period === "undefined") {
-            period = 0;
+            for ( var i = 0; i < period; i++) {
+                values[i] = Math.sin(i * 2 * Math.PI / period);
+            }
         }
 
-        if (typeof period !== "number") {
-            throw "period should be a number.";
-        }
+        (function initialize() {
+            if (typeof period === "undefined") {
+                period = 0;
+            }
 
-        generateValues();
-    }());
-};
+            if (typeof period !== "number") {
+                throw "period should be a number.";
+            }
+
+            generateValues();
+        }());
+    };
+}(lu.Event, lu.DateUtil));

@@ -18,51 +18,52 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet = function() {
+(function(BiorhythmShapeSet, biorhythmShapesCreator) {
+    lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet = function() {
 
-    var passionShape = null;
-    var masteryShape = null;
-    var wisdomShape = null;
+        var passionShape = null;
+        var masteryShape = null;
+        var wisdomShape = null;
 
-    Object.defineProperty(this, "passionShape", {
-        enumerable: true,
-        configurable: false,
-        get: getPassionShape
-    });
+        Object.defineProperty(this, "passionShape", {
+            enumerable: true,
+            configurable: false,
+            get: getPassionShape
+        });
 
-    function getPassionShape() {
-        return passionShape;
-    }
+        function getPassionShape() {
+            return passionShape;
+        }
 
-    Object.defineProperty(this, "masteryShape", {
-        enumerable: true,
-        configurable: false,
-        get: getMasteryShape
-    });
+        Object.defineProperty(this, "masteryShape", {
+            enumerable: true,
+            configurable: false,
+            get: getMasteryShape
+        });
 
-    function getMasteryShape() {
-        return masteryShape;
-    }
+        function getMasteryShape() {
+            return masteryShape;
+        }
 
-    Object.defineProperty(this, "wisdomShape", {
-        enumerable: true,
-        configurable: false,
-        get: getWisdomShape
-    });
+        Object.defineProperty(this, "wisdomShape", {
+            enumerable: true,
+            configurable: false,
+            get: getWisdomShape
+        });
 
-    function getWisdomShape() {
-        return wisdomShape;
-    }
+        function getWisdomShape() {
+            return wisdomShape;
+        }
 
-    (function initialize() {
-        var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
+        (function initialize() {
+            passionShape = biorhythmShapesCreator.createPassionBiorhythmShape();
+            masteryShape = biorhythmShapesCreator.createMasteryBiorhythmShape();
+            wisdomShape = biorhythmShapesCreator.createWisdomBiorhythmShape();
 
-        passionShape = biorhythmShapesCreator.createPassionBiorhythmShape();
-        masteryShape = biorhythmShapesCreator.createMasteryBiorhythmShape();
-        wisdomShape = biorhythmShapesCreator.createWisdomBiorhythmShape();
+            BiorhythmShapeSet.call(this, [ passionShape, masteryShape, wisdomShape ]);
+        }).call(this);
+    };
 
-        lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [ passionShape, masteryShape, wisdomShape ]);
-    }).call(this);
-};
+    lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet.inherit(BiorhythmShapeSet);
 
-lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet.inherit(lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+}(lu.bioControls.biorhythmModel.BiorhythmShapeSet, lu.bioControls.biorhythmModel.BiorhythmShapesCreator));

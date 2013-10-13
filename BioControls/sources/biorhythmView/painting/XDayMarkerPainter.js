@@ -19,60 +19,62 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting || {};
 
-/**
- * Outlines the rectangle representing the X day using an html canvas context
- * object.
- * 
- * @returns {lu.bioControls.biorhythmView.painting.XDayMarkerPainter}
- */
-lu.bioControls.biorhythmView.painting.XDayMarkerPainter = function() {
+(function(Rectangle) {
+    /**
+     * Outlines the rectangle representing the X day using an html canvas
+     * context object.
+     * 
+     * @returns {lu.bioControls.biorhythmView.painting.XDayMarkerPainter}
+     */
+    lu.bioControls.biorhythmView.painting.XDayMarkerPainter = function() {
 
-    var paintData = null;
-    var paintContext = null;
-    var paintRectangle = null;
+        var paintData = null;
+        var paintContext = null;
+        var paintRectangle = null;
 
-    this.paint = function(data, context, rectangle) {
-        paintData = data;
-        paintRectangle = rectangle;
-        paintContext = context;
+        this.paint = function(data, context, rectangle) {
+            paintData = data;
+            paintRectangle = rectangle;
+            paintContext = context;
 
-        var data = calculateXDayMarker();
-        if (data) {
-            paintXDayMarker(data);
+            var data = calculateXDayMarker();
+            if (data) {
+                paintXDayMarker(data);
+            }
+        };
+
+        function calculateXDayMarker() {
+            if (!paintData.isXDayVisible) {
+                return null;
+            }
+
+            var xStep = (paintRectangle.width) / paintData.totalDays;
+            var x = xStep * paintData.xDayIndex;
+            var y = 0;
+            var width = xStep;
+            var height = paintRectangle.height;
+
+            return new Rectangle(x, y, width, height);
+        }
+
+        function paintXDayMarker(rectangle) {
+            setLinePattern(null);
+
+            paintContext.beginPath();
+            paintContext.rect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
+            paintContext.strokeStyle = paintData.xDayBorderColor;
+            paintContext.lineWidth = paintData.xDayBorderWidth;
+            paintContext.stroke();
+        }
+
+        function setLinePattern(linePattern) {
+            if (paintContext.mozDash !== undefined) {
+                paintContext.mozDash = linePattern;
+            }
+
+            if (typeof (paintContext.setLineDash) === "function") {
+                paintContext.setLineDash(linePattern);
+            }
         }
     };
-
-    function calculateXDayMarker() {
-        if (!paintData.isXDayVisible) {
-            return null;
-        }
-
-        var xStep = (paintRectangle.width) / paintData.totalDays;
-        var x = xStep * paintData.xDayIndex;
-        var y = 0;
-        var width = xStep;
-        var height = paintRectangle.height;
-
-        return new lu.Rectangle(x, y, width, height);
-    }
-
-    function paintXDayMarker(rectangle) {
-        setLinePattern(null);
-
-        paintContext.beginPath();
-        paintContext.rect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
-        paintContext.strokeStyle = paintData.xDayBorderColor;
-        paintContext.lineWidth = paintData.xDayBorderWidth;
-        paintContext.stroke();
-    }
-
-    function setLinePattern(linePattern) {
-        if (paintContext.mozDash !== undefined) {
-            paintContext.mozDash = linePattern;
-        }
-
-        if (typeof (paintContext.setLineDash) === "function") {
-            paintContext.setLineDash(linePattern);
-        }
-    }
-};
+}(lu.Rectangle));

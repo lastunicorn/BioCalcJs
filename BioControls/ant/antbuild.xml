@@ -56,35 +56,18 @@
 				<file name="DateUtil.js" />
 				<file name="Event.js" />
 				<file name="Inheritance.js" />
+				<file name="Point.js" />
 				<file name="Line.js" />
-				<file name="LinePatternCalculator.js" />
+				<file name="Rectangle.js" />
 				<file name="LineStyle.js" />
+				<file name="LinePatternCalculator.js" />
 				<file name="List.js" />
 				<file name="MouseButton.js" />
-				<file name="Point.js" />
-				<file name="Rectangle.js" />
 				<file name="TextUtil.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources">
 				<file name="Version.js" />
-			</sources>
-
-			<sources dir="${basedir}/sources/biorhythmLegend">
-				<file name="BiorhythmLegendItem.js" />
-				<file name="BiorhythmLegendWidget.js" />
-			</sources>
-
-			<sources dir="${basedir}/sources/biorhythmModel">
-				<file name="BiorhythmsAdapter.js" />
-				<file name="BiorhythmShape.js" />
-				<file name="BiorhythmShapesCreator.js" />
-				<file name="BiorhythmShapeSet.js" />
-				<file name="PrimaryBiorhythmsSet.js" />
-				<file name="SecondaryBiorhythmsSet.js" />
-				<file name="ExtraBiorhythmsSet.js" />
-				<file name="IChingBiorhythmsSet.js" />
-				<file name="CommonBiorhythmsContainer.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythms">
@@ -105,20 +88,40 @@
 				<file name="WisdomBiorhythm.js" />
 			</sources>
 
+			<sources dir="${basedir}/sources/biorhythmModel">
+				<file name="BiorhythmsAdapter.js" />
+				<file name="BiorhythmShape.js" />
+				<file name="BiorhythmShapesCreator.js" />
+				<file name="BiorhythmShapeSet.js" />
+				<file name="PrimaryBiorhythmsSet.js" />
+				<file name="SecondaryBiorhythmsSet.js" />
+				<file name="ExtraBiorhythmsSet.js" />
+				<file name="IChingBiorhythmsSet.js" />
+				<file name="CommonBiorhythmsContainer.js" />
+			</sources>
+
 			<sources dir="${basedir}/sources/biorhythmView">
 				<file name="DayLabelPosition.js" />
 				<file name="WeekDayNameProvider.js" />
-				<file name="BiorhythmViewWidget.js" />
 				<file name="Scroller.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythmView/painting">
 				<file name="BiorhythmCurvesPainter.js" />
-				<file name="Painter.js" />
 				<file name="DayLabelsPainter.js" />
 				<file name="GridLinesPainter.js" />
 				<file name="TodayMarkerPainter.js" />
 				<file name="XDayMarkerPainter.js" />
+				<file name="Painter.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/biorhythmView">
+				<file name="BiorhythmViewWidget.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/biorhythmLegend">
+				<file name="BiorhythmLegendItem.js" />
+				<file name="BiorhythmLegendWidget.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/xDayInfoView">

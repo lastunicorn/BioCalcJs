@@ -19,13 +19,16 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
 /**
  * Contains the logic of the Options dialog.
  * 
+ * @param $
+ *            The jQuery object.
+ * 
  * @param bioCalcPageData
  *            The service that provides data and communication between different
  *            modules of the page.
  * 
  * @returns {lu.bioCalc.OptionsDialog}
  */
-lu.bioCalc.OptionsDialog = (function(bioCalcPageData) {
+lu.bioCalc.OptionsDialog = (function($, bioCalcPageData) {
 
     var $optionsDialog = null;
     var $primaryBiorhythmsCheckbox = null;
@@ -138,4 +141,4 @@ lu.bioCalc.OptionsDialog = (function(bioCalcPageData) {
     return {
         show: show
     };
-}(lu.bioCalc.BioCalcPageData));
+}(jQuery, lu.bioCalc.BioCalcPageData));

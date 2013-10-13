@@ -17,6 +17,9 @@
 /**
  * Contains the logic of the main tool bar.
  * 
+ * @param $
+ *            The jQuery object.
+ * 
  * @param helpDialog
  *            Represents the Help popup.
  * 
@@ -28,7 +31,7 @@
  * 
  * @returns {lu.bioCalc.MainToolbar}
  */
-(function MainToolbar(helpDialog, aboutDialog, optionsDialog) {
+(function MainToolbar($, helpDialog, aboutDialog, optionsDialog) {
 
     var $mainToolbar = null;
     var $helpButton = null;
@@ -95,4 +98,4 @@
         });
         $optionsButton.click(onOptionsButtonClick);
     }
-}(lu.bioCalc.HelpDialog, lu.bioCalc.AboutDialog, lu.bioCalc.OptionsDialog));
+}(jQuery, lu.bioCalc.HelpDialog, lu.bioCalc.AboutDialog, lu.bioCalc.OptionsDialog));

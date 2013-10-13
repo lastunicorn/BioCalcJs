@@ -14,7 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function ChartsSection(bioCalcPageData, dateFormatter, dateUtil) {
+/**
+ * This module contains the logic of the page section that displays the
+ * biorhythm charts.
+ * 
+ * @param $
+ *            The jQuery object.
+ * 
+ * @param bioCalcPageData
+ *            The service that provides data and communication between different
+ *            modules of the page.
+ * 
+ * @param dateFormatter
+ *            Provides methods to format a data into a string.
+ * 
+ * @param dateUtil
+ *            provides utility methods to manipulate a Date.
+ */
+(function ChartsSection($, bioCalcPageData, dateFormatter, dateUtil) {
 
     var $biorhythmViewContainer = null;
     var $firstDayTextBox = null;
@@ -219,4 +236,4 @@
 
         $bioLegend.biorhythmLegend();
     }
-}(lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter, lu.DateUtil));
+}(jQuery, lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter, lu.DateUtil));

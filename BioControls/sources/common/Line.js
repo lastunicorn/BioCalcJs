@@ -16,52 +16,54 @@
 
 window.lu = window.lu || {};
 
-/**
- * A segment of a geometric line determined by two points.
- * 
- * @param startPoint
- *            The point of start of the line's segment.
- * 
- * @param endPoint
- *            The point of end of the line's segment.
- * 
- * @returns {lu.Line}
- */
-lu.Line = function(startPoint, endPoint) {
+(function(Point) {
+    /**
+     * A segment of a geometric line determined by two points.
+     * 
+     * @param startPoint
+     *            The point of start of the line's segment.
+     * 
+     * @param endPoint
+     *            The point of end of the line's segment.
+     * 
+     * @returns {lu.Line}
+     */
+    lu.Line = function(startPoint, endPoint) {
 
-    Object.defineProperty(this, "startPoint", {
-        enumerable: true,
-        get: getStartPoint
-    });
+        Object.defineProperty(this, "startPoint", {
+            enumerable: true,
+            get: getStartPoint
+        });
 
-    function getStartPoint() {
-        return startPoint;
-    }
+        function getStartPoint() {
+            return startPoint;
+        }
 
-    Object.defineProperty(this, "endPoint", {
-        enumerable: true,
-        get: getEndPoint
-    });
+        Object.defineProperty(this, "endPoint", {
+            enumerable: true,
+            get: getEndPoint
+        });
 
-    function getEndPoint() {
-        return endPoint;
-    }
+        function getEndPoint() {
+            return endPoint;
+        }
 
-    this.toString = function() {
-        return startPoint.toString() + " - " + endPoint.toString();
+        this.toString = function() {
+            return startPoint.toString() + " - " + endPoint.toString();
+        };
+
+        // --------------------------------------------------------------------------
+        // Initialization
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
+            if (!(startPoint instanceof Point)) {
+                throw "startPoint is undefined.";
+            }
+
+            if (!(endPoint instanceof Point)) {
+                throw "endPoint is undefined.";
+            }
+        }).call(this);
     };
-
-    // --------------------------------------------------------------------------
-    // Initialization
-    // --------------------------------------------------------------------------
-
-    (function initialize() {
-        if (!(startPoint instanceof lu.Point)) {
-            throw "startPoint is undefined.";
-        }
-
-        if (!(endPoint instanceof lu.Point)) {
-            throw "endPoint is undefined.";
-        }
-    }).call(this);
-};
+}(lu.Point));

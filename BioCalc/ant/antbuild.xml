@@ -93,17 +93,20 @@
 
 			<sources dir="${basedir}/sources/mainPage">
 				<file name="BioCalcPageData.js" />
-				<file name="BirthdaySection.js" />
-				<file name="MainToolbar.js" />
-				<file name="XDaySection.js" />
-				<file name="ChartsSection.js" />
-				<file name="BioCalc.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/dialogs">
 				<file name="AboutDialog.js" />
 				<file name="HelpDialog.js" />
 				<file name="OptionsDialog.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/mainPage">
+				<file name="BirthdaySection.js" />
+				<file name="MainToolbar.js" />
+				<file name="XDaySection.js" />
+				<file name="ChartsSection.js" />
+				<file name="BioCalc.js" />
 			</sources>
 
 		</jscomp>

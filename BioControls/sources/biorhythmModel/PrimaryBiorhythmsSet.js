@@ -18,63 +18,64 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet = function() {
+(function(BiorhythmShapeSet, biorhythmShapesCreator) {
+    lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet = function() {
 
-    var physicalShape = null;
-    var emotionalShape = null;
-    var intellectualShape = null;
-    var intuitiveShape = null;
+        var physicalShape = null;
+        var emotionalShape = null;
+        var intellectualShape = null;
+        var intuitiveShape = null;
 
-    Object.defineProperty(this, "physicalShape", {
-        enumerable: true,
-        configurable: false,
-        get: getPhysicalShape
-    });
+        Object.defineProperty(this, "physicalShape", {
+            enumerable: true,
+            configurable: false,
+            get: getPhysicalShape
+        });
 
-    function getPhysicalShape() {
-        return physicalShape;
-    }
+        function getPhysicalShape() {
+            return physicalShape;
+        }
 
-    Object.defineProperty(this, "emotionalShape", {
-        enumerable: true,
-        configurable: false,
-        get: getEmotionalShape
-    });
+        Object.defineProperty(this, "emotionalShape", {
+            enumerable: true,
+            configurable: false,
+            get: getEmotionalShape
+        });
 
-    function getEmotionalShape() {
-        return emotionalShape;
-    }
+        function getEmotionalShape() {
+            return emotionalShape;
+        }
 
-    Object.defineProperty(this, "intellectualShape", {
-        enumerable: true,
-        configurable: false,
-        get: getIntellectualShape
-    });
+        Object.defineProperty(this, "intellectualShape", {
+            enumerable: true,
+            configurable: false,
+            get: getIntellectualShape
+        });
 
-    function getIntellectualShape() {
-        return intellectualShape;
-    }
+        function getIntellectualShape() {
+            return intellectualShape;
+        }
 
-    Object.defineProperty(this, "intuitiveShape", {
-        enumerable: true,
-        configurable: false,
-        get: getIntuitiveShape
-    });
+        Object.defineProperty(this, "intuitiveShape", {
+            enumerable: true,
+            configurable: false,
+            get: getIntuitiveShape
+        });
 
-    function getIntuitiveShape() {
-        return intuitiveShape;
-    }
+        function getIntuitiveShape() {
+            return intuitiveShape;
+        }
 
-    (function initialize() {
-        var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
+        (function initialize() {
+            physicalShape = biorhythmShapesCreator.createPhysicalBiorhythmShape();
+            emotionalShape = biorhythmShapesCreator.createEmotionalBiorhythmShape();
+            intellectualShape = biorhythmShapesCreator.createIntellectualBiorhythmShape();
+            intuitiveShape = biorhythmShapesCreator.createIntuitiveBiorhythmShape();
 
-        physicalShape = biorhythmShapesCreator.createPhysicalBiorhythmShape();
-        emotionalShape = biorhythmShapesCreator.createEmotionalBiorhythmShape();
-        intellectualShape = biorhythmShapesCreator.createIntellectualBiorhythmShape();
-        intuitiveShape = biorhythmShapesCreator.createIntuitiveBiorhythmShape();
+            BiorhythmShapeSet.call(this, [ physicalShape, emotionalShape, intellectualShape, intuitiveShape ]);
+        }).call(this);
+    };
 
-        lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [ physicalShape, emotionalShape, intellectualShape, intuitiveShape ]);
-    }).call(this);
-};
+    lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet.inherit(BiorhythmShapeSet);
 
-lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet.inherit(lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+}(lu.bioControls.biorhythmModel.BiorhythmShapeSet, lu.bioControls.biorhythmModel.BiorhythmShapesCreator));

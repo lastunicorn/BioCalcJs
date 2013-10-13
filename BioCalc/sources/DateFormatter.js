@@ -16,6 +16,11 @@
 
 lu.Namespacing.ensureNamespace("lu.bioCalc");
 
+/**
+ * Provides methods to format a data into a string.
+ * 
+ * @returns {lu.bioCalc.DateFormatter}
+ */
 lu.bioCalc.DateFormatter = (function() {
     return {
         formatDate: function(date) {

@@ -18,59 +18,61 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-/**
- * Represents a biorhythm calculated as an average of two other biorhythms.
- * 
- * @param biorhythmA
- *            The first biorhythm used to calculate the average.
- * 
- * @param biorhythmB
- *            The second biorhythm used to calculate the average.
- * 
- * @returns {lu.bioControls.biorhythms.AverageBiorhythm}
- */
-lu.bioControls.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
+(function(Event) {
+    /**
+     * Represents a biorhythm calculated as an average of two other biorhythms.
+     * 
+     * @param biorhythmA
+     *            The first biorhythm used to calculate the average.
+     * 
+     * @param biorhythmB
+     *            The second biorhythm used to calculate the average.
+     * 
+     * @returns {lu.bioControls.biorhythms.AverageBiorhythm}
+     */
+    lu.bioControls.biorhythms.AverageBiorhythm = function(biorhythmA, biorhythmB) {
 
-    var birthdayChangedEvent = new lu.Event();
-    this.birthdayChanged = birthdayChangedEvent.client;
+        var birthdayChangedEvent = new Event();
+        this.birthdayChanged = birthdayChangedEvent.client;
 
-    Object.defineProperty(this, "birthday", {
-        enumerable: true,
-        configurable: false,
-        get: getBirthday,
-        set: setBirthday
-    });
+        Object.defineProperty(this, "birthday", {
+            enumerable: true,
+            configurable: false,
+            get: getBirthday,
+            set: setBirthday
+        });
 
-    function getBirthday() {
-        return biorhythmA.birthday;
-    }
-
-    function setBirthday(value) {
-        if (typeof value !== "object" || !(value instanceof Date)) {
-            throw "birthday should be a Date.";
+        function getBirthday() {
+            return biorhythmA.birthday;
         }
 
-        if (value === biorhythmA.birthday && value === biorhythmB.birthday) {
-            return;
+        function setBirthday(value) {
+            if (typeof value !== "object" || !(value instanceof Date)) {
+                throw "birthday should be a Date.";
+            }
+
+            if (value === biorhythmA.birthday && value === biorhythmB.birthday) {
+                return;
+            }
+
+            biorhythmA.birthday = value;
+            biorhythmB.birthday = value;
+
+            birthdayChangedEvent.raise(this, value);
         }
 
-        biorhythmA.birthday = value;
-        biorhythmB.birthday = value;
+        this.getValue = function(day) {
+            return (biorhythmA.getValue(day) + biorhythmB.getValue(day)) / 2;
+        };
 
-        birthdayChangedEvent.raise(this, value);
-    }
+        (function initialize() {
+            if (!biorhythmA) {
+                throw "biorhythmA should be an object.";
+            }
 
-    this.getValue = function(day) {
-        return (biorhythmA.getValue(day) + biorhythmB.getValue(day)) / 2;
+            if (!biorhythmB) {
+                throw "biorhythmB should be an object.";
+            }
+        }).call(this);
     };
-
-    (function initialize() {
-        if (!biorhythmA) {
-            throw "biorhythmA should be an object.";
-        }
-
-        if (!biorhythmB) {
-            throw "biorhythmB should be an object.";
-        }
-    }).call(this);
-};
+}(lu.Event));

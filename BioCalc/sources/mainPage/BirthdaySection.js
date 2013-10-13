@@ -14,7 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function BirthdaySection(bioCalcPageData, configurationService, dateFormatter) {
+/**
+ * This module contains the logic of the page section where the user can select
+ * the birthday.
+ * 
+ * @param $
+ *            The jQuery object.
+ * 
+ * @param bioCalcPageData
+ *            The service that provides data and communication between different
+ *            modules of the page.
+ * 
+ * @param configurationService
+ *            Keeps the configuration object.
+ * 
+ * @param dateFormatter
+ *            Provides methods to format a data into a string.
+ */
+(function BirthdaySection($, bioCalcPageData, configurationService, dateFormatter) {
 
     var birthday = null;
 
@@ -181,4 +198,4 @@
 
         $birthdayButtons.buttonset();
     }
-}(lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioCalc.DateFormatter));
+}(jQuery, lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioCalc.DateFormatter));

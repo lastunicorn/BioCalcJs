@@ -16,34 +16,44 @@
 
 window.lu = window.lu || {};
 
-/**
- * Links two constructor functions in the way that the first one (ctor) will
- * inherit the second one (baseCtor). An object created by the ctor function
- * will have in its prototype chain the prototype from the baseCtor function.
- * 
- * @param ctor
- *            The constructor function that should inherit the second one.
- * 
- * @param baseCtor
- *            The base constructor function.
- */
-lu.inherit = function(ctor, baseCtor) {
-    if (typeof ctor !== "function") {
-        throw "ctor parameter has to be a function";
+lu.Inheritance = (function() {
+
+    /**
+     * Links two constructor functions in the way that the first one (ctor) will
+     * inherit the second one (baseCtor). An object created by the ctor function
+     * will have in its prototype chain the prototype from the baseCtor
+     * function.
+     * 
+     * @param ctor
+     *            The constructor function that should inherit the second one.
+     * 
+     * @param baseCtor
+     *            The base constructor function.
+     */
+    function inherit(ctor, baseCtor) {
+        if (typeof ctor !== "function") {
+            throw "ctor parameter has to be a function";
+        }
+
+        if (typeof baseCtor !== "function") {
+            throw "baseCtor parameter has to be a function";
+        }
+
+        ctor.prototype = Object.create(baseCtor.prototype);
+        ctor.prototype.constructor = ctor;
     }
 
-    if (typeof baseCtor !== "function") {
-        throw "baseCtor parameter has to be a function";
-    }
+    (function() {
+        if (typeof Function.prototype.inherit === "undefined") {
+            Function.prototype.inherit = function(baseCtor) {
+                inherit(this, baseCtor);
+            };
+        } else {
+            throw "Function.prototype.inherit already exists.";
+        }
+    }());
 
-    ctor.prototype = Object.create(baseCtor.prototype);
-    ctor.prototype.constructor = ctor;
-};
-
-if (typeof Function.prototype.inherit === "undefined") {
-    Function.prototype.inherit = function(baseCtor) {
-        lu.inherit(this, baseCtor);
+    return {
+        inherit: inherit
     };
-} else {
-    throw "Function.prototype.inherit already exists.";
-}
+}());

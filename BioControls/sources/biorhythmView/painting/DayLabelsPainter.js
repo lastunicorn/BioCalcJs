@@ -19,132 +19,134 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting || {};
 
-/**
- * Paints the labels of the month days and week days using an html canvas
- * context object.
- * 
- * @returns {lu.bioControls.biorhythmView.painting.DayLabelsPainter}
- */
-lu.bioControls.biorhythmView.painting.DayLabelsPainter = function() {
+(function(Point, textUtil, weekDayNamesProvider, dayLabelPosition) {
+    /**
+     * Paints the labels of the month days and week days using an html canvas
+     * context object.
+     * 
+     * @returns {lu.bioControls.biorhythmView.painting.DayLabelsPainter}
+     */
+    lu.bioControls.biorhythmView.painting.DayLabelsPainter = function() {
 
-    var paintData = null;
-    var paintContext = null;
-    var paintRectangle = null;
-    var currentFont = null;
-    var textHeight = 12;
+        var paintData = null;
+        var paintContext = null;
+        var paintRectangle = null;
+        var currentFont = null;
+        var textHeight = 12;
 
-    this.paint = function(data, context, rectangle) {
-        paintData = data;
-        paintRectangle = rectangle;
-        paintContext = context;
+        this.paint = function(data, context, rectangle) {
+            paintData = data;
+            paintRectangle = rectangle;
+            paintContext = context;
 
-        calculateTextSize();
-        calculateDayLabels();
+            calculateTextSize();
+            calculateDayLabels();
+        };
+
+        function calculateDayLabels() {
+            var areDayNumbersVisible = paintData.areDayNumbersVisible;
+            var areWeekDaysVisible = paintData.areWeekDaysVisible && !(paintData.areDayNumbersVisible && paintData.weekDaysPosition === paintData.dayNumbersPosition);
+
+            if (!areDayNumbersVisible && !areWeekDaysVisible) {
+                return null;
+            }
+
+            var day = new Date(paintData.firstDay.getTime());
+
+            paintContext.textAlign = "center";
+            paintContext.textBaseline = "middle";
+
+            currentFont = null;
+
+            for ( var i = 0; i < paintData.totalDays; i++) {
+                if (areDayNumbersVisible) {
+                    paintLabel(calculateDayNumberPaintInfo(i, day));
+                }
+
+                if (areWeekDaysVisible) {
+                    paintLabel(calculateWeekDayPaintInfo(day, i));
+                }
+
+                day.setDate(day.getDate() + 1);
+            }
+        }
+
+        function calculateTextSize() {
+            var textSize = textUtil.measureText({
+                text: "0jf",
+                font: paintData.font
+            });
+
+            var textSizeEmphasized = textUtil.measureText({
+                text: "0jf",
+                font: paintData.sundaysFont
+            });
+
+            textHeight = Math.max(textSize[1], textSizeEmphasized[1]);
+        }
+
+        function calculateDayNumberPaintInfo(i, day) {
+            var text = day.getDate().toString();
+            var position = calculateDayNumberLocation(i, paintData.dayNumbersPosition);
+            var isEmphasized = paintData.areSundaysEmphasized && day.getDay() === 0;
+
+            var paintInfo = {
+                text: text,
+                position: position,
+                isEmphasized: isEmphasized
+            };
+
+            return paintInfo;
+        }
+
+        function calculateWeekDayPaintInfo(day, i) {
+            var text = weekDayNamesProvider.getWeekDayName(day.getDay());
+            var position = calculateDayNumberLocation(i, paintData.weekDaysPosition);
+            var isEmphasized = paintData.areSundaysEmphasized && day.getDay() === 0;
+
+            var paintInfo = {
+                text: text,
+                position: position,
+                isEmphasized: isEmphasized
+            };
+
+            return paintInfo;
+        }
+
+        function calculateDayNumberLocation(index, position) {
+            var xStep = (paintRectangle.width) / paintData.totalDays;
+            var daysFontHeight = (textHeight + 3) / 2;
+
+            switch (position) {
+                case dayLabelPosition.top:
+                    return new Point(xStep * index + xStep / 2, daysFontHeight);
+
+                default:
+                case dayLabelPosition.aboveMiddle:
+                    return new Point(xStep * index + xStep / 2, paintRectangle.height / 2 - daysFontHeight);
+
+                case dayLabelPosition.belowMiddle:
+                    return new Point(xStep * index + xStep / 2, paintRectangle.height / 2 + daysFontHeight);
+
+                case dayLabelPosition.bottom:
+                    return new Point(xStep * index + xStep / 2, paintRectangle.height - daysFontHeight);
+            }
+        }
+
+        function paintLabel(label) {
+            if (label.isEmphasized) {
+                paintContext.fillStyle = paintData.sundaysColor;
+                if (currentFont !== paintData.sundaysFont) {
+                    paintContext.font = paintData.sundaysFont;
+                }
+            } else {
+                paintContext.fillStyle = paintData.foreColor;
+                if (currentFont !== paintData.font) {
+                    paintContext.font = paintData.font;
+                }
+            }
+
+            paintContext.fillText(label.text, label.position.x, label.position.y);
+        }
     };
-
-    function calculateDayLabels() {
-        var areDayNumbersVisible = paintData.areDayNumbersVisible;
-        var areWeekDaysVisible = paintData.areWeekDaysVisible && !(paintData.areDayNumbersVisible && paintData.weekDaysPosition === paintData.dayNumbersPosition);
-
-        if (!areDayNumbersVisible && !areWeekDaysVisible) {
-            return null;
-        }
-
-        var day = new Date(paintData.firstDay.getTime());
-
-        paintContext.textAlign = "center";
-        paintContext.textBaseline = "middle";
-
-        currentFont = null;
-
-        for ( var i = 0; i < paintData.totalDays; i++) {
-            if (areDayNumbersVisible) {
-                paintLabel(calculateDayNumberPaintInfo(i, day));
-            }
-
-            if (areWeekDaysVisible) {
-                paintLabel(calculateWeekDayPaintInfo(day, i));
-            }
-
-            day.setDate(day.getDate() + 1);
-        }
-    }
-
-    function calculateTextSize() {
-        var textSize = lu.TextUtil.measureText({
-            text: "0jf",
-            font: paintData.font
-        });
-
-        var textSizeEmphasized = lu.TextUtil.measureText({
-            text: "0jf",
-            font: paintData.sundaysFont
-        });
-
-        textHeight = Math.max(textSize[1], textSizeEmphasized[1]);
-    }
-
-    function calculateDayNumberPaintInfo(i, day) {
-        var text = day.getDate().toString();
-        var position = calculateDayNumberLocation(i, paintData.dayNumbersPosition);
-        var isEmphasized = paintData.areSundaysEmphasized && day.getDay() === 0;
-
-        var paintInfo = {
-            text: text,
-            position: position,
-            isEmphasized: isEmphasized
-        };
-
-        return paintInfo;
-    }
-
-    function calculateWeekDayPaintInfo(day, i) {
-        var text = lu.bioControls.biorhythmView.WeekDayNamesProvider.getWeekDayName(day.getDay());
-        var position = calculateDayNumberLocation(i, paintData.weekDaysPosition);
-        var isEmphasized = paintData.areSundaysEmphasized && day.getDay() === 0;
-
-        var paintInfo = {
-            text: text,
-            position: position,
-            isEmphasized: isEmphasized
-        };
-
-        return paintInfo;
-    }
-
-    function calculateDayNumberLocation(index, position) {
-        var xStep = (paintRectangle.width) / paintData.totalDays;
-        var daysFontHeight = (textHeight + 3) / 2;
-
-        switch (position) {
-            case lu.bioControls.biorhythmView.DayLabelPosition.top:
-                return new lu.Point(xStep * index + xStep / 2, daysFontHeight);
-
-            default:
-            case lu.bioControls.biorhythmView.DayLabelPosition.aboveMiddle:
-                return new lu.Point(xStep * index + xStep / 2, paintRectangle.height / 2 - daysFontHeight);
-
-            case lu.bioControls.biorhythmView.DayLabelPosition.belowMiddle:
-                return new lu.Point(xStep * index + xStep / 2, paintRectangle.height / 2 + daysFontHeight);
-
-            case lu.bioControls.biorhythmView.DayLabelPosition.bottom:
-                return new lu.Point(xStep * index + xStep / 2, paintRectangle.height - daysFontHeight);
-        }
-    }
-
-    function paintLabel(label) {
-        if (label.isEmphasized) {
-            paintContext.fillStyle = paintData.sundaysColor;
-            if (currentFont !== paintData.sundaysFont) {
-                paintContext.font = paintData.sundaysFont;
-            }
-        } else {
-            paintContext.fillStyle = paintData.foreColor;
-            if (currentFont !== paintData.font) {
-                paintContext.font = paintData.font;
-            }
-        }
-
-        paintContext.fillText(label.text, label.position.x, label.position.y);
-    }
-};
+}(lu.Point, lu.TextUtil, lu.bioControls.biorhythmView.WeekDayNamesProvider, lu.bioControls.biorhythmView.DayLabelPosition));

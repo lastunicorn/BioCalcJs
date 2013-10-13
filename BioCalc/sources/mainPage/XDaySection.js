@@ -14,7 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function XDaySection(bioCalcPageData, dateFormatter) {
+/**
+ * This module contains the logic of the page section where the user can see
+ * details about the X day.
+ * 
+ * @param $
+ *            The jQuery object.
+ * 
+ * @param bioCalcPageData
+ *            The service that provides data and communication between different
+ *            modules of the page.
+ * 
+ * @param dateFormatter
+ *            Provides methods to format a data into a string.
+ */
+(function XDaySection($, bioCalcPageData, dateFormatter) {
     var $xDayValueLabel = null;
     var $xDayInfoContainer = null;
     var xDay = null;
@@ -55,7 +69,7 @@
 
     function initialize$() {
         $xDayInfoContainer.xDayInfoView({
-            biorhythms: []
+            biorhythms: bioCalcPageData.biorhythms
         });
     }
-}(lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));
+}(jQuery, lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));

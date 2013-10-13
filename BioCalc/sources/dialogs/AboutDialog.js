@@ -19,6 +19,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
 /**
  * Contains the logic of the About dialog.
  * 
+ * @param $
+ *            The jQuery object.
+ * 
  * @param bioControlsVersion
  *            The version of the BioControls package.
  * 
@@ -27,7 +30,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
  * 
  * @returns {lu.bioCalc.AboutDialog}
  */
-lu.bioCalc.AboutDialog = (function(bioControlsVersion, bioCalcVersion) {
+lu.bioCalc.AboutDialog = (function($, bioControlsVersion, bioCalcVersion) {
 
     var $aboutDialog = null;
     var $aboutDialogTabSet = null;
@@ -103,4 +106,4 @@ lu.bioCalc.AboutDialog = (function(bioControlsVersion, bioCalcVersion) {
     return {
         show: show
     };
-}(lu.bioControls.version, lu.bioCalc.version));
+}(jQuery, lu.bioControls.version, lu.bioCalc.version));

@@ -19,57 +19,59 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting || {};
 
-/**
- * Paints the colored recatangle representing the current day using an html
- * canvas context object.
- * 
- * @returns {lu.bioControls.biorhythmView.painting.TodayMarkerPainter}
- */
-lu.bioControls.biorhythmView.painting.TodayMarkerPainter = function() {
+(function(Rectangle, dateUtil) {
+    /**
+     * Paints the colored recatangle representing the current day using an html
+     * canvas context object.
+     * 
+     * @returns {lu.bioControls.biorhythmView.painting.TodayMarkerPainter}
+     */
+    lu.bioControls.biorhythmView.painting.TodayMarkerPainter = function() {
 
-    var paintData = null;
-    var paintContext = null;
-    var paintRectangle = null;
+        var paintData = null;
+        var paintContext = null;
+        var paintRectangle = null;
 
-    this.paint = function(data, context, rectangle) {
-        paintData = data;
-        paintRectangle = rectangle;
-        paintContext = context;
+        this.paint = function(data, context, rectangle) {
+            paintData = data;
+            paintRectangle = rectangle;
+            paintContext = context;
 
-        var rectangle = calculateTodayRectangle();
-        if (rectangle) {
-            paintTodayMarker(rectangle, paintData.todayBackColor);
+            var rectangle = calculateTodayRectangle();
+            if (rectangle) {
+                paintTodayMarker(rectangle, paintData.todayBackColor);
+            }
+        };
+
+        function calculateTodayRectangle() {
+            var todayIndex = calculateTodayIndex();
+
+            var isTodayVisible = todayIndex >= 0 && todayIndex < paintData.totalDays;
+            if (!isTodayVisible) {
+                return null;
+            }
+
+            var xStep = (paintRectangle.width) / paintData.totalDays;
+            var x = todayIndex * xStep;
+            var y = 0;
+            var width = xStep;
+            var height = paintRectangle.height;
+
+            return new Rectangle(x, y, width, height);
+        }
+
+        function calculateTodayIndex() {
+            var today = dateUtil.getDateComponent(new Date());
+            var firstDay = dateUtil.getDateComponent(paintData.firstDay);
+            var todayIndexInMiliseconds = today - firstDay;
+            return dateUtil.milisecondsToWholeDays(todayIndexInMiliseconds);
+        }
+
+        function paintTodayMarker(rectangle, color) {
+            paintContext.beginPath();
+            paintContext.rect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
+            paintContext.fillStyle = color;
+            paintContext.fill();
         }
     };
-
-    function calculateTodayRectangle() {
-        var todayIndex = calculateTodayIndex();
-
-        var isTodayVisible = todayIndex >= 0 && todayIndex < paintData.totalDays;
-        if (!isTodayVisible) {
-            return null;
-        }
-
-        var xStep = (paintRectangle.width) / paintData.totalDays;
-        var x = todayIndex * xStep;
-        var y = 0;
-        var width = xStep;
-        var height = paintRectangle.height;
-
-        return new lu.Rectangle(x, y, width, height);
-    }
-
-    function calculateTodayIndex() {
-        var today = lu.DateUtil.getDateComponent(new Date());
-        var firstDay = lu.DateUtil.getDateComponent(paintData.firstDay);
-        var todayIndexInMiliseconds = today - firstDay;
-        return lu.DateUtil.milisecondsToWholeDays(todayIndexInMiliseconds);
-    }
-
-    function paintTodayMarker(rectangle, color) {
-        paintContext.beginPath();
-        paintContext.rect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);
-        paintContext.fillStyle = color;
-        paintContext.fill();
-    }
-};
+}(lu.Rectangle, lu.DateUtil));

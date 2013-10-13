@@ -18,51 +18,52 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-lu.bioControls.biorhythmModel.IChingBiorhythmsSet = function() {
+(function(BiorhythmShapeSet, biorhythmShapesCreator) {
+    lu.bioControls.biorhythmModel.IChingBiorhythmsSet = function() {
 
-    var estheticShape = null;
-    var selfAwarenessShape = null;
-    var spiritualShape = null;
+        var estheticShape = null;
+        var selfAwarenessShape = null;
+        var spiritualShape = null;
 
-    Object.defineProperty(this, "estheticShape", {
-        enumerable: true,
-        configurable: false,
-        get: getEstheticShape
-    });
+        Object.defineProperty(this, "estheticShape", {
+            enumerable: true,
+            configurable: false,
+            get: getEstheticShape
+        });
 
-    function getEstheticShape() {
-        return estheticShape;
-    }
+        function getEstheticShape() {
+            return estheticShape;
+        }
 
-    Object.defineProperty(this, "selfAwarenessShape", {
-        enumerable: true,
-        configurable: false,
-        get: getSelfAwarenessShape
-    });
+        Object.defineProperty(this, "selfAwarenessShape", {
+            enumerable: true,
+            configurable: false,
+            get: getSelfAwarenessShape
+        });
 
-    function getSelfAwarenessShape() {
-        return selfAwarenessShape;
-    }
+        function getSelfAwarenessShape() {
+            return selfAwarenessShape;
+        }
 
-    Object.defineProperty(this, "spiritualShape", {
-        enumerable: true,
-        configurable: false,
-        get: getSpiritualShape
-    });
+        Object.defineProperty(this, "spiritualShape", {
+            enumerable: true,
+            configurable: false,
+            get: getSpiritualShape
+        });
 
-    function getSpiritualShape() {
-        return spiritualShape;
-    }
+        function getSpiritualShape() {
+            return spiritualShape;
+        }
 
-    (function initialize() {
-        var biorhythmShapesCreator = lu.bioControls.biorhythmModel.BiorhythShapesCreator;
-        
-        estheticShape = biorhythmShapesCreator.createEstheticBiorhythmShape();
-        selfAwarenessShape = biorhythmShapesCreator.createSelfAwarenessBiorhythmShape();
-        spiritualShape = biorhythmShapesCreator.createSpiritualBiorhythmShape();
-        
-        lu.bioControls.biorhythmModel.BiorhythmShapeSet.call(this, [ estheticShape, selfAwarenessShape, spiritualShape ]);
-    }).call(this);
-};
+        (function initialize() {
+            estheticShape = biorhythmShapesCreator.createEstheticBiorhythmShape();
+            selfAwarenessShape = biorhythmShapesCreator.createSelfAwarenessBiorhythmShape();
+            spiritualShape = biorhythmShapesCreator.createSpiritualBiorhythmShape();
 
-lu.bioControls.biorhythmModel.IChingBiorhythmsSet.inherit(lu.bioControls.biorhythmModel.BiorhythmShapeSet);
+            BiorhythmShapeSet.call(this, [ estheticShape, selfAwarenessShape, spiritualShape ]);
+        }).call(this);
+    };
+
+    lu.bioControls.biorhythmModel.IChingBiorhythmsSet.inherit(BiorhythmShapeSet);
+
+}(lu.bioControls.biorhythmModel.BiorhythmShapeSet, lu.bioControls.biorhythmModel.BiorhythmShapesCreator));

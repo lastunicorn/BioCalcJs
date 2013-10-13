@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-lu.bioControls.biorhythmModel.BiorhythShapesCreator = {
+lu.bioControls.biorhythmModel.BiorhythmShapesCreator = {
 
     defaultBirthday: new Date(1980, 05, 13),
 

@@ -18,24 +18,27 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-/**
- * Represents the intuitive biorhythm. It is a sinusoidal biorhythm with the
- * period of 38 days.
- * 
- * @returns {lu.bioControls.biorhythms.IntuitiveBiorhythm}
- */
-lu.bioControls.biorhythms.IntuitiveBiorhythm = function() {
+(function(SinusoidalBiorhythm) {
+    /**
+     * Represents the intuitive biorhythm. It is a sinusoidal biorhythm with the
+     * period of 38 days.
+     * 
+     * @returns {lu.bioControls.biorhythms.IntuitiveBiorhythm}
+     */
+    lu.bioControls.biorhythms.IntuitiveBiorhythm = function() {
 
-    Object.defineProperty(this, "name", {
-        value: "Intuitive",
-        writable: false,
-        enumerable: true,
-        configurable: false
-    });
+        Object.defineProperty(this, "name", {
+            value: "Intuitive",
+            writable: false,
+            enumerable: true,
+            configurable: false
+        });
 
-    (function initialize() {
-        lu.bioControls.biorhythms.SinusoidalBiorhythm.call(this, 38);
-    }).call(this);
-};
+        (function initialize() {
+            SinusoidalBiorhythm.call(this, 38);
+        }).call(this);
+    };
 
-lu.bioControls.biorhythms.IntuitiveBiorhythm.inherit(lu.bioControls.biorhythms.SinusoidalBiorhythm);
+    lu.bioControls.biorhythms.IntuitiveBiorhythm.inherit(SinusoidalBiorhythm);
+
+}(lu.bioControls.biorhythms.SinusoidalBiorhythm));

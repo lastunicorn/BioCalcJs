@@ -19,57 +19,59 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting || {};
 
-/**
- * Paints the whole control on the context of an html canvas.
- * 
- * @returns {lu.bioControls.biorhythmView.painting.Painter}
- */
-lu.bioControls.biorhythmView.painting.Painter = function() {
+(function(TodayMarkerPainter, GridLinesPainter, BiorhythmCurvesPainter, DayLabelsPainter, XDayMarkerPainter) {
+    /**
+     * Paints the whole control on the context of an html canvas.
+     * 
+     * @returns {lu.bioControls.biorhythmView.painting.Painter}
+     */
+    lu.bioControls.biorhythmView.painting.Painter = function() {
 
-    var paintData = null;
-    var paintContext = null;
-    var paintRectangle = null;
-    var paintCount = 0;
-    var painters = [];
+        var paintData = null;
+        var paintContext = null;
+        var paintRectangle = null;
+        var paintCount = 0;
+        var painters = [];
 
-    this.getPaintCount = function() {
-        return paintCount;
-    };
+        this.getPaintCount = function() {
+            return paintCount;
+        };
 
-    this.paint = function(data, context, rectangle) {
-        paintCount++;
+        this.paint = function(data, context, rectangle) {
+            paintCount++;
 
-        paintData = data;
-        paintRectangle = rectangle;
-        paintContext = context;
+            paintData = data;
+            paintRectangle = rectangle;
+            paintContext = context;
 
-        paintAll();
-    };
+            paintAll();
+        };
 
-    function paintAll() {
-        clearCanvas(paintContext);
+        function paintAll() {
+            clearCanvas(paintContext);
 
-        for ( var i = 0; i < painters.length; i++) {
-            runPainter(painters[i]);
+            for ( var i = 0; i < painters.length; i++) {
+                runPainter(painters[i]);
+            }
         }
-    }
 
-    function runPainter(painter) {
-        if ($.isFunction(painter.paint)) {
-            painter.paint(paintData, paintContext, paintRectangle);
+        function runPainter(painter) {
+            if ($.isFunction(painter.paint)) {
+                painter.paint(paintData, paintContext, paintRectangle);
+            }
         }
-    }
 
-    function clearCanvas(context) {
-        context.fillStyle = "#ffffff";
-        context.fillRect(0, 0, paintRectangle.width, paintRectangle.height);
-    }
+        function clearCanvas(context) {
+            context.fillStyle = "#ffffff";
+            context.fillRect(0, 0, paintRectangle.width, paintRectangle.height);
+        }
 
-    (function initialize() {
-        painters.push(new lu.bioControls.biorhythmView.painting.TodayMarkerPainter());
-        painters.push(new lu.bioControls.biorhythmView.painting.GridLinesPainter());
-        painters.push(new lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter());
-        painters.push(new lu.bioControls.biorhythmView.painting.DayLabelsPainter());
-        painters.push(new lu.bioControls.biorhythmView.painting.XDayMarkerPainter());
-    }());
-};
+        (function initialize() {
+            painters.push(new TodayMarkerPainter());
+            painters.push(new GridLinesPainter());
+            painters.push(new BiorhythmCurvesPainter());
+            painters.push(new DayLabelsPainter());
+            painters.push(new XDayMarkerPainter());
+        }());
+    };
+}(lu.bioControls.biorhythmView.painting.TodayMarkerPainter, lu.bioControls.biorhythmView.painting.GridLinesPainter, lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter, lu.bioControls.biorhythmView.painting.DayLabelsPainter, lu.bioControls.biorhythmView.painting.XDayMarkerPainter));

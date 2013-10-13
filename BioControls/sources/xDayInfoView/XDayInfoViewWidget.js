@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function($) {
+(function($, BiorhythmsAdapter, XDayInfoItem) {
     $.widget("lastunicorn.xDayInfoView", {
         options: {
             biorhythms: []
@@ -55,7 +55,7 @@
         },
 
         _createBiorhythmsAdapter: function(biorhythms) {
-            return new lu.bioControls.biorhythmModel.BiorhythmsAdapter({
+            return new BiorhythmsAdapter({
                 biorhythms: biorhythms,
                 onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
                 onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
@@ -82,7 +82,7 @@
         },
 
         _createNewItem: function(biorhythm) {
-            var xDayInfoItem = new lu.bioControls.xDayInfoView.XDayInfoItem(biorhythm);
+            var xDayInfoItem = new XDayInfoItem(biorhythm);
             this._items.push(xDayInfoItem);
 
             this.element.append(xDayInfoItem.element);
@@ -97,4 +97,4 @@
             }
         }
     });
-}(jQuery));
+}(jQuery, lu.bioControls.biorhythmModel.BiorhythmsAdapter, lu.bioControls.xDayInfoView.XDayInfoItem));

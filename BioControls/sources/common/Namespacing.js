@@ -71,7 +71,7 @@ lu.Namespacing = (function() {
 
         var moduleNameInfo = analizeModuleName(fullModuleName);
 
-        var namespace = lu.namespace(moduleNameInfo.namespaceName);
+        var namespace = ensureNamespace(moduleNameInfo.namespaceName);
         namespace[moduleNameInfo.moduleName] = module;
 
         return module;

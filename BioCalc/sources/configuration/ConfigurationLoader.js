@@ -18,13 +18,13 @@ window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 
-/**
- * Contains the logic to load and save the configuration from/into cookies.
- * 
- * @returns {lu.bioCalc.configuration.ConfigurationLoader}
- */
-lu.bioCalc.configuration.ConfigurationLoader = (function() {
-    return function() {
+(function($) {
+    /**
+     * Contains the logic to load and save the configuration from/into cookies.
+     * 
+     * @returns {lu.bioCalc.configuration.ConfigurationLoader}
+     */
+    lu.bioCalc.configuration.ConfigurationLoader = function() {
 
         var cookieName = "config";
 
@@ -75,4 +75,4 @@ lu.bioCalc.configuration.ConfigurationLoader = (function() {
             return new Date(1980, 05, 13);
         }
     };
-}());
+}(jQuery));

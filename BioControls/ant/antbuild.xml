@@ -120,6 +120,7 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythmLegend">
+				<file name="BiorhythmLegendItemView.js" />
 				<file name="BiorhythmLegendItem.js" />
 				<file name="BiorhythmLegendWidget.js" />
 			</sources>

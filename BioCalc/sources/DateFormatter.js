@@ -22,20 +22,30 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
  * @returns {lu.bioCalc.DateFormatter}
  */
 lu.bioCalc.DateFormatter = (function() {
-    return {
-        formatDate: function(date) {
-            if (!(date instanceof Date)) {
-                return "";
-            }
-
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var day = date.getDate();
-
-            var monthString = month < 10 ? "0" + month : "" + month;
-            var dayString = day < 10 ? "0" + day : "" + day;
-
-            return year + "-" + monthString + "-" + dayString;
+    function toStringTwoDigits(number) {
+        if (typeof number !== "number") {
+            return "" + number;
         }
+
+        return number < 10 ? "0" + number : "" + number;
+    }
+
+    function formatDate(date) {
+        if (!(date instanceof Date)) {
+            return "";
+        }
+
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+
+        var monthString = toStringTwoDigits(month);
+        var dayString = toStringTwoDigits(day);
+
+        return year + "-" + monthString + "-" + dayString;
+    }
+
+    return {
+        formatDate: formatDate
     };
 }());

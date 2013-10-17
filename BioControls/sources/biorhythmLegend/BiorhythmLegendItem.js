@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
-(function(BiorhythmShape) {
+(function(BiorhythmLegendItemView, BiorhythmShape) {
     /**
      * Creates and interacts with an item displayed by the biorhythmLegend
      * widget.
@@ -91,7 +91,8 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            view = new lu.bioControls.biorhythmLegend.BiorhythmLegendItemView(biorhythmShape);
+            view = new BiorhythmLegendItemView(biorhythmShape);
+
             view.legendLabelTag.colorpicker("option", "close", onColorPickerClosed);
             view.legendLabelTag.colorpicker("option", "open", onColorPickerOpened);
 
@@ -104,4 +105,4 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
             biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged);
         }());
     };
-}(lu.bioControls.biorhythmModel.BiorhythmShape));
+}(lu.bioControls.biorhythmLegend.BiorhythmLegendItemView, lu.bioControls.biorhythmModel.BiorhythmShape));

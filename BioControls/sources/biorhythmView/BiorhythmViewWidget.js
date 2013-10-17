@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function($, dateUtil, dayLabelPosition, Scroller, BiorhythmsAdapter, Rectangle, Painter) {
+(function($, dateUtil, DayLabelPosition, Scroller, BiorhythmsAdapter, Rectangle, Painter) {
     $.widget("lastunicorn.biorhythmView", {
         options: {
             width: 800,
@@ -27,8 +27,8 @@
             gridColor: "#d3d3d3", // LightGray
             areDayNumbersVisible: true,
             areWeekDaysVisible: true,
-            dayNumbersPosition: dayLabelPosition.top,
-            weekDaysPosition: dayLabelPosition.bottom,
+            dayNumbersPosition: DayLabelPosition.top,
+            weekDaysPosition: DayLabelPosition.bottom,
             areSundaysEmphasized: true,
             foreColor: "#b0b0b0",
             sundaysColor: "#ff0000", // Red

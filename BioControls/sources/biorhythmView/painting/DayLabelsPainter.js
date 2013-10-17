@@ -19,7 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting || {};
 
-(function(Point, textUtil, weekDayNamesProvider, dayLabelPosition) {
+(function(Point, textUtil, weekDayNamesProvider, DayLabelPosition) {
     /**
      * Paints the labels of the month days and week days using an html canvas
      * context object.
@@ -118,17 +118,17 @@ lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting ||
             var daysFontHeight = (textHeight + 3) / 2;
 
             switch (position) {
-                case dayLabelPosition.top:
+                case DayLabelPosition.top:
                     return new Point(xStep * index + xStep / 2, daysFontHeight);
 
                 default:
-                case dayLabelPosition.aboveMiddle:
+                case DayLabelPosition.aboveMiddle:
                     return new Point(xStep * index + xStep / 2, paintRectangle.height / 2 - daysFontHeight);
 
-                case dayLabelPosition.belowMiddle:
+                case DayLabelPosition.belowMiddle:
                     return new Point(xStep * index + xStep / 2, paintRectangle.height / 2 + daysFontHeight);
 
-                case dayLabelPosition.bottom:
+                case DayLabelPosition.bottom:
                     return new Point(xStep * index + xStep / 2, paintRectangle.height - daysFontHeight);
             }
         }

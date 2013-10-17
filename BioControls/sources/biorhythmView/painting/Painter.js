@@ -74,4 +74,5 @@ lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting ||
             painters.push(new XDayMarkerPainter());
         }());
     };
-}(lu.bioControls.biorhythmView.painting.TodayMarkerPainter, lu.bioControls.biorhythmView.painting.GridLinesPainter, lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter, lu.bioControls.biorhythmView.painting.DayLabelsPainter, lu.bioControls.biorhythmView.painting.XDayMarkerPainter));
+}(lu.bioControls.biorhythmView.painting.TodayMarkerPainter, lu.bioControls.biorhythmView.painting.GridLinesPainter, lu.bioControls.biorhythmView.painting.BiorhythmCurvesPainter,
+        lu.bioControls.biorhythmView.painting.DayLabelsPainter, lu.bioControls.biorhythmView.painting.XDayMarkerPainter));

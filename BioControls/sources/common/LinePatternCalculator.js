@@ -39,7 +39,7 @@ lu.LinePatternCalculator = (function(LineStyle) {
         createPattern: function(lineStyle, lineWidth) {
             switch (lineStyle) {
                 case LineStyle.solid:
-                    return null;
+                    return [];
 
                 case LineStyle.dot:
                     return [ lineWidth * 1, lineWidth * 3 ];
@@ -54,7 +54,7 @@ lu.LinePatternCalculator = (function(LineStyle) {
                     return [ lineWidth * 10, lineWidth * 3, lineWidth * 1, lineWidth * 3, lineWidth * 1, lineWidth * 3 ];
 
                 default:
-                    return null;
+                    return [];
             }
         }
     };

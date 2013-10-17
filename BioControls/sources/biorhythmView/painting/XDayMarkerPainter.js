@@ -58,7 +58,7 @@ lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting ||
         }
 
         function paintXDayMarker(rectangle) {
-            setLinePattern(null);
+            setLinePattern([]);
 
             paintContext.beginPath();
             paintContext.rect(rectangle.left, rectangle.top, rectangle.width, rectangle.height);

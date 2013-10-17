@@ -45,7 +45,7 @@ lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting ||
                 paintContext.strokeStyle = paintData.gridColor;
                 paintContext.lineWidth = 1;
                 paintContext.lineJoin = "round";
-                setLinePattern(null);
+                setLinePattern([]);
 
                 var line = calculateDaySeparatorLine(i);
                 paintLine(line);

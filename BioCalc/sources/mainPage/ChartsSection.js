@@ -62,6 +62,23 @@
     function setFirstDayToCharts(date) {
         view.$biorhythmViewContainer.biorhythmView("option", "firstDay", date);
     }
+    
+    function setBiorhythms(biorhythms)
+    {
+        view.$biorhythmViewContainer.biorhythmView("option", "biorhythms", biorhythms);
+        view.$bioLegend.biorhythmLegend("option", "biorhythms", biorhythms);
+    }
+    
+    function setBirthday(newBirthday){
+        view.$biorhythmViewContainer.biorhythmView("suspendPaint");
+        try {
+            var biorhythms = bioCalcPageData.biorhythms;
+            biorhythms.setBirthdayOnAll(newBirthday);
+        }
+        finally {
+            view.$biorhythmViewContainer.biorhythmView("resumePaint");
+        }
+    }
 
     // --------------------------------------------------------------------------
     // Event Handlers
@@ -69,7 +86,7 @@
 
     function onBiorhythmViewFirstDayChanged() {
 
-        var firstDay = v$biorhythmViewContainer.biorhythmView("option", "firstDay");
+        var firstDay = view.$biorhythmViewContainer.biorhythmView("option", "firstDay");
         setFirstDayLabel(firstDay);
 
         var lastDay = view.$biorhythmViewContainer.biorhythmView("getLastDay");
@@ -145,21 +162,12 @@
     }
 
     function onExternalBirthdayChanged(arg) {
-        view.$biorhythmViewContainer.biorhythmView("suspendPaint");
-        try {
-            var biorhythms = bioCalcPageData.biorhythms;
-            biorhythms.setBirthdayOnAll(arg);
-        }
-        finally {
-            view.$biorhythmViewContainer.biorhythmView("resumePaint");
-        }
-
+        setBirthday(arg);
         publishCurrentXDay();
     }
 
     function onExternalBiorhythmsChanged(arg) {
-        view.$biorhythmViewContainer.biorhythmView("option", "biorhythms", arg);
-        view.$bioLegend.biorhythmLegend("option", "biorhythms", arg);
+        setBiorhythms(arg);
     }
 
     // --------------------------------------------------------------------------
@@ -190,7 +198,8 @@
 
                 setFirstDayLabel(firstDay);
                 setFirstDayToCharts(firstDay);
-
+                setBiorhythms(bioCalcPageData.biorhythms);
+                setBirthday(bioCalcPageData.birthday);
                 publishCurrentXDay();
 
                 bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);

@@ -37,7 +37,6 @@
 (function BirthdaySection($, BirthdaySectionView, bioCalcPageData, configurationService, dateFormatter) {
 
     var view = null;
-    var birthday = null;
 
     var suppressBirthdayChanged = false;
 
@@ -47,6 +46,7 @@
 
     function updateSaveBirthdayButtonVisibility() {
         var config = configurationService.config;
+        var birthday = bioCalcPageData.birthday;
 
         if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
             view.disableSaveBirthdayButton();
@@ -57,6 +57,7 @@
 
     function updateResetBirthdayButtonVisibility() {
         var config = configurationService.config;
+        var birthday = bioCalcPageData.birthday;
 
         if (birthday.getTime() == config.birthday.getTime()) {
             view.disableResetBirthdayButton();
@@ -66,7 +67,7 @@
     }
 
     function updateBirthdayTextBox() {
-        var dateAsString = dateFormatter.formatDate(birthday);
+        var dateAsString = dateFormatter.formatDate(bioCalcPageData.birthday);
         view.setBirthdayText(dateAsString);
     }
 
@@ -122,8 +123,9 @@
             return;
         }
 
-        birthday = arg;
         updateBirthdayTextBox();
+        updateSaveBirthdayButtonVisibility();
+        updateResetBirthdayButtonVisibility();
     }
 
     // --------------------------------------------------------------------------
@@ -139,6 +141,10 @@
             };
             view = new BirthdaySectionView(presenter);
 
+            updateBirthdayTextBox();
+            updateResetBirthdayButtonVisibility();
+            updateSaveBirthdayButtonVisibility();
+            
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
         });
     }());

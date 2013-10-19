@@ -31,28 +31,23 @@
  * @param CommonBiorhythmsContainer
  *            Object constructor. Creates and keeps a collection of biorhythms.
  */
-(function BioCalc($, bioCalcPageData, configurationService, CommonBiorhythmsContainer) {
-    var biorhythmShapes = null;
-
+(function Main($, bioCalcPageData, configurationService, CommonBiorhythmsContainer) {
+    
     // --------------------------------------------------------------------------
     // Initializer
     // --------------------------------------------------------------------------
 
     (function initialize() {
+        var biorhythmShapes = new CommonBiorhythmsContainer();
+        biorhythmShapes.setBirthdayOnAll(configurationService.config.birthday);
+
+        bioCalcPageData.biorhythms = biorhythmShapes;
+        bioCalcPageData.birthday = configurationService.config.birthday;
+
         $(function() {
-            biorhythmShapes = new CommonBiorhythmsContainer();
-            biorhythmShapes.setBirthdayOnAll(configurationService.config.birthday);
-
-            initializePageData();
-
             configureModalDialogs();
         });
     }());
-
-    function initializePageData() {
-        bioCalcPageData.biorhythms = biorhythmShapes;
-        bioCalcPageData.birthday = configurationService.config.birthday;
-    }
 
     function configureModalDialogs() {
         // Close the modal dialogs when clicking outside of them.

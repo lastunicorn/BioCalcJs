@@ -112,7 +112,7 @@
 				<file name="XDaySection.js" />
 				<file name="ChartsSectionView.js" />
 				<file name="ChartsSection.js" />
-				<file name="BioCalc.js" />
+				<file name="Main.js" />
 			</sources>
 
 		</jscomp>

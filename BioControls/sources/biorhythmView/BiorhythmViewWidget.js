@@ -74,12 +74,20 @@
                     });
                 }
 
+                if (key === "firstDayChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "firstDay") {
                     this._super(key, value);
 
                     this._trigger("firstDayChanged", this, {
                         value: this.options.firstDay
                     });
+                }
+
+                if (key === "isGridVisibleChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "isGridVisible") {
@@ -90,12 +98,20 @@
                     });
                 }
 
+                if (key === "totalDaysChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "totalDays") {
                     this._super(key, value);
 
                     this._trigger("totalDaysChanged", this, {
                         value: this.options.totalDays
                     });
+                }
+
+                if (key === "xDayIndexChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "xDayIndex") {
@@ -109,12 +125,20 @@
                     });
                 }
 
+                if (key === "gridColorChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "gridColor") {
                     this._super(key, value);
 
                     this._trigger("gridColorChanged", this, {
                         value: this.options.gridColor
                     });
+                }
+
+                if (key === "areDayNumbersVisibleChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "areDayNumbersVisible") {
@@ -125,12 +149,20 @@
                     });
                 }
 
+                if (key === "areWeekDaysVisibleChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "areWeekDaysVisible") {
                     this._super(key, value);
 
                     this._trigger("areWeekDaysVisibleChanged", this, {
                         value: this.options.areWeekDaysVisible
                     });
+                }
+
+                if (key === "dayNumbersPositionChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "dayNumbersPosition") {
@@ -141,12 +173,20 @@
                     });
                 }
 
+                if (key === "weekDaysPositionChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "weekDaysPosition") {
                     this._super(key, value);
 
                     this._trigger("weekDaysPositionChanged", this, {
                         value: this.options.weekDaysPosition
                     });
+                }
+
+                if (key === "areSundaysEmphasizedChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "areSundaysEmphasized") {
@@ -157,12 +197,20 @@
                     });
                 }
 
+                if (key === "foreColorChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "foreColor") {
                     this._super(key, value);
 
                     this._trigger("foreColorChanged", this, {
                         value: this.options.foreColor
                     });
+                }
+
+                if (key === "sundaysColorChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "sundaysColor") {
@@ -173,12 +221,20 @@
                     });
                 }
 
+                if (key === "fontChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "font") {
                     this._super(key, value);
 
                     this._trigger("fontChanged", this, {
                         value: this.options.font
                     });
+                }
+
+                if (key === "sundaysFontChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "sundaysFont") {
@@ -189,12 +245,20 @@
                     });
                 }
 
+                if (key === "todayBackColorChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "todayBackColor") {
                     this._super(key, value);
 
                     this._trigger("todayBackColorChanged", this, {
                         value: this.options.todayBackColor
                     });
+                }
+
+                if (key === "isXDayVisibleChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "isXDayVisible") {
@@ -205,12 +269,20 @@
                     });
                 }
 
+                if (key === "xDayBorderColorChanged") {
+                    this._super(key, value);
+                }
+
                 if (key === "xDayBorderColor") {
                     this._super(key, value);
 
                     this._trigger("xDayBorderColorChanged", this, {
                         value: this.options.xDayBorderColor
                     });
+                }
+
+                if (key === "xDayBorderWidthChanged") {
+                    this._super(key, value);
                 }
 
                 if (key === "xDayBorderWidth") {

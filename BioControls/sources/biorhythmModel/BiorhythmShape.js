@@ -29,7 +29,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         var obj = this;
 
         // --------------------------------------------------------------------------
-        // Name
+        // name property
         // --------------------------------------------------------------------------
 
         var name = "New Biorhythm Shape";
@@ -57,7 +57,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
-        // Biorythm
+        // biorythm property
         // --------------------------------------------------------------------------
 
         var biorhythm = null;
@@ -86,7 +86,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
-        // Color
+        // color property
         // --------------------------------------------------------------------------
 
         var color = null;
@@ -114,7 +114,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
-        // IsVisible
+        // isVisible property
         // --------------------------------------------------------------------------
 
         var isVisible = true;
@@ -142,7 +142,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
-        // LineWidth
+        // lineWidth property
         // --------------------------------------------------------------------------
 
         var lineWidth = 1;
@@ -170,7 +170,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
-        // LineStyle
+        // lineStyle property
         // --------------------------------------------------------------------------
 
         var lineStyle = LineStyle.solid;

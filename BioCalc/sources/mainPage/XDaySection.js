@@ -21,6 +21,9 @@
  * @param $
  *            The jQuery object.
  * 
+ * @param XDaySectionView
+ *            The constructor function of the view.
+ * 
  * @param bioCalcPageData
  *            The service that provides data and communication between different
  *            modules of the page.
@@ -28,24 +31,23 @@
  * @param dateFormatter
  *            Provides methods to format a data into a string.
  */
-(function XDaySection($, bioCalcPageData, dateFormatter) {
-    var $xDayValueLabel = null;
-    var $xDayInfoContainer = null;
-    var xDay = null;
+(function XDaySection($, XDaySectionView, bioCalcPageData, dateFormatter) {
+
+    var view = null;
 
     // --------------------------------------------------------------------------
     // Event Handlers
     // --------------------------------------------------------------------------
 
     function onExternalXDayChanged(arg) {
-        xDay = arg;
+        var title = dateFormatter.formatDate(arg);
+        view.setTitle(title);
 
-        $xDayValueLabel.html(dateFormatter.formatDate(xDay));
-        $xDayInfoContainer.xDayInfoView("update", xDay);
+        view.setXDay(arg);
     }
 
     function onExternalBiorhythmsChanged(arg) {
-        $xDayInfoContainer.xDayInfoView("option", "biorhythms", arg);
+        view.setBiorhythms(arg);
     }
 
     // --------------------------------------------------------------------------
@@ -54,22 +56,12 @@
 
     (function initialize() {
         $(function() {
-            create$();
-            initialize$();
+            view = new XDaySectionView();
+
+            view.setBiorhythms(bioCalcPageData.biorhythms);
 
             bioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         });
     }());
-
-    function create$() {
-        $xDayValueLabel = $("#xDayValueLabel");
-        $xDayInfoContainer = $("#xDayInfoContainer");
-    }
-
-    function initialize$() {
-        $xDayInfoContainer.xDayInfoView({
-            biorhythms: bioCalcPageData.biorhythms
-        });
-    }
-}(jQuery, lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));
+}(jQuery, lu.bioCalc.XDaySectionView, lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));

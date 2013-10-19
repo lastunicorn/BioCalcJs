@@ -21,6 +21,9 @@
  * @param $
  *            The jQuery object.
  * 
+ * @param ChartsSectionView
+ *            The constructor function of the view.
+ * 
  * @param bioCalcPageData
  *            The service that provides data and communication between different
  *            modules of the page.
@@ -31,38 +34,33 @@
  * @param dateUtil
  *            provides utility methods to manipulate a Date.
  */
-(function ChartsSection($, bioCalcPageData, dateFormatter, dateUtil) {
+(function ChartsSection($, ChartsSectionView, bioCalcPageData, dateFormatter, dateUtil) {
 
-    var $biorhythmViewContainer = null;
-    var $firstDayTextBox = null;
-    var $firstDayLabel = null;
-    var $lastDayTextBox = null;
-    var $lastDayLabel = null;
-    var $bioLegend = null;
+    var view;
 
     // --------------------------------------------------------------------------
     // Functions - "private"
     // --------------------------------------------------------------------------
 
     function publishCurrentXDay() {
-        var xDay = $biorhythmViewContainer.biorhythmView("getXDay");
+        var xDay = view.$biorhythmViewContainer.biorhythmView("getXDay");
         bioCalcPageData.xDay = xDay;
     }
 
     function setFirstDayLabel(date) {
         var firstDayAsText = dateFormatter.formatDate(date);
-        $firstDayTextBox.val(firstDayAsText);
-        $firstDayLabel.html("<< " + firstDayAsText);
+        view.$firstDayTextBox.val(firstDayAsText);
+        view.$firstDayLabel.html("<< " + firstDayAsText);
     }
 
     function setLastDayLabel(date) {
         var lastDayAsText = dateFormatter.formatDate(date);
-        $lastDayTextBox.val(lastDayAsText);
-        $lastDayLabel.html(lastDayAsText + " >>");
+        view.$lastDayTextBox.val(lastDayAsText);
+        view.$lastDayLabel.html(lastDayAsText + " >>");
     }
 
     function setFirstDayToCharts(date) {
-        $biorhythmViewContainer.biorhythmView("option", "firstDay", date);
+        view.$biorhythmViewContainer.biorhythmView("option", "firstDay", date);
     }
 
     // --------------------------------------------------------------------------
@@ -71,10 +69,10 @@
 
     function onBiorhythmViewFirstDayChanged() {
 
-        var firstDay = $biorhythmViewContainer.biorhythmView("option", "firstDay");
+        var firstDay = v$biorhythmViewContainer.biorhythmView("option", "firstDay");
         setFirstDayLabel(firstDay);
 
-        var lastDay = $biorhythmViewContainer.biorhythmView("getLastDay");
+        var lastDay = view.$biorhythmViewContainer.biorhythmView("getLastDay");
         setLastDayLabel(lastDay);
 
         publishCurrentXDay();
@@ -82,7 +80,7 @@
 
     function onFirstDayLabelClick() {
         setTimeout(function() {
-            $firstDayTextBox.datepicker('show');
+            view.$firstDayTextBox.datepicker('show');
         }, 0);
     }
 
@@ -104,21 +102,21 @@
                 my: 'left top',
                 at: 'left bottom',
                 collision: 'none',
-                of: $firstDayLabel
+                of: view.$firstDayLabel
             });
         }, 0);
     }
 
     function onLastDayLabelClick() {
         setTimeout(function() {
-            $lastDayTextBox.datepicker('show');
+            view.$lastDayTextBox.datepicker('show');
         }, 0);
     }
 
     function onLastDayDatePickerSelect() {
         var lastDay = $(this).datepicker("getDate");
 
-        var displayedDayCount = $biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
+        var displayedDayCount = view.$biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
         var firstDay = dateUtil.addDays(lastDay, -displayedDayCount);
 
         setFirstDayToCharts(firstDay);
@@ -137,7 +135,7 @@
                 my: 'right top',
                 at: 'right bottom',
                 collision: 'none',
-                of: $lastDayLabel
+                of: view.$lastDayLabel
             });
         }, 0);
     }
@@ -147,21 +145,21 @@
     }
 
     function onExternalBirthdayChanged(arg) {
-        $biorhythmViewContainer.biorhythmView("suspendPaint");
+        view.$biorhythmViewContainer.biorhythmView("suspendPaint");
         try {
             var biorhythms = bioCalcPageData.biorhythms;
             biorhythms.setBirthdayOnAll(arg);
         }
         finally {
-            $biorhythmViewContainer.biorhythmView("resumePaint");
+            view.$biorhythmViewContainer.biorhythmView("resumePaint");
         }
 
         publishCurrentXDay();
     }
 
     function onExternalBiorhythmsChanged(arg) {
-        $biorhythmViewContainer.biorhythmView("option", "biorhythms", arg);
-        $bioLegend.biorhythmLegend("option", "biorhythms", arg);
+        view.$biorhythmViewContainer.biorhythmView("option", "biorhythms", arg);
+        view.$bioLegend.biorhythmLegend("option", "biorhythms", arg);
     }
 
     // --------------------------------------------------------------------------
@@ -170,10 +168,22 @@
 
     (function initialize() {
         $(function() {
-            create$();
-            initialize$();
+            view = new ChartsSectionView();
 
-            $biorhythmViewContainer.biorhythmView("suspendPaint");
+            view.$firstDayLabel.click(onFirstDayLabelClick);
+
+            view.$firstDayTextBox.datepicker("option", "beforeShow", onBeforeFirstDayDatePickerShow);
+            view.$firstDayTextBox.datepicker("option", "onSelect", onFirstDayDatePickerSelect);
+
+            view.$lastDayLabel.click(onLastDayLabelClick);
+
+            view.$lastDayTextBox.datepicker("option", "beforeShow", onBeforeLastDayDatePickerShow);
+            view.$lastDayTextBox.datepicker("option", "onSelect", onLastDayDatePickerSelect);
+
+            view.$biorhythmViewContainer.biorhythmView("option", "firstDayChanged", onBiorhythmViewFirstDayChanged);
+            view.$biorhythmViewContainer.biorhythmView("option", "xDayIndexChanged", onBiorhythmViewXDayIndexChanged);
+
+            view.$biorhythmViewContainer.biorhythmView("suspendPaint");
             try {
 
                 var firstDay = dateUtil.addDays(Date.now(), -7);
@@ -187,53 +197,8 @@
                 bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
             }
             finally {
-                $biorhythmViewContainer.biorhythmView("resumePaint");
+                view.$biorhythmViewContainer.biorhythmView("resumePaint");
             }
         });
     }());
-
-    function create$() {
-        $biorhythmViewContainer = $("#biorhythmViewContainer");
-        $firstDayLabel = $("#firstDayLabel");
-        $firstDayTextBox = $("#firstDayTextBox");
-        $lastDayLabel = $("#lastDayLabel");
-        $lastDayTextBox = $("#lastDayTextBox");
-        $bioLegend = $("#bioLegend");
-    }
-
-    function initialize$() {
-
-        $firstDayLabel.click(onFirstDayLabelClick);
-
-        $firstDayTextBox.datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "yy-mm-dd",
-            onSelect: onFirstDayDatePickerSelect,
-            showButtonPanel: true,
-            beforeShow: onBeforeFirstDayDatePickerShow,
-            showAnim: ""
-        });
-
-        $lastDayLabel.click(onLastDayLabelClick);
-
-        $lastDayTextBox.datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "yy-mm-dd",
-            onSelect: onLastDayDatePickerSelect,
-            showButtonPanel: true,
-            beforeShow: onBeforeLastDayDatePickerShow,
-            showAnim: ""
-        });
-
-        $biorhythmViewContainer.biorhythmView({
-            width: 900,
-            height: 200,
-            firstDayChanged: onBiorhythmViewFirstDayChanged,
-            xDayIndexChanged: onBiorhythmViewXDayIndexChanged
-        });
-
-        $bioLegend.biorhythmLegend();
-    }
-}(jQuery, lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter, lu.DateUtil));
+}(jQuery, lu.bioCalc.ChartsSectionView, lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter, lu.DateUtil));

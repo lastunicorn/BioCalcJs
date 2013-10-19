@@ -31,7 +31,7 @@ lu.bioCalc.BioCalcPageData = (function(Event) {
     var obj = {};
 
     // --------------------------------------------------------------------------
-    // Property - birthday
+    // birthday property
     // --------------------------------------------------------------------------
 
     var birthday = null;
@@ -55,7 +55,7 @@ lu.bioCalc.BioCalcPageData = (function(Event) {
     }
 
     // --------------------------------------------------------------------------
-    // Property - xDay
+    // xDay property
     // --------------------------------------------------------------------------
 
     var xDay = null;
@@ -79,7 +79,7 @@ lu.bioCalc.BioCalcPageData = (function(Event) {
     }
 
     // --------------------------------------------------------------------------
-    // Property - biorhythms
+    // biorhythms property
     // --------------------------------------------------------------------------
 
     var biorhythms = null;

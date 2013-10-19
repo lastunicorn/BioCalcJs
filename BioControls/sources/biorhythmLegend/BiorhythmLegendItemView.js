@@ -26,16 +26,14 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         // --------------------------------------------------------------------------
 
         var $element = null;
-        
+
         Object.defineProperty(this, "element", {
             enumerable: true,
             configurable: false,
-            get: getElement
+            get: function() {
+                return $element;
+            }
         });
-
-        function getElement() {
-            return $element;
-        }
 
         // --------------------------------------------------------------------------
         // legendColorTag property
@@ -46,28 +44,24 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         Object.defineProperty(this, "legendColorTag", {
             enumerable: true,
             configurable: false,
-            get: getLegendColorTag
+            get: function() {
+                return $legendColorTag;
+            }
         });
-
-        function getLegendColorTag() {
-            return $legendColorTag;
-        }
 
         // --------------------------------------------------------------------------
         // legendLabelTag property
         // --------------------------------------------------------------------------
 
         var $legendLabelTag = null;
-        
+
         Object.defineProperty(this, "legendLabelTag", {
             enumerable: true,
             configurable: false,
-            get: getLegendLabelTag
+            get: function() {
+                return $legendLabelTag;
+            }
         });
-
-        function getLegendLabelTag() {
-            return $legendLabelTag;
-        }
 
         // --------------------------------------------------------------------------
         // functions

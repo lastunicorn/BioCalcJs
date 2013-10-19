@@ -44,31 +44,33 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
             $resetBirthdayButton.button("option", "disabled", true);
         };
 
+        this.setBirthdayText = function(value) {
+            $birthdayTextBox.val(value);
+        };
+
+        this.getBirthday = function() {
+            return $birthdayTextBox.datepicker("getDate");
+        };
+
         // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
 
         function onBirthdayDatePickerSelect() {
-            if ($isFunction(presenter.BirthdayDatePickerSelected)) {
-                presenter.BirthdayDatePickerSelected(e);
+            if ($.isFunction(presenter.onBirthdayDatePickerSelect)) {
+                presenter.onBirthdayDatePickerSelect();
             }
         }
 
         function onResetBirthdayButtonClick(e) {
-            if ($.isFunction(presenter.ResetBirthdayButtonClicked)) {
-                presenter.ResetBirthdayButtonClicked(e);
+            if ($.isFunction(presenter.onResetBirthdayButtonClick)) {
+                presenter.onResetBirthdayButtonClick(e);
             }
         }
 
         function onSaveBirthdayButtonClick(e) {
-            if ($.isFunction(presenter.ResetBirthdayButtonClicked)) {
-                presenter.ResetBirthdayButtonClicked(e);
-            }
-        }
-
-        function onExternalBirthdayChanged(arg) {
-            if ($.isFunction(presenter.ExternalBirthdayChanged)) {
-                presenter.ExternalBirthdayChanged(e);
+            if ($.isFunction(presenter.onSaveBirthdayButtonClick)) {
+                presenter.onSaveBirthdayButtonClick(e);
             }
         }
 

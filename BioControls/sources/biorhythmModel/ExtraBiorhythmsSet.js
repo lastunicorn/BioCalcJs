@@ -21,10 +21,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 (function(BiorhythmShapeSet, biorhythmShapesCreator) {
     lu.bioControls.biorhythmModel.ExtraBiorhythmsSet = function() {
 
-        var perceptionShape = null;
-        var psychicShape = null;
-        var successShape = null;
+        // --------------------------------------------------------------------------
+        // perceptionShape property
+        // --------------------------------------------------------------------------
 
+        var perceptionShape = null;
+        
         Object.defineProperty(this, "perceptionShape", {
             enumerable: true,
             configurable: false,
@@ -35,6 +37,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             return perceptionShape;
         }
 
+        // --------------------------------------------------------------------------
+        // psychicShape property
+        // --------------------------------------------------------------------------
+
+        var psychicShape = null;
+        
         Object.defineProperty(this, "psychicShape", {
             enumerable: true,
             configurable: false,
@@ -45,6 +53,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             return psychicShape;
         }
 
+        // --------------------------------------------------------------------------
+        // successShape property
+        // --------------------------------------------------------------------------
+
+        var successShape = null;
+
         Object.defineProperty(this, "successShape", {
             enumerable: true,
             configurable: false,
@@ -54,6 +68,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         function getSuccessShape() {
             return successShape;
         }
+
+        // --------------------------------------------------------------------------
+        // Initialization
+        // --------------------------------------------------------------------------
 
         (function initialize() {
             perceptionShape = biorhythmShapesCreator.createPerceptionBiorhythmShape();

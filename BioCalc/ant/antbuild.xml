@@ -102,9 +102,13 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/mainPage">
+				<file name="BirthdaySectionView.js" />
 				<file name="BirthdaySection.js" />
+				<file name="MainToolbarView.js" />
 				<file name="MainToolbar.js" />
+				<file name="XDaySectionView.js" />
 				<file name="XDaySection.js" />
+				<file name="ChartsSectionView.js" />
 				<file name="ChartsSection.js" />
 				<file name="BioCalc.js" />
 			</sources>

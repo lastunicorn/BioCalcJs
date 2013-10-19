@@ -21,6 +21,9 @@
  * @param $
  *            The jQuery object.
  * 
+ * @param BirthdaySectionView
+ *            The constructor function of the view.
+ * 
  * @param bioCalcPageData
  *            The service that provides data and communication between different
  *            modules of the page.
@@ -31,36 +34,12 @@
  * @param dateFormatter
  *            Provides methods to format a data into a string.
  */
-(function BirthdaySection($, bioCalcPageData, configurationService, dateFormatter) {
+(function BirthdaySection($, BirthdaySectionView, bioCalcPageData, configurationService, dateFormatter) {
 
+    var view = null;
     var birthday = null;
 
-    var $birthdayTextBox = null;
-    var $saveBirthdayButton = null;
-    var $resetBirthdayButton = null;
-    var $birthdayButtons = null;
-
     var suppressBirthdayChanged = false;
-
-    // --------------------------------------------------------------------------
-    // GUI helpers
-    // --------------------------------------------------------------------------
-
-    function enableSaveBirthdayButton() {
-        $saveBirthdayButton.button("option", "disabled", false);
-    }
-
-    function disableSaveBirthdayButton() {
-        $saveBirthdayButton.button("option", "disabled", true);
-    }
-
-    function enableResetBirthdayButton() {
-        $resetBirthdayButton.button("option", "disabled", false);
-    }
-
-    function disableResetBirthdayButton() {
-        $resetBirthdayButton.button("option", "disabled", true);
-    }
 
     // --------------------------------------------------------------------------
     // Functions - "private"
@@ -70,9 +49,9 @@
         var config = configurationService.config;
 
         if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
-            disableSaveBirthdayButton();
+            view.disableSaveBirthdayButton();
         } else {
-            enableSaveBirthdayButton();
+            view.enableSaveBirthdayButton();
         }
     }
 
@@ -80,15 +59,15 @@
         var config = configurationService.config;
 
         if (birthday.getTime() == config.birthday.getTime()) {
-            disableResetBirthdayButton();
+            view.disableResetBirthdayButton();
         } else {
-            enableResetBirthdayButton();
+            view.enableResetBirthdayButton();
         }
     }
 
     function updateBirthdayTextBox() {
         var dateAsString = dateFormatter.formatDate(birthday);
-        $birthdayTextBox.val(dateAsString);
+        view.setBirthdayText(dateAsString);
     }
 
     function publishBirthday() {
@@ -106,9 +85,7 @@
     // --------------------------------------------------------------------------
 
     function onBirthdayDatePickerSelect() {
-        var newBirthday = $(this).datepicker("getDate");
-
-        birthday = newBirthday;
+        birthday = view.getBirthday();
 
         updateSaveBirthdayButtonVisibility();
         updateResetBirthdayButtonVisibility();
@@ -155,47 +132,14 @@
 
     (function initialize() {
         $(function() {
-            create$();
-            initialize$();
+            var presenter = {
+                onBirthdayDatePickerSelect: onBirthdayDatePickerSelect,
+                onResetBirthdayButtonClick: onResetBirthdayButtonClick,
+                onSaveBirthdayButtonClick: onSaveBirthdayButtonClick
+            };
+            view = new BirthdaySectionView(presenter);
 
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
         });
     }());
-
-    function create$() {
-        $birthdayTextBox = $("#birthdayTextBox");
-        $saveBirthdayButton = $("#saveBirthdayButton");
-        $resetBirthdayButton = $("#resetBirthdayButton");
-        $birthdayButtons = $("#birthdayButtons");
-    }
-
-    function initialize$() {
-        $birthdayTextBox.datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "yy-mm-dd",
-            onSelect: onBirthdayDatePickerSelect,
-            showButtonPanel: true
-        });
-
-        $saveBirthdayButton.button({
-            text: false,
-            icons: {
-                primary: "ui-icon-disk"
-            },
-            disabled: true
-        });
-        $saveBirthdayButton.click(onSaveBirthdayButtonClick);
-
-        $resetBirthdayButton.button({
-            text: false,
-            icons: {
-                primary: "ui-icon-close"
-            },
-            disabled: true
-        });
-        $resetBirthdayButton.click(onResetBirthdayButtonClick);
-
-        $birthdayButtons.buttonset();
-    }
-}(jQuery, lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioCalc.DateFormatter));
+}(jQuery, lu.bioCalc.BirthdaySectionView, lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioCalc.DateFormatter));

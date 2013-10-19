@@ -27,6 +27,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
      */
     lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
 
+        // --------------------------------------------------------------------------
+        // primaryBiorhythmShapes property
+        // --------------------------------------------------------------------------
+
         var primaryBiorhythmsSet = null;
 
         Object.defineProperty(this, "primaryBiorhythmShapes", {
@@ -36,6 +40,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
                 return primaryBiorhythmsSet;
             }
         });
+
+        // --------------------------------------------------------------------------
+        // secondaryBiorhythmShapes property
+        // --------------------------------------------------------------------------
 
         var secondaryBiorhythmsSet = null;
 
@@ -47,6 +55,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             }
         });
 
+        // --------------------------------------------------------------------------
+        // extraBiorhythmShapes property
+        // --------------------------------------------------------------------------
+
         var extraBiorhythmsSet = null;
 
         Object.defineProperty(this, "extraBiorhythmShapes", {
@@ -57,6 +69,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             }
         });
 
+        // --------------------------------------------------------------------------
+        // iChingBiorhythmShapes property
+        // --------------------------------------------------------------------------
+
         var iChingBiorhythmsSet = null;
 
         Object.defineProperty(this, "iChingBiorhythmShapes", {
@@ -66,6 +82,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
                 return iChingBiorhythmsSet;
             }
         });
+
+        // --------------------------------------------------------------------------
+        // Functions
+        // --------------------------------------------------------------------------
 
         this.setBirthdayOnAll = function(birthday) {
             primaryBiorhythmsSet.setBirthdayOnAll(birthday);
@@ -90,6 +110,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
                 destination.push(source[i]);
             }
         }
+
+        // --------------------------------------------------------------------------
+        // Initialization
+        // --------------------------------------------------------------------------
 
         (function initialize() {
             createBiorhythmShapes();

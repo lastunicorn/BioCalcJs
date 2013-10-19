@@ -21,10 +21,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 (function(BiorhythmShapeSet, biorhythmShapesCreator) {
     lu.bioControls.biorhythmModel.IChingBiorhythmsSet = function() {
 
-        var estheticShape = null;
-        var selfAwarenessShape = null;
-        var spiritualShape = null;
+        // --------------------------------------------------------------------------
+        // estheticShape property
+        // --------------------------------------------------------------------------
 
+        var estheticShape = null;
+        
         Object.defineProperty(this, "estheticShape", {
             enumerable: true,
             configurable: false,
@@ -35,6 +37,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             return estheticShape;
         }
 
+        // --------------------------------------------------------------------------
+        // selfAwarenessShape property
+        // --------------------------------------------------------------------------
+
+        var selfAwarenessShape = null;
+        
         Object.defineProperty(this, "selfAwarenessShape", {
             enumerable: true,
             configurable: false,
@@ -45,6 +53,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             return selfAwarenessShape;
         }
 
+        // --------------------------------------------------------------------------
+        // spiritualShape property
+        // --------------------------------------------------------------------------
+
+        var spiritualShape = null;
+
         Object.defineProperty(this, "spiritualShape", {
             enumerable: true,
             configurable: false,
@@ -54,6 +68,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         function getSpiritualShape() {
             return spiritualShape;
         }
+
+        // --------------------------------------------------------------------------
+        // Initialization
+        // --------------------------------------------------------------------------
 
         (function initialize() {
             estheticShape = biorhythmShapesCreator.createEstheticBiorhythmShape();

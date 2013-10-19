@@ -20,6 +20,9 @@
  * @param $
  *            The jQuery object.
  * 
+ * @param MainToolbarView
+ *            The constructor function of the view.
+ * 
  * @param helpDialog
  *            Represents the Help popup.
  * 
@@ -31,12 +34,9 @@
  * 
  * @returns {lu.bioCalc.MainToolbar}
  */
-(function MainToolbar($, helpDialog, aboutDialog, optionsDialog) {
+(function MainToolbar($, MainToolbarView, helpDialog, aboutDialog, optionsDialog) {
 
-    var $mainToolbar = null;
-    var $helpButton = null;
-    var $aboutButton = null;
-    var $optionsButton = null;
+    var view = null;
 
     // --------------------------------------------------------------------------
     // Event Handlers
@@ -60,42 +60,12 @@
 
     (function initialize() {
         $(function() {
-            createControls();
-            initializeControls();
+            var presenter = {
+                onHelpButtonClick: onHelpButtonClick,
+                onAboutButtonClick: onAboutButtonClick,
+                onOptionsButtonClick: onOptionsButtonClick
+            };
+            view = new MainToolbarView(presenter);
         });
     }());
-
-    function createControls() {
-        $mainToolbar = $("#mainToolbar");
-        $helpButton = $("#helpButton");
-        $aboutButton = $("#aboutButton");
-        $optionsButton = $("#optionsButton");
-    }
-
-    function initializeControls() {
-        $mainToolbar.buttonset();
-
-        $helpButton.button({
-            icons: {
-                primary: "ui-icon-help"
-            },
-            text: true
-        });
-        $helpButton.click(onHelpButtonClick);
-
-        $aboutButton.button({
-            icons: {
-                primary: "ui-icon-star"
-            },
-            text: true
-        });
-        $aboutButton.click(onAboutButtonClick);
-
-        $optionsButton.button({
-            icons: {
-                primary: "ui-icon-gear"
-            }
-        });
-        $optionsButton.click(onOptionsButtonClick);
-    }
-}(jQuery, lu.bioCalc.HelpDialog, lu.bioCalc.AboutDialog, lu.bioCalc.OptionsDialog));
+}(jQuery, lu.bioCalc.MainToolbarView, lu.bioCalc.HelpDialog, lu.bioCalc.AboutDialog, lu.bioCalc.OptionsDialog));

@@ -21,10 +21,11 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 (function(BiorhythmShapeSet, biorhythmShapesCreator) {
     lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet = function() {
 
+        // --------------------------------------------------------------------------
+        // physicalShape property
+        // --------------------------------------------------------------------------
+
         var physicalShape = null;
-        var emotionalShape = null;
-        var intellectualShape = null;
-        var intuitiveShape = null;
 
         Object.defineProperty(this, "physicalShape", {
             enumerable: true,
@@ -36,6 +37,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             return physicalShape;
         }
 
+        // --------------------------------------------------------------------------
+        // emotionalShape property
+        // --------------------------------------------------------------------------
+
+        var emotionalShape = null;
+        
         Object.defineProperty(this, "emotionalShape", {
             enumerable: true,
             configurable: false,
@@ -45,6 +52,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         function getEmotionalShape() {
             return emotionalShape;
         }
+
+        // --------------------------------------------------------------------------
+        // intellectualShape property
+        // --------------------------------------------------------------------------
+        
+        var intellectualShape = null;
 
         Object.defineProperty(this, "intellectualShape", {
             enumerable: true,
@@ -56,6 +69,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             return intellectualShape;
         }
 
+        // --------------------------------------------------------------------------
+        // intuitiveShape property
+        // --------------------------------------------------------------------------
+        
+        var intuitiveShape = null;
+
         Object.defineProperty(this, "intuitiveShape", {
             enumerable: true,
             configurable: false,
@@ -65,6 +84,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         function getIntuitiveShape() {
             return intuitiveShape;
         }
+
+        // --------------------------------------------------------------------------
+        // Initialization
+        // --------------------------------------------------------------------------
 
         (function initialize() {
             physicalShape = biorhythmShapesCreator.createPhysicalBiorhythmShape();

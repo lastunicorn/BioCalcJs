@@ -123,6 +123,10 @@ lu.bioControls.biorhythmModel.BiorhythmsAdapter = function(configuration) {
         return [];
     }
 
+    // --------------------------------------------------------------------------
+    // Initialization
+    // --------------------------------------------------------------------------
+
     (function initialize() {
         subscribeToBiorhythmsEvents();
 

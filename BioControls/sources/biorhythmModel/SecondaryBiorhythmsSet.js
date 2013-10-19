@@ -21,9 +21,11 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 (function(BiorhythmShapeSet, biorhythmShapesCreator) {
     lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet = function() {
 
+        // --------------------------------------------------------------------------
+        // passionShape property
+        // --------------------------------------------------------------------------
+
         var passionShape = null;
-        var masteryShape = null;
-        var wisdomShape = null;
 
         Object.defineProperty(this, "passionShape", {
             enumerable: true,
@@ -35,6 +37,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             return passionShape;
         }
 
+        // --------------------------------------------------------------------------
+        // masteryShape property
+        // --------------------------------------------------------------------------
+
+        var masteryShape = null;
+        
         Object.defineProperty(this, "masteryShape", {
             enumerable: true,
             configurable: false,
@@ -45,6 +53,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             return masteryShape;
         }
 
+        // --------------------------------------------------------------------------
+        // wisdomShape property
+        // --------------------------------------------------------------------------
+
+        var wisdomShape = null;
+        
         Object.defineProperty(this, "wisdomShape", {
             enumerable: true,
             configurable: false,
@@ -54,6 +68,10 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         function getWisdomShape() {
             return wisdomShape;
         }
+
+        // --------------------------------------------------------------------------
+        // Initialization
+        // --------------------------------------------------------------------------
 
         (function initialize() {
             passionShape = biorhythmShapesCreator.createPassionBiorhythmShape();

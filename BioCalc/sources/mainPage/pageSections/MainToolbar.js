@@ -68,4 +68,4 @@
             view = new MainToolbarView(presenter);
         });
     }());
-}(jQuery, lu.bioCalc.MainToolbarView, lu.bioCalc.HelpDialog, lu.bioCalc.AboutDialog, lu.bioCalc.OptionsDialog));
+}(jQuery, lu.bioCalc.mainPage.pageSections.MainToolbarView, lu.bioCalc.mainPage.dialogs.HelpDialog, lu.bioCalc.mainPage.dialogs.AboutDialog, lu.bioCalc.mainPage.dialogs.OptionsDialog));

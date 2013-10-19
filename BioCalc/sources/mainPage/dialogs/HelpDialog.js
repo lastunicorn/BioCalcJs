@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc");
+lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
 /**
  * Contains the logic of the Help dialog.
@@ -22,9 +22,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
  * @param $
  *            The jQuery object.
  * 
- * @returns {lu.bioCalc.HelpDialog}
+ * @returns {lu.bioCalc.mainPage.dialogs.HelpDialog}
  */
-lu.bioCalc.HelpDialog = (function($) {
+lu.bioCalc.mainPage.dialogs.HelpDialog = (function($) {
 
     var $helpDialog = null;
     var $helpDialogTabSet = null;

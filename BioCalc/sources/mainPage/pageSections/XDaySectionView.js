@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc");
+lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
 (function($) {
-    lu.bioCalc.XDaySectionView = function() {
+    lu.bioCalc.mainPage.pageSections.XDaySectionView = function() {
 
         var $xDayValueLabel = null;
         var $xDayInfoContainer = null;

@@ -31,7 +31,7 @@
  * @param CommonBiorhythmsContainer
  *            Object constructor. Creates and keeps a collection of biorhythms.
  */
-(function Main($, bioCalcPageData, configurationService, CommonBiorhythmsContainer) {
+(function BioCalc($, bioCalcPageData, configurationService, CommonBiorhythmsContainer) {
     
     // --------------------------------------------------------------------------
     // Initializer

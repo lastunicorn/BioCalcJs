@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc");
+lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
 /**
  * Contains the logic of the Options dialog.
@@ -26,9 +26,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
  *            The service that provides data and communication between different
  *            modules of the page.
  * 
- * @returns {lu.bioCalc.OptionsDialog}
+ * @returns {lu.bioCalc.mainPage.dialogs.OptionsDialog}
  */
-lu.bioCalc.OptionsDialog = (function($, bioCalcPageData) {
+lu.bioCalc.mainPage.dialogs.OptionsDialog = (function($, bioCalcPageData) {
 
     var $optionsDialog = null;
     var $primaryBiorhythmsCheckbox = null;

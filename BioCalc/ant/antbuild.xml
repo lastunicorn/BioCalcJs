@@ -95,6 +95,7 @@
 
 			<sources dir="${basedir}/sources/mainPage">
 				<file name="BioCalcPageData.js" />
+				<file name="BioCalc.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/mainPage/dialogs">
@@ -112,7 +113,6 @@
 				<file name="XDaySection.js" />
 				<file name="ChartsSectionView.js" />
 				<file name="ChartsSection.js" />
-				<file name="Main.js" />
 			</sources>
 
 		</jscomp>

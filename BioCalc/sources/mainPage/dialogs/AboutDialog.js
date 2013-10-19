@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc");
+lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
 /**
  * Contains the logic of the About dialog.
@@ -28,9 +28,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
  * @param bioCalcVersion
  *            The version of the current application.
  * 
- * @returns {lu.bioCalc.AboutDialog}
+ * @returns {lu.bioCalc.mainPage.dialogs.AboutDialog}
  */
-lu.bioCalc.AboutDialog = (function($, bioControlsVersion, bioCalcVersion) {
+lu.bioCalc.mainPage.dialogs.AboutDialog = (function($, bioControlsVersion, bioCalcVersion) {
 
     var $aboutDialog = null;
     var $aboutDialogTabSet = null;

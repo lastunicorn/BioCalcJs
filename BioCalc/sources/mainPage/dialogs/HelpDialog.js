@@ -22,19 +22,21 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
  * @param $
  *            The jQuery object.
  * 
+ * @param HelpDialogView
+ *            The constructor function of the view.
+ * 
  * @returns {lu.bioCalc.mainPage.dialogs.HelpDialog}
  */
-lu.bioCalc.mainPage.dialogs.HelpDialog = (function($) {
+lu.bioCalc.mainPage.dialogs.HelpDialog = (function($, HelpDialogView) {
 
-    var $helpDialog = null;
-    var $helpDialogTabSet = null;
+    var view = null;
 
     // --------------------------------------------------------------------------
     // Functions - "public"
     // --------------------------------------------------------------------------
 
     function show() {
-        $helpDialog.dialog("open");
+        view.show();
     }
 
     // --------------------------------------------------------------------------
@@ -42,7 +44,7 @@ lu.bioCalc.mainPage.dialogs.HelpDialog = (function($) {
     // --------------------------------------------------------------------------
 
     function onHelpDialogCloseClicked() {
-        $helpDialog.dialog("close");
+        view.close();
     }
 
     // --------------------------------------------------------------------------
@@ -51,39 +53,15 @@ lu.bioCalc.mainPage.dialogs.HelpDialog = (function($) {
 
     (function initialize() {
         $(function() {
-            create$();
-            initialize$();
+            var presenter = {
+                onCloseButtonClicked: onHelpDialogCloseClicked
+            };
+
+            view = new HelpDialogView(presenter);
         });
     }());
-
-    function create$() {
-        $helpDialog = $("#helpDialog");
-        $helpDialogTabSet = $("#helpDialog .tabs");
-    }
-
-    function initialize$() {
-        $helpDialog.dialog({
-            modal: true,
-            height: 480,
-            width: 640,
-            autoOpen: false,
-            buttons: {
-                Close: onHelpDialogCloseClicked
-            },
-            show: {
-                effect: "puff",
-                duration: 300
-            },
-            hide: {
-                effect: "puff",
-                duration: 300
-            }
-        });
-
-        $helpDialogTabSet.tabs();
-    }
 
     return {
         show: show
     };
-}(jQuery));
+}(jQuery, lu.bioCalc.mainPage.dialogs.HelpDialogView));

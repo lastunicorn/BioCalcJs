@@ -99,8 +99,11 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/mainPage/dialogs">
+				<file name="AboutDialogView.js" />
 				<file name="AboutDialog.js" />
+				<file name="HelpDialogView.js" />
 				<file name="HelpDialog.js" />
+				<file name="OptionsDialogView.js" />
 				<file name="OptionsDialog.js" />
 			</sources>
 

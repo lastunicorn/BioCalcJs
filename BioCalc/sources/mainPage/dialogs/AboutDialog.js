@@ -22,6 +22,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
  * @param $
  *            The jQuery object.
  * 
+ * @param AboutDialogView
+ *            The constructor function of the view.
+ * 
  * @param bioControlsVersion
  *            The version of the BioControls package.
  * 
@@ -30,21 +33,16 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
  * 
  * @returns {lu.bioCalc.mainPage.dialogs.AboutDialog}
  */
-lu.bioCalc.mainPage.dialogs.AboutDialog = (function($, bioControlsVersion, bioCalcVersion) {
+lu.bioCalc.mainPage.dialogs.AboutDialog = (function($, AboutDialogView, bioControlsVersion, bioCalcVersion) {
 
-    var $aboutDialog = null;
-    var $aboutDialogTabSet = null;
-    var $jQueryVersionLabel = null;
-    var $jQueryUIVersionLabel = null;
-    var $bioControlsVersionLabel = null;
-    var $bioCalcVersionLabel = null;
+    var view = null;
 
     // --------------------------------------------------------------------------
     // Functions - "public"
     // --------------------------------------------------------------------------
 
     function show() {
-        $aboutDialog.dialog("open");
+        view.show();
     }
 
     // --------------------------------------------------------------------------
@@ -52,7 +50,7 @@ lu.bioCalc.mainPage.dialogs.AboutDialog = (function($, bioControlsVersion, bioCa
     // --------------------------------------------------------------------------
 
     function onAboutDialogCloseClicked() {
-        $aboutDialog.dialog("close");
+        view.close();
     }
 
     // --------------------------------------------------------------------------
@@ -61,49 +59,20 @@ lu.bioCalc.mainPage.dialogs.AboutDialog = (function($, bioControlsVersion, bioCa
 
     (function initialize() {
         $(function() {
-            create$();
-            initialize$();
+            var presenter = {
+                onCloseButtonClicked: onAboutDialogCloseClicked
+            };
 
-            $jQueryVersionLabel.html($.fn.jquery);
-            $jQueryUIVersionLabel.html($.ui.version);
-            $bioControlsVersionLabel.html(bioControlsVersion);
+            view = new AboutDialogView(presenter);
 
-            $bioCalcVersionLabel.html("ver " + bioCalcVersion);
+            view.setJQueryVersionText($.fn.jquery);
+            view.setJQueryUIVersionText($.ui.version);
+            view.setBioControlsVersionText(bioControlsVersion);
+            view.setBioCalcVersionText("ver " + bioCalcVersion);
         });
     }());
-
-    function create$() {
-        $aboutDialog = $("#aboutDialog");
-        $aboutDialogTabSet = $("#aboutDialog .tabs");
-        $jQueryVersionLabel = $("#jQueryVersionLabel");
-        $jQueryUIVersionLabel = $("#jQueryUIVersionLabel");
-        $bioControlsVersionLabel = $("#bioControlsVersionLabel");
-        $bioCalcVersionLabel = $(".bio-calc-version");
-    }
-
-    function initialize$() {
-        $aboutDialog.dialog({
-            modal: true,
-            height: 480,
-            width: 480,
-            autoOpen: false,
-            buttons: {
-                Close: onAboutDialogCloseClicked
-            },
-            show: {
-                effect: "puff",
-                duration: 300
-            },
-            hide: {
-                effect: "puff",
-                duration: 300
-            }
-        });
-
-        $aboutDialogTabSet.tabs();
-    }
 
     return {
         show: show
     };
-}(jQuery, lu.bioControls.version, lu.bioCalc.version));
+}(jQuery, lu.bioCalc.mainPage.dialogs.AboutDialogView, lu.bioControls.version, lu.bioCalc.version));

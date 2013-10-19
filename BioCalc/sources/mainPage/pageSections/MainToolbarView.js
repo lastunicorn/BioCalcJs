@@ -29,8 +29,8 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         // --------------------------------------------------------------------------
 
         function onHelpButtonClick(e) {
-            if ($.isFunction(presenter.onResetBirthdayButtonClick)) {
-                presenter.onResetBirthdayButtonClick(e);
+            if ($.isFunction(presenter.onHelpButtonClick)) {
+                presenter.onHelpButtonClick(e);
             }
         }
 

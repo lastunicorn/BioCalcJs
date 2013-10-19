@@ -66,8 +66,8 @@
 			<fileset dir="sources/images" />
 		</copy>
 
-		<copy file="sources/BioCalc.css" todir="${dir.compiled}" />
-		<copy file="sources/BioCalc.html" todir="${dir.compiled}" />
+		<copy file="sources/mainPage/BioCalc.css" todir="${dir.compiled}" />
+		<copy file="sources/mainPage/BioCalc.html" todir="${dir.compiled}" />
 
 		<copy file="changelog.txt" todir="${dir.compiled}" />
 		<copy file="license.txt" todir="${dir.compiled}" />
@@ -97,13 +97,13 @@
 				<file name="BioCalcPageData.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/dialogs">
+			<sources dir="${basedir}/sources/mainPage/dialogs">
 				<file name="AboutDialog.js" />
 				<file name="HelpDialog.js" />
 				<file name="OptionsDialog.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/mainPage">
+			<sources dir="${basedir}/sources/mainPage/pageSections">
 				<file name="BirthdaySectionView.js" />
 				<file name="BirthdaySection.js" />
 				<file name="MainToolbarView.js" />

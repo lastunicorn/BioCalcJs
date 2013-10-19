@@ -148,4 +148,4 @@
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
         });
     }());
-}(jQuery, lu.bioCalc.mainPage.pageSections.BirthdaySectionView, lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioCalc.DateFormatter));
+}(jQuery, lu.bioCalc.mainPage.pageSections.BirthdaySectionView, lu.bioCalc.mainPage.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioCalc.DateFormatter));

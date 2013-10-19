@@ -62,4 +62,4 @@
             });
         });
     }
-}(jQuery, lu.bioCalc.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioControls.biorhythmModel.CommonBiorhythmsContainer));
+}(jQuery, lu.bioCalc.mainPage.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioControls.biorhythmModel.CommonBiorhythmsContainer));

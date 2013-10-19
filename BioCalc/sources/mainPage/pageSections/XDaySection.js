@@ -64,4 +64,4 @@
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         });
     }());
-}(jQuery, lu.bioCalc.mainPage.pageSections.XDaySectionView, lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter));
+}(jQuery, lu.bioCalc.mainPage.pageSections.XDaySectionView, lu.bioCalc.mainPage.BioCalcPageData, lu.bioCalc.DateFormatter));

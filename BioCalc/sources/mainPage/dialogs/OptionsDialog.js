@@ -141,4 +141,4 @@ lu.bioCalc.mainPage.dialogs.OptionsDialog = (function($, bioCalcPageData) {
     return {
         show: show
     };
-}(jQuery, lu.bioCalc.BioCalcPageData));
+}(jQuery, lu.bioCalc.mainPage.BioCalcPageData));

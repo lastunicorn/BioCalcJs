@@ -210,4 +210,4 @@
             }
         });
     }());
-}(jQuery, lu.bioCalc.mainPage.pageSections.ChartsSectionView, lu.bioCalc.BioCalcPageData, lu.bioCalc.DateFormatter, lu.DateUtil));
+}(jQuery, lu.bioCalc.mainPage.pageSections.ChartsSectionView, lu.bioCalc.mainPage.BioCalcPageData, lu.bioCalc.DateFormatter, lu.DateUtil));

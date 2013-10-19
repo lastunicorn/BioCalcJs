@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc");
+lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
 
 /**
  * The service that provides data and communication between different modules of
@@ -24,9 +24,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc");
  *            Object constructor. Keeps a list of functions and calls them one
  *            by one when the event is raised.
  * 
- * @returns {lu.bioCalc.BioCalcPageData}
+ * @returns {lu.bioCalc.mainPage.BioCalcPageData}
  */
-lu.bioCalc.BioCalcPageData = (function(Event) {
+lu.bioCalc.mainPage.BioCalcPageData = (function(Event) {
 
     var obj = {};
 

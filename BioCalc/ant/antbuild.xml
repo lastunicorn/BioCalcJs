@@ -81,8 +81,10 @@
 			<!-- The order of files is important -->
 
 			<sources dir="${basedir}/sources">
-				<!-- The order of files is important -->
 				<file name="Version.js" />
+			</sources>
+
+			<sources dir="${basedir}/sources/helpers">
 				<file name="DateFormatter.js" />
 			</sources>
 

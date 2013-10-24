@@ -19,7 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
 (function(BiorhythmShape) {
-    lu.bioControls.biorhythmLegend.BiorhythmLegendItemView = function(biorhythmShape) {
+    lu.bioControls.biorhythmLegend.BiorhythmLegendItemView = function() {
 
         // --------------------------------------------------------------------------
         // element property
@@ -27,7 +27,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
         var $element = null;
 
-        Object.defineProperty(this, "element", {
+        Object.defineProperty(this, "$element", {
             enumerable: true,
             configurable: false,
             get: function() {
@@ -41,7 +41,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
         var $legendColorTag = null;
 
-        Object.defineProperty(this, "legendColorTag", {
+        Object.defineProperty(this, "$legendColorTag", {
             enumerable: true,
             configurable: false,
             get: function() {
@@ -55,7 +55,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
         var $legendLabelTag = null;
 
-        Object.defineProperty(this, "legendLabelTag", {
+        Object.defineProperty(this, "$legendLabelTag", {
             enumerable: true,
             configurable: false,
             get: function() {
@@ -77,36 +77,24 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
             $element.append($legendColorTag);
             $element.append($legendLabelTag);
-
-            if (!biorhythmShape.isVisible) {
-                $element.hide();
-            }
         }
 
         function generateLegendColorTag() {
             $legendColorTag = $("<div/>");
             $legendColorTag.addClass("color-label");
-            $legendColorTag.css("background-color", biorhythmShape.color);
         }
 
         function generateLegendLabelTag() {
             $legendLabelTag = $("<div/>");
             $legendLabelTag.addClass("bio-legend-label");
-            $legendLabelTag.text(biorhythmShape.biorhythm.name);
-
-            var biorhythmName = biorhythmShape.biorhythm.name;
-            var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
 
             $legendLabelTag.colorpicker({
                 inline: false,
                 altField: $legendColorTag,
                 altProperties: "background-color",
                 buttonColorize: true,
-                color: biorhythmShape.color,
                 colorFormat: "#HEX",
-                showOn: "click alt",
-                title: title,
-                parts: title ? "draggable" : "popup"
+                showOn: "click alt"
             });
         }
 

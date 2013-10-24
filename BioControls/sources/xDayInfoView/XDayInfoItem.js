@@ -128,7 +128,11 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            view = new XDayInfoItemView(biorhythmShape);
+            view = new XDayInfoItemView();
+
+            if (!(biorhythmShape instanceof BiorhythmShape)) {
+                return;
+            }
 
             var xDay = biorhythmShape.biorhythm.birthday;
 
@@ -136,8 +140,8 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             displayLabel(biorhythmShape.biorhythm.name);
             displayColor(biorhythmShape.color);
 
-            if (!(biorhythmShape instanceof BiorhythmShape)) {
-                return;
+            if (!biorhythmShape.isVisible) {
+                view.$element.hide();
             }
 
             biorhythmShape.nameChanged.subscribe(onBiorhythmNameChanged);

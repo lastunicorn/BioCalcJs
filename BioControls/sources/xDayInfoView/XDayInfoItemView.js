@@ -28,7 +28,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
      * 
      * @returns {lu.bioControls.xDayInfoView.XDayInfoItem}
      */
-    lu.bioControls.xDayInfoView.XDayInfoItemView = function(biorhythmShape) {
+    lu.bioControls.xDayInfoView.XDayInfoItemView = function() {
 
         // --------------------------------------------------------------------------
         // $element property
@@ -112,9 +112,9 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             $element.append(" = ");
             $element.append($valueElement);
 
-            if (!biorhythmShape.isVisible) {
-                $element.hide();
-            }
+//            if (!biorhythmShape.isVisible) {
+//                $element.hide();
+//            }
         }
 
         function generateColorTag() {

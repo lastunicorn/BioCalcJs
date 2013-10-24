@@ -58,7 +58,7 @@ QUnit.extend(QUnit, {
         }
 
         for ( var i = 0; i < testCases.length; i++) {
-            if (test instanceof Array) {
+            if (testCases[i] instanceof Array) {
                 test.apply(this, testCases[i]);
             } else {
                 test.call(this, testCases[i]);

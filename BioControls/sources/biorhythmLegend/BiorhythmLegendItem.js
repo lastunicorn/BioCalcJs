@@ -41,7 +41,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         });
 
         function getElement() {
-            return view.element;
+            return view.$element;
         }
 
         // --------------------------------------------------------------------------
@@ -67,22 +67,22 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         }
 
         function onColorPickerOpened(event, color) {
-            view.legendLabelTag.colorpicker("setColor", biorhythmShape.color);
+            view.$legendLabelTag.colorpicker("setColor", biorhythmShape.color);
         }
 
         function onBiorhythmNameChanged(arg) {
-            view.legendLabelTag.html(arg);
+            view.$legendLabelTag.html(arg);
         }
 
         function onBiorhythmColorChanged(arg) {
-            view.legendColorTag.css("background-color", arg);
+            view.$legendColorTag.css("background-color", arg);
         }
 
         function onBiorhythmVisibilityChanged(arg) {
             if (arg) {
-                view.element.show();
+                view.$element.show();
             } else {
-                view.element.hide();
+                view.$element.hide();
             }
         }
 
@@ -91,15 +91,29 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            view = new BiorhythmLegendItemView(biorhythmShape);
-
-            view.legendLabelTag.colorpicker("option", "close", onColorPickerClosed);
-            view.legendLabelTag.colorpicker("option", "open", onColorPickerOpened);
+            view = new BiorhythmLegendItemView();
 
             if (!(biorhythmShape instanceof BiorhythmShape)) {
                 return;
             }
 
+            view.$legendLabelTag.colorpicker("option", "close", onColorPickerClosed);
+            view.$legendLabelTag.colorpicker("option", "open", onColorPickerOpened);
+
+            view.$legendColorTag.css("background-color", biorhythmShape.color);
+            view.$legendLabelTag.text(biorhythmShape.biorhythm.name);
+
+            var biorhythmName = biorhythmShape.biorhythm.name;
+            var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
+
+            view.$legendLabelTag.colorpicker("option", "title", title);
+            view.$legendLabelTag.colorpicker("option", "parts", title ? "draggable" : "popup");
+            view.$legendLabelTag.colorpicker("option", "color", biorhythmShape.color);
+            
+            if (!biorhythmShape.isVisible) {
+                view.$element.hide();
+            }
+            
             biorhythmShape.nameChanged.subscribe(onBiorhythmNameChanged);
             biorhythmShape.colorChanged.subscribe(onBiorhythmColorChanged);
             biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged);

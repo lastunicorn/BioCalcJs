@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<!------------------------------------------------------------------------------
+﻿BioCalc
+Copyright (C) 2013 Last Unicorn
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+------------------------------------------------------------------------------->
+<html>
+    <head>
+        <title>Biorhythm Calculator</title>
+        
+        <script type="text/javascript" src="libraries/jQuery/jquery-2.0.3.min.js"></script>
+        
+        <script type="text/javascript" src="libraries/jQueryCookie/jquery.cookie.js"></script>
+        
+        <script type="text/javascript" src="libraries/jQueryUI/js/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="libraries/jQueryUI/css/smoothness/jquery-ui.min.css" />
+        
+        <script type="text/javascript" src="libraries/ColorPicker/jquery.colorpicker.js"></script>
+        <link rel="stylesheet" href="libraries/ColorPicker/jquery.colorpicker.css" />
+        
+        <script type="text/javascript" src="libraries/BiorhythmControls/BiorhythmControls.js"></script>
+        
+        <script type="text/javascript" src="BioCalc.js"></script>
+        <link rel="stylesheet" type="text/css" href="BioCalc.css" />
+    </head>
+    <body>
+        <!----------------------------------------------------------------------
+        Main Content
+        ----------------------------------------------------------------------->
+        <div id="pageContainer">
+        	<header>
+        		<h1>
+            		<span id="title">Biorhythm Calculator</span>
+            		<span class="bio-calc-version"></span>
+            	</h1>
+            	<div id="mainToolbar">
+            		<button id="helpButton">Help</button>
+            		<button id="optionsButton">Options</button>
+            		<button id="aboutButton">About</button>
+            	</div>
+        	</header>
+            <div id="dateLimitsContainer">
+            	<div style="float: left;">
+            		<span id="firstDayLabel"></span>
+            		<input id="firstDayTextBox" type="hidden" value="" />
+            		<span>&nbsp;</span>
+            	</div>
+            	<div style="float: right;">
+            		<span id="lastDayLabel"></span>
+            		<input id="lastDayTextBox" type="hidden" value="" />
+            		<span>&nbsp;</span>
+            	</div>
+            	<div class="clear"></div>
+            </div>
+            <div id="biorhythmViewContainer"></div>
+            <div id="bioLegend"></div>
+            <div class="clear"></div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Birthday:</td>
+                        <td>
+                            <input type="text" id="birthdayTextBox" />
+							<span id="birthdayButtons">
+								<button id="saveBirthdayButton">Save birthday as default</button>
+								<button id="resetBirthdayButton">Reset to default birthday</button>
+							</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>X Day (<span id="xDayValueLabel"></span>)</h2>
+            <div id="xDayInfoContainer"></div>
+        </div>
+        <!----------------------------------------------------------------------
+        Options Dialog
+        ----------------------------------------------------------------------->
+        <div id="optionsDialog" title="Options">
+			<h2>Biorhythms</h2>
+			<p>
+				<input id="primaryBiorhythmsCheckbox" type="checkbox" value="1"/>
+				<label for="primaryBiorhythmsCheckbox">Primary Biorhythms</label>
+			</p>
+			<p>
+				<input id="secondaryBiorhythmsCheckbox" type="checkbox" value="2"/>
+				<label for="secondaryBiorhythmsCheckbox">Secondary Biorhythms</label>
+			</p>
+			<p>
+				<input id="extraBiorhythmsCheckbox" type="checkbox" value="3"/>
+				<label for="extraBiorhythmsCheckbox">Extra Biorhythms</label>
+			</p>
+			<p>
+				<input id="iChingBiorhythmsCheckbox" type="checkbox" value="4"/>
+				<label for="iChingBiorhythmsCheckbox">I-Ching Biorhythms</label>
+			</p>
+        </div>
+        <!----------------------------------------------------------------------
+        About Dialog
+        ----------------------------------------------------------------------->
+        <div id="aboutDialog" title="About">
+        	<header>
+        		<h1>
+            		<span id="title">Biorhythm Calculator</span>
+            		<span class="bio-calc-version"></span>
+            	</h1>
+            </header>
+            <div class="tabs">
+				<ul>
+					<li><a href="#aboutTabInfo">Info</a></li>
+					<li><a href="#aboutTabFeatures">Features</a></li>
+					<li><a href="#aboutTabBiorhythms">Biorhythms</a></li>
+					<li><a href="#aboutTabJsLibraries">Libraries Used</a></li>
+				</ul>
+				<div id="aboutTabInfo">
+					<p>Author: Alexandru Iuga (<a href="https://github.com/lastunicorn" target="_blank" class="external-link">@lastunicorn</a>)</p>
+        			<p>GitHub page: <a href="https://github.com/lastunicorn/BioCalcJs" target="_blank" class="external-link">here</a></p>
+				</div>
+				<div id="aboutTabFeatures">
+					<h2>Current features</h2>
+					<ul>
+						<li><b>Biorhythm charts</b> for one person based on the birthday.</li>
+						<li>Possibility to <b>select different color</b> for biorhythms.</li>
+						<li>Percentage values of the biorhythms displayed for the <b>X day</b>.</li>
+						<li><b>Birthday saved in a cookie</b> for later visits of the page.</li>
+						<li><b>Options panel</b> to select different other biorhythms (secondary, extra and I-Ching).</li>
+					</ul>
+					
+					<h2>Future features</h2>
+					<ul>
+    					<li>Calculate and display compatibility between two persons.</li>
+    					<li>Save the options in cookies.</li>
+    				</ul>
+				</div>
+				<div id="aboutTabBiorhythms">
+        			<p>According to believers in biorhythms, a person's life is influenced by rhythmic biological cycles that affect one's ability in various domains, such as mental, physical and emotional activity.</p>
+        			<p>These cycles begin at birth and oscillate in a steady (sine wave) fashion throughout life; thus, by modeling them mathematically, a person's level of ability in each of these domains can be predicted from day to day.</p>
+        			<p>Read more on <a href="http://en.wikipedia.org/wiki/Biorhythm" target="_blank" class="external-link">Wikipedia</a>.</p>
+				</div>
+				<div id="aboutTabJsLibraries">
+					<p>A list of javascript libraries that helped me in my quest:</p>
+					<ul>
+	        			<li>jQuery - <span id="jQueryVersionLabel"></span> - <a href="http://jquery.com" target="_blank" class="external-link">Home page</a></li>
+	        			<li>jQuery UI - <span id="jQueryUIVersionLabel"></span> - <a href="http://api.jqueryui.com" target="_blank" class="external-link">Home page</a></li>
+	        			<li>jQuery Cookie - 1.3.1 - <a href="https://github.com/carhartl/jquery-cookie" target="_blank" class="external-link">GitHub page</a></li>
+	        			<li>jQuery Color Picker - <a href="http://vanderlee.github.io/colorpicker/" target="_blank" class="external-link">Home page</a> - <a href="https://github.com/vanderlee/colorpicker" target="_blank" class="external-link">GitHub page</a></li>
+	        			<li>BiorhythmControls - <span id="bioControlsVersionLabel"></span></li>
+	        		</ul>
+				</div>
+			</div>
+        </div>
+        <!----------------------------------------------------------------------
+        Help Dialog
+        ----------------------------------------------------------------------->
+        <div id="helpDialog" title="Help">
+        	<div class="tabs">
+				<ul>
+					<li><a href="#helpTabChart">The Chart</a></li>
+					<li><a href="#helpTabLegend">The Legend</a></li>
+					<li><a href="#helpTabFirstLastDay">The First/Last Day</a></li>
+					<li><a href="#helpTabBirthday">Birthday</a></li>
+					<li><a href="#helpTabXDayInfo">X Day Info</a></li>
+				</ul>
+				<div id="helpTabChart">
+					<h2>Biorhythm Charts</h2>
+					<p>The biorhythm's chart displays the four primary biorhythms.</p>
+					
+					<h2>Scrolling</h2>
+					<p>Drag the chart left or right using the left mouse button or use the mouse wheel to scroll.</p>
+					
+					<h2>The X Day</h2>
+					<p>The black rectangle that marks one of the days in the chart is called the X day.</p>
+					<p>You can change the X day by dragging it with the right mouse button or by holding the Ctrl key and dragging it with the left mouse button.</p>
+				</div>
+				<div id="helpTabLegend">
+					<h2>The Legend</h2>
+					<p>At the bottom-right of the chart a legend can be found, containing the names and the colors of the displayed biorhythms.</p>
+					
+					<h2>Change Color</h2>
+					<p>By clicking the color square or the labels, the color used to draw the corresponding biorhythm in the chart can be changed.</p>
+				</div>
+				<div id="helpTabFirstLastDay">
+					<h2>The first and last days</h2>
+					<p>At the top-left and top-right of the chart are two labels with the first and last day displayed in the chart.</p>
+					
+					<h2>Change the first or last days</h2>
+					<p>Clicking on the labels, a date picker is displayed to modify the corresponding value. The other value will be modified accordingly. The chart will always display the biorhythm's charts for a range of 30 days.</p>
+					<p>The first and last days can also be modified by scrolling or dragging the chart right/left.</p>
+				</div>
+				<div id="helpTabBirthday">
+					<h2>Birthday text box</h2>
+					<p>The birthday can be changed by clicking the text-box bellow the biorhythm's cahrt. A date picker will be displayed to help choosing another birthday.</p>
+					
+					<h2>The "Save" button</h2>
+					<p>Next to the birthday text-box a "Save" button will become enabled immediatelly after changing the birthday. If clicked it will save the currently used birthday in a cookie as default.</p>
+					
+					<h2>The "Reset" button</h2>
+					<p>The second button displayed next to the birthday text-box is the "Reset" button that will set as current birthday the birthday currently existing in the cookie.</p>
+				</div>
+				<div id="helpTabXDayInfo">
+					<h2>The X Day info section</h2>
+					<p>Bellow the chart a section exists that shows the current values (as percentages) of the displayed biorhythms for the X day.</p>
+				</div>
+			</div>
+        </div>
+    </body>
+</html>

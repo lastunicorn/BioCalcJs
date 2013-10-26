@@ -65,11 +65,6 @@ a[target="_blank"] {
 	top: 2px;
 }
 
-.external-link {
-	background: url('images/external_link.png') no-repeat right center;
-	padding-right: 11px;
-}
-
 /* Debug
 ----------------------------------------------------------------------------- */
 
@@ -103,12 +98,12 @@ a[target="_blank"] {
 /* Biorhythm View
 ----------------------------------------------------------------------------- */
 
-#biorhythmViewContainer {
+#bioCanvasContainer {
 	width: 900px;
 	margin: 0 auto;
 }
 
-#biorhythmViewContainer canvas {
+#bioCanvas {
 	border: 1px solid #c0c0c0;
 	outline: none;
 	border-radius: 5px;
@@ -199,10 +194,6 @@ header h1 {
 }
 
 #aboutDialog{
-	display: none;
-}
-
-#optionsDialog{
 	display: none;
 }
 

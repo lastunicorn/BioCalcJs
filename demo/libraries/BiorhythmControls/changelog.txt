@@ -1,0 +1,38 @@
+BioControls
+===========
+
+var 2.0.0
+---------
+[Change] I removed the deprecated methods.
+[Change] I rearranged files in directories (object constructors in "namespaces").
+[Feature] I added more useful methods in CommonBiorhythmShapes constructor.
+[Feature] I created a jQuery widget (biorhythmView) to replace the BiorhythmView object.
+[Feature] I created the biorhythmLegend jQuery widget that displays in a div the legend of the charts.
+[Feature] I created the xDayInfoView jQuery widget that displays in a div the biorhythm percentages for the x day.
+[Change] External libraries are necessary (jQuery, jQuery UI, jQuery.colorpicker)
+
+ver 1.3.0
+---------
+[Feature] I added handler on the contextmenu event to prevent the opening of the context menu on Chrome.
+[Feature] I added methods to return the last day displayed and the current X day.
+[Feature] The BiorhythmView control doesn't need to be selected for the ctrl key to be effective.
+[Feature] I created properties instead of get/set methods. The old get/set methods are marked as deprecated.
+[Bug Fix] The XDay marker was able to go outside the visible area.
+[Bug Fix] The XDay marker could not be moved using the ctrl key anymore.
+
+ver 1.2.0
+---------
+[Feature] I improved the lu.Event object to provide the sender and an argument.
+[Feature] I changed BiorhythmView and BiorhythmShape to provide the sender and an argument when raising events.
+
+
+ver 1.1.0
+---------
+[Bug Fix] When dragging the biorhythm chart (left-right) I prevented Chrome from displaying the selection cursor.
+[Feature] I improved chart dragging by allowing it even if the mouse goes outside of the canvas surface.
+[Bug Fix] In BiorhythmView i unsubscribe from the events of a BiorhythmShape when i remove it.
+[Feature] I added GNU GPL license information.
+
+ver 1.0.0
+---------
+The first stable version released. 

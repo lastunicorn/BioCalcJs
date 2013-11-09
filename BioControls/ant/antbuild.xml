@@ -128,6 +128,8 @@
 			<sources dir="${basedir}/sources/xDayInfoView">
 				<file name="XDayInfoItemView.js" />
 				<file name="XDayInfoItem.js" />
+				<file name="XDayInfoViewerView.js" />
+				<file name="XDayInfoViewer.js" />
 				<file name="XDayInfoViewWidget.js" />
 			</sources>
 

@@ -224,9 +224,15 @@ header h1 {
 	border-radius: 3px;
 }
 
-.x-day-item .color-label {
-	margin: 0 10px 0 10px; 
+#xDayInfoContainer .x-day-item td {
+	padding: 0 5px; 
 }
+
+#xDayInfoContainer .x-day-item .x-day-value {
+	text-align: right;
+}
+
+#xDayInfoContainer .
 
 /* Date Limit Labels
 ----------------------------------------------------------------------------- */

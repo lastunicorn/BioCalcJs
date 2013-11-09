@@ -1,0 +1,9 @@
+{
+    "Framework": "qunit",
+        
+    "TestFileTimeout": "1000",
+    
+    "TestHarnessLocationMode": "SettingsFileAdjacent",
+    
+    "RootReferencePathMode":"SettingsFileDirectory"
+}

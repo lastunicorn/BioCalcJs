@@ -19,32 +19,20 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
 (function(XDayInfoItemView, BiorhythmShape, dateUtil) {
+
     /**
      * Represents an item in the XDayInfoView. It contains the value of one
      * biorhythm for a specific day named X day.
+     * 
+     * @param view
+     *            The view object used to interact with the ui.
      * 
      * @param biorhythmShape
      *            The BiorhythmShape for which to display the X day information.
      * 
      * @returns {lu.bioControls.xDayInfoView.XDayInfoItem}
      */
-    lu.bioControls.xDayInfoView.XDayInfoItem = function(biorhythmShape) {
-
-        var view = null;
-
-        // --------------------------------------------------------------------------
-        // element property
-        // --------------------------------------------------------------------------
-
-        Object.defineProperty(this, "element", {
-            enumerable: true,
-            configurable: false,
-            get: getElement
-        });
-
-        function getElement() {
-            return view.$element;
-        }
+    lu.bioControls.xDayInfoView.XDayInfoItem = function(view, biorhythmShape) {
 
         // --------------------------------------------------------------------------
         // biorhythmShape property
@@ -71,15 +59,8 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         function displayPercentageFor(xDay) {
             var percentage = calculatePercentageFor(xDay);
             var percentageAsText = formatPercentage(percentage);
-            view.$valueElement.text(percentageAsText);
-        }
 
-        function displayLabel(text) {
-            view.$labelElement.text(text);
-        }
-
-        function displayColor(color) {
-            view.$colorElement.css("background-color", color);
+            view.setValueText(percentageAsText);
         }
 
         function calculatePercentageFor(xDay) {
@@ -106,20 +87,18 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         // --------------------------------------------------------------------------
 
         function onBiorhythmNameChanged(arg) {
-            displayLabel(arg);
+            view.setLabelText(arg);
         }
 
         function onBiorhythmColorChanged(arg) {
-            displayColor(arg);
+            view.setColor(arg);
         }
 
         function onBiorhythmVisibilityChanged(arg) {
-            if (view.$element) {
-                if (arg) {
-                    view.$element.show();
-                } else {
-                    view.$element.hide();
-                }
+            if (arg) {
+                view.show();
+            } else {
+                view.hide();
             }
         }
 
@@ -128,8 +107,6 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            view = new XDayInfoItemView();
-
             if (!(biorhythmShape instanceof BiorhythmShape)) {
                 return;
             }
@@ -137,8 +114,8 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             var xDay = biorhythmShape.biorhythm.birthday;
 
             displayPercentageFor(xDay);
-            displayLabel(biorhythmShape.biorhythm.name);
-            displayColor(biorhythmShape.color);
+            view.setLabelText(biorhythmShape.biorhythm.name);
+            view.setColor(biorhythmShape.color);
 
             if (!biorhythmShape.isVisible) {
                 view.$element.hide();

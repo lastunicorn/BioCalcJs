@@ -21,25 +21,21 @@ QUnit.extend(QUnit, {
 
     arraysAreEquivalent: function(actual, expected, message) {
         QUnit.strictEqual(actual.length, expected.length, "Tests that the lengths of the arrays are equal.");
-        for ( var i = 0; i < actual.length; i++) {
+        
+        for (var i = 0; i < actual.length; i++) {
             QUnit.inArray(actual[i], expected, "Tests that the element " + i + " from the actual array exists in the expected array.");
         }
     },
 
     propertyIsEnumerable: function(object, propName, message) {
-        var isOk = false;
         for ( var prop in object) {
             if (prop === propName) {
-                isOk = true;
-                break;
+                ok(true, message);
+                return;
             }
         }
 
-        if (isOk) {
-            ok(true, message);
-        } else {
-            ok(false, message);
-        }
+        ok(false, message);
     },
 
     propertyCannotBeRedefined: function(object, propName, message) {
@@ -57,7 +53,7 @@ QUnit.extend(QUnit, {
             return;
         }
 
-        for ( var i = 0; i < testCases.length; i++) {
+        for (var i = 0; i < testCases.length; i++) {
             if (testCases[i] instanceof Array) {
                 test.apply(this, testCases[i]);
             } else {

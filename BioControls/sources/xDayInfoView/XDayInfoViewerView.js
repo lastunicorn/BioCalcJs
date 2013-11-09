@@ -1,4 +1,4 @@
-﻿// BioControls
+// BioControls
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -15,67 +15,73 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 window.lu = window.lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
-(function(Point) {
-    /**
-     * A segment of a geometric line determined by two points.
-     * 
-     * @param startPoint
-     *            The point of start of the line's segment.
-     * 
-     * @param endPoint
-     *            The point of end of the line's segment.
-     * 
-     * @returns {lu.Line}
-     */
-    lu.Line = function(startPoint, endPoint) {
+(function($) {
+
+    lu.bioControls.xDayInfoView.XDayInfoViewerView = function() {
+
+        var $table = null;
+        var $tbody = null;
 
         // --------------------------------------------------------------------------
-        // startPoint property
+        // $element property
         // --------------------------------------------------------------------------
 
-        Object.defineProperty(this, "startPoint", {
+        Object.defineProperty(this, "$element", {
             enumerable: true,
-            get: getStartPoint
+            configurable: false,
+            get: getElement
         });
 
-        function getStartPoint() {
-            return startPoint;
-        }
-
-        // --------------------------------------------------------------------------
-        // endPoint property
-        // --------------------------------------------------------------------------
-
-        Object.defineProperty(this, "endPoint", {
-            enumerable: true,
-            get: getEndPoint
-        });
-
-        function getEndPoint() {
-            return endPoint;
+        function getElement() {
+            return $table;
         }
 
         // --------------------------------------------------------------------------
         // functions
         // --------------------------------------------------------------------------
 
-        this.toString = function() {
-            return startPoint.toString() + " - " + endPoint.toString();
+        this.empty = function() {
+            $tbody.empty();
+            generateHeader();
+        };
+
+        this.addItem = function(item) {
+            $tbody.append(item);
         };
 
         // --------------------------------------------------------------------------
-        // Initialization
+        // generate
+        // --------------------------------------------------------------------------
+
+        function generate() {
+            generateTable();
+            generateHeader();
+        }
+
+        function generateTable() {
+            $table = $("<table/>");
+            $tbody = $("<tbody/>").appendTo($table);
+        }
+
+        function generateHeader() {
+            $tr = $("<tr/>").appendTo($tbody);
+
+            $("<th>").text("").appendTo($tr);
+            $("<th>").text("Biorhithm").appendTo($tr);
+            $("<th>").text("").appendTo($tr);
+            $("<th>").text("Value").appendTo($tr);
+        }
+
+        // --------------------------------------------------------------------------
+        // Initializer
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            if (!(startPoint instanceof Point)) {
-                throw "startPoint is not a lu.Point object.";
-            }
-
-            if (!(endPoint instanceof Point)) {
-                throw "endPoint is not a lu.Point object.";
-            }
-        }).call(this);
+            generate();
+        }());
     };
-}(lu.Point));
+
+}(jQuery));

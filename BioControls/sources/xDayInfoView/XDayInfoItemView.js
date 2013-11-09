@@ -30,12 +30,17 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
      */
     lu.bioControls.xDayInfoView.XDayInfoItemView = function() {
 
+        var $element = null;
+        var $colorLabel = null;
+        var $colorElement = null;
+        var $labelElement = null;
+        var $separatorElement = null;
+        var $valueElement = null;
+
         // --------------------------------------------------------------------------
         // $element property
         // --------------------------------------------------------------------------
 
-        var $element = null;
-        
         Object.defineProperty(this, "$element", {
             enumerable: true,
             configurable: false,
@@ -47,87 +52,64 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         }
 
         // --------------------------------------------------------------------------
-        // $colorElement property
-        // --------------------------------------------------------------------------
-
-        var $colorElement = null;
-        
-        Object.defineProperty(this, "$colorElement", {
-            enumerable: true,
-            configurable: false,
-            get: getColorElement
-        });
-
-        function getColorElement() {
-            return $colorElement;
-        }
-
-        // --------------------------------------------------------------------------
-        // $labelElement property
-        // --------------------------------------------------------------------------
-
-        var $labelElement = null;
-        
-        Object.defineProperty(this, "$labelElement", {
-            enumerable: true,
-            configurable: false,
-            get: getLabelElement
-        });
-
-        function getLabelElement() {
-            return $labelElement;
-        }
-
-        // --------------------------------------------------------------------------
-        // $valueElement property
-        // --------------------------------------------------------------------------
-
-        var $valueElement = null;
-        
-        Object.defineProperty(this, "$valueElement", {
-            enumerable: true,
-            configurable: false,
-            get: getValueElement
-        });
-
-        function getValueElement() {
-            return $valueElement;
-        }
-
-        // --------------------------------------------------------------------------
         // functions
         // --------------------------------------------------------------------------
 
+        this.show = function() {
+            $element.show();
+        };
+
+        this.hide = function() {
+            $element.hide();
+        };
+
+        this.setValueText = function(text) {
+            $valueElement.text(text);
+        };
+
+        this.setLabelText = function(text) {
+            $labelElement.text(text);
+        };
+
+        this.setColor = function(color) {
+            $colorLabel.css("background-color", color);
+        };
+
+        // --------------------------------------------------------------------------
+        // generate
+        // --------------------------------------------------------------------------
+
         function generate() {
-            $element = $("<div/>");
+            $element = $("<tr/>");
 
             $element.addClass("x-day-item");
 
             generateColorTag();
             generateLabelTag();
+            generateSeparatorTag();
             generateValueTag();
 
             $element.append($colorElement);
             $element.append($labelElement);
-            $element.append(" = ");
+            $element.append($separatorElement);
             $element.append($valueElement);
-
-//            if (!biorhythmShape.isVisible) {
-//                $element.hide();
-//            }
         }
 
         function generateColorTag() {
-            $colorElement = $("<span/>")
-                .addClass("color-label");
+            $colorElement = $("<td/>");
+            $colorLabel = $("<span/>").addClass("color-label").appendTo($colorElement);
         }
 
         function generateLabelTag() {
-            $labelElement = $("<span/>");
+            $labelElement = $("<td/>");
+        }
+
+        function generateSeparatorTag() {
+            $separatorElement = $("<td/>").text(" = ");
         }
 
         function generateValueTag() {
-            $valueElement = $("<span/>");
+            $valueElement = $("<td/>").addClass("x-day-value");
         }
 
         // --------------------------------------------------------------------------

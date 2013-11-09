@@ -14,7 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function($, BiorhythmsAdapter, XDayInfoItem) {
+window.lu = window.lu || {};
+lu.bioControls = lu.bioControls || {};
+lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
+
+(function($, BiorhythmsAdapter, XDayInfoItem, XDayInfoItemView) {
+
     $.widget("lastunicorn.xDayInfoView", {
         options: {
             biorhythms: []
@@ -22,79 +27,35 @@
 
         _create: function() {
             this.element.empty();
-            this._items = [];
 
-            this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
+            var xDayInfoViewerView = new lu.bioControls.xDayInfoView.XDayInfoViewerView();
+            xDayInfoViewerView.$element.appendTo(this.element);
 
-            this._repopulate();
+            this._xDayInfoViewer = new lu.bioControls.xDayInfoView.XDayInfoViewer({
+                view: xDayInfoViewerView,
+                biorhythms: this.options.biorhythms
+            });
         },
 
         _setOption: function(key, value) {
             if (key === "biorhythms") {
-                this._biorhythms.destroy();
-
                 this._super(key, value);
 
-                this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
-
-                this._repopulate();
+                this._xDayInfoViewer.setBiorhythms(this.options.biorhythms);
             }
         },
 
         destroy: function() {
             this.element.empty();
-            this._biorhythms.destroy();
+
+            this._xDayInfoViewer.destroy();
 
             $.Widget.prototype.destroy.call(this);
         },
 
         update: function(xDay) {
-            for ( var i = 0; i < this._items.length; i++) {
-                this._items[i].update(xDay);
-            }
-        },
-
-        _createBiorhythmsAdapter: function(biorhythms) {
-            return new BiorhythmsAdapter({
-                biorhythms: biorhythms,
-                onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
-                onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
-            });
-        },
-
-        _repopulate: function() {
-            this.element.empty();
-            this._items.length = 0;
-
-            var biorhythmsArray = this._biorhythms.toArray();
-
-            for ( var i = 0; i < biorhythmsArray.length; i++) {
-                this._createNewItem(biorhythmsArray[i]);
-            }
-        },
-
-        _onBiorhithmAdded: function(biorhythmShape) {
-            this._createNewItem(biorhythmShape);
-        },
-
-        _onBiorhithmRemoved: function(biorhythmShape) {
-            this._removeItem(biorhythmShape);
-        },
-
-        _createNewItem: function(biorhythm) {
-            var xDayInfoItem = new XDayInfoItem(biorhythm);
-            this._items.push(xDayInfoItem);
-
-            this.element.append(xDayInfoItem.element);
-        },
-
-        _removeItem: function(biorhythm) {
-            for ( var i = 0; i < this._items.length; i++) {
-                if (this._items[i].biorhythmShape === biorhythm) {
-                    this._items.splice(i, 1);
-                    this._items[i].element.remove();
-                }
-            }
+            this._xDayInfoViewer.update(xDay);
         }
     });
-}(jQuery, lu.bioControls.biorhythmModel.BiorhythmsAdapter, lu.bioControls.xDayInfoView.XDayInfoItem));
+
+}(jQuery, lu.bioControls.biorhythmModel.BiorhythmsAdapter, lu.bioControls.xDayInfoView.XDayInfoItem, lu.bioControls.xDayInfoView.XDayInfoItemView));

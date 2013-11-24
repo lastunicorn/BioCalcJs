@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="jQueryCookie" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/libraries/jQueryCookie/jquery.cookie.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libraries/jQueryCookie/jquery.cookie.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<project name="BioCalc" default="main" basedir="../">
-	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="/home/alez/Projects/javascript/ExternalTools/ClosureCompiler/compiler.jar" />
+<project name="BioCalc" default="main" basedir=".">
+	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="${closurecompiler.filepath}" />
 
 	<property name="dir.compiled" value="compiled" />
 

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="jQuery ColorPicker" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/libraries/ColorPicker" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libraries/ColorPicker" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

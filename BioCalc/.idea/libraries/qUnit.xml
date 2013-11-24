@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="qUnit" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/libraries/qUnit/qunit-1.12.0.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libraries/qUnit/qunit-1.12.0.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

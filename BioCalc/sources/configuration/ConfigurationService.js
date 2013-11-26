@@ -53,7 +53,7 @@ lu.bioCalc.configuration.ConfigurationService = (function(ConfigurationLoader) {
     // Functions
     // --------------------------------------------------------------------------
 
-    this.save = function() {
+    obj.save = function() {
         loader.saveInCookies(config);
     };
 

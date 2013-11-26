@@ -64,7 +64,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             view.setBirthdayText(dateAsString);
         }
 
-        function publishBirthday() {
+        function publishBirthday(birthday) {
             suppressBirthdayChanged = true;
             try {
                 bioCalcPageData.birthday = birthday;
@@ -79,39 +79,39 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         function onBirthdayDatePickerSelect() {
-            birthday = view.getBirthday();
+            var birthday = view.getBirthday();
+
+            publishBirthday(birthday);
 
             updateSaveBirthdayButtonVisibility();
             updateResetBirthdayButtonVisibility();
-
-            publishBirthday();
         }
 
         function onResetBirthdayButtonClick(e) {
             e.preventDefault();
             e.stopPropagation();
 
-            birthday = configurationService.config.birthday;
+            var birthday = configurationService.config.birthday;
+
+            publishBirthday(birthday);
 
             updateBirthdayTextBox();
             updateSaveBirthdayButtonVisibility();
             updateResetBirthdayButtonVisibility();
-
-            publishBirthday();
         }
 
         function onSaveBirthdayButtonClick(e) {
             e.preventDefault();
             e.stopPropagation();
 
-            configurationService.config.birthday = birthday;
+            configurationService.config.birthday = bioCalcPageData.birthday;
             configurationService.save();
 
             updateSaveBirthdayButtonVisibility();
             updateResetBirthdayButtonVisibility();
         }
 
-        function onExternalBirthdayChanged(arg) {
+        function onExternalBirthdayChanged() {
             if (suppressBirthdayChanged) {
                 return;
             }

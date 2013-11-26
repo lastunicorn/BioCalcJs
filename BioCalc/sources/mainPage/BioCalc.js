@@ -17,49 +17,54 @@
 /**
  * The main module of the BioCalc home page. It creates the biorhythms to be
  * displayed in the page.
- * 
+ *
  * @param $
  *            The jQuery object.
- * 
+ *
  * @param bioCalcPageData
  *            The service that provides data and communication between different
  *            modules of the page.
- * 
+ *
  * @param configurationService
  *            Keeps the configuration object.
- * 
+ *
  * @param CommonBiorhythmsContainer
  *            Object constructor. Creates and keeps a collection of biorhythms.
  */
-(function BioCalc($, bioCalcPageData, configurationService, CommonBiorhythmsContainer) {
-    
+(function BioCalc($, bioCalcPageData, configurationService, CommonBiorhythmsContainer, modalDialogsAutoCloseModule) {
+
     // --------------------------------------------------------------------------
     // Initializer
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        var biorhythmShapes = new CommonBiorhythmsContainer();
-        biorhythmShapes.setBirthdayOnAll(configurationService.config.birthday);
+        initializeBioCalcPageData();
 
-        bioCalcPageData.biorhythms = biorhythmShapes;
-        bioCalcPageData.birthday = configurationService.config.birthday;
+        $(function () {
+            modalDialogsAutoCloseModule.start();
 
-        $(function() {
-            configureModalDialogs();
+            var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection();
         });
     }());
 
-    function configureModalDialogs() {
-        // Close the modal dialogs when clicking outside of them.
+    function initializeBioCalcPageData() {
+        var biorhythmShapes = createBiorhythmShapes();
 
-        $(document.body).on("click", ".ui-widget-overlay", function() {
-            $.each($(".ui-dialog"), function() {
-                var $dialog = $(this).children(".ui-dialog-content");
-
-                if ($dialog.dialog("option", "modal")) {
-                    $dialog.dialog("close");
-                }
-            });
-        });
+        bioCalcPageData.biorhythms = biorhythmShapes;
+        bioCalcPageData.birthday = configurationService.config.birthday;
     }
-}(jQuery, lu.bioCalc.mainPage.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioControls.biorhythmModel.CommonBiorhythmsContainer));
+
+    function createBiorhythmShapes()
+    {
+        var biorhythmShapes = new CommonBiorhythmsContainer();
+        biorhythmShapes.setBirthdayOnAll(configurationService.config.birthday);
+
+        return biorhythmShapes;
+    }
+}(
+        jQuery,
+        lu.bioCalc.mainPage.BioCalcPageData,
+        lu.bioCalc.configuration.ConfigurationService,
+        lu.bioControls.biorhythmModel.CommonBiorhythmsContainer,
+        lu.bioCalc.ModalDialogsAutoCloseModule
+    ));

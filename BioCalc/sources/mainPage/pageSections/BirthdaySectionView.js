@@ -16,8 +16,8 @@
 
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
-(function($) {
-    lu.bioCalc.mainPage.pageSections.BirthdaySectionView = function(presenter) {
+(function ($) {
+    lu.bioCalc.mainPage.pageSections.BirthdaySectionView = function () {
 
         var $birthdayTextBox = null;
         var $saveBirthdayButton = null;
@@ -25,30 +25,51 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         var $birthdayButtons = null;
 
         // --------------------------------------------------------------------------
+        // presenter property
+        // --------------------------------------------------------------------------
+
+        var presenter = null;
+
+        Object.defineProperty(this, "presenter", {
+            enumerable: true,
+            configurable: false,
+            get: getPresenter,
+            set: setPresenter
+        })
+
+        function getPresenter() {
+            return presenter;
+        }
+
+        function setPresenter(value) {
+            presenter = value;
+        }
+
+        // --------------------------------------------------------------------------
         // GUI helpers
         // --------------------------------------------------------------------------
 
-        this.enableSaveBirthdayButton = function() {
+        this.enableSaveBirthdayButton = function () {
             $saveBirthdayButton.button("option", "disabled", false);
         };
 
-        this.disableSaveBirthdayButton = function() {
+        this.disableSaveBirthdayButton = function () {
             $saveBirthdayButton.button("option", "disabled", true);
         };
 
-        this.enableResetBirthdayButton = function() {
+        this.enableResetBirthdayButton = function () {
             $resetBirthdayButton.button("option", "disabled", false);
         };
 
-        this.disableResetBirthdayButton = function() {
+        this.disableResetBirthdayButton = function () {
             $resetBirthdayButton.button("option", "disabled", true);
         };
 
-        this.setBirthdayText = function(value) {
+        this.setBirthdayText = function (value) {
             $birthdayTextBox.val(value);
         };
 
-        this.getBirthday = function() {
+        this.getBirthday = function () {
             return $birthdayTextBox.datepicker("getDate");
         };
 

@@ -14,138 +14,137 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This module contains the logic of the page section where the user can select
- * the birthday.
- * 
- * @param $
- *            The jQuery object.
- * 
- * @param BirthdaySectionView
- *            The constructor function of the view.
- * 
- * @param bioCalcPageData
- *            The service that provides data and communication between different
- *            modules of the page.
- * 
- * @param configurationService
- *            Keeps the configuration object.
- * 
- * @param dateFormatter
- *            Provides methods to format a data into a string.
- */
-(function BirthdaySection($, BirthdaySectionView, bioCalcPageData, configurationService, dateFormatter) {
+//lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
-    var view = null;
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-    var suppressBirthdayChanged = false;
+(function (viewFactory, bioCalcPageData, configurationService, dateFormatter) {
 
-    // --------------------------------------------------------------------------
-    // Functions - "private"
-    // --------------------------------------------------------------------------
+    /**
+     * This module contains the logic of the page section where the user can select
+     * the birthday.
+     */
+    lu.bioCalc.mainPage.pageSections.BirthdaySection = function () {
 
-    function updateSaveBirthdayButtonVisibility() {
-        var config = configurationService.config;
-        var birthday = bioCalcPageData.birthday;
+        var view = null;
 
-        if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
-            view.disableSaveBirthdayButton();
-        } else {
-            view.enableSaveBirthdayButton();
-        }
-    }
+        var suppressBirthdayChanged = false;
 
-    function updateResetBirthdayButtonVisibility() {
-        var config = configurationService.config;
-        var birthday = bioCalcPageData.birthday;
+        // --------------------------------------------------------------------------
+        // Functions - "private"
+        // --------------------------------------------------------------------------
 
-        if (birthday.getTime() == config.birthday.getTime()) {
-            view.disableResetBirthdayButton();
-        } else {
-            view.enableResetBirthdayButton();
-        }
-    }
+        function updateSaveBirthdayButtonVisibility() {
+            var config = configurationService.config;
+            var birthday = bioCalcPageData.birthday;
 
-    function updateBirthdayTextBox() {
-        var dateAsString = dateFormatter.formatDate(bioCalcPageData.birthday);
-        view.setBirthdayText(dateAsString);
-    }
-
-    function publishBirthday() {
-        suppressBirthdayChanged = true;
-        try {
-            bioCalcPageData.birthday = birthday;
-        }
-        finally {
-            suppressBirthdayChanged = false;
-        }
-    }
-
-    // --------------------------------------------------------------------------
-    // Event Handlers
-    // --------------------------------------------------------------------------
-
-    function onBirthdayDatePickerSelect() {
-        birthday = view.getBirthday();
-
-        updateSaveBirthdayButtonVisibility();
-        updateResetBirthdayButtonVisibility();
-
-        publishBirthday();
-    }
-
-    function onResetBirthdayButtonClick(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        birthday = configurationService.config.birthday;
-
-        updateBirthdayTextBox();
-        updateSaveBirthdayButtonVisibility();
-        updateResetBirthdayButtonVisibility();
-
-        publishBirthday();
-    }
-
-    function onSaveBirthdayButtonClick(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        configurationService.config.birthday = birthday;
-        configurationService.save();
-
-        updateSaveBirthdayButtonVisibility();
-        updateResetBirthdayButtonVisibility();
-    }
-
-    function onExternalBirthdayChanged(arg) {
-        if (suppressBirthdayChanged) {
-            return;
+            if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
+                view.disableSaveBirthdayButton();
+            } else {
+                view.enableSaveBirthdayButton();
+            }
         }
 
-        updateBirthdayTextBox();
-        updateSaveBirthdayButtonVisibility();
-        updateResetBirthdayButtonVisibility();
-    }
+        function updateResetBirthdayButtonVisibility() {
+            var config = configurationService.config;
+            var birthday = bioCalcPageData.birthday;
 
-    // --------------------------------------------------------------------------
-    // Initializer
-    // --------------------------------------------------------------------------
+            if (birthday.getTime() == config.birthday.getTime()) {
+                view.disableResetBirthdayButton();
+            } else {
+                view.enableResetBirthdayButton();
+            }
+        }
 
-    (function initialize() {
-        $(function() {
+        function updateBirthdayTextBox() {
+            var dateAsString = dateFormatter.formatDate(bioCalcPageData.birthday);
+            view.setBirthdayText(dateAsString);
+        }
+
+        function publishBirthday() {
+            suppressBirthdayChanged = true;
+            try {
+                bioCalcPageData.birthday = birthday;
+            }
+            finally {
+                suppressBirthdayChanged = false;
+            }
+        }
+
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
+
+        function onBirthdayDatePickerSelect() {
+            birthday = view.getBirthday();
+
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+
+            publishBirthday();
+        }
+
+        function onResetBirthdayButtonClick(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            birthday = configurationService.config.birthday;
+
+            updateBirthdayTextBox();
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+
+            publishBirthday();
+        }
+
+        function onSaveBirthdayButtonClick(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            configurationService.config.birthday = birthday;
+            configurationService.save();
+
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+        }
+
+        function onExternalBirthdayChanged(arg) {
+            if (suppressBirthdayChanged) {
+                return;
+            }
+
+            updateBirthdayTextBox();
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+        }
+
+        // --------------------------------------------------------------------------
+        // Initializer
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
             var presenter = {
                 onBirthdayDatePickerSelect: onBirthdayDatePickerSelect,
                 onResetBirthdayButtonClick: onResetBirthdayButtonClick,
                 onSaveBirthdayButtonClick: onSaveBirthdayButtonClick
             };
-            view = new BirthdaySectionView(presenter);
+
+            view = viewFactory.create("BirthdaySectionView");
+            view.presenter = presenter;
 
             updateBirthdayTextBox();
             updateResetBirthdayButtonVisibility();
             updateSaveBirthdayButtonVisibility();
-            
+
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
-        });
-    }());
-}(jQuery, lu.bioCalc.mainPage.pageSections.BirthdaySectionView, lu.bioCalc.mainPage.BioCalcPageData, lu.bioCalc.configuration.ConfigurationService, lu.bioCalc.DateFormatter));
+        }());
+    };
+}(
+        lu.bioCalc.mainPage.ViewFactory,
+        lu.bioCalc.mainPage.BioCalcPageData,
+        lu.bioCalc.configuration.ConfigurationService,
+        lu.bioCalc.DateFormatter
+    ));

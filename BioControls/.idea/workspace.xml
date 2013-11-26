@@ -2,37 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6459860d-c72f-4c7e-b682-bef4a2f6308d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/BioCalc.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/alez.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/libraries/jQuery.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/libraries/jQueryCookie.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/libraries/jQuery_ColorPicker.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/libraries/jQuery_UI.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/libraries/qUnit.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BioCalc/.idea/workspace.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../BioCalc/.externalToolBuilders/BioCalc Builder.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../BioCalc/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../BioCalc/.settings/.jsdtscope" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../BioCalc/.settings/org.eclipse.ltk.core.refactoring.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../BioCalc/.settings/org.eclipse.wst.jsdt.ui.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../BioCalc/.settings/org.eclipse.wst.jsdt.ui.superType.container" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../BioCalc/.settings/org.eclipse.wst.jsdt.ui.superType.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../BioCalc/.settings/org.eclipse.wst.xsl.core.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.externalToolBuilders/BioControls Builder.launch" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.settings/.jsdtscope" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.settings/org.eclipse.ltk.core.refactoring.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.superType.container" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.superType.name" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BioCalc/ant/antbuild.xml" afterPath="$PROJECT_DIR$/../BioCalc/ant/antbuild.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ant/antbuild.xml" afterPath="$PROJECT_DIR$/ant/antbuild.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BioCalc/build/antbuild.xml" afterPath="$PROJECT_DIR$/../BioCalc/build/antbuild.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/antbuild.xml" afterPath="$PROJECT_DIR$/build/antbuild.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BioCalc/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../BioCalc/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BioControls.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,9 +29,9 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="antbuild.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ant/antbuild.xml">
+        <entry file="file://$PROJECT_DIR$/build/antbuild.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="0" selection-start="530" selection-end="530" vertical-scroll-proportion="0.38162544" vertical-offset="0" max-vertical-offset="2610">
+            <state line="16" column="32" selection-start="607" selection-end="607" vertical-scroll-proportion="0.50883394" vertical-offset="0" max-vertical-offset="2610">
               <folding />
             </state>
           </provider>
@@ -83,6 +56,7 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/ant/antbuild.xml" />
+        <option value="$PROJECT_DIR$/build/antbuild.xml" />
       </list>
     </option>
   </component>
@@ -137,34 +111,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BioControls" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BioControls" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compiled" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BioControls" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BioControls" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -172,7 +118,7 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="options.lastSelected" value="preferences.externalTools" />
+    <property name="options.lastSelected" value="File.Encoding" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../BioCalc" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -187,6 +133,11 @@
         </serverdata>
       </server>
     </servers>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/build" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
@@ -251,22 +202,28 @@
       <created>1385309264528</created>
       <updated>1385309264528</updated>
     </task>
+    <task id="LOCAL-00001" summary="i renamed the ant directory to build.">
+      <created>1385311068419</created>
+      <updated>1385311068419</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-4" width="1617" height="1055" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19566603" sideWeight="0.6703418" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19566603" sideWeight="0.6703418" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3296582" sideWeight="0.804334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.804334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -284,21 +241,16 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="i renamed the ant directory to build." />
+    <option name="LAST_COMMIT_MESSAGE" value="i renamed the ant directory to build." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/compiled/BiorhythmControls.js">
+    <entry file="file://$PROJECT_DIR$/build/antbuild.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="32" selection-start="552" selection-end="552" vertical-scroll-proportion="0.41342756" vertical-offset="0" max-vertical-offset="39528">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ant/antbuild.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="530" selection-end="530" vertical-scroll-proportion="0.38162544" vertical-offset="0" max-vertical-offset="2610">
+        <state line="16" column="32" selection-start="607" selection-end="607" vertical-scroll-proportion="0.50883394" vertical-offset="0" max-vertical-offset="2610">
           <folding />
         </state>
       </provider>

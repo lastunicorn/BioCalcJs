@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<project name="BioCalc" default="main" basedir="../">
-	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="/home/alez/Projects/javascript/ExternalTools/ClosureCompiler/compiler.jar" />
+<project name="BioCalc" default="main">
+	<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask" classpath="../../ExternalTools/ClosureCompiler/compiler.jar" />
 
 	<property name="dir.compiled" value="compiled" />
 
@@ -95,28 +95,39 @@
 
 			<sources dir="${basedir}/sources/mainPage">
 				<file name="BioCalcPageData.js" />
+                <file name="ModalDialogsAutoCloseModule.js" />
 				<file name="BioCalc.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/mainPage/dialogs">
 				<file name="AboutDialogView.js" />
-				<file name="AboutDialog.js" />
 				<file name="HelpDialogView.js" />
-				<file name="HelpDialog.js" />
 				<file name="OptionsDialogView.js" />
-				<file name="OptionsDialog.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/mainPage/pageSections">
 				<file name="BirthdaySectionView.js" />
-				<file name="BirthdaySection.js" />
 				<file name="MainToolbarView.js" />
-				<file name="MainToolbar.js" />
 				<file name="XDaySectionView.js" />
-				<file name="XDaySection.js" />
 				<file name="ChartsSectionView.js" />
-				<file name="ChartsSection.js" />
 			</sources>
+
+            <sources dir="${basedir}/sources/mainPage">
+                <file name="ViewFactory.js" />
+            </sources>
+
+            <sources dir="${basedir}/sources/mainPage/dialogs">
+                <file name="AboutDialog.js" />
+                <file name="HelpDialog.js" />
+                <file name="OptionsDialog.js" />
+            </sources>
+
+            <sources dir="${basedir}/sources/mainPage/pageSections">
+                <file name="BirthdaySection.js" />
+                <file name="MainToolbar.js" />
+                <file name="XDaySection.js" />
+                <file name="ChartsSection.js" />
+            </sources>
 
 		</jscomp>
 	</target>

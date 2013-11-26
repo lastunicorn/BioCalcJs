@@ -16,95 +16,95 @@
 
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
 
-/**
- * The service that provides data and communication between different modules of
- * the page.
- * 
- * @param Event
- *            Object constructor. Keeps a list of functions and calls them one
- *            by one when the event is raised.
- * 
- * @returns {lu.bioCalc.mainPage.BioCalcPageData}
- */
-lu.bioCalc.mainPage.BioCalcPageData = (function(Event) {
+(function (Event) {
 
-    var obj = {};
+    /**
+     * The service that provides data and communication between different modules of
+     * the page.
+     *
+     * @returns {lu.bioCalc.mainPage.BioCalcPageData}
+     */
+    lu.bioCalc.mainPage.BioCalcPageData = (function () {
 
-    // --------------------------------------------------------------------------
-    // birthday property
-    // --------------------------------------------------------------------------
+        var obj = {};
 
-    var birthday = null;
-    var birthdayChangedEvent = new Event();
-    obj.birthdayChanged = birthdayChangedEvent.client;
+        // --------------------------------------------------------------------------
+        // birthday property
+        // --------------------------------------------------------------------------
 
-    Object.defineProperty(obj, "birthday", {
-        enumerable: true,
-        configurable: false,
-        get: getBirthday,
-        set: setBirthday
-    });
+        var birthday = null;
+        var birthdayChangedEvent = new Event();
+        obj.birthdayChanged = birthdayChangedEvent.client;
 
-    function getBirthday() {
-        return birthday;
-    }
+        Object.defineProperty(obj, "birthday", {
+            enumerable: true,
+            configurable: false,
+            get: getBirthday,
+            set: setBirthday
+        });
 
-    function setBirthday(value) {
-        birthday = value;
-        birthdayChangedEvent.raise(this, value);
-    }
+        function getBirthday() {
+            return birthday;
+        }
 
-    // --------------------------------------------------------------------------
-    // xDay property
-    // --------------------------------------------------------------------------
+        function setBirthday(value) {
+            birthday = value;
+            birthdayChangedEvent.raise(this, value);
+        }
 
-    var xDay = null;
-    var xDayChangedEvent = new Event();
-    obj.xDayChanged = xDayChangedEvent.client;
+        // --------------------------------------------------------------------------
+        // xDay property
+        // --------------------------------------------------------------------------
 
-    Object.defineProperty(obj, "xDay", {
-        enumerable: true,
-        configurable: false,
-        get: getXDay,
-        set: setXDay
-    });
+        var xDay = null;
+        var xDayChangedEvent = new Event();
+        obj.xDayChanged = xDayChangedEvent.client;
 
-    function getXDay() {
-        return xDay;
-    }
+        Object.defineProperty(obj, "xDay", {
+            enumerable: true,
+            configurable: false,
+            get: getXDay,
+            set: setXDay
+        });
 
-    function setXDay(value) {
-        xDay = value;
-        xDayChangedEvent.raise(this, value);
-    }
+        function getXDay() {
+            return xDay;
+        }
 
-    // --------------------------------------------------------------------------
-    // biorhythms property
-    // --------------------------------------------------------------------------
+        function setXDay(value) {
+            xDay = value;
+            xDayChangedEvent.raise(this, value);
+        }
 
-    var biorhythms = null;
-    var biorhythmsChangedEvent = new Event();
-    obj.biorhythmsChanged = biorhythmsChangedEvent.client;
+        // --------------------------------------------------------------------------
+        // biorhythms property
+        // --------------------------------------------------------------------------
 
-    Object.defineProperty(obj, "biorhythms", {
-        enumerable: true,
-        configurable: false,
-        get: getBiorhythms,
-        set: setBiorhythms
-    });
+        var biorhythms = null;
+        var biorhythmsChangedEvent = new Event();
+        obj.biorhythmsChanged = biorhythmsChangedEvent.client;
 
-    function getBiorhythms() {
-        return biorhythms;
-    }
+        Object.defineProperty(obj, "biorhythms", {
+            enumerable: true,
+            configurable: false,
+            get: getBiorhythms,
+            set: setBiorhythms
+        });
 
-    function setBiorhythms(value) {
-        biorhythms = value;
-        biorhythmsChangedEvent.raise(this, value);
-    }
+        function getBiorhythms() {
+            return biorhythms;
+        }
 
-    // --------------------------------------------------------------------------
-    // Return
-    // --------------------------------------------------------------------------
+        function setBiorhythms(value) {
+            biorhythms = value;
+            biorhythmsChangedEvent.raise(this, value);
+        }
 
-    return obj;
+        // --------------------------------------------------------------------------
+        // Return
+        // --------------------------------------------------------------------------
+
+        return obj;
+    }());
+
 }(lu.Event));

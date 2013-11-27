@@ -14,58 +14,50 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Contains the logic of the main tool bar.
- * 
- * @param $
- *            The jQuery object.
- * 
- * @param MainToolbarView
- *            The constructor function of the view.
- * 
- * @param helpDialog
- *            Represents the Help popup.
- * 
- * @param aboutDialog
- *            Represents the About popup.
- * 
- * @param optionsDialog
- *            Represents the Options popup.
- * 
- * @returns {lu.bioCalc.MainToolbar}
- */
-(function MainToolbar($, MainToolbarView, helpDialog, aboutDialog, optionsDialog) {
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-    var view = null;
+(function (viewFactory) {
 
-    // --------------------------------------------------------------------------
-    // Event Handlers
-    // --------------------------------------------------------------------------
+    /**
+     * Contains the logic of the main tool bar.
+     */
+    lu.bioCalc.mainPage.pageSections.MainToolbar = function (helpDialog, aboutDialog, optionsDialog) {
 
-    function onHelpButtonClick() {
-        helpDialog.show();
-    }
+        var view = null;
 
-    function onAboutButtonClick() {
-        aboutDialog.show();
-    }
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
 
-    function onOptionsButtonClick() {
-        optionsDialog.show();
-    }
+        function onHelpButtonClick() {
+            helpDialog.show();
+        }
 
-    // --------------------------------------------------------------------------
-    // Initialization
-    // --------------------------------------------------------------------------
+        function onAboutButtonClick() {
+            aboutDialog.show();
+        }
 
-    (function initialize() {
-        $(function() {
+        function onOptionsButtonClick() {
+            optionsDialog.show();
+        }
+
+        // --------------------------------------------------------------------------
+        // Initialization
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
             var presenter = {
                 onHelpButtonClick: onHelpButtonClick,
                 onAboutButtonClick: onAboutButtonClick,
                 onOptionsButtonClick: onOptionsButtonClick
             };
-            view = new MainToolbarView(presenter);
-        });
-    }());
-}(jQuery, lu.bioCalc.mainPage.pageSections.MainToolbarView, lu.bioCalc.mainPage.dialogs.HelpDialog, lu.bioCalc.mainPage.dialogs.AboutDialog, lu.bioCalc.mainPage.dialogs.OptionsDialog));
+
+            view = viewFactory.create("MainToolbarView");
+            view.presenter = presenter;
+        }());
+    };
+
+}(lu.bioCalc.mainPage.ViewFactory));

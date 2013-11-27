@@ -17,13 +17,35 @@
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
 (function($) {
-    lu.bioCalc.mainPage.dialogs.OptionsDialogView = function(presenter) {
+
+    lu.bioCalc.mainPage.dialogs.OptionsDialogView = function() {
 
         var $optionsDialog = null;
         var $primaryBiorhythmsCheckbox = null;
         var $secondaryBiorhythmsCheckbox = null;
         var $extraBiorhythmsCheckbox = null;
         var $iChingBiorhythmsCheckbox = null;
+
+        // --------------------------------------------------------------------------
+        // presenter property
+        // --------------------------------------------------------------------------
+
+        var presenter = null;
+
+        Object.defineProperty(this, "presenter", {
+            enumerable: true,
+            configurable: false,
+            get: getPresenter,
+            set: setPresenter
+        })
+
+        function getPresenter() {
+            return presenter;
+        }
+
+        function setPresenter(value) {
+            presenter = value;
+        }
 
         // --------------------------------------------------------------------------
         // Functions - "public"
@@ -150,6 +172,6 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
             $extraBiorhythmsCheckbox.change(onExtraCheckboxChange);
             $iChingBiorhythmsCheckbox.change(onIChingCheckboxChange);
         }
-
     };
-}(jQuery, lu.bioCalc.mainPage.BioCalcPageData));
+
+}(jQuery));

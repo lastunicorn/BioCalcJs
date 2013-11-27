@@ -17,10 +17,32 @@
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
 (function($) {
-    lu.bioCalc.mainPage.dialogs.HelpDialogView = function(presenter) {
+
+    lu.bioCalc.mainPage.dialogs.HelpDialogView = function() {
 
         var $helpDialog = null;
         var $helpDialogTabSet = null;
+
+        // --------------------------------------------------------------------------
+        // presenter property
+        // --------------------------------------------------------------------------
+
+        var presenter = null;
+
+        Object.defineProperty(this, "presenter", {
+            enumerable: true,
+            configurable: false,
+            get: getPresenter,
+            set: setPresenter
+        })
+
+        function getPresenter() {
+            return presenter;
+        }
+
+        function setPresenter(value) {
+            presenter = value;
+        }
 
         // --------------------------------------------------------------------------
         // Functions - "public"
@@ -80,4 +102,5 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
             $helpDialogTabSet.tabs();
         }
     };
+
 }(jQuery));

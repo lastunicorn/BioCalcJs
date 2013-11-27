@@ -14,54 +14,50 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
+//lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
-/**
- * Contains the logic of the Help dialog.
- * 
- * @param $
- *            The jQuery object.
- * 
- * @param HelpDialogView
- *            The constructor function of the view.
- * 
- * @returns {lu.bioCalc.mainPage.dialogs.HelpDialog}
- */
-lu.bioCalc.mainPage.dialogs.HelpDialog = (function($, HelpDialogView) {
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
 
-    var view = null;
+(function (viewFactory) {
 
-    // --------------------------------------------------------------------------
-    // Functions - "public"
-    // --------------------------------------------------------------------------
+    /**
+     * Contains the logic of the Help dialog.
+     */
+    lu.bioCalc.mainPage.dialogs.HelpDialog = function () {
 
-    function show() {
-        view.show();
-    }
+        var view = null;
 
-    // --------------------------------------------------------------------------
-    // Event Handlers
-    // --------------------------------------------------------------------------
+        // --------------------------------------------------------------------------
+        // Functions - "public"
+        // --------------------------------------------------------------------------
 
-    function onHelpDialogCloseClicked() {
-        view.close();
-    }
+        this.show = function () {
+            view.show();
+        };
 
-    // --------------------------------------------------------------------------
-    // Initializer
-    // --------------------------------------------------------------------------
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
 
-    (function initialize() {
-        $(function() {
+        function onHelpDialogCloseClicked() {
+            view.close();
+        }
+
+        // --------------------------------------------------------------------------
+        // Initializer
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
             var presenter = {
                 onCloseButtonClicked: onHelpDialogCloseClicked
             };
 
-            view = new HelpDialogView(presenter);
-        });
-    }());
-
-    return {
-        show: show
+            view = viewFactory.create("HelpDialogView");
+            view.presenter = presenter;
+        }());
     };
-}(jQuery, lu.bioCalc.mainPage.dialogs.HelpDialogView));
+
+}(lu.bioCalc.mainPage.ViewFactory));

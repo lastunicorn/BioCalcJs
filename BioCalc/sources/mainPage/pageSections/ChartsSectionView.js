@@ -17,6 +17,7 @@
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
 (function($) {
+
     lu.bioCalc.mainPage.pageSections.ChartsSectionView = function() {
 
         var $biorhythmViewContainer = null;
@@ -80,6 +81,31 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         });
 
         // --------------------------------------------------------------------------
+        // presenter property
+        // --------------------------------------------------------------------------
+
+        var presenter = null;
+
+        Object.defineProperty(this, "presenter", {
+            enumerable: true,
+            configurable: false,
+            get: getPresenter,
+            set: setPresenter
+        })
+
+        function getPresenter() {
+            return presenter;
+        }
+
+        function setPresenter(value) {
+            presenter = value;
+        }
+
+        // --------------------------------------------------------------------------
+        // Events
+        // --------------------------------------------------------------------------
+
+        // --------------------------------------------------------------------------
         // Initializer
         // --------------------------------------------------------------------------
 
@@ -123,4 +149,5 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
             $bioLegend.biorhythmLegend();
         }
     };
+
 }(jQuery));

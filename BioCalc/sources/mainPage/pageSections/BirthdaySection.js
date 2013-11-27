@@ -135,13 +135,14 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             view = viewFactory.create("BirthdaySectionView");
             view.presenter = presenter;
 
+            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
+
             updateBirthdayTextBox();
             updateResetBirthdayButtonVisibility();
             updateSaveBirthdayButtonVisibility();
-
-            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
         }());
     };
+
 }(
         lu.bioCalc.mainPage.ViewFactory,
         lu.bioCalc.mainPage.BioCalcPageData,

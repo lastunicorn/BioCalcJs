@@ -43,7 +43,14 @@
         $(function () {
             modalDialogsAutoCloseModule.start();
 
+            var helpDialog = new lu.bioCalc.mainPage.dialogs.HelpDialog();
+            var aboutDialog = new lu.bioCalc.mainPage.dialogs.AboutDialog();
+            var optionsDialog = new lu.bioCalc.mainPage.dialogs.OptionsDialog();
+            var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(helpDialog, aboutDialog, optionsDialog);
+
+            var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection();
             var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection();
+            var xDaySection = new lu.bioCalc.mainPage.pageSections.XDaySection();
         });
     }());
 
@@ -54,8 +61,7 @@
         bioCalcPageData.birthday = configurationService.config.birthday;
     }
 
-    function createBiorhythmShapes()
-    {
+    function createBiorhythmShapes() {
         var biorhythmShapes = new CommonBiorhythmsContainer();
         biorhythmShapes.setBirthdayOnAll(configurationService.config.birthday);
 

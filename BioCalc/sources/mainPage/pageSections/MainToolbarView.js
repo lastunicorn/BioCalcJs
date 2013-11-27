@@ -17,12 +17,34 @@
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
 (function($) {
-    lu.bioCalc.mainPage.pageSections.MainToolbarView = function(presenter) {
+
+    lu.bioCalc.mainPage.pageSections.MainToolbarView = function() {
 
         var $mainToolbar = null;
         var $helpButton = null;
         var $aboutButton = null;
         var $optionsButton = null;
+
+        // --------------------------------------------------------------------------
+        // presenter property
+        // --------------------------------------------------------------------------
+
+        var presenter = null;
+
+        Object.defineProperty(this, "presenter", {
+            enumerable: true,
+            configurable: false,
+            get: getPresenter,
+            set: setPresenter
+        })
+
+        function getPresenter() {
+            return presenter;
+        }
+
+        function setPresenter(value) {
+            presenter = value;
+        }
 
         // --------------------------------------------------------------------------
         // Event handlers
@@ -89,4 +111,5 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
             $optionsButton.click(onOptionsButtonClick);
         }
     };
+
 }(jQuery));

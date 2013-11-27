@@ -17,6 +17,7 @@
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
 (function ($) {
+
     lu.bioCalc.mainPage.pageSections.BirthdaySectionView = function () {
 
         var $birthdayTextBox = null;
@@ -141,4 +142,5 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
             $birthdayButtons.buttonset();
         }
     };
+
 }(jQuery));

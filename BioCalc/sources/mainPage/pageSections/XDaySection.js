@@ -14,54 +14,62 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This module contains the logic of the page section where the user can see
- * details about the X day.
- * 
- * @param $
- *            The jQuery object.
- * 
- * @param XDaySectionView
- *            The constructor function of the view.
- * 
- * @param bioCalcPageData
- *            The service that provides data and communication between different
- *            modules of the page.
- * 
- * @param dateFormatter
- *            Provides methods to format a data into a string.
- */
-(function XDaySection($, XDaySectionView, bioCalcPageData, dateFormatter) {
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-    var view = null;
+(function (viewFactory, bioCalcPageData, dateFormatter) {
 
-    // --------------------------------------------------------------------------
-    // Event Handlers
-    // --------------------------------------------------------------------------
+    /**
+     * This module contains the logic of the page section where the user can see
+     * details about the X day.
+     */
+    lu.bioCalc.mainPage.pageSections.XDaySection = function () {
 
-    function onExternalXDayChanged(arg) {
-        var title = dateFormatter.formatDate(arg);
-        view.setTitle(title);
+        var view = null;
 
-        view.setXDay(arg);
-    }
+        // --------------------------------------------------------------------------
+        // Functions - "private"
+        // --------------------------------------------------------------------------
 
-    function onExternalBiorhythmsChanged(arg) {
-        view.setBiorhythms(arg);
-    }
+        function updateDisplayedXDay(xDay) {
+            var title = dateFormatter.formatDate(xDay);
+            view.setTitle(title);
 
-    // --------------------------------------------------------------------------
-    // Initializer
-    // --------------------------------------------------------------------------
+            view.setXDay(xDay);
+        }
 
-    (function initialize() {
-        $(function() {
-            view = new XDaySectionView();
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
+
+        function onExternalXDayChanged(arg) {
+            updateDisplayedXDay(arg);
+        }
+
+        function onExternalBiorhythmsChanged(arg) {
+            view.setBiorhythms(arg);
+        }
+
+        // --------------------------------------------------------------------------
+        // Initializer
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
+            view = viewFactory.create("XDaySectionView");
 
             view.setBiorhythms(bioCalcPageData.biorhythms);
 
             bioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
-        });
-    }());
-}(jQuery, lu.bioCalc.mainPage.pageSections.XDaySectionView, lu.bioCalc.mainPage.BioCalcPageData, lu.bioCalc.DateFormatter));
+
+            updateDisplayedXDay(bioCalcPageData.xDay);
+        }());
+    };
+
+}(
+        lu.bioCalc.mainPage.ViewFactory,
+        lu.bioCalc.mainPage.BioCalcPageData,
+        lu.bioCalc.DateFormatter
+    ));

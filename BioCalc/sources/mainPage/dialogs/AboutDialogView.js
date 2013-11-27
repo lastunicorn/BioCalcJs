@@ -16,8 +16,9 @@
 
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
-(function($) {
-    lu.bioCalc.mainPage.dialogs.AboutDialogView = function(presenter) {
+(function ($) {
+
+    lu.bioCalc.mainPage.dialogs.AboutDialogView = function () {
 
         var $aboutDialog = null;
         var $aboutDialogTabSet = null;
@@ -27,30 +28,51 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
         var $bioCalcVersionLabel = null;
 
         // --------------------------------------------------------------------------
+        // presenter property
+        // --------------------------------------------------------------------------
+
+        var presenter = null;
+
+        Object.defineProperty(this, "presenter", {
+            enumerable: true,
+            configurable: false,
+            get: getPresenter,
+            set: setPresenter
+        })
+
+        function getPresenter() {
+            return presenter;
+        }
+
+        function setPresenter(value) {
+            presenter = value;
+        }
+
+        // --------------------------------------------------------------------------
         // Functions - "public"
         // --------------------------------------------------------------------------
 
-        this.show = function() {
+        this.show = function () {
             $aboutDialog.dialog("open");
         };
 
-        this.close = function() {
+        this.close = function () {
             $aboutDialog.dialog("close");
         };
 
-        this.setJQueryVersionText = function(value) {
+        this.setJQueryVersionText = function (value) {
             $jQueryVersionLabel.html(value);
         };
 
-        this.setJQueryUIVersionText = function(value) {
+        this.setJQueryUIVersionText = function (value) {
             $jQueryUIVersionLabel.html(value);
         };
 
-        this.setBioControlsVersionText = function(value) {
+        this.setBioControlsVersionText = function (value) {
             $bioControlsVersionLabel.html(value);
         };
 
-        this.setBioCalcVersionText = function(value) {
+        this.setBioCalcVersionText = function (value) {
             $bioCalcVersionLabel.html(value);
         };
 
@@ -104,4 +126,5 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
             $aboutDialogTabSet.tabs();
         }
     };
+
 }(jQuery));

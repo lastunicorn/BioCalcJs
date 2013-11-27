@@ -17,6 +17,7 @@
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
 (function($) {
+
     lu.bioCalc.mainPage.pageSections.XDaySectionView = function() {
 
         var $xDayValueLabel = null;
@@ -56,4 +57,5 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
             $xDayInfoContainer.xDayInfoView();
         }
     };
+
 }(jQuery));

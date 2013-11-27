@@ -14,65 +14,60 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
+//lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
-/**
- * Contains the logic of the About dialog.
- * 
- * @param $
- *            The jQuery object.
- * 
- * @param AboutDialogView
- *            The constructor function of the view.
- * 
- * @param bioControlsVersion
- *            The version of the BioControls package.
- * 
- * @param bioCalcVersion
- *            The version of the current application.
- * 
- * @returns {lu.bioCalc.mainPage.dialogs.AboutDialog}
- */
-lu.bioCalc.mainPage.dialogs.AboutDialog = (function($, AboutDialogView, bioControlsVersion, bioCalcVersion) {
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
 
-    var view = null;
+(function ($, viewFactory, bioControlsVersion, bioCalcVersion) {
 
-    // --------------------------------------------------------------------------
-    // Functions - "public"
-    // --------------------------------------------------------------------------
+    /**
+     * Contains the logic of the About dialog.
+     */
+    lu.bioCalc.mainPage.dialogs.AboutDialog = function () {
 
-    function show() {
-        view.show();
-    }
+        var view = null;
 
-    // --------------------------------------------------------------------------
-    // Event Handlers
-    // --------------------------------------------------------------------------
+        // --------------------------------------------------------------------------
+        // Functions - "public"
+        // --------------------------------------------------------------------------
 
-    function onAboutDialogCloseClicked() {
-        view.close();
-    }
+        this.show = function () {
+            view.show();
+        };
 
-    // --------------------------------------------------------------------------
-    // Initializer
-    // --------------------------------------------------------------------------
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
 
-    (function initialize() {
-        $(function() {
+        function onAboutDialogCloseClicked() {
+            view.close();
+        }
+
+        // --------------------------------------------------------------------------
+        // Initializer
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
             var presenter = {
                 onCloseButtonClicked: onAboutDialogCloseClicked
             };
 
-            view = new AboutDialogView(presenter);
+            view = viewFactory.create("AboutDialogView");
+            view.presenter = presenter;
 
             view.setJQueryVersionText($.fn.jquery);
             view.setJQueryUIVersionText($.ui.version);
             view.setBioControlsVersionText(bioControlsVersion);
             view.setBioCalcVersionText("ver " + bioCalcVersion);
-        });
-    }());
-
-    return {
-        show: show
+        }());
     };
-}(jQuery, lu.bioCalc.mainPage.dialogs.AboutDialogView, lu.bioControls.version, lu.bioCalc.version));
+
+}(
+        jQuery,
+        lu.bioCalc.mainPage.ViewFactory,
+        lu.bioControls.version,
+        lu.bioCalc.version
+    ));

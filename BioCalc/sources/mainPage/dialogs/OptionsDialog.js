@@ -14,88 +14,82 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
+//lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
-/**
- * Contains the logic of the Options dialog.
- * 
- * @param $
- *            The jQuery object.
- * 
- * @param OptionsDialogView
- *            The constructor function of the view.
- * 
- * @param bioCalcPageData
- *            The service that provides data and communication between different
- *            modules of the page.
- * 
- * @returns {lu.bioCalc.mainPage.dialogs.OptionsDialog}
- */
-lu.bioCalc.mainPage.dialogs.OptionsDialog = (function($, OptionsDialogView, bioCalcPageData) {
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
 
-    var view = null;
-    var biorhythmShapes = null;
+(function (viewFactory, bioCalcPageData) {
 
-    // --------------------------------------------------------------------------
-    // Functions - "public"
-    // --------------------------------------------------------------------------
+    /**
+     * Contains the logic of the Options dialog.
+     */
+    lu.bioCalc.mainPage.dialogs.OptionsDialog = function () {
 
-    function show() {
-        view.show();
-    }
+        var view = null;
+        var biorhythmShapes = null;
 
-    // --------------------------------------------------------------------------
-    // Event Handlers
-    // --------------------------------------------------------------------------
+        // --------------------------------------------------------------------------
+        // Functions - "public"
+        // --------------------------------------------------------------------------
 
-    function onOptionsDialogCloseClicked() {
-        view.close();
-    }
+        this.show = function () {
+            view.show();
+        };
 
-    function onOptionsDialogOpen() {
-        var isAnyPrimaryVisible = biorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
-        view.checkPrimaryBiorhythmsCheckbox(isAnyPrimaryVisible);
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
 
-        var isAnySecondaryVisible = biorhythmShapes.secondaryBiorhythmShapes.isAnyVisible();
-        view.checkSecondaryBiorhythmsCheckbox(isAnySecondaryVisible);
+        function onOptionsDialogCloseClicked() {
+            view.close();
+        }
 
-        var isAnyExtraVisible = biorhythmShapes.extraBiorhythmShapes.isAnyVisible();
-        view.checkExtraBiorhythmsCheckbox(isAnyExtraVisible);
+        function onOptionsDialogOpen() {
+            var isAnyPrimaryVisible = biorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
+            view.checkPrimaryBiorhythmsCheckbox(isAnyPrimaryVisible);
 
-        var isAnyIChingVisible = biorhythmShapes.iChingBiorhythmShapes.isAnyVisible();
-        view.checkIChingBiorhythmsCheckbox(isAnyIChingVisible);
-    }
+            var isAnySecondaryVisible = biorhythmShapes.secondaryBiorhythmShapes.isAnyVisible();
+            view.checkSecondaryBiorhythmsCheckbox(isAnySecondaryVisible);
 
-    function onPrimaryCheckboxChange() {
-        var isChecked = view.isCheckedPrimaryBiorhythmsCheckbox();
-        biorhythmShapes.primaryBiorhythmShapes.showAll(isChecked);
-    }
+            var isAnyExtraVisible = biorhythmShapes.extraBiorhythmShapes.isAnyVisible();
+            view.checkExtraBiorhythmsCheckbox(isAnyExtraVisible);
 
-    function onSecondaryCheckboxChange() {
-        var isChecked = view.isCheckedSecondaryBiorhythmsCheckbox();
-        biorhythmShapes.secondaryBiorhythmShapes.showAll(isChecked);
-    }
+            var isAnyIChingVisible = biorhythmShapes.iChingBiorhythmShapes.isAnyVisible();
+            view.checkIChingBiorhythmsCheckbox(isAnyIChingVisible);
+        }
 
-    function onExtraCheckboxChange() {
-        var isChecked = view.isCheckedExtraBiorhythmsCheckbox();
-        biorhythmShapes.extraBiorhythmShapes.showAll(isChecked);
-    }
+        function onPrimaryCheckboxChange() {
+            var isChecked = view.isCheckedPrimaryBiorhythmsCheckbox();
+            biorhythmShapes.primaryBiorhythmShapes.showAll(isChecked);
+        }
 
-    function onIChingCheckboxChange() {
-        var isChecked = view.isCheckedIChingBiorhythmsCheckbox();
-        biorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
-    }
+        function onSecondaryCheckboxChange() {
+            var isChecked = view.isCheckedSecondaryBiorhythmsCheckbox();
+            biorhythmShapes.secondaryBiorhythmShapes.showAll(isChecked);
+        }
 
-    function onExternalBiorhythmsChanged(arg) {
-        biorhythmShapes = arg;
-    }
+        function onExtraCheckboxChange() {
+            var isChecked = view.isCheckedExtraBiorhythmsCheckbox();
+            biorhythmShapes.extraBiorhythmShapes.showAll(isChecked);
+        }
 
-    // --------------------------------------------------------------------------
-    // Initializer
-    // --------------------------------------------------------------------------
+        function onIChingCheckboxChange() {
+            var isChecked = view.isCheckedIChingBiorhythmsCheckbox();
+            biorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
+        }
 
-    (function initialize() {
-        $(function() {
+        function onExternalBiorhythmsChanged(arg) {
+            biorhythmShapes = arg;
+        }
+
+        // --------------------------------------------------------------------------
+        // Initializer
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
             var presenter = {
                 onCloseButtonClicked: onOptionsDialogCloseClicked,
                 onOptionsDialogOpen: onOptionsDialogOpen,
@@ -105,14 +99,15 @@ lu.bioCalc.mainPage.dialogs.OptionsDialog = (function($, OptionsDialogView, bioC
                 onIChingCheckboxChange: onIChingCheckboxChange
             };
 
-            view = new OptionsDialogView(presenter);
+            view = viewFactory.create("OptionsDialogView");
+            view.presenter = presenter;
 
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
             biorhythmShapes = bioCalcPageData.biorhythms;
-        });
-    }());
-
-    return {
-        show: show
+        }());
     };
-}(jQuery, lu.bioCalc.mainPage.dialogs.OptionsDialogView, lu.bioCalc.mainPage.BioCalcPageData));
+
+}(
+        lu.bioCalc.mainPage.ViewFactory,
+        lu.bioCalc.mainPage.BioCalcPageData
+    ));

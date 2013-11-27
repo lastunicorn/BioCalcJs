@@ -14,169 +14,160 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This module contains the logic of the page section that displays the
- * biorhythm charts.
- * 
- * @param $
- *            The jQuery object.
- * 
- * @param ChartsSectionView
- *            The constructor function of the view.
- * 
- * @param bioCalcPageData
- *            The service that provides data and communication between different
- *            modules of the page.
- * 
- * @param dateFormatter
- *            Provides methods to format a data into a string.
- * 
- * @param dateUtil
- *            provides utility methods to manipulate a Date.
- */
-(function ChartsSection($, ChartsSectionView, bioCalcPageData, dateFormatter, dateUtil) {
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-    var view;
+(function ($, viewFactory, bioCalcPageData, dateFormatter, dateUtil) {
 
-    // --------------------------------------------------------------------------
-    // Functions - "private"
-    // --------------------------------------------------------------------------
+    /**
+     * This module contains the logic of the page section that displays the
+     * biorhythm charts.
+     */
+    lu.bioCalc.mainPage.pageSections.ChartsSection = function () {
 
-    function publishCurrentXDay() {
-        var xDay = view.$biorhythmViewContainer.biorhythmView("getXDay");
-        bioCalcPageData.xDay = xDay;
-    }
+        var view;
 
-    function setFirstDayLabel(date) {
-        var firstDayAsText = dateFormatter.formatDate(date);
-        view.$firstDayTextBox.val(firstDayAsText);
-        view.$firstDayLabel.html("<< " + firstDayAsText);
-    }
+        // --------------------------------------------------------------------------
+        // Functions - "private"
+        // --------------------------------------------------------------------------
 
-    function setLastDayLabel(date) {
-        var lastDayAsText = dateFormatter.formatDate(date);
-        view.$lastDayTextBox.val(lastDayAsText);
-        view.$lastDayLabel.html(lastDayAsText + " >>");
-    }
-
-    function setFirstDayToCharts(date) {
-        view.$biorhythmViewContainer.biorhythmView("option", "firstDay", date);
-    }
-    
-    function setBiorhythms(biorhythms)
-    {
-        view.$biorhythmViewContainer.biorhythmView("option", "biorhythms", biorhythms);
-        view.$bioLegend.biorhythmLegend("option", "biorhythms", biorhythms);
-    }
-    
-    function setBirthday(newBirthday){
-        view.$biorhythmViewContainer.biorhythmView("suspendPaint");
-        try {
-            var biorhythms = bioCalcPageData.biorhythms;
-            biorhythms.setBirthdayOnAll(newBirthday);
+        function publishCurrentXDay() {
+            bioCalcPageData.xDay = view.$biorhythmViewContainer.biorhythmView("getXDay");
         }
-        finally {
-            view.$biorhythmViewContainer.biorhythmView("resumePaint");
+
+        function setFirstDayLabel(date) {
+            var firstDayAsText = dateFormatter.formatDate(date);
+            view.$firstDayTextBox.val(firstDayAsText);
+            view.$firstDayLabel.html("<< " + firstDayAsText);
         }
-    }
 
-    // --------------------------------------------------------------------------
-    // Event Handlers
-    // --------------------------------------------------------------------------
+        function setLastDayLabel(date) {
+            var lastDayAsText = dateFormatter.formatDate(date);
+            view.$lastDayTextBox.val(lastDayAsText);
+            view.$lastDayLabel.html(lastDayAsText + " >>");
+        }
 
-    function onBiorhythmViewFirstDayChanged() {
+        function setFirstDayToCharts(date) {
+            view.$biorhythmViewContainer.biorhythmView("option", "firstDay", date);
+        }
 
-        var firstDay = view.$biorhythmViewContainer.biorhythmView("option", "firstDay");
-        setFirstDayLabel(firstDay);
+        function setBiorhythms(biorhythms) {
+            view.$biorhythmViewContainer.biorhythmView("option", "biorhythms", biorhythms);
+            view.$bioLegend.biorhythmLegend("option", "biorhythms", biorhythms);
+        }
 
-        var lastDay = view.$biorhythmViewContainer.biorhythmView("getLastDay");
-        setLastDayLabel(lastDay);
+        function setBirthday(newBirthday) {
+            view.$biorhythmViewContainer.biorhythmView("suspendPaint");
+            try {
+                var biorhythms = bioCalcPageData.biorhythms;
+                biorhythms.setBirthdayOnAll(newBirthday);
+            }
+            finally {
+                view.$biorhythmViewContainer.biorhythmView("resumePaint");
+            }
+        }
 
-        publishCurrentXDay();
-    }
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
 
-    function onFirstDayLabelClick() {
-        setTimeout(function() {
-            view.$firstDayTextBox.datepicker('show');
-        }, 0);
-    }
+        function onBiorhythmViewFirstDayChanged() {
 
-    function onFirstDayDatePickerSelect() {
-        var firstDay = $(this).datepicker("getDate");
-        setFirstDayToCharts(firstDay);
-    }
+            var firstDay = view.$biorhythmViewContainer.biorhythmView("option", "firstDay");
+            setFirstDayLabel(firstDay);
 
-    function onBeforeFirstDayDatePickerShow(input, inst) {
-        // Handle calendar position before showing it.
-        // It's not supported by Datepicker itself (for now) so I need
-        // to use its internal variables.
-        var calendar = inst.dpDiv;
+            var lastDay = view.$biorhythmViewContainer.biorhythmView("getLastDay");
+            setLastDayLabel(lastDay);
 
-        // Dirty hack, but we can't do anything without it (for now, in
-        // jQuery UI 1.8.20)
-        setTimeout(function() {
-            calendar.position({
-                my: 'left top',
-                at: 'left bottom',
-                collision: 'none',
-                of: view.$firstDayLabel
-            });
-        }, 0);
-    }
+            publishCurrentXDay();
+        }
 
-    function onLastDayLabelClick() {
-        setTimeout(function() {
-            view.$lastDayTextBox.datepicker('show');
-        }, 0);
-    }
+        function onFirstDayLabelClick() {
+            setTimeout(function () {
+                view.$firstDayTextBox.datepicker('show');
+            }, 0);
+        }
 
-    function onLastDayDatePickerSelect() {
-        var lastDay = $(this).datepicker("getDate");
+        function onFirstDayDatePickerSelect() {
+            var firstDay = $(this).datepicker("getDate");
+            setFirstDayToCharts(firstDay);
+        }
 
-        var displayedDayCount = view.$biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
-        var firstDay = dateUtil.addDays(lastDay, -displayedDayCount);
+        function onBeforeFirstDayDatePickerShow(input, inst) {
+            // Handle calendar position before showing it.
+            // It's not supported by Datepicker itself (for now) so I need
+            // to use its internal variables.
+            var calendar = inst.dpDiv;
 
-        setFirstDayToCharts(firstDay);
-    }
+            // Dirty hack, but we can't do anything without it (for now, in
+            // jQuery UI 1.8.20)
+            setTimeout(function () {
+                calendar.position({
+                    my: 'left top',
+                    at: 'left bottom',
+                    collision: 'none',
+                    of: view.$firstDayLabel
+                });
+            }, 0);
+        }
 
-    function onBeforeLastDayDatePickerShow(input, inst) {
-        // Handle calendar position before showing it.
-        // It's not supported by Datepicker itself (for now) so I need
-        // to use its internal variables.
-        var calendar = inst.dpDiv;
+        function onLastDayLabelClick() {
+            setTimeout(function () {
+                view.$lastDayTextBox.datepicker('show');
+            }, 0);
+        }
 
-        // Dirty hack, but we can't do anything without it (for now, in
-        // jQuery UI 1.8.20)
-        setTimeout(function() {
-            calendar.position({
-                my: 'right top',
-                at: 'right bottom',
-                collision: 'none',
-                of: view.$lastDayLabel
-            });
-        }, 0);
-    }
+        function onLastDayDatePickerSelect() {
+            var lastDay = $(this).datepicker("getDate");
 
-    function onBiorhythmViewXDayIndexChanged(sender, arg) {
-        publishCurrentXDay();
-    }
+            var displayedDayCount = view.$biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
+            var firstDay = dateUtil.addDays(lastDay, -displayedDayCount);
 
-    function onExternalBirthdayChanged(arg) {
-        setBirthday(arg);
-        publishCurrentXDay();
-    }
+            setFirstDayToCharts(firstDay);
+        }
 
-    function onExternalBiorhythmsChanged(arg) {
-        setBiorhythms(arg);
-    }
+        function onBeforeLastDayDatePickerShow(input, inst) {
+            // Handle calendar position before showing it.
+            // It's not supported by Datepicker itself (for now) so I need
+            // to use its internal variables.
+            var calendar = inst.dpDiv;
 
-    // --------------------------------------------------------------------------
-    // Initializer
-    // --------------------------------------------------------------------------
+            // Dirty hack, but we can't do anything without it (for now, in
+            // jQuery UI 1.8.20)
+            setTimeout(function () {
+                calendar.position({
+                    my: 'right top',
+                    at: 'right bottom',
+                    collision: 'none',
+                    of: view.$lastDayLabel
+                });
+            }, 0);
+        }
 
-    (function initialize() {
-        $(function() {
-            view = new ChartsSectionView();
+        function onBiorhythmViewXDayIndexChanged(sender, arg) {
+            publishCurrentXDay();
+        }
+
+        function onExternalBirthdayChanged(arg) {
+            setBirthday(arg);
+            publishCurrentXDay();
+        }
+
+        function onExternalBiorhythmsChanged(arg) {
+            setBiorhythms(arg);
+        }
+
+        // --------------------------------------------------------------------------
+        // Initializer
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
+            var presenter = {};
+
+            view = viewFactory.create("ChartsSectionView");
+            view.presenter = presenter;
 
             view.$firstDayLabel.click(onFirstDayLabelClick);
 
@@ -193,7 +184,6 @@
 
             view.$biorhythmViewContainer.biorhythmView("suspendPaint");
             try {
-
                 var firstDay = dateUtil.addDays(Date.now(), -7);
 
                 setFirstDayLabel(firstDay);
@@ -208,6 +198,13 @@
             finally {
                 view.$biorhythmViewContainer.biorhythmView("resumePaint");
             }
-        });
-    }());
-}(jQuery, lu.bioCalc.mainPage.pageSections.ChartsSectionView, lu.bioCalc.mainPage.BioCalcPageData, lu.bioCalc.DateFormatter, lu.DateUtil));
+        }());
+    };
+
+}(
+        jQuery,
+        lu.bioCalc.mainPage.ViewFactory,
+        lu.bioCalc.mainPage.BioCalcPageData,
+        lu.bioCalc.DateFormatter,
+        lu.DateUtil
+    ));

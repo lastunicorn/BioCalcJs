@@ -16,16 +16,16 @@
 
 lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
-(function($) {
+(function ($) {
 
-    lu.bioCalc.mainPage.pageSections.ChartsSectionView = function() {
+    lu.bioCalc.mainPage.pageSections.ChartsSectionView = function () {
 
         var $biorhythmViewContainer = null;
 
         Object.defineProperty(this, "$biorhythmViewContainer", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $biorhythmViewContainer;
             }
         });
@@ -35,7 +35,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         Object.defineProperty(this, "$firstDayTextBox", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $firstDayTextBox;
             }
         });
@@ -45,7 +45,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         Object.defineProperty(this, "$firstDayLabel", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $firstDayLabel;
             }
         });
@@ -55,7 +55,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         Object.defineProperty(this, "$lastDayTextBox", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $lastDayTextBox;
             }
         });
@@ -65,7 +65,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         Object.defineProperty(this, "$lastDayLabel", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $lastDayLabel;
             }
         });
@@ -75,7 +75,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         Object.defineProperty(this, "$bioLegend", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $bioLegend;
             }
         });
@@ -105,6 +105,30 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         // Events
         // --------------------------------------------------------------------------
 
+        function onFirstDayLabelClick() {
+            presenter.onFirstDayLabelClick.apply(this, arguments);
+        }
+
+        function onBeforeFirstDayDatePickerShow() {
+            presenter.onBeforeFirstDayDatePickerShow.apply(this, arguments);
+        }
+
+        function onFirstDayDatePickerSelect() {
+            presenter.onFirstDayDatePickerSelect.apply(this, arguments);
+        }
+
+        function onLastDayLabelClick() {
+            presenter.onLastDayLabelClick.apply(this, arguments);
+        }
+
+        function onBeforeLastDayDatePickerShow() {
+            presenter.onBeforeLastDayDatePickerShow.apply(this, arguments);
+        }
+
+        function onLastDayDatePickerSelect() {
+            presenter.onLastDayDatePickerSelect.apply(this, arguments);
+        }
+
         // --------------------------------------------------------------------------
         // Initializer
         // --------------------------------------------------------------------------
@@ -125,20 +149,28 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
         function initialize$() {
 
+            $firstDayLabel.click(onFirstDayLabelClick);
+
             $firstDayTextBox.datepicker({
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "yy-mm-dd",
                 showButtonPanel: true,
-                showAnim: ""
+                showAnim: "",
+                beforeShow: onBeforeFirstDayDatePickerShow,
+                onSelect: onFirstDayDatePickerSelect
             });
+
+            $lastDayLabel.click(onLastDayLabelClick);
 
             $lastDayTextBox.datepicker({
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: "yy-mm-dd",
                 showButtonPanel: true,
-                showAnim: ""
+                showAnim: "",
+                beforeShow: onBeforeLastDayDatePickerShow,
+                onSelect: onLastDayDatePickerSelect
             });
 
             $biorhythmViewContainer.biorhythmView({

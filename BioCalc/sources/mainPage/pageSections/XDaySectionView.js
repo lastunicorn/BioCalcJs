@@ -32,7 +32,11 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         };
 
         this.setXDay = function(value) {
-            $xDayInfoContainer.xDayInfoView("update", value);
+            $xDayInfoContainer.xDayInfoView("updateXDay", value);
+        };
+
+        this.setSecondBirthday = function(value) {
+            $xDayInfoContainer.xDayInfoView("updateSecondBirthday", value);
         };
 
         this.setTitle = function(value) {

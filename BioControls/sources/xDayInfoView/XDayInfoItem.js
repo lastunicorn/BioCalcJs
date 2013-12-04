@@ -115,12 +115,17 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         // --------------------------------------------------------------------------
 
         function displayCompatibility() {
-            var birthday1 =  biorhythmShape.biorhythm.birthday;
-            var birthday2 =  secondBirthday;
+            if (secondBirthday && biorhythmShape.biorhythm.period) {
+                var birthday1 = biorhythmShape.biorhythm.birthday;
+                var birthday2 = secondBirthday;
+                var period = biorhythmShape.biorhythm.period;
 
-            var compatibilityPercent = compatibilityCalculator.calculate(birthday1, birthday2, biorhythmShape.biorhythm.period);
-            var compatibilityPercentAsText = compatibilityPercent.toFixed(2) + "%";
-            view.setCompatibilityText(compatibilityPercentAsText);
+                var compatibilityPercent = compatibilityCalculator.calculate(birthday1, birthday2, period);
+                var compatibilityPercentAsText = compatibilityPercent.toFixed(2) + "%";
+                view.setCompatibilityText(compatibilityPercentAsText);
+            } else {
+                view.setCompatibilityText("---");
+            }
         }
 
         (function initialize() {

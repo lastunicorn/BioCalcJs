@@ -116,10 +116,6 @@ a[target="_blank"] {
 	cursor: move;
 }
 
-#birthdayTextBox, #firstDayTextBox {
-	width: 200px;
-}
-
 /* Biorhythm Legend
 ----------------------------------------------------------------------------- */
 
@@ -232,16 +228,32 @@ header h1 {
 	text-align: right;
 }
 
+#xDayInfoContainer .x-day-item .compatibility-value {
+    text-align: right;
+}
+
 /* Date Limit Labels
 ----------------------------------------------------------------------------- */
 
-#dateLimitsContainer {
+#datesContainer {
 	color: #bbbbbb;
 	font-size: 0.9em;
 	margin: 3px 5px;
 }
 
-#dateLimitsContainer #firstDayLabel,
-#dateLimitsContainer #lastDayLabel {
+#datesContainer .first-day-container {
+    float: left;
+}
+
+#datesContainer .last-day-container {
+    float: right;
+}
+
+#datesContainer .first-day-label,
+#datesContainer .last-day-label {
 	cursor: pointer;
+}
+
+#birthdayTextBox, .first-day-textbox {
+    width: 200px;
 }

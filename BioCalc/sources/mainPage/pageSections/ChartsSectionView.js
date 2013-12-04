@@ -140,10 +140,10 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
         function create$() {
             $biorhythmViewContainer = $("#biorhythmViewContainer");
-            $firstDayLabel = $("#firstDayLabel");
-            $firstDayTextBox = $("#firstDayTextBox");
-            $lastDayLabel = $("#lastDayLabel");
-            $lastDayTextBox = $("#lastDayTextBox");
+            $firstDayLabel = $(".first-day-label");
+            $firstDayTextBox = $(".first-day-textbox");
+            $lastDayLabel = $(".last-day-label");
+            $lastDayTextBox = $(".last-day-textbox");
             $bioLegend = $("#bioLegend");
         }
 

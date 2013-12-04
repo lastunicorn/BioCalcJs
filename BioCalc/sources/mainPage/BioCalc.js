@@ -59,6 +59,7 @@
 
         bioCalcPageData.biorhythms = biorhythmShapes;
         bioCalcPageData.birthday = configurationService.config.birthday;
+        bioCalcPageData.secondBirthday = new Date(1980, 05, 13);
     }
 
     function createBiorhythmShapes() {

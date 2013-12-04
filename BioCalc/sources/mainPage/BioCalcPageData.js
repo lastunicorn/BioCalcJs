@@ -53,6 +53,30 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
         }
 
         // --------------------------------------------------------------------------
+        // secondBirthday property
+        // --------------------------------------------------------------------------
+
+        var secondBirthday = null;
+        var secondBirthdayChangedEvent = new Event();
+        obj.secondBirthdayChanged = secondBirthdayChangedEvent.client;
+
+        Object.defineProperty(obj, "secondBirthday", {
+            enumerable: true,
+            configurable: false,
+            get: getSecondBirthday,
+            set: setSecondBirthday
+        });
+
+        function getSecondBirthday() {
+            return secondBirthday;
+        }
+
+        function setSecondBirthday(value) {
+            secondBirthday = value;
+            secondBirthdayChangedEvent.raise(this, value);
+        }
+
+        // --------------------------------------------------------------------------
         // xDay property
         // --------------------------------------------------------------------------
 

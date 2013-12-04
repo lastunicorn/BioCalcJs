@@ -19,19 +19,19 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 <html>
     <head>
         <title>Biorhythm Calculator</title>
-        
+
         <script type="text/javascript" src="libraries/jQuery/jquery-2.0.3.min.js"></script>
-        
+
         <script type="text/javascript" src="libraries/jQueryCookie/jquery.cookie.js"></script>
-        
+
         <script type="text/javascript" src="libraries/jQueryUI/js/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="libraries/jQueryUI/css/smoothness/jquery-ui.min.css" />
-        
+
         <script type="text/javascript" src="libraries/ColorPicker/jquery.colorpicker.js"></script>
         <link rel="stylesheet" href="libraries/ColorPicker/jquery.colorpicker.css" />
-        
+
         <script type="text/javascript" src="libraries/BiorhythmControls/BiorhythmControls.js"></script>
-        
+
         <script type="text/javascript" src="BioCalc.js"></script>
         <link rel="stylesheet" type="text/css" href="BioCalc.css" />
     </head>
@@ -51,15 +51,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
             		<button id="aboutButton">About</button>
             	</div>
         	</header>
-            <div id="dateLimitsContainer">
-            	<div style="float: left;">
-            		<span id="firstDayLabel"></span>
-            		<input id="firstDayTextBox" type="hidden" value="" />
+            <div id="datesContainer">
+            	<div class="first-day-container">
+            		<span class="first-day-label"></span>
+            		<input class="first-day-textbox" type="hidden" value="" />
             		<span>&nbsp;</span>
             	</div>
-            	<div style="float: right;">
-            		<span id="lastDayLabel"></span>
-            		<input id="lastDayTextBox" type="hidden" value="" />
+            	<div class="last-day-container">
+            		<span class="last-day-label"></span>
+            		<input class="last-day-textbox" type="hidden" value="" />
             		<span>&nbsp;</span>
             	</div>
             	<div class="clear"></div>
@@ -84,6 +84,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
             <h2>X Day (<span id="xDayValueLabel"></span>)</h2>
             <div id="xDayInfoContainer"></div>
         </div>
+
         <!----------------------------------------------------------------------
         Options Dialog
         ----------------------------------------------------------------------->
@@ -106,6 +107,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<label for="iChingBiorhythmsCheckbox">I-Ching Biorhythms</label>
 			</p>
         </div>
+
         <!----------------------------------------------------------------------
         About Dialog
         ----------------------------------------------------------------------->
@@ -136,7 +138,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 						<li><b>Birthday saved in a cookie</b> for later visits of the page.</li>
 						<li><b>Options panel</b> to select different other biorhythms (secondary, extra and I-Ching).</li>
 					</ul>
-					
+
 					<h2>Future features</h2>
 					<ul>
     					<li>Calculate and display compatibility between two persons.</li>
@@ -160,6 +162,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				</div>
 			</div>
         </div>
+
         <!----------------------------------------------------------------------
         Help Dialog
         ----------------------------------------------------------------------->
@@ -175,10 +178,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<div id="helpTabChart">
 					<h2>Biorhythm Charts</h2>
 					<p>The biorhythm's chart displays the four primary biorhythms.</p>
-					
+
 					<h2>Scrolling</h2>
 					<p>Drag the chart left or right using the left mouse button or use the mouse wheel to scroll.</p>
-					
+
 					<h2>The X Day</h2>
 					<p>The black rectangle that marks one of the days in the chart is called the X day.</p>
 					<p>You can change the X day by dragging it with the right mouse button or by holding the Ctrl key and dragging it with the left mouse button.</p>
@@ -186,14 +189,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<div id="helpTabLegend">
 					<h2>The Legend</h2>
 					<p>At the bottom-right of the chart a legend can be found, containing the names and the colors of the displayed biorhythms.</p>
-					
+
 					<h2>Change Color</h2>
 					<p>By clicking the color square or the labels, the color used to draw the corresponding biorhythm in the chart can be changed.</p>
 				</div>
 				<div id="helpTabFirstLastDay">
 					<h2>The first and last days</h2>
 					<p>At the top-left and top-right of the chart are two labels with the first and last day displayed in the chart.</p>
-					
+
 					<h2>Change the first or last days</h2>
 					<p>Clicking on the labels, a date picker is displayed to modify the corresponding value. The other value will be modified accordingly. The chart will always display the biorhythm's charts for a range of 30 days.</p>
 					<p>The first and last days can also be modified by scrolling or dragging the chart right/left.</p>
@@ -201,10 +204,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 				<div id="helpTabBirthday">
 					<h2>Birthday text box</h2>
 					<p>The birthday can be changed by clicking the text-box bellow the biorhythm's cahrt. A date picker will be displayed to help choosing another birthday.</p>
-					
+
 					<h2>The "Save" button</h2>
 					<p>Next to the birthday text-box a "Save" button will become enabled immediatelly after changing the birthday. If clicked it will save the currently used birthday in a cookie as default.</p>
-					
+
 					<h2>The "Reset" button</h2>
 					<p>The second button displayed next to the birthday text-box is the "Reset" button that will set as current birthday the birthday currently existing in the cookie.</p>
 				</div>

@@ -33,11 +33,21 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // Functions - "private"
         // --------------------------------------------------------------------------
 
-        function updateDisplayedXDay(xDay) {
+        function refreshXDay() {
+            var xDay = bioCalcPageData.xDay;
             var title = dateFormatter.formatDate(xDay);
             view.setTitle(title);
 
             view.setXDay(xDay);
+        }
+
+        function refreshSecondBirthday() {
+            var secondBirthday = bioCalcPageData.secondBirthday;
+            view.setSecondBirthday(secondBirthday);
+        }
+
+        function refreshBiorhythms() {
+            view.setBiorhythms(bioCalcPageData.biorhythms);
         }
 
         // --------------------------------------------------------------------------
@@ -45,11 +55,15 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         function onExternalXDayChanged(arg) {
-            updateDisplayedXDay(arg);
+            refreshXDay();
         }
 
         function onExternalBiorhythmsChanged(arg) {
-            view.setBiorhythms(arg);
+            refreshBiorhythms();
+        }
+
+        function onSecondBirthdayChanged(arg){
+            refreshSecondBirthday();
         }
 
         // --------------------------------------------------------------------------
@@ -59,12 +73,14 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         (function initialize() {
             view = viewFactory.create("XDaySectionView");
 
-            view.setBiorhythms(bioCalcPageData.biorhythms);
+            refreshBiorhythms();
 
             bioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+            bioCalcPageData.secondBirthdayChanged.subscribe(onSecondBirthdayChanged);
 
-            updateDisplayedXDay(bioCalcPageData.xDay);
+            refreshXDay();
+            refreshSecondBirthday();
         }());
     };
 

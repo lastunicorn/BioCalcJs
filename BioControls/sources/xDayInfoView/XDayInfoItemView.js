@@ -18,17 +18,17 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
-(function(BiorhythmShape, dateUtil) {
+(function ($) {
     /**
      * Represents an item in the XDayInfoView. It contains the value of one
      * biorhythm for a specific day named X day.
-     * 
+     *
      * @param biorhythmShape
      *            The BiorhythmShape for which to display the X day information.
-     * 
+     *
      * @returns {lu.bioControls.xDayInfoView.XDayInfoItem}
      */
-    lu.bioControls.xDayInfoView.XDayInfoItemView = function() {
+    lu.bioControls.xDayInfoView.XDayInfoItemView = function () {
 
         var $element = null;
         var $colorLabel = null;
@@ -36,6 +36,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         var $labelElement = null;
         var $separatorElement = null;
         var $valueElement = null;
+        var $compatibilityElement = null;
 
         // --------------------------------------------------------------------------
         // $element property
@@ -55,24 +56,28 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         // functions
         // --------------------------------------------------------------------------
 
-        this.show = function() {
+        this.show = function () {
             $element.show();
         };
 
-        this.hide = function() {
+        this.hide = function () {
             $element.hide();
         };
 
-        this.setValueText = function(text) {
+        this.setValueText = function (text) {
             $valueElement.text(text);
         };
 
-        this.setLabelText = function(text) {
+        this.setLabelText = function (text) {
             $labelElement.text(text);
         };
 
-        this.setColor = function(color) {
+        this.setColor = function (color) {
             $colorLabel.css("background-color", color);
+        };
+
+        this.setCompatibilityText = function (text) {
+            $compatibilityElement.text(text);
         };
 
         // --------------------------------------------------------------------------
@@ -88,16 +93,21 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             generateLabelTag();
             generateSeparatorTag();
             generateValueTag();
+            generateCompatibilityTag();
 
             $element.append($colorElement);
             $element.append($labelElement);
             $element.append($separatorElement);
             $element.append($valueElement);
+            $element.append($compatibilityElement);
         }
 
         function generateColorTag() {
             $colorElement = $("<td/>");
-            $colorLabel = $("<span/>").addClass("color-label").appendTo($colorElement);
+
+            $colorLabel = $("<span/>")
+                .addClass("color-label")
+                .appendTo($colorElement);
         }
 
         function generateLabelTag() {
@@ -105,11 +115,18 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         }
 
         function generateSeparatorTag() {
-            $separatorElement = $("<td/>").text(" = ");
+            $separatorElement = $("<td/>")
+                .text(" = ");
         }
 
         function generateValueTag() {
-            $valueElement = $("<td/>").addClass("x-day-value");
+            $valueElement = $("<td/>")
+                .addClass("x-day-value");
+        }
+
+        function generateCompatibilityTag() {
+            $compatibilityElement = $("<td/>")
+                .addClass("compatibility-value");
         }
 
         // --------------------------------------------------------------------------
@@ -120,4 +137,4 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             generate();
         }());
     };
-}(lu.bioControls.biorhythmModel.BiorhythmShape, lu.DateUtil));
+}(jQuery));

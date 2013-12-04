@@ -18,21 +18,23 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
-(function(XDayInfoItemView, BiorhythmShape, dateUtil) {
+(function (XDayInfoItemView, BiorhythmShape, dateUtil) {
 
     /**
      * Represents an item in the XDayInfoView. It contains the value of one
      * biorhythm for a specific day named X day.
-     * 
+     *
      * @param view
      *            The view object used to interact with the ui.
-     * 
+     *
      * @param biorhythmShape
      *            The BiorhythmShape for which to display the X day information.
-     * 
+     *
      * @returns {lu.bioControls.xDayInfoView.XDayInfoItem}
      */
-    lu.bioControls.xDayInfoView.XDayInfoItem = function(view, biorhythmShape) {
+    lu.bioControls.xDayInfoView.XDayInfoItem = function (view, biorhythmShape, compatibilityCalculator) {
+
+        var secondBirthday = null;
 
         // --------------------------------------------------------------------------
         // biorhythmShape property
@@ -52,8 +54,14 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         // functions
         // --------------------------------------------------------------------------
 
-        this.update = function(xDay) {
+        this.updateXDay = function (xDay) {
             displayPercentageFor(xDay);
+            displayCompatibility();
+        };
+
+        this.updateSecondBirthday = function (value) {
+            secondBirthday = value;
+            displayCompatibility();
         };
 
         function displayPercentageFor(xDay) {
@@ -106,6 +114,15 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         // Initializer
         // --------------------------------------------------------------------------
 
+        function displayCompatibility() {
+            var birthday1 =  biorhythmShape.biorhythm.birthday;
+            var birthday2 =  secondBirthday;
+
+            var compatibilityPercent = compatibilityCalculator.calculate(birthday1, birthday2, biorhythmShape.biorhythm.period);
+            var compatibilityPercentAsText = compatibilityPercent.toFixed(2) + "%";
+            view.setCompatibilityText(compatibilityPercentAsText);
+        }
+
         (function initialize() {
             if (!(biorhythmShape instanceof BiorhythmShape)) {
                 return;
@@ -121,9 +138,15 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
                 view.$element.hide();
             }
 
+            displayCompatibility();
+
             biorhythmShape.nameChanged.subscribe(onBiorhythmNameChanged);
             biorhythmShape.colorChanged.subscribe(onBiorhythmColorChanged);
             biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged);
         }());
     };
-}(lu.bioControls.xDayInfoView.XDayInfoItemView, lu.bioControls.biorhythmModel.BiorhythmShape, lu.DateUtil));
+}(
+        lu.bioControls.xDayInfoView.XDayInfoItemView,
+        lu.bioControls.biorhythmModel.BiorhythmShape,
+        lu.DateUtil
+    ));

@@ -64,6 +64,7 @@
 				<file name="List.js" />
 				<file name="MouseButton.js" />
 				<file name="TextUtil.js" />
+                <file name="BioControlsError.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources">
@@ -87,6 +88,15 @@
 				<file name="SuccessBiorhythm.js" />
 				<file name="WisdomBiorhythm.js" />
 			</sources>
+
+            <sources dir="${basedir}/sources/compatibility">
+                <file name="ArgumentIsNotDateError.js" />
+                <file name="DisplacementCalculatorNotSetError.js" />
+                <file name="PeriodsIsNotNumberError.js" />
+                <file name="DisplacementCosPercentCalculator.js" />
+                <file name="DisplacementLinearPercentCalculator.js" />
+                <file name="CompatibilityCalculator.js" />
+            </sources>
 
 			<sources dir="${basedir}/sources/biorhythmModel">
 				<file name="BiorhythmsAdapter.js" />

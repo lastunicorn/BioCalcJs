@@ -73,6 +73,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             $("<th>").text("Biorhithm").appendTo($tr);
             $("<th>").text("").appendTo($tr);
             $("<th>").text("Value").appendTo($tr);
+            $("<th>").text("Compatibility").appendTo($tr);
         }
 
         // --------------------------------------------------------------------------

@@ -39,6 +39,6 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
         }).call(this);
     };
 
-    lu.bioControls.biorhythms.EmotionalBiorhythm.inherit(SinusoidalBiorhythm);
+    lu.bioControls.biorhythms.EmotionalBiorhythm.inherit(lu.bioControls.biorhythms.SinusoidalBiorhythm);
 
 }(lu.bioControls.biorhythms.SinusoidalBiorhythm));

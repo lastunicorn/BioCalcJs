@@ -18,14 +18,14 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
-(function($, BiorhythmsAdapter, XDayInfoItem, XDayInfoItemView) {
+(function ($, BiorhythmsAdapter, XDayInfoItem, XDayInfoItemView) {
 
     $.widget("lastunicorn.xDayInfoView", {
         options: {
             biorhythms: []
         },
 
-        _create: function() {
+        _create: function () {
             this.element.empty();
 
             var xDayInfoViewerView = new lu.bioControls.xDayInfoView.XDayInfoViewerView();
@@ -37,7 +37,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             });
         },
 
-        _setOption: function(key, value) {
+        _setOption: function (key, value) {
             if (key === "biorhythms") {
                 this._super(key, value);
 
@@ -45,7 +45,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             }
         },
 
-        destroy: function() {
+        destroy: function () {
             this.element.empty();
 
             this._xDayInfoViewer.destroy();
@@ -53,9 +53,18 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             $.Widget.prototype.destroy.call(this);
         },
 
-        update: function(xDay) {
-            this._xDayInfoViewer.update(xDay);
+        updateXDay: function (xDay) {
+            this._xDayInfoViewer.updateXDay(xDay);
+        },
+
+        updateSecondBirthday: function (secondBirthday) {
+            this._xDayInfoViewer.updateSecondBirthday(secondBirthday);
         }
     });
 
-}(jQuery, lu.bioControls.biorhythmModel.BiorhythmsAdapter, lu.bioControls.xDayInfoView.XDayInfoItem, lu.bioControls.xDayInfoView.XDayInfoItemView));
+}(
+        jQuery,
+        lu.bioControls.biorhythmModel.BiorhythmsAdapter,
+        lu.bioControls.xDayInfoView.XDayInfoItem,
+        lu.bioControls.xDayInfoView.XDayInfoItemView
+    ));

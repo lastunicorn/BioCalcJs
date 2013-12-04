@@ -30,10 +30,17 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
         var items = [];
         var biorhythms = null;
+        var compatibilityCalculator = null;
 
-        this.update = function(xDay) {
+        this.updateXDay = function(xDay) {
             for (var i = 0; i < items.length; i++) {
-                items[i].update(xDay);
+                items[i].updateXDay(xDay);
+            }
+        };
+
+        this.updateSecondBirthday = function(secondBirthday) {
+            for (var i = 0; i < items.length; i++) {
+                items[i].updateSecondBirthday(secondBirthday);
             }
         };
 
@@ -64,7 +71,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
         function createNewItem(biorhythm) {
             var xDayInfoItemView = new XDayInfoItemView();
-            var xDayInfoItem = new XDayInfoItem(xDayInfoItemView, biorhythm);
+            var xDayInfoItem = new XDayInfoItem(xDayInfoItemView, biorhythm, compatibilityCalculator);
 
             configuration.view.addItem(xDayInfoItemView.$element);
             items.push(xDayInfoItem);
@@ -102,8 +109,15 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         (function initialize() {
             biorhythms = createBiorhythmsAdapter(configuration.biorhythms);
 
+            compatibilityCalculator = new lu.bioControls.compatibility.CompatibilityCalculator();
+            compatibilityCalculator.displacementCalculator = new lu.bioControls.compatibility.DisplacementCosPercentCalculator();
+
             repopulate();
         }());
     };
 
-}(lu.bioControls.xDayInfoView.XDayInfoItem, lu.bioControls.xDayInfoView.XDayInfoItemView, lu.bioControls.biorhythmModel.BiorhythmsAdapter));
+}(
+        lu.bioControls.xDayInfoView.XDayInfoItem,
+        lu.bioControls.xDayInfoView.XDayInfoItemView,
+        lu.bioControls.biorhythmModel.BiorhythmsAdapter
+    ));

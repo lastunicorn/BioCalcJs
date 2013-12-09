@@ -14,17 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc");
+lu.Namespacing.ensureNamespace("lu.bioCalc.helpers");
 
 (function ($) {
 
     /**
-     * Closes the modal dialogs when clicking outside of them.
+     * It hooks to the click event of the gray background outside of a modal dialog and closes
+     * the dialog when the user clicks it.
      */
-    lu.bioCalc.ModalDialogsAutoCloseModule = (function () {
+    lu.bioCalc.helpers.ModalDialogsAutoCloseModule = (function () {
 
         function start() {
-            $(document.body).on("click", ".ui-widget-overlay", onWidgetOverlayClick);
+            $(document.body)
+                .on("click", ".ui-widget-overlay", onWidgetOverlayClick);
         }
 
         function onWidgetOverlayClick() {

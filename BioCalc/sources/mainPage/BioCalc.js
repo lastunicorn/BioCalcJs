@@ -73,5 +73,5 @@
         lu.bioCalc.mainPage.BioCalcPageData,
         lu.bioCalc.configuration.ConfigurationService,
         lu.bioControls.biorhythmModel.CommonBiorhythmsContainer,
-        lu.bioCalc.ModalDialogsAutoCloseModule
+        lu.bioCalc.helpers.ModalDialogsAutoCloseModule
     ));

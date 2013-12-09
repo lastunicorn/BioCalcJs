@@ -86,6 +86,7 @@
 
 			<sources dir="${basedir}/sources/helpers">
 				<file name="DateFormatter.js" />
+                <file name="ModalDialogsAutoCloseModule.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/configuration">
@@ -95,7 +96,6 @@
 
 			<sources dir="${basedir}/sources/mainPage">
 				<file name="BioCalcPageData.js" />
-                <file name="ModalDialogsAutoCloseModule.js" />
 				<file name="BioCalc.js" />
 			</sources>
 

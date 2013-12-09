@@ -87,5 +87,5 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 }(
         lu.bioCalc.mainPage.ViewFactory,
         lu.bioCalc.mainPage.BioCalcPageData,
-        lu.bioCalc.DateFormatter
+        lu.bioCalc.helpers.DateFormatter
     ));

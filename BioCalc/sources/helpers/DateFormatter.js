@@ -14,14 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc");
+lu.Namespacing.ensureNamespace("lu.bioCalc.helpers");
 
 /**
  * Provides methods to format a data into a string.
- * 
- * @returns {lu.bioCalc.DateFormatter}
  */
-lu.bioCalc.DateFormatter = (function() {
+lu.bioCalc.helpers.DateFormatter = (function() {
     function toStringTwoDigits(number) {
         if (typeof number !== "number") {
             return "" + number;

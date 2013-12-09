@@ -105,9 +105,10 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
             var biorhythmName = biorhythmShape.biorhythm.name;
             var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
+            var parts = title ? "draggable" : "popup";
 
             view.$legendLabelTag.colorpicker("option", "title", title);
-            view.$legendLabelTag.colorpicker("option", "parts", title ? "draggable" : "popup");
+            view.$legendLabelTag.colorpicker("option", "parts", parts);
             view.$legendLabelTag.colorpicker("option", "color", biorhythmShape.color);
             
             if (!biorhythmShape.isVisible) {

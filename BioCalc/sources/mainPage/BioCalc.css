@@ -254,6 +254,6 @@ header h1 {
 	cursor: pointer;
 }
 
-#birthdayTextBox, .first-day-textbox {
+#birthdayTextBox, #secondBirthdayTextBox, .first-day-textbox {
     width: 200px;
 }

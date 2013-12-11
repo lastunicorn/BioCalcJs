@@ -92,6 +92,11 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             view.setBirthdayText(dateAsString);
         }
 
+        function updateSecondBirthdayTextBox() {
+            var dateAsString = dateFormatter.formatDate(bioCalcPageData.secondBirthday);
+            view.setSecondBirthdayText(dateAsString);
+        }
+
         function publishBirthday(birthday) {
             suppressBirthdayChanged = true;
             try {
@@ -104,6 +109,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
         function initializeView() {
             updateBirthdayTextBox();
+            updateSecondBirthdayTextBox();
             updateResetBirthdayButtonVisibility();
             updateSaveBirthdayButtonVisibility();
         }
@@ -119,6 +125,10 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
             updateSaveBirthdayButtonVisibility();
             updateResetBirthdayButtonVisibility();
+        }
+
+        function onSecondBirthdayDatePickerSelect() {
+            bioCalcPageData.secondBirthday = view.getSecondBirthday();
         }
 
         function onResetBirthdayButtonClick(e) {
@@ -162,6 +172,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         (function initialize() {
             presenter = {
                 onBirthdayDatePickerSelect: onBirthdayDatePickerSelect,
+                onSecondBirthdayDatePickerSelect: onSecondBirthdayDatePickerSelect,
                 onResetBirthdayButtonClick: onResetBirthdayButtonClick,
                 onSaveBirthdayButtonClick: onSaveBirthdayButtonClick
             };

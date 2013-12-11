@@ -21,6 +21,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
     lu.bioCalc.mainPage.pageSections.BirthdaySectionView = function () {
 
         var $birthdayTextBox = null;
+        var $secondBirthdayTextBox = null;
         var $saveBirthdayButton = null;
         var $resetBirthdayButton = null;
         var $birthdayButtons = null;
@@ -70,8 +71,16 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
             $birthdayTextBox.val(value);
         };
 
+        this.setSecondBirthdayText = function (value) {
+            $secondBirthdayTextBox.val(value);
+        };
+
         this.getBirthday = function () {
             return $birthdayTextBox.datepicker("getDate");
+        };
+
+        this.getSecondBirthday = function() {
+            return $secondBirthdayTextBox.datepicker("getDate");
         };
 
         // --------------------------------------------------------------------------
@@ -81,6 +90,12 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         function onBirthdayDatePickerSelect() {
             if ($.isFunction(presenter.onBirthdayDatePickerSelect)) {
                 presenter.onBirthdayDatePickerSelect();
+            }
+        }
+
+        function onSecondBirthdayDatePickerSelect() {
+            if ($.isFunction(presenter.onSecondBirthdayDatePickerSelect)) {
+                presenter.onSecondBirthdayDatePickerSelect();
             }
         }
 
@@ -107,6 +122,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
         function create$() {
             $birthdayTextBox = $("#birthdayTextBox");
+            $secondBirthdayTextBox = $("#secondBirthdayTextBox");
             $saveBirthdayButton = $("#saveBirthdayButton");
             $resetBirthdayButton = $("#resetBirthdayButton");
             $birthdayButtons = $("#birthdayButtons");
@@ -118,6 +134,14 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
                 changeYear: true,
                 dateFormat: "yy-mm-dd",
                 onSelect: onBirthdayDatePickerSelect,
+                showButtonPanel: true
+            });
+
+            $secondBirthdayTextBox.datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "yy-mm-dd",
+                onSelect: onSecondBirthdayDatePickerSelect,
                 showButtonPanel: true
             });
 

@@ -19,14 +19,41 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function (viewFactory) {
+(function () {
 
     /**
      * Contains the logic of the main tool bar.
      */
     lu.bioCalc.mainPage.pageSections.MainToolbar = function (helpDialog, aboutDialog, optionsDialog) {
 
+        var presenter;
+
+        // --------------------------------------------------------------------------
+        // view property
+        // --------------------------------------------------------------------------
+
         var view = null;
+
+        Object.defineProperty(this, "view", {
+            enumerable: true,
+            configurable: false,
+            get: getView,
+            set: setView
+        });
+
+        function getView() {
+            return view;
+        }
+
+        function setView(value) {
+            if (view)
+                view.presenter = null;
+
+            view = value;
+
+            if (view)
+                view.presenter = presenter;
+        }
 
         // --------------------------------------------------------------------------
         // Event Handlers
@@ -49,15 +76,12 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            var presenter = {
+            presenter = {
                 onHelpButtonClick: onHelpButtonClick,
                 onAboutButtonClick: onAboutButtonClick,
                 onOptionsButtonClick: onOptionsButtonClick
             };
-
-            view = viewFactory.create("MainToolbarView");
-            view.presenter = presenter;
         }());
     };
 
-}(lu.bioCalc.mainPage.ViewFactory));
+}());

@@ -19,19 +19,46 @@
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
+lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function (viewFactory) {
+(function () {
 
     /**
      * Contains the logic of the Help dialog.
      */
-    lu.bioCalc.mainPage.dialogs.HelpDialog = function () {
+    lu.bioCalc.mainPage.pageSections.HelpDialog = function () {
+
+        var presenter;
+
+        // --------------------------------------------------------------------------
+        // view property
+        // --------------------------------------------------------------------------
 
         var view = null;
 
+        Object.defineProperty(this, "view", {
+            enumerable: true,
+            configurable: false,
+            get: getView,
+            set: setView
+        });
+
+        function getView() {
+            return view;
+        }
+
+        function setView(value) {
+            if (view)
+                view.presenter = null;
+
+            view = value;
+
+            if (view)
+                view.presenter = presenter;
+        }
+
         // --------------------------------------------------------------------------
-        // Functions - "public"
+        // Functions
         // --------------------------------------------------------------------------
 
         this.show = function () {
@@ -51,13 +78,10 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            var presenter = {
+            presenter = {
                 onCloseButtonClicked: onHelpDialogCloseClicked
             };
-
-            view = viewFactory.create("HelpDialogView");
-            view.presenter = presenter;
         }());
     };
 
-}(lu.bioCalc.mainPage.ViewFactory));
+}());

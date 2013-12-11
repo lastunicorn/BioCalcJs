@@ -27,10 +27,39 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
      */
     lu.bioCalc.mainPage.pageSections.ChartsSection = function () {
 
-        var view;
+        var presenter;
 
         // --------------------------------------------------------------------------
-        // Functions - "private"
+        // view property
+        // --------------------------------------------------------------------------
+
+        var view = null;
+
+        Object.defineProperty(this, "view", {
+            enumerable: true,
+            configurable: false,
+            get: getView,
+            set: setView
+        });
+
+        function getView() {
+            return view;
+        }
+
+        function setView(value) {
+            if (view)
+                view.presenter = null;
+
+            view = value;
+
+            if (view) {
+                view.presenter = presenter;
+                initializeView();
+            }
+        }
+
+        // --------------------------------------------------------------------------
+        // Functions
         // --------------------------------------------------------------------------
 
         function publishCurrentXDay() {
@@ -63,6 +92,25 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             try {
                 var biorhythms = bioCalcPageData.biorhythms;
                 biorhythms.setBirthdayOnAll(newBirthday);
+            }
+            finally {
+                view.$biorhythmViewContainer.biorhythmView("resumePaint");
+            }
+        }
+
+        function initializeView() {
+            view.$biorhythmViewContainer.biorhythmView("option", "firstDayChanged", onBiorhythmViewFirstDayChanged);
+            view.$biorhythmViewContainer.biorhythmView("option", "xDayIndexChanged", onBiorhythmViewXDayIndexChanged);
+
+            view.$biorhythmViewContainer.biorhythmView("suspendPaint");
+            try {
+                var firstDay = dateUtil.addDays(Date.now(), -7);
+
+                setFirstDayLabel(firstDay);
+                setChartsFirstDay(firstDay);
+                setBiorhythms(bioCalcPageData.biorhythms);
+                setBirthday(bioCalcPageData.birthday);
+                publishCurrentXDay();
             }
             finally {
                 view.$biorhythmViewContainer.biorhythmView("resumePaint");
@@ -164,7 +212,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            var presenter = {
+            presenter = {
                 onFirstDayLabelClick: onFirstDayLabelClick,
                 onBeforeFirstDayDatePickerShow: onBeforeFirstDayDatePickerShow,
                 onFirstDayDatePickerSelect: onFirstDayDatePickerSelect,
@@ -173,28 +221,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 onLastDayDatePickerSelect: onLastDayDatePickerSelect
             };
 
-            view = viewFactory.create("ChartsSectionView");
-            view.presenter = presenter;
-
-            view.$biorhythmViewContainer.biorhythmView("option", "firstDayChanged", onBiorhythmViewFirstDayChanged);
-            view.$biorhythmViewContainer.biorhythmView("option", "xDayIndexChanged", onBiorhythmViewXDayIndexChanged);
-
-            view.$biorhythmViewContainer.biorhythmView("suspendPaint");
-            try {
-                var firstDay = dateUtil.addDays(Date.now(), -7);
-
-                setFirstDayLabel(firstDay);
-                setChartsFirstDay(firstDay);
-                setBiorhythms(bioCalcPageData.biorhythms);
-                setBirthday(bioCalcPageData.birthday);
-                publishCurrentXDay();
-
-                bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
-                bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
-            }
-            finally {
-                view.$biorhythmViewContainer.biorhythmView("resumePaint");
-            }
+            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
+            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         }());
     };
 

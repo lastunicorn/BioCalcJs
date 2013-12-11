@@ -1,3 +1,19 @@
+// BioCalc
+// Copyright (C) 2013 Last Unicorn
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 (function (MainToolbarView, BirthdaySectionView, XDaySectionView, ChartsSectionView, HelpDialogView, AboutDialogView, OptionsDialogView) {
 
     lu.bioCalc.mainPage.ViewFactory = (function () {
@@ -40,7 +56,7 @@
         lu.bioCalc.mainPage.pageSections.BirthdaySectionView,
         lu.bioCalc.mainPage.pageSections.XDaySectionView,
         lu.bioCalc.mainPage.pageSections.ChartsSectionView,
-        lu.bioCalc.mainPage.dialogs.HelpDialogView,
-        lu.bioCalc.mainPage.dialogs.AboutDialogView,
-        lu.bioCalc.mainPage.dialogs.OptionsDialogView
+        lu.bioCalc.mainPage.pageSections.HelpDialogView,
+        lu.bioCalc.mainPage.pageSections.AboutDialogView,
+        lu.bioCalc.mainPage.pageSections.OptionsDialogView
     ));

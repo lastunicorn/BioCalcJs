@@ -21,7 +21,7 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function (viewFactory, bioCalcPageData, dateFormatter) {
+(function (bioCalcPageData, dateFormatter) {
 
     /**
      * This module contains the logic of the page section where the user can select
@@ -29,12 +29,40 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
      */
     lu.bioCalc.mainPage.pageSections.BirthdaySection = function (configuration) {
 
-        var view = null;
-
+        var presenter;
         var suppressBirthdayChanged = false;
 
         // --------------------------------------------------------------------------
-        // Functions - "private"
+        // view property
+        // --------------------------------------------------------------------------
+
+        var view = null;
+
+        Object.defineProperty(this, "view", {
+            enumerable: true,
+            configurable: false,
+            get: getView,
+            set: setView
+        });
+
+        function getView() {
+            return view;
+        }
+
+        function setView(value) {
+            if (view)
+                view.presenter = null;
+
+            view = value;
+
+            if (view) {
+                view.presenter = presenter;
+                initializeView();
+            }
+        }
+
+        // --------------------------------------------------------------------------
+        // Functions
         // --------------------------------------------------------------------------
 
         function updateSaveBirthdayButtonVisibility() {
@@ -72,6 +100,12 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             finally {
                 suppressBirthdayChanged = false;
             }
+        }
+
+        function initializeView() {
+            updateBirthdayTextBox();
+            updateResetBirthdayButtonVisibility();
+            updateSaveBirthdayButtonVisibility();
         }
 
         // --------------------------------------------------------------------------
@@ -126,25 +160,17 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            var presenter = {
+            presenter = {
                 onBirthdayDatePickerSelect: onBirthdayDatePickerSelect,
                 onResetBirthdayButtonClick: onResetBirthdayButtonClick,
                 onSaveBirthdayButtonClick: onSaveBirthdayButtonClick
             };
 
-            view = viewFactory.create("BirthdaySectionView");
-            view.presenter = presenter;
-
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
-
-            updateBirthdayTextBox();
-            updateResetBirthdayButtonVisibility();
-            updateSaveBirthdayButtonVisibility();
         }());
     };
 
 }(
-        lu.bioCalc.mainPage.ViewFactory,
         lu.bioCalc.mainPage.BioCalcPageData,
         lu.bioCalc.helpers.DateFormatter
     ));

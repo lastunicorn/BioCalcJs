@@ -18,47 +18,67 @@ window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 
-(function (ConfigurationLoader) {
+/**
+ * Keeps the configuration object.
+ */
+lu.bioCalc.configuration.Configuration = function () {
 
-    /**
-     * Keeps the configuration object.
-     */
-    lu.bioCalc.configuration.Configuration = function () {
+    var cookieName = "config";
 
-        var loader = null;
+    // --------------------------------------------------------------------------
+    // Property - config
+    // --------------------------------------------------------------------------
 
-        // --------------------------------------------------------------------------
-        // Property - config
-        // --------------------------------------------------------------------------
+    var config = null;
 
-        var config = null;
+    Object.defineProperty(this, "config", {
+        enumerable: true,
+        configurable: false,
+        get: getConfig
+    });
 
-        Object.defineProperty(this, "config", {
-            enumerable: true,
-            configurable: false,
-            get: getConfig
-        });
+    function getConfig() {
+        return config;
+    }
 
-        function getConfig() {
-            return config;
+    // --------------------------------------------------------------------------
+    // Functions
+    // --------------------------------------------------------------------------
+
+    this.save = function () {
+        $.cookie.json = true;
+
+        if (config == null) {
+            return;
         }
 
-        // --------------------------------------------------------------------------
-        // Functions
-        // --------------------------------------------------------------------------
-
-        this.save = function () {
-            loader.saveInCookies(config);
-        };
-
-        // --------------------------------------------------------------------------
-        // Initializer
-        // --------------------------------------------------------------------------
-
-        (function initialize() {
-            loader = new ConfigurationLoader();
-            config = loader.loadFromCookies();
-        }());
+        $.cookie(cookieName, config);
     };
 
-}(lu.bioCalc.configuration.ConfigurationLoader));
+    this.loadFromCookies = function () {
+        $.cookie.json = true;
+        var newConfig = $.cookie(cookieName);
+
+        if (newConfig == null) {
+            newConfig = {};
+        }
+
+        ensureDefaultValues(newConfig);
+
+        config = newConfig;
+    };
+
+    function ensureDefaultValues(c) {
+        if ($.type(c.birthday) === "string") {
+            c.birthday = new Date(c.birthday);
+        }
+
+        if ($.type(c.birthday) !== "date") {
+            c.birthday = getDefaultBirthday();
+        }
+    }
+
+    function getDefaultBirthday() {
+        return new Date(1980, 05, 13);
+    }
+};

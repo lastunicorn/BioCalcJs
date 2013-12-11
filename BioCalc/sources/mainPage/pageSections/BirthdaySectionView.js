@@ -36,7 +36,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
             configurable: false,
             get: getPresenter,
             set: setPresenter
-        })
+        });
 
         function getPresenter() {
             return presenter;

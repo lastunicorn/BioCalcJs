@@ -19,24 +19,60 @@
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
+lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function ($, viewFactory, bioControlsVersion, bioCalcVersion) {
+(function ($, bioControlsVersion, bioCalcVersion) {
 
     /**
      * Contains the logic of the About dialog.
      */
-    lu.bioCalc.mainPage.dialogs.AboutDialog = function () {
+    lu.bioCalc.mainPage.pageSections.AboutDialog = function () {
+
+        var presenter;
+
+        // --------------------------------------------------------------------------
+        // view property
+        // --------------------------------------------------------------------------
 
         var view = null;
 
+        Object.defineProperty(this, "view", {
+            enumerable: true,
+            configurable: false,
+            get: getView,
+            set: setView
+        });
+
+        function getView() {
+            return view;
+        }
+
+        function setView(value) {
+            if (view)
+                view.presenter = null;
+
+            view = value;
+
+            if (view) {
+                view.presenter = presenter;
+                initializeView();
+            }
+        }
+
         // --------------------------------------------------------------------------
-        // Functions - "public"
+        // Functions
         // --------------------------------------------------------------------------
 
         this.show = function () {
             view.show();
         };
+
+        function initializeView() {
+            view.setJQueryVersionText($.fn.jquery);
+            view.setJQueryUIVersionText($.ui.version);
+            view.setBioControlsVersionText(bioControlsVersion);
+            view.setBioCalcVersionText("ver " + bioCalcVersion);
+        }
 
         // --------------------------------------------------------------------------
         // Event Handlers
@@ -51,23 +87,14 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            var presenter = {
+            presenter = {
                 onCloseButtonClicked: onAboutDialogCloseClicked
             };
-
-            view = viewFactory.create("AboutDialogView");
-            view.presenter = presenter;
-
-            view.setJQueryVersionText($.fn.jquery);
-            view.setJQueryUIVersionText($.ui.version);
-            view.setBioControlsVersionText(bioControlsVersion);
-            view.setBioCalcVersionText("ver " + bioCalcVersion);
         }());
     };
 
 }(
         jQuery,
-        lu.bioCalc.mainPage.ViewFactory,
         lu.bioControls.version,
         lu.bioCalc.version
     ));

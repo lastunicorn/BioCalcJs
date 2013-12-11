@@ -14,11 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
+lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
 (function($) {
 
-    lu.bioCalc.mainPage.dialogs.HelpDialogView = function() {
+    lu.bioCalc.mainPage.pageSections.HelpDialogView = function() {
 
         var $helpDialog = null;
         var $helpDialogTabSet = null;
@@ -34,7 +34,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
             configurable: false,
             get: getPresenter,
             set: setPresenter
-        })
+        });
 
         function getPresenter() {
             return presenter;

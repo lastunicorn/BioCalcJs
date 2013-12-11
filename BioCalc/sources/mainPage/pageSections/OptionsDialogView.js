@@ -18,7 +18,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
 
 (function($) {
 
-    lu.bioCalc.mainPage.dialogs.OptionsDialogView = function() {
+    lu.bioCalc.mainPage.pageSections.OptionsDialogView = function() {
 
         var $optionsDialog = null;
         var $primaryBiorhythmsCheckbox = null;
@@ -37,7 +37,7 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
             configurable: false,
             get: getPresenter,
             set: setPresenter
-        })
+        });
 
         function getPresenter() {
             return presenter;

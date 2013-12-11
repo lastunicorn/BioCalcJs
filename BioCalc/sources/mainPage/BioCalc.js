@@ -31,7 +31,7 @@
  * @param CommonBiorhythmsContainer
  *            Object constructor. Creates and keeps a collection of biorhythms.
  */
-(function BioCalc($, bioCalcPageData, ConfigurationService, CommonBiorhythmsContainer, ModalDialogsAutoCloseModule) {
+(function BioCalc($, bioCalcPageData, Configuration, CommonBiorhythmsContainer, ModalDialogsAutoCloseModule) {
 
     var configuration;
 
@@ -40,8 +40,7 @@
     // --------------------------------------------------------------------------
 
     (function initialize() {
-        configuration = new ConfigurationService();
-
+        loadConfiguration();
         initializeBioCalcPageData();
 
         $(function () {
@@ -52,15 +51,9 @@
         });
     }());
 
-    function createPageSections() {
-        var helpDialog = new lu.bioCalc.mainPage.dialogs.HelpDialog();
-        var aboutDialog = new lu.bioCalc.mainPage.dialogs.AboutDialog();
-        var optionsDialog = new lu.bioCalc.mainPage.dialogs.OptionsDialog();
-        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(helpDialog, aboutDialog, optionsDialog);
-
-        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection();
-        var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(configuration);
-        var xDaySection = new lu.bioCalc.mainPage.pageSections.XDaySection();
+    function loadConfiguration() {
+        configuration = new Configuration();
+        configuration.loadFromCookies();
     }
 
     function initializeBioCalcPageData() {
@@ -76,6 +69,29 @@
         biorhythmShapes.setBirthdayOnAll(configuration.config.birthday);
 
         return biorhythmShapes;
+    }
+
+    function createPageSections() {
+        var helpDialog = new lu.bioCalc.mainPage.pageSections.HelpDialog();
+        helpDialog.view = new lu.bioCalc.mainPage.pageSections.HelpDialogView();
+
+        var aboutDialog = new lu.bioCalc.mainPage.pageSections.AboutDialog();
+        aboutDialog.view = new lu.bioCalc.mainPage.pageSections.AboutDialogView();
+
+        var optionsDialog = new lu.bioCalc.mainPage.pageSections.OptionsDialog();
+        optionsDialog.view = new lu.bioCalc.mainPage.pageSections.OptionsDialogView();
+
+        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(helpDialog, aboutDialog, optionsDialog);
+        mainToolbar.view = new lu.bioCalc.mainPage.pageSections.MainToolbarView();
+
+        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection();
+        chartsSection.view = new lu.bioCalc.mainPage.pageSections.ChartsSectionView();
+
+        var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(configuration);
+        birthdaySection.view = new lu.bioCalc.mainPage.pageSections.BirthdaySectionView();
+
+        var xDaySection = new lu.bioCalc.mainPage.pageSections.XDaySection();
+        xDaySection.view = new lu.bioCalc.mainPage.pageSections.XDaySectionView();
     }
 }(
         jQuery,

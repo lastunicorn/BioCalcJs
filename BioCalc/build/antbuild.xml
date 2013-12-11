@@ -90,7 +90,6 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/configuration">
-				<file name="ConfigurationLoader.js" />
 				<file name="Configuration.js" />
 			</sources>
 
@@ -99,13 +98,10 @@
 				<file name="BioCalc.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/mainPage/dialogs">
-				<file name="AboutDialogView.js" />
-				<file name="HelpDialogView.js" />
-				<file name="OptionsDialogView.js" />
-			</sources>
-
 			<sources dir="${basedir}/sources/mainPage/pageSections">
+                <file name="AboutDialogView.js" />
+                <file name="HelpDialogView.js" />
+                <file name="OptionsDialogView.js" />
 				<file name="BirthdaySectionView.js" />
 				<file name="MainToolbarView.js" />
 				<file name="XDaySectionView.js" />
@@ -116,13 +112,10 @@
                 <file name="ViewFactory.js" />
             </sources>
 
-            <sources dir="${basedir}/sources/mainPage/dialogs">
+            <sources dir="${basedir}/sources/mainPage/pageSections">
                 <file name="AboutDialog.js" />
                 <file name="HelpDialog.js" />
                 <file name="OptionsDialog.js" />
-            </sources>
-
-            <sources dir="${basedir}/sources/mainPage/pageSections">
                 <file name="BirthdaySection.js" />
                 <file name="MainToolbar.js" />
                 <file name="XDaySection.js" />

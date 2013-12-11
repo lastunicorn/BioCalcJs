@@ -21,33 +21,52 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
 
-(function (viewFactory, bioCalcPageData) {
+(function (bioCalcPageData) {
 
     /**
      * Contains the logic of the Options dialog.
      */
-    lu.bioCalc.mainPage.dialogs.OptionsDialog = function () {
+    lu.bioCalc.mainPage.pageSections.OptionsDialog = function () {
 
-        var view = null;
+        var presenter;
         var biorhythmShapes = null;
 
         // --------------------------------------------------------------------------
-        // Functions - "public"
+        // view property
+        // --------------------------------------------------------------------------
+
+        var view = null;
+
+        Object.defineProperty(this, "view", {
+            enumerable: true,
+            configurable: false,
+            get: getView,
+            set: setView
+        });
+
+        function getView() {
+            return view;
+        }
+
+        function setView(value) {
+            if (view)
+                view.presenter = null;
+
+            view = value;
+
+            if (view)
+                view.presenter = presenter;
+        }
+
+        // --------------------------------------------------------------------------
+        // Functions
         // --------------------------------------------------------------------------
 
         this.show = function () {
             view.show();
         };
 
-        // --------------------------------------------------------------------------
-        // Event Handlers
-        // --------------------------------------------------------------------------
-
-        function onOptionsDialogCloseClicked() {
-            view.close();
-        }
-
-        function onOptionsDialogOpen() {
+        function initializeView() {
             var isAnyPrimaryVisible = biorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
             view.checkPrimaryBiorhythmsCheckbox(isAnyPrimaryVisible);
 
@@ -59,6 +78,18 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
 
             var isAnyIChingVisible = biorhythmShapes.iChingBiorhythmShapes.isAnyVisible();
             view.checkIChingBiorhythmsCheckbox(isAnyIChingVisible);
+        }
+
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
+
+        function onOptionsDialogCloseClicked() {
+            view.close();
+        }
+
+        function onOptionsDialogOpen() {
+            initializeView();
         }
 
         function onPrimaryCheckboxChange() {
@@ -90,7 +121,7 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            var presenter = {
+            presenter = {
                 onCloseButtonClicked: onOptionsDialogCloseClicked,
                 onOptionsDialogOpen: onOptionsDialogOpen,
                 onPrimaryCheckboxChange: onPrimaryCheckboxChange,
@@ -99,15 +130,9 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
                 onIChingCheckboxChange: onIChingCheckboxChange
             };
 
-            view = viewFactory.create("OptionsDialogView");
-            view.presenter = presenter;
-
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
             biorhythmShapes = bioCalcPageData.biorhythms;
         }());
     };
 
-}(
-        lu.bioCalc.mainPage.ViewFactory,
-        lu.bioCalc.mainPage.BioCalcPageData
-    ));
+}(lu.bioCalc.mainPage.BioCalcPageData));

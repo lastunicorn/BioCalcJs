@@ -91,7 +91,7 @@
 
 			<sources dir="${basedir}/sources/configuration">
 				<file name="ConfigurationLoader.js" />
-				<file name="ConfigurationService.js" />
+				<file name="Configuration.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/mainPage">

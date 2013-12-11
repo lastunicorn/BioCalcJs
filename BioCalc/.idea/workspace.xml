@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a71b5258-d228-4ef4-87dc-8cbbfe4e93cc" name="Default" comment="i partially implemented the mvp in ChartsSection constructor.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../doc/BioCalc Presentation.vsd" afterPath="$PROJECT_DIR$/../doc/BioCalc Presentation.vsd" />
+    <list default="true" id="a71b5258-d228-4ef4-87dc-8cbbfe4e93cc" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sources/configuration/Configuration.js" />
+      <change type="DELETED" beforePath="D:\Projects\javascript\Biorhythm Calculator\BioCalc\sources\configuration\ConfigurationService.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/BioCalc.js" afterPath="$PROJECT_DIR$/sources/mainPage/BioCalc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BioControls/sources/biorhythmLegend/BiorhythmLegendItem.js" afterPath="$PROJECT_DIR$/../BioControls/sources/biorhythmLegend/BiorhythmLegendItem.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/helpers/DateFormatter.js" afterPath="$PROJECT_DIR$/sources/helpers/DateFormatter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/helpers/ModalDialogsAutoCloseModule.js" afterPath="$PROJECT_DIR$/sources/helpers/ModalDialogsAutoCloseModule.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/antbuild.xml" afterPath="$PROJECT_DIR$/build/antbuild.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Projects\javascript\Biorhythm Calculator\BioCalc\sources\mainPage\ModalDialogsAutoCloseModule.js" afterPath="$PROJECT_DIR$/sources/helpers/ModalDialogsAutoCloseModule.js" />
     </list>
     <ignored path="BioCalc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,16 +34,16 @@
       <file leaf-file-name="BioCalc.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="90" column="30" selection-start="3857" selection-end="3870" vertical-scroll-proportion="-0.0" vertical-offset="1530" max-vertical-offset="3859">
+            <state line="77" column="70" selection-start="3377" selection-end="3382" vertical-scroll-proportion="0.0" vertical-offset="1309" max-vertical-offset="3859">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BioCalc.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="BioCalc.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="0" selection-start="2278" selection-end="2278" vertical-scroll-proportion="0.5233645" vertical-offset="249" max-vertical-offset="1156">
+            <state line="82" column="47" selection-start="3115" selection-end="3115" vertical-scroll-proportion="0.0" vertical-offset="1394" max-vertical-offset="1547">
               <folding />
             </state>
           </provider>
@@ -55,68 +52,62 @@
       <file leaf-file-name="BirthdaySection.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="149" column="8" selection-start="5159" selection-end="5159" vertical-scroll-proportion="0.0" vertical-offset="1558" max-vertical-offset="2414">
+            <state line="29" column="52" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="2635">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BirthdaySectionView.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js">
+      <file leaf-file-name="ConfigurationLoader.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/configuration/ConfigurationLoader.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2567">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChartsSection.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="204" column="8" selection-start="7647" selection-end="7647" vertical-scroll-proportion="0.0" vertical-offset="2806" max-vertical-offset="3366">
+            <state line="57" column="24" selection-start="1759" selection-end="1759" vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="1411">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XDaySection.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js">
+      <file leaf-file-name="Configuration.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/configuration/Configuration.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="8" selection-start="3087" selection-end="3087" vertical-scroll-proportion="0.0" vertical-offset="834" max-vertical-offset="1394">
+            <state line="62" column="0" selection-start="2072" selection-end="2072" vertical-scroll-proportion="0.0" vertical-offset="232" max-vertical-offset="1173">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModalDialogsAutoCloseModule.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sources/helpers/ModalDialogsAutoCloseModule.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="50" selection-start="747" selection-end="747" vertical-scroll-proportion="0.0" vertical-offset="62" max-vertical-offset="918">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="antbuild.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="antbuild.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build/antbuild.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="87" column="48" selection-start="2484" selection-end="2547" vertical-scroll-proportion="0.0" vertical-offset="1265" max-vertical-offset="2397">
+            <state line="113" column="0" selection-start="3266" selection-end="3266" vertical-scroll-proportion="0.48457143" vertical-offset="1497" max-vertical-offset="2397">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DateFormatter.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sources/helpers/DateFormatter.js">
+      <file leaf-file-name="BioCalcPageData.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalcPageData.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="22" selection-start="834" selection-end="834" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state line="21" column="15" selection-start="797" selection-end="797" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="2363">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BioCalc.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="229" column="0" selection-start="3943" selection-end="3943" vertical-scroll-proportion="0.0" vertical-offset="3893" max-vertical-offset="4488">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewFactory.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/ViewFactory.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="41" selection-start="849" selection-end="849" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="867">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -124,7 +115,7 @@
       <file leaf-file-name="BioCalc.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/compiled/BioCalc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13702">
+            <state line="79" column="3" selection-start="2400" selection-end="2400" vertical-scroll-proportion="0.0" vertical-offset="1035" max-vertical-offset="13702">
               <folding />
             </state>
           </provider>
@@ -148,22 +139,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/compiled/some.html" />
         <option value="$PROJECT_DIR$/compiled/BioCalc.css" />
         <option value="$PROJECT_DIR$/compiled/BioCalc.html" />
         <option value="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSectionView.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.html" />
         <option value="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySectionView.js" />
         <option value="$PROJECT_DIR$/sources/mainPage/BioCalcPageData.js" />
         <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.css" />
         <option value="$PROJECT_DIR$/sources/mainPage/ModalDialogsAutoCloseModule.js" />
-        <option value="$PROJECT_DIR$/build/antbuild.xml" />
-        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.js" />
-        <option value="$PROJECT_DIR$/sources/helpers/ModalDialogsAutoCloseModule.js" />
         <option value="$PROJECT_DIR$/sources/helpers/DateFormatter.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js" />
         <option value="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js" />
         <option value="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js" />
+        <option value="$PROJECT_DIR$/sources/helpers/ModalDialogsAutoCloseModule.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.html" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.js" />
+        <option value="$PROJECT_DIR$/sources/configuration/ConfigurationService.js" />
+        <option value="$PROJECT_DIR$/build/antbuild.xml" />
       </list>
     </option>
   </component>
@@ -304,7 +295,47 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="mainPage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dialogs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="configuration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -425,7 +456,7 @@
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
-    <property name="options.lastSelected" value="appearance" />
+    <property name="options.lastSelected" value="preferences.externalTools" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../BioControls" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
@@ -526,7 +557,11 @@
       <created>1385591168679</created>
       <updated>1385591168679</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="BioCalc: i moved ModalDialogsAutoCloseModule in the helpers directory.">
+      <created>1386590490881</created>
+      <updated>1386590490881</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -555,22 +590,22 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.8017846" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.8017846" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32779622" sideWeight="0.79477376" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950923" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.38049713" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19821543" sideWeight="0.50055003" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33704117" sideWeight="0.804334" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.8017846" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24984066" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21878335" sideWeight="0.6722038" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950923" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20651014" sideWeight="0.6722038" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19821543" sideWeight="0.50055003" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.38049713" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32681867" sideWeight="0.78202677" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2497332" sideWeight="0.6722038" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33704117" sideWeight="0.804334" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32779622" sideWeight="0.79477376" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.8024219" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2497332" sideWeight="0.6722038" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -605,41 +640,60 @@
     <MESSAGE value="i fixed bug in BirthdaySection: a global birthday variable was created by mistake." />
     <MESSAGE value="i transformed all page section modules into object constructors.&#10;i created the ViewFactory object." />
     <MESSAGE value="i partially implemented the mvp in ChartsSection constructor." />
-    <option name="LAST_COMMIT_MESSAGE" value="i partially implemented the mvp in ChartsSection constructor." />
+    <MESSAGE value="BioCalc: i moved ModalDialogsAutoCloseModule in the helpers directory." />
+    <option name="LAST_COMMIT_MESSAGE" value="BioCalc: i moved ModalDialogsAutoCloseModule in the helpers directory." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/UnitTests/BirthdaySectionMocks.js">
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="8" selection-start="1776" selection-end="1776" vertical-scroll-proportion="0.5784543" vertical-offset="280" max-vertical-offset="1134" />
+        <state line="89" column="8" selection-start="3087" selection-end="3087" vertical-scroll-proportion="0.0" vertical-offset="834" max-vertical-offset="1394" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/XDaySectionView.js">
+    <entry file="file://$PROJECT_DIR$/sources/helpers/DateFormatter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="65" selection-start="1491" selection-end="1491" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1008">
-          <folding />
-        </state>
+        <state line="21" column="22" selection-start="834" selection-end="834" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="50" selection-start="6626" selection-end="6626" vertical-scroll-proportion="0.0" vertical-offset="4758" max-vertical-offset="5346" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2567" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/helpers/ModalDialogsAutoCloseModule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="37" selection-start="1264" selection-end="1264" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/dialogs/HelpDialog.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="23" selection-start="1923" selection-end="1923" vertical-scroll-proportion="0.0" vertical-offset="41" max-vertical-offset="918" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="229" column="0" selection-start="3943" selection-end="3943" vertical-scroll-proportion="0.0" vertical-offset="3592" max-vertical-offset="4488">
+        <state line="229" column="0" selection-start="3943" selection-end="3943" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4488">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSectionView.js">
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="54" selection-start="820" selection-end="837" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3168">
+        <state line="77" column="70" selection-start="3377" selection-end="3382" vertical-scroll-proportion="0.0" vertical-offset="1309" max-vertical-offset="3859">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalcPageData.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="27" selection-start="1910" selection-end="1910" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="2250">
+        <state line="21" column="15" selection-start="797" selection-end="797" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2125">
           <folding />
         </state>
       </provider>
@@ -651,78 +705,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.html">
+    <entry file="file://$PROJECT_DIR$/sources/configuration/ConfigurationLoader.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="30" selection-start="3857" selection-end="3870" vertical-scroll-proportion="-0.0" vertical-offset="1530" max-vertical-offset="3859">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/antbuild.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="48" selection-start="2484" selection-end="2547" vertical-scroll-proportion="0.0" vertical-offset="1265" max-vertical-offset="2397">
+        <state line="57" column="24" selection-start="1759" selection-end="1759" vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="1411">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compiled/BioCalc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="251" selection-end="251" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13702">
+        <state line="79" column="3" selection-start="2400" selection-end="2400" vertical-scroll-proportion="0.0" vertical-offset="1035" max-vertical-offset="13702">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="204" column="8" selection-start="7647" selection-end="7647" vertical-scroll-proportion="0.0" vertical-offset="2806" max-vertical-offset="3366">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="8" selection-start="3087" selection-end="3087" vertical-scroll-proportion="0.0" vertical-offset="834" max-vertical-offset="1394">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2567">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/helpers/DateFormatter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="22" selection-start="834" selection-end="834" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="8" selection-start="5159" selection-end="5159" vertical-scroll-proportion="0.0" vertical-offset="1854" max-vertical-offset="2414">
+        <state line="29" column="52" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/helpers/ModalDialogsAutoCloseModule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="50" selection-start="747" selection-end="747" vertical-scroll-proportion="0.0" vertical-offset="62" max-vertical-offset="918">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="2278" selection-end="2278" vertical-scroll-proportion="0.5233645" vertical-offset="249" max-vertical-offset="1156">
+        <state line="82" column="47" selection-start="3115" selection-end="3115" vertical-scroll-proportion="0.0" vertical-offset="728" max-vertical-offset="1309">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/configuration/Configuration.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="0" selection-start="2072" selection-end="2072" vertical-scroll-proportion="0.0" vertical-offset="232" max-vertical-offset="1173">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/antbuild.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="113" column="0" selection-start="3266" selection-end="3266" vertical-scroll-proportion="0.48457143" vertical-offset="1497" max-vertical-offset="2397">
           <folding />
         </state>
       </provider>

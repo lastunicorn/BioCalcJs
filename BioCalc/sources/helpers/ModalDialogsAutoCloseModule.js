@@ -22,12 +22,12 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.helpers");
      * It hooks to the click event of the gray background outside of a modal dialog and closes
      * the dialog when the user clicks it.
      */
-    lu.bioCalc.helpers.ModalDialogsAutoCloseModule = (function () {
+    lu.bioCalc.helpers.ModalDialogsAutoCloseModule = function () {
 
-        function start() {
+        this.start = function () {
             $(document.body)
                 .on("click", ".ui-widget-overlay", onWidgetOverlayClick);
-        }
+        };
 
         function onWidgetOverlayClick() {
             var $dialog = $(".ui-dialog");
@@ -41,9 +41,6 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.helpers");
                 }
             });
         }
+    };
 
-        return {
-            start: start
-        };
-    }());
 }(jQuery));

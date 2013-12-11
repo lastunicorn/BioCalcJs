@@ -21,13 +21,13 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function (viewFactory, bioCalcPageData, configurationService, dateFormatter) {
+(function (viewFactory, bioCalcPageData, dateFormatter) {
 
     /**
      * This module contains the logic of the page section where the user can select
      * the birthday.
      */
-    lu.bioCalc.mainPage.pageSections.BirthdaySection = function () {
+    lu.bioCalc.mainPage.pageSections.BirthdaySection = function (configuration) {
 
         var view = null;
 
@@ -38,7 +38,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         function updateSaveBirthdayButtonVisibility() {
-            var config = configurationService.config;
+            var config = configuration.config;
             var birthday = bioCalcPageData.birthday;
 
             if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
@@ -49,7 +49,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function updateResetBirthdayButtonVisibility() {
-            var config = configurationService.config;
+            var config = configuration.config;
             var birthday = bioCalcPageData.birthday;
 
             if (birthday.getTime() == config.birthday.getTime()) {
@@ -91,7 +91,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             e.preventDefault();
             e.stopPropagation();
 
-            var birthday = configurationService.config.birthday;
+            var birthday = configuration.config.birthday;
 
             publishBirthday(birthday);
 
@@ -104,8 +104,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             e.preventDefault();
             e.stopPropagation();
 
-            configurationService.config.birthday = bioCalcPageData.birthday;
-            configurationService.save();
+            configuration.config.birthday = bioCalcPageData.birthday;
+            configuration.save();
 
             updateSaveBirthdayButtonVisibility();
             updateResetBirthdayButtonVisibility();
@@ -146,6 +146,5 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 }(
         lu.bioCalc.mainPage.ViewFactory,
         lu.bioCalc.mainPage.BioCalcPageData,
-        lu.bioCalc.configuration.ConfigurationService,
         lu.bioCalc.helpers.DateFormatter
     ));

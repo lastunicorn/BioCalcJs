@@ -251,13 +251,13 @@ header h1 {
 
 #datesContainer .first-day-label {
     padding-left: 16px;
-    background: url(images/tab_left.png) no-repeat left center;
+    background: url(images/previous.png) no-repeat left center;
     cursor: pointer;
 }
 
 #datesContainer .last-day-label {
     padding-right: 16px;
-    background: url(images/tab_right.png) no-repeat right center;
+    background: url(images/next.png) no-repeat right center;
     cursor: pointer;
 }
 

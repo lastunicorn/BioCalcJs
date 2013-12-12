@@ -19,7 +19,7 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function ($, dateFormatter, dateUtil) {
+(function (dateFormatter, dateUtil) {
 
     /**
      * Contains the logic of the page section that displays the
@@ -146,7 +146,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function onFirstDayDatePickerSelect() {
-            var firstDay = $(this).datepicker("getDate");
+            var firstDay = view.$firstDayTextBox.datepicker("getDate");
             setChartsFirstDay(firstDay);
         }
 
@@ -175,7 +175,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function onLastDayDatePickerSelect() {
-            var lastDay = $(this).datepicker("getDate");
+            var lastDay = view.$lastDayTextBox.datepicker("getDate");
 
             var displayedDayCount = view.$biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
             var firstDay = dateUtil.addDays(lastDay, -displayedDayCount);
@@ -233,7 +233,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
     };
 
 }(
-        jQuery,
         lu.bioCalc.helpers.DateFormatter,
         lu.DateUtil
     ));

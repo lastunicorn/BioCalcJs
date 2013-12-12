@@ -94,7 +94,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             configurable: false,
             get: getPresenter,
             set: setPresenter
-        })
+        });
 
         function getPresenter() {
             return presenter;
@@ -108,25 +108,25 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // Functions
         // --------------------------------------------------------------------------
 
-        this.getBiorhythmsViewBirthday = function(){
+        this.getBiorhythmsViewBirthday = function () {
             return $biorhythmViewContainer.biorhythmView("getXDay");
-        }
+        };
 
         this.setFirstDayTextBoxText = function(text){
             $firstDayTextBox.val(text);
-        }
+        };
 
         this.setFirstDayLabelText = function(text){
             $firstDayLabel.text(text);
-        }
+        };
 
         this.setLastDayTextBoxText = function(text){
             $lastDayTextBox.val(text);
-        }
+        };
 
         this.setLastDayLabelText = function(text){
             $lastDayLabel.text(text);
-        }
+        };
 
         // --------------------------------------------------------------------------
         // Events

@@ -106,13 +106,6 @@
 				<file name="MainToolbarView.js" />
 				<file name="XDaySectionView.js" />
 				<file name="ChartsSectionView.js" />
-			</sources>
-
-            <sources dir="${basedir}/sources/mainPage">
-                <file name="ViewFactory.js" />
-            </sources>
-
-            <sources dir="${basedir}/sources/mainPage/pageSections">
                 <file name="AboutDialog.js" />
                 <file name="HelpDialog.js" />
                 <file name="OptionsDialog.js" />

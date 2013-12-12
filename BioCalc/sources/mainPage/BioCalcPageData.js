@@ -21,12 +21,8 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
     /**
      * The service that provides data and communication between different modules of
      * the page.
-     *
-     * @returns {lu.bioCalc.mainPage.BioCalcPageData}
      */
-    lu.bioCalc.mainPage.BioCalcPageData = (function () {
-
-        var obj = {};
+    lu.bioCalc.mainPage.BioCalcPageData = function () {
 
         // --------------------------------------------------------------------------
         // birthday property
@@ -34,9 +30,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
 
         var birthday = null;
         var birthdayChangedEvent = new Event();
-        obj.birthdayChanged = birthdayChangedEvent.client;
+        this.birthdayChanged = birthdayChangedEvent.client;
 
-        Object.defineProperty(obj, "birthday", {
+        Object.defineProperty(this, "birthday", {
             enumerable: true,
             configurable: false,
             get: getBirthday,
@@ -58,9 +54,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
 
         var secondBirthday = null;
         var secondBirthdayChangedEvent = new Event();
-        obj.secondBirthdayChanged = secondBirthdayChangedEvent.client;
+        this.secondBirthdayChanged = secondBirthdayChangedEvent.client;
 
-        Object.defineProperty(obj, "secondBirthday", {
+        Object.defineProperty(this, "secondBirthday", {
             enumerable: true,
             configurable: false,
             get: getSecondBirthday,
@@ -82,9 +78,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
 
         var xDay = null;
         var xDayChangedEvent = new Event();
-        obj.xDayChanged = xDayChangedEvent.client;
+        this.xDayChanged = xDayChangedEvent.client;
 
-        Object.defineProperty(obj, "xDay", {
+        Object.defineProperty(this, "xDay", {
             enumerable: true,
             configurable: false,
             get: getXDay,
@@ -106,9 +102,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
 
         var biorhythms = null;
         var biorhythmsChangedEvent = new Event();
-        obj.biorhythmsChanged = biorhythmsChangedEvent.client;
+        this.biorhythmsChanged = biorhythmsChangedEvent.client;
 
-        Object.defineProperty(obj, "biorhythms", {
+        Object.defineProperty(this, "biorhythms", {
             enumerable: true,
             configurable: false,
             get: getBiorhythms,
@@ -123,12 +119,6 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage");
             biorhythms = value;
             biorhythmsChangedEvent.raise(this, value);
         }
-
-        // --------------------------------------------------------------------------
-        // Return
-        // --------------------------------------------------------------------------
-
-        return obj;
-    }());
+    };
 
 }(lu.Event));

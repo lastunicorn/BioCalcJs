@@ -1,5 +1,5 @@
 ﻿/*
-﻿BioCalc
+BioCalc
 Copyright (C) 2013 Last Unicorn
 
 This program is free software: you can redistribute it and/or modify
@@ -20,186 +20,186 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 ----------------------------------------------------------------------------- */
 
 body {
-	font: 14px Arial;
-	color: #303030;
+    font: 14px Arial;
+    color: #303030;
 }
 
 input[type="text"] {
-	padding: 3px;
-	border: 1px solid #b0b0b0;
-	border-radius: 4px;
-	background-color: #f0f0f0;
+    padding: 3px;
+    border: 1px solid #b0b0b0;
+    border-radius: 4px;
+    background-color: #f0f0f0;
 }
 
 input[type="text"]:hover {
-	background-color: #e8e8e8;
-	border-color: #909090;
+    background-color: #e8e8e8;
+    border-color: #909090;
 }
 
 input[type="text"]:focus {
-	background-color: #f8f8f8;
+    background-color: #f8f8f8;
 }
 
 /* Common
 ----------------------------------------------------------------------------- */
 
 .clear {
-	clear: both;
+    clear: both;
 }
 
 h2 {
-	font: 16px Arial;
-	font-weight: bold;
+    font: 16px Arial;
+    font-weight: bold;
 }
 
 a[target="_blank"] {
-	color: blue;
+    color: blue;
 }
 
 .color-label {
-	background-color: #000000;
-	width: 16px;
-	height: 16px;
-	display: inline-block;
-	position: relative;
-	top: 2px;
+    background-color: #000000;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+    top: 2px;
 }
 
 .external-link {
-	background: url('images/external_link.png') no-repeat right center;
-	padding-right: 11px;
+    background: url('images/external_link.png') no-repeat right center;
+    padding-right: 11px;
 }
 
 /* Debug
 ----------------------------------------------------------------------------- */
 
 #debug {
-	height: 200px;
-	border: 1px solid #aaa;
-	margin: 10px 0;
-	overflow: auto;
+    height: 200px;
+    border: 1px solid #aaa;
+    margin: 10px 0;
+    overflow: auto;
 }
 
 /* Page
 ----------------------------------------------------------------------------- */
 
 .bio-calc-version {
-	text-align: right;
-	margin: 3px 0;
-	color: #a0a0a0;
-	display: inline;
-	font-size: 10px;
+    text-align: right;
+    margin: 3px 0;
+    color: #a0a0a0;
+    display: inline;
+    font-size: 10px;
 }
 
 #pageContainer {
-	width: 900px;
-	margin: 0 auto;
+    width: 900px;
+    margin: 0 auto;
 }
 
 #pageContainer h2 {
-	margin-top: 30px; 
+    margin-top: 30px;
 }
 
 /* Biorhythm View
 ----------------------------------------------------------------------------- */
 
 #biorhythmViewContainer {
-	width: 900px;
-	margin: 0 auto;
+    width: 900px;
+    margin: 0 auto;
 }
 
 #biorhythmViewContainer canvas {
-	border: 1px solid #c0c0c0;
-	outline: none;
-	border-radius: 5px;
-	margin: 0 auto;
-	cursor: move;
+    border: 1px solid #c0c0c0;
+    outline: none;
+    border-radius: 5px;
+    margin: 0 auto;
+    cursor: move;
 }
 
 /* Biorhythm Legend
 ----------------------------------------------------------------------------- */
 
 #bioLegend {
-	margin: 5px 0;
+    margin: 5px 0;
 }
 
 .bio-legend-item {
-	display: inline;
-	margin-left: 10px;
-	float: right;
-	cursor: pointer;
+    display: inline;
+    margin-left: 10px;
+    float: right;
+    cursor: pointer;
 }
 
 .bio-legend-item .color-label {
-	margin: 0 3px;
+    margin: 0 3px;
 }
 
 .bio-legend-label {
-	display: inline-block;
+    display: inline-block;
 }
 
 /* Header
 ----------------------------------------------------------------------------- */
 
 header {
-	overflow: hidden;
-	width: 100%;
+    overflow: hidden;
+    width: 100%;
 }
 
 header h1 {
-	font: 25px Arial;
-	font-weight: bold;
-	color: #000;
-	float: left;
-	margin: 16px 0;
+    font: 25px Arial;
+    font-weight: bold;
+    color: #000;
+    float: left;
+    margin: 16px 0;
 }
 
 #mainToolbar {
-	float: right;
-	margin: 16px 4px 16px 0;
+    float: right;
+    margin: 16px 4px 16px 0;
 }
 
 #mainToolbar .ui-button {
-	font-size: 12px;
+    font-size: 12px;
 }
 
 /* Tabs
 ----------------------------------------------------------------------------- */
 
 .ui-tabs {
-	font-size: 12px;
+    font-size: 12px;
 }
 
 .ui-tabs ul li,
 .ui-tabs ul li a {
-	outline: none;
+    outline: none;
 }
 
 #clearBirthdayButton {
-	display: none;
+    display: none;
 }
 
 /* Help/About Dialog
 ----------------------------------------------------------------------------- */
 
 #helpDialog, #aboutDialog {
-	font-size: 12px;
+    font-size: 12px;
 }
 
 #helpDialog p {
-	text-align: justify;
+    text-align: justify;
 }
 
-#helpDialog{
-	display: none;
+#helpDialog {
+    display: none;
 }
 
-#aboutDialog{
-	display: none;
+#aboutDialog {
+    display: none;
 }
 
-#optionsDialog{
-	display: none;
+#optionsDialog {
+    display: none;
 }
 
 /* jQuery Widgets
@@ -213,19 +213,19 @@ header h1 {
 ----------------------------------------------------------------------------- */
 
 #xDayInfoContainer {
-	border: 1px dashed #d0d0d0;
-	padding: 7px;
-	margin: 5px 0;
-	background-color: #f0f0f0;
-	border-radius: 3px;
+    border: 1px dashed #d0d0d0;
+    padding: 7px;
+    margin: 5px 0;
+    background-color: #f0f0f0;
+    border-radius: 3px;
 }
 
 #xDayInfoContainer .x-day-item td {
-	padding: 0 5px; 
+    padding: 0 5px;
 }
 
 #xDayInfoContainer .x-day-item .x-day-value {
-	text-align: right;
+    text-align: right;
 }
 
 #xDayInfoContainer .x-day-item .compatibility-value {
@@ -236,9 +236,9 @@ header h1 {
 ----------------------------------------------------------------------------- */
 
 #datesContainer {
-	color: #bbbbbb;
-	font-size: 0.9em;
-	margin: 3px 5px;
+    color: #bbbbbb;
+    font-size: 0.9em;
+    margin: 3px 5px;
 }
 
 #datesContainer .first-day-container {
@@ -249,9 +249,16 @@ header h1 {
     float: right;
 }
 
-#datesContainer .first-day-label,
+#datesContainer .first-day-label {
+    padding-left: 16px;
+    background: url(images/tab_left.png) no-repeat left center;
+    cursor: pointer;
+}
+
 #datesContainer .last-day-label {
-	cursor: pointer;
+    padding-right: 16px;
+    background: url(images/tab_right.png) no-repeat right center;
+    cursor: pointer;
 }
 
 #birthdayTextBox, #secondBirthdayTextBox, .first-day-textbox {

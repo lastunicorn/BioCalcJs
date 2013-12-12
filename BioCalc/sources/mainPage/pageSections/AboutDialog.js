@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-//lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
-
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};

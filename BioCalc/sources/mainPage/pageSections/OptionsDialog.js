@@ -14,19 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-//lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
-
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
 
-(function (bioCalcPageData) {
+(function () {
 
     /**
      * Contains the logic of the Options dialog.
      */
-    lu.bioCalc.mainPage.pageSections.OptionsDialog = function () {
+    lu.bioCalc.mainPage.pageSections.OptionsDialog = function (bioCalcPageData) {
 
         var presenter;
         var biorhythmShapes = null;
@@ -66,7 +64,10 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
             view.show();
         };
 
-        function initializeView() {
+        function start() {
+            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+            biorhythmShapes = bioCalcPageData.biorhythms;
+
             var isAnyPrimaryVisible = biorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
             view.checkPrimaryBiorhythmsCheckbox(isAnyPrimaryVisible);
 
@@ -80,6 +81,10 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
             view.checkIChingBiorhythmsCheckbox(isAnyIChingVisible);
         }
 
+        function stop(){
+            bioCalcPageData.biorhythmsChanged.unsubscribe(onExternalBiorhythmsChanged);
+        }
+
         // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
@@ -89,7 +94,11 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
         }
 
         function onOptionsDialogOpen() {
-            initializeView();
+            start();
+        }
+
+        function onOptionsDialogClose() {
+            stop();
         }
 
         function onPrimaryCheckboxChange() {
@@ -124,15 +133,13 @@ lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
             presenter = {
                 onCloseButtonClicked: onOptionsDialogCloseClicked,
                 onOptionsDialogOpen: onOptionsDialogOpen,
+                onOptionsDialogClose: onOptionsDialogClose,
                 onPrimaryCheckboxChange: onPrimaryCheckboxChange,
                 onSecondaryCheckboxChange: onSecondaryCheckboxChange,
                 onExtraCheckboxChange: onExtraCheckboxChange,
                 onIChingCheckboxChange: onIChingCheckboxChange
             };
-
-            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
-            biorhythmShapes = bioCalcPageData.biorhythms;
         }());
     };
 
-}(lu.bioCalc.mainPage.BioCalcPageData));
+}());

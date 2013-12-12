@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a71b5258-d228-4ef4-87dc-8cbbfe4e93cc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/alez.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BioControls/.gitignore" afterPath="$PROJECT_DIR$/../BioControls/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="a71b5258-d228-4ef4-87dc-8cbbfe4e93cc" name="Default" comment="BioCalc: i">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialog.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialog.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialogView.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialogView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/BioCalc.css" afterPath="$PROJECT_DIR$/sources/mainPage/BioCalc.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/BioCalc.js" afterPath="$PROJECT_DIR$/sources/mainPage/BioCalc.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/BioCalcPageData.js" afterPath="$PROJECT_DIR$/sources/mainPage/BioCalcPageData.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSectionView.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSectionView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialog.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialog.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialogView.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialogView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbarView.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbarView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialog.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialog.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialogView.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialogView.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySectionView.js" afterPath="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySectionView.js" />
     </list>
     <ignored path="BioCalc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,28 +41,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ViewFactory.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sources/mainPage/ViewFactory.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="4" selection-start="838" selection-end="838" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1206">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ChartsSection.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="229" column="15" selection-start="8177" selection-end="8177" vertical-scroll-proportion="0.0" vertical-offset="3422" max-vertical-offset="4302">
+            <state line="83" column="40" selection-start="2707" selection-end="2730" vertical-scroll-proportion="0.0" vertical-offset="1486" max-vertical-offset="4392">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BirthdaySection.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js">
+      <file leaf-file-name="AboutDialog.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="29" selection-start="2120" selection-end="2120" vertical-scroll-proportion="0.738041" vertical-offset="270" max-vertical-offset="3204">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.1109813" vertical-offset="951" max-vertical-offset="1854">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChartsSectionView.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSectionView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="127" column="17" selection-start="3786" selection-end="3786" vertical-scroll-proportion="0.0" vertical-offset="2286" max-vertical-offset="4086">
               <folding />
             </state>
           </provider>
@@ -58,16 +71,25 @@
       <file leaf-file-name="BioCalc.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="242" column="0" selection-start="4201" selection-end="4201" vertical-scroll-proportion="0.0" vertical-offset="3856" max-vertical-offset="4752">
+            <state line="259" column="36" selection-start="4787" selection-end="4787" vertical-scroll-proportion="0.0" vertical-offset="4024" max-vertical-offset="4878">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BirthdaySectionView.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js">
+      <file leaf-file-name="antbuild.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/antbuild.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="46" selection-start="2579" selection-end="2579" vertical-scroll-proportion="0.0" vertical-offset="1332" max-vertical-offset="3150">
+            <state line="65" column="44" selection-start="1786" selection-end="1786" vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="2286">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainToolbar.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="3" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1656">
               <folding />
             </state>
           </provider>
@@ -76,16 +98,37 @@
       <file leaf-file-name="BioCalc.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="72" selection-start="3638" selection-end="3659" vertical-scroll-proportion="0.0" vertical-offset="978" max-vertical-offset="4194">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="864" max-vertical-offset="4194">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BioCalc.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/compiled/BioCalc.js">
+      <file leaf-file-name="HelpDialog.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="618" column="2" selection-start="23143" selection-end="23143" vertical-scroll-proportion="0.0" vertical-offset="10934" max-vertical-offset="19602">
+            <state line="33" column="0" selection-start="1246" selection-end="1246" vertical-scroll-proportion="0.0" vertical-offset="742" max-vertical-offset="1620">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XDaySection.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="49" column="0" selection-start="1651" selection-end="1651" vertical-scroll-proportion="0.0" vertical-offset="964" max-vertical-offset="2088">
+              <folding>
+                <marker date="1386877344964" expanded="true" signature="0:695" placeholder="//..." />
+                <marker date="1386877344964" expanded="true" signature="3022:3093" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OptionsDialog.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialog.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="105" column="12" selection-start="3540" selection-end="3540" vertical-scroll-proportion="0.0" vertical-offset="1890" max-vertical-offset="2700">
               <folding />
             </state>
           </provider>
@@ -109,22 +152,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbarView.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbar.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialog.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialogView.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js" />
         <option value="$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialog.js" />
         <option value="$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialogView.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/ViewFactory.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialog.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialogView.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js" />
-        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.html" />
-        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.css" />
-        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbarView.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySectionView.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/BioCalcPageData.js" />
         <option value="$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbar.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialogView.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialog.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSectionView.js" />
+        <option value="$PROJECT_DIR$/compiled/BioCalc.css" />
+        <option value="$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js" />
+        <option value="$PROJECT_DIR$/sources/mainPage/BioCalc.css" />
       </list>
     </option>
   </component>
@@ -288,6 +331,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="UnitTests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="sources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -310,6 +385,132 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mainPage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pageSections" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="compiled" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="compiled" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="compiled" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BiorhythmControls" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="compiled" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BioCalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="build" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -318,7 +519,7 @@
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
-    <property name="options.lastSelected" value="fileColors" />
+    <property name="options.lastSelected" value="editor.preferences.folding" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../BioControls" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
@@ -326,10 +527,10 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="TODO_SCOPE" value="sources" />
-    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig">
     <servers>
@@ -352,6 +553,14 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -362,23 +571,15 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -475,16 +676,16 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.8017846" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24984066" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950923" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22243467" sideWeight="0.6722038" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23263225" sideWeight="0.6722038" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19821543" sideWeight="0.50055003" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.38049713" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32745314" sideWeight="0.78075206" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32745314" sideWeight="0.7705545" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33704117" sideWeight="0.804334" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32673267" sideWeight="0.7833015" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263506" sideWeight="0.7705545" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.8024219" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2497332" sideWeight="0.6722038" order="2" side_tool="false" content_ui="combo" />
@@ -506,9 +707,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19821543" sideWeight="0.49944994" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296582" sideWeight="0.804334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -543,96 +744,105 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialogView.js">
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="64" selection-start="761" selection-end="761" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="2430" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="67" selection-start="939" selection-end="939" vertical-scroll-proportion="0.27366608" vertical-offset="219" max-vertical-offset="1656" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialogView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="64" selection-start="761" selection-end="761" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="1998" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="5" selection-start="2671" selection-end="2671" vertical-scroll-proportion="0.8141136" vertical-offset="1075" max-vertical-offset="1656" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="4" selection-start="1038" selection-end="1038" vertical-scroll-proportion="0.0" vertical-offset="219" max-vertical-offset="2574" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialogView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="4" selection-start="781" selection-end="781" vertical-scroll-proportion="0.51166964" vertical-offset="75" max-vertical-offset="3276" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="0" selection-start="1129" selection-end="1865" vertical-scroll-proportion="1.1101549" vertical-offset="435" max-vertical-offset="1890" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3366" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="0" selection-start="1955" selection-end="1955" vertical-scroll-proportion="0.0053859963" vertical-offset="771" max-vertical-offset="1674" />
+        <state line="60" column="27" selection-start="2154" selection-end="2154" vertical-scroll-proportion="0.0" vertical-offset="766" max-vertical-offset="1674" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialogView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-20.771128" vertical-offset="11798" max-vertical-offset="12366" />
+        <state line="108" column="41" selection-start="3784" selection-end="3784" vertical-scroll-proportion="0.0" vertical-offset="1624" max-vertical-offset="3456" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compiled/BioCalc.js">
+    <entry file="file://$PROJECT_DIR$/compiled/libraries/BiorhythmControls/BiorhythmControls.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="618" column="2" selection-start="23143" selection-end="23143" vertical-scroll-proportion="0.0" vertical-offset="10934" max-vertical-offset="19602">
+        <state line="99" column="92" selection-start="3458" selection-end="3469" vertical-scroll-proportion="0.33293697" vertical-offset="1502" max-vertical-offset="42084" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalcPageData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="104" column="60" selection-start="3510" selection-end="3510" vertical-scroll-proportion="0.4730679" vertical-offset="1468" max-vertical-offset="2322" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/OptionsDialog.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="12" selection-start="3540" selection-end="3540" vertical-scroll-proportion="0.0" vertical-offset="269" max-vertical-offset="2700">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/ViewFactory.js">
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/MainToolbar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="4" selection-start="838" selection-end="838" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="954">
+        <state line="12" column="3" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0" vertical-offset="190" max-vertical-offset="1656">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.css">
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/HelpDialog.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="242" column="0" selection-start="4201" selection-end="4201" vertical-scroll-proportion="0.0" vertical-offset="3856" max-vertical-offset="4752">
+        <state line="33" column="0" selection-start="1246" selection-end="1246" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="1620">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/XDaySection.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="0" selection-start="1651" selection-end="1651" vertical-scroll-proportion="0.0" vertical-offset="964" max-vertical-offset="2088">
+          <folding>
+            <marker date="1386877344964" expanded="true" signature="0:695" placeholder="//..." />
+            <marker date="1386877344964" expanded="true" signature="3022:3093" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSectionView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="127" column="17" selection-start="3786" selection-end="3786" vertical-scroll-proportion="0.0" vertical-offset="1783" max-vertical-offset="4086">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="72" selection-start="3638" selection-end="3659" vertical-scroll-proportion="0.0" vertical-offset="978" max-vertical-offset="4194">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="864" max-vertical-offset="4194">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySectionView.js">
+    <entry file="file://$PROJECT_DIR$/compiled/BioCalc.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="46" selection-start="2579" selection-end="2579" vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="2898">
+        <state line="259" column="20" selection-start="4771" selection-end="4771" vertical-scroll-proportion="0.7470726" vertical-offset="4024" max-vertical-offset="4878" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/antbuild.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="44" selection-start="1786" selection-end="1786" vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="2286">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/BioCalc.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="259" column="36" selection-start="4787" selection-end="4787" vertical-scroll-proportion="0.0" vertical-offset="4024" max-vertical-offset="4878">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/ChartsSection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="229" column="15" selection-start="8177" selection-end="8177" vertical-scroll-proportion="0.0" vertical-offset="3170" max-vertical-offset="4050">
+        <state line="83" column="40" selection-start="2707" selection-end="2730" vertical-scroll-proportion="0.0" vertical-offset="1486" max-vertical-offset="4392">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/BirthdaySection.js">
+    <entry file="file://$PROJECT_DIR$/sources/mainPage/pageSections/AboutDialog.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="29" selection-start="2120" selection-end="2120" vertical-scroll-proportion="0.738041" vertical-offset="270" max-vertical-offset="3204">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.1109813" vertical-offset="951" max-vertical-offset="1854">
           <folding />
         </state>
       </provider>

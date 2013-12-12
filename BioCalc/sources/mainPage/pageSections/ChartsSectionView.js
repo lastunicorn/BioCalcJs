@@ -14,7 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
 (function ($) {
 
@@ -102,6 +105,30 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
         }
 
         // --------------------------------------------------------------------------
+        // Functions
+        // --------------------------------------------------------------------------
+
+        this.getBiorhythmsViewBirthday = function(){
+            return $biorhythmViewContainer.biorhythmView("getXDay");
+        }
+
+        this.setFirstDayTextBoxText = function(text){
+            $firstDayTextBox.val(text);
+        }
+
+        this.setFirstDayLabelText = function(text){
+            $firstDayLabel.text(text);
+        }
+
+        this.setLastDayTextBoxText = function(text){
+            $lastDayTextBox.val(text);
+        }
+
+        this.setLastDayLabelText = function(text){
+            $lastDayLabel.text(text);
+        }
+
+        // --------------------------------------------------------------------------
         // Events
         // --------------------------------------------------------------------------
 
@@ -127,6 +154,14 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
         function onLastDayDatePickerSelect() {
             presenter.onLastDayDatePickerSelect.apply(this, arguments);
+        }
+
+        function onBiorhythmViewFirstDayChanged() {
+            presenter.onBiorhythmViewFirstDayChanged.apply(this, arguments);
+        }
+
+        function onBiorhythmViewXDayIndexChanged() {
+            presenter.onBiorhythmViewXDayIndexChanged.apply(this, arguments);
         }
 
         // --------------------------------------------------------------------------
@@ -175,7 +210,9 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.pageSections");
 
             $biorhythmViewContainer.biorhythmView({
                 width: 900,
-                height: 200
+                height: 200,
+                firstDayChanged: onBiorhythmViewFirstDayChanged,
+                xDayIndexChanged: onBiorhythmViewXDayIndexChanged
             });
 
             $bioLegend.biorhythmLegend();

@@ -14,7 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
 (function($) {
 
@@ -107,6 +110,12 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
             }
         }
 
+        function onOptionsDialogClose() {
+            if ($.isFunction(presenter.onOptionsDialogClose)) {
+                presenter.onOptionsDialogClose();
+            }
+        }
+
         function onPrimaryCheckboxChange(e) {
             if ($.isFunction(presenter.onPrimaryCheckboxChange)) {
                 presenter.onPrimaryCheckboxChange(e);
@@ -164,7 +173,8 @@ lu.Namespacing.ensureNamespace("lu.bioCalc.mainPage.dialogs");
                     effect: "puff",
                     duration: 300
                 },
-                open: onOptionsDialogOpen
+                open: onOptionsDialogOpen,
+                close: onOptionsDialogClose
             });
 
             $primaryBiorhythmsCheckbox.change(onPrimaryCheckboxChange);

@@ -15,25 +15,12 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The main module of the BioCalc home page. It creates the biorhythms to be
- * displayed in the page.
- *
- * @param $
- *            The jQuery object.
- *
- * @param bioCalcPageData
- *            The service that provides data and communication between different
- *            modules of the page.
- *
- * @param configurationService
- *            Keeps the configuration object.
- *
- * @param CommonBiorhythmsContainer
- *            Object constructor. Creates and keeps a collection of biorhythms.
+ * The main module of the BioCalc home page. It initializes all the parts of the page.
  */
-(function BioCalc($, bioCalcPageData, Configuration, CommonBiorhythmsContainer, ModalDialogsAutoCloseModule) {
+(function BioCalc($, BioCalcPageData, Configuration, CommonBiorhythmsContainer, ModalDialogsAutoCloseModule) {
 
     var configuration;
+    var bioCalcPageData;
 
     // --------------------------------------------------------------------------
     // Initializer
@@ -44,9 +31,7 @@
         initializeBioCalcPageData();
 
         $(function () {
-            var modalDialogsAutoCloseModule = new ModalDialogsAutoCloseModule();
-            modalDialogsAutoCloseModule.start();
-
+            initializeDialogsAutoCloseModule();
             createPageSections();
         });
     }());
@@ -57,18 +42,19 @@
     }
 
     function initializeBioCalcPageData() {
-        var biorhythmShapes = createBiorhythmShapes();
+        bioCalcPageData = new BioCalcPageData();
+
+        var biorhythmShapes = new CommonBiorhythmsContainer();
+        biorhythmShapes.setBirthdayOnAll(configuration.config.birthday);
 
         bioCalcPageData.biorhythms = biorhythmShapes;
         bioCalcPageData.birthday = configuration.config.birthday;
         bioCalcPageData.secondBirthday = new Date(1980, 05, 13);
     }
 
-    function createBiorhythmShapes() {
-        var biorhythmShapes = new CommonBiorhythmsContainer();
-        biorhythmShapes.setBirthdayOnAll(configuration.config.birthday);
-
-        return biorhythmShapes;
+    function initializeDialogsAutoCloseModule() {
+        var modalDialogsAutoCloseModule = new ModalDialogsAutoCloseModule();
+        modalDialogsAutoCloseModule.start();
     }
 
     function createPageSections() {
@@ -78,19 +64,19 @@
         var aboutDialog = new lu.bioCalc.mainPage.pageSections.AboutDialog();
         aboutDialog.view = new lu.bioCalc.mainPage.pageSections.AboutDialogView();
 
-        var optionsDialog = new lu.bioCalc.mainPage.pageSections.OptionsDialog();
+        var optionsDialog = new lu.bioCalc.mainPage.pageSections.OptionsDialog(bioCalcPageData);
         optionsDialog.view = new lu.bioCalc.mainPage.pageSections.OptionsDialogView();
 
         var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(helpDialog, aboutDialog, optionsDialog);
         mainToolbar.view = new lu.bioCalc.mainPage.pageSections.MainToolbarView();
 
-        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection();
+        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(bioCalcPageData);
         chartsSection.view = new lu.bioCalc.mainPage.pageSections.ChartsSectionView();
 
-        var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(configuration);
+        var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(configuration, bioCalcPageData);
         birthdaySection.view = new lu.bioCalc.mainPage.pageSections.BirthdaySectionView();
 
-        var xDaySection = new lu.bioCalc.mainPage.pageSections.XDaySection();
+        var xDaySection = new lu.bioCalc.mainPage.pageSections.XDaySection(bioCalcPageData);
         xDaySection.view = new lu.bioCalc.mainPage.pageSections.XDaySectionView();
     }
 }(

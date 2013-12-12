@@ -19,13 +19,13 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function (bioCalcPageData, dateFormatter) {
+(function (dateFormatter) {
 
     /**
-     * This module contains the logic of the page section where the user can see
+     * Contains the logic of the page section where the user can see
      * details about the X day.
      */
-    lu.bioCalc.mainPage.pageSections.XDaySection = function () {
+    lu.bioCalc.mainPage.pageSections.XDaySection = function (bioCalcPageData) {
 
         // --------------------------------------------------------------------------
         // view property
@@ -45,15 +45,34 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function setView(value) {
+            if (view)
+                stop();
+
             view = value;
 
             if (view)
-                initializeView();
+                start();
         }
 
         // --------------------------------------------------------------------------
         // Functions
         // --------------------------------------------------------------------------
+
+        function start() {
+            bioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
+            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
+            bioCalcPageData.secondBirthdayChanged.subscribe(onSecondBirthdayChanged);
+
+            refreshBiorhythms();
+            refreshXDay();
+            refreshSecondBirthday();
+        }
+
+        function stop() {
+            bioCalcPageData.xDayChanged.unsubscribe(onExternalXDayChanged);
+            bioCalcPageData.biorhythmsChanged.unsubscribe(onExternalBiorhythmsChanged);
+            bioCalcPageData.secondBirthdayChanged.unsubscribe(onSecondBirthdayChanged);
+        }
 
         function refreshXDay() {
             var xDay = bioCalcPageData.xDay;
@@ -72,12 +91,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             view.setBiorhythms(bioCalcPageData.biorhythms);
         }
 
-        function initializeView() {
-            refreshBiorhythms();
-            refreshXDay();
-            refreshSecondBirthday();
-        }
-
         // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
@@ -90,22 +103,9 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             refreshBiorhythms();
         }
 
-        function onSecondBirthdayChanged(arg){
+        function onSecondBirthdayChanged(arg) {
             refreshSecondBirthday();
         }
-
-        // --------------------------------------------------------------------------
-        // Initializer
-        // --------------------------------------------------------------------------
-
-        (function initialize() {
-            bioCalcPageData.xDayChanged.subscribe(onExternalXDayChanged);
-            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
-            bioCalcPageData.secondBirthdayChanged.subscribe(onSecondBirthdayChanged);
-        }());
     };
 
-}(
-        lu.bioCalc.mainPage.BioCalcPageData,
-        lu.bioCalc.helpers.DateFormatter
-    ));
+}(lu.bioCalc.helpers.DateFormatter));

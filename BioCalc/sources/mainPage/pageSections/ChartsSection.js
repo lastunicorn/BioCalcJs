@@ -19,13 +19,13 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function ($, bioCalcPageData, dateFormatter, dateUtil) {
+(function ($, dateFormatter, dateUtil) {
 
     /**
-     * This module contains the logic of the page section that displays the
+     * Contains the logic of the page section that displays the
      * biorhythm charts.
      */
-    lu.bioCalc.mainPage.pageSections.ChartsSection = function () {
+    lu.bioCalc.mainPage.pageSections.ChartsSection = function (bioCalcPageData) {
 
         var presenter;
 
@@ -47,14 +47,16 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function setView(value) {
-            if (view)
+            if (view) {
                 view.presenter = null;
+                stop();
+            }
 
             view = value;
 
             if (view) {
                 view.presenter = presenter;
-                initializeView();
+                start();
             }
         }
 
@@ -63,19 +65,19 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         function publishCurrentXDay() {
-            bioCalcPageData.xDay = view.$biorhythmViewContainer.biorhythmView("getXDay");
+            bioCalcPageData.xDay = view.getBiorhythmsViewBirthday();
         }
 
         function setFirstDayLabel(date) {
             var firstDayAsText = dateFormatter.formatDate(date);
-            view.$firstDayTextBox.val(firstDayAsText);
-            view.$firstDayLabel.html("<< " + firstDayAsText);
+            view.setFirstDayTextBoxText(firstDayAsText);
+            view.setFirstDayLabelText(firstDayAsText);
         }
 
         function setLastDayLabel(date) {
             var lastDayAsText = dateFormatter.formatDate(date);
-            view.$lastDayTextBox.val(lastDayAsText);
-            view.$lastDayLabel.html(lastDayAsText + " >>");
+            view.setLastDayTextBoxText(lastDayAsText);
+            view.setLastDayLabelText(lastDayAsText);
         }
 
         function setChartsFirstDay(date) {
@@ -98,9 +100,9 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             }
         }
 
-        function initializeView() {
-            view.$biorhythmViewContainer.biorhythmView("option", "firstDayChanged", onBiorhythmViewFirstDayChanged);
-            view.$biorhythmViewContainer.biorhythmView("option", "xDayIndexChanged", onBiorhythmViewXDayIndexChanged);
+        function start() {
+            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
+            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
 
             view.$biorhythmViewContainer.biorhythmView("suspendPaint");
             try {
@@ -115,6 +117,11 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             finally {
                 view.$biorhythmViewContainer.biorhythmView("resumePaint");
             }
+        }
+
+        function stop() {
+            bioCalcPageData.birthdayChanged.unsubscribe(onExternalBirthdayChanged);
+            bioCalcPageData.biorhythmsChanged.unsubscribe(onExternalBiorhythmsChanged);
         }
 
         // --------------------------------------------------------------------------
@@ -218,17 +225,15 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 onFirstDayDatePickerSelect: onFirstDayDatePickerSelect,
                 onLastDayLabelClick: onLastDayLabelClick,
                 onBeforeLastDayDatePickerShow: onBeforeLastDayDatePickerShow,
-                onLastDayDatePickerSelect: onLastDayDatePickerSelect
+                onLastDayDatePickerSelect: onLastDayDatePickerSelect,
+                onBiorhythmViewFirstDayChanged: onBiorhythmViewFirstDayChanged,
+                onBiorhythmViewXDayIndexChanged: onBiorhythmViewXDayIndexChanged
             };
-
-            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
-            bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
         }());
     };
 
 }(
         jQuery,
-        lu.bioCalc.mainPage.BioCalcPageData,
         lu.bioCalc.helpers.DateFormatter,
         lu.DateUtil
     ));

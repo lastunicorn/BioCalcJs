@@ -19,13 +19,13 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function (bioCalcPageData, dateFormatter) {
+(function (dateFormatter) {
 
     /**
-     * This module contains the logic of the page section where the user can select
+     * Contains the logic of the page section where the user can select
      * the birthday.
      */
-    lu.bioCalc.mainPage.pageSections.BirthdaySection = function (configuration) {
+    lu.bioCalc.mainPage.pageSections.BirthdaySection = function (configuration, bioCalcPageData) {
 
         var presenter;
         var suppressBirthdayChanged = false;
@@ -179,7 +179,4 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }());
     };
 
-}(
-        lu.bioCalc.mainPage.BioCalcPageData,
-        lu.bioCalc.helpers.DateFormatter
-    ));
+}(lu.bioCalc.helpers.DateFormatter));

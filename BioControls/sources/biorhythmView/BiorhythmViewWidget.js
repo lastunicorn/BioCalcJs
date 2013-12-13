@@ -486,4 +486,12 @@
             evt.stepLength = this._$canvas[0].width / this.options.totalDays;
         }
     });
-}(jQuery, lu.DateUtil, lu.bioControls.biorhythmView.DayLabelPosition, lu.bioControls.biorhythmView.Scroller, lu.bioControls.biorhythmModel.BiorhythmsAdapter, lu.Rectangle, lu.bioControls.biorhythmView.painting.Painter));
+}(
+        jQuery,
+        lu.DateUtil,
+        lu.bioControls.biorhythmView.DayLabelPosition,
+        lu.bioControls.biorhythmView.Scroller,
+        lu.bioControls.biorhythmModel.BiorhythmsAdapter,
+        lu.Rectangle,
+        lu.bioControls.biorhythmView.painting.Painter
+    ));

@@ -63,7 +63,7 @@ lu.bioControls.biorhythmModel.BiorhythmsAdapter = function(configuration) {
 
         var biorhythmsArray = biorhythmsToArray();
         for ( var i = 0; i < biorhythmsArray.length; i++) {
-            onBiorhithmRemoved(biorhythmsArray[i]);
+            onBiorhythmRemoved(biorhythmsArray[i]);
         }
     };
 
@@ -73,11 +73,11 @@ lu.bioControls.biorhythmModel.BiorhythmsAdapter = function(configuration) {
         }
 
         if (configuration.biorhythms.itemAdded && $.isFunction(configuration.biorhythms.itemAdded.subscribe)) {
-            configuration.biorhythms.itemAdded.subscribe(onBiorhithmAdded);
+            configuration.biorhythms.itemAdded.subscribe(onBiorhythmAdded);
         }
 
         if (configuration.biorhythms.itemRemoved && $.isFunction(configuration.biorhythms.itemRemoved.subscribe)) {
-            configuration.biorhythms.itemRemoved.subscribe(onBiorhithmRemoved);
+            configuration.biorhythms.itemRemoved.subscribe(onBiorhythmRemoved);
         }
     }
 
@@ -87,21 +87,21 @@ lu.bioControls.biorhythmModel.BiorhythmsAdapter = function(configuration) {
         }
 
         if (configuration.biorhythms.itemAdded && $.isFunction(configuration.biorhythms.itemAdded.unsubscribe)) {
-            configuration.biorhythms.itemAdded.unsubscribe(onBiorhithmAdded);
+            configuration.biorhythms.itemAdded.unsubscribe(onBiorhythmAdded);
         }
 
         if (configuration.biorhythms.itemRemoved && $.isFunction(configuration.biorhythms.itemRemoved.unsubscribe)) {
-            configuration.biorhythms.itemRemoved.unsubscribe(onBiorhithmRemoved);
+            configuration.biorhythms.itemRemoved.unsubscribe(onBiorhythmRemoved);
         }
     }
 
-    function onBiorhithmAdded(biorhythmShape) {
+    function onBiorhythmAdded(biorhythmShape) {
         if ($.isFunction(configuration.onBiorhithmAdded)) {
             configuration.onBiorhithmAdded.call(this, biorhythmShape);
         }
     }
 
-    function onBiorhithmRemoved(biorhythmShape) {
+    function onBiorhythmRemoved(biorhythmShape) {
         if ($.isFunction(configuration.onBiorhithmRemoved)) {
             configuration.onBiorhithmRemoved.call(this, biorhythmShape);
         }
@@ -132,7 +132,7 @@ lu.bioControls.biorhythmModel.BiorhythmsAdapter = function(configuration) {
 
         var biorhythmsArray = biorhythmsToArray();
         for ( var i = 0; i < biorhythmsArray.length; i++) {
-            onBiorhithmAdded(biorhythmsArray[i]);
+            onBiorhythmAdded(biorhythmsArray[i]);
         }
     }());
 };

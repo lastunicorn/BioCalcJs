@@ -75,14 +75,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
         var $bioLegend = null;
 
-        Object.defineProperty(this, "$bioLegend", {
-            enumerable: true,
-            configurable: false,
-            get: function () {
-                return $bioLegend;
-            }
-        });
-
         // --------------------------------------------------------------------------
         // presenter property
         // --------------------------------------------------------------------------
@@ -112,20 +104,48 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             return $biorhythmViewContainer.biorhythmView("getXDay");
         };
 
-        this.setFirstDayTextBoxText = function(text){
+        this.setFirstDayTextBoxText = function (text) {
             $firstDayTextBox.val(text);
         };
 
-        this.setFirstDayLabelText = function(text){
+        this.setFirstDayLabelText = function (text) {
             $firstDayLabel.text(text);
         };
 
-        this.setLastDayTextBoxText = function(text){
+        this.setLastDayTextBoxText = function (text) {
             $lastDayTextBox.val(text);
         };
 
-        this.setLastDayLabelText = function(text){
+        this.setLastDayLabelText = function (text) {
             $lastDayLabel.text(text);
+        };
+
+        this.setBiorhythmViewFirstDay = function (date) {
+            $biorhythmViewContainer.biorhythmView("option", "firstDay", date);
+        };
+
+        this.getBiorhythmViewFirstDay = function () {
+            return $biorhythmViewContainer.biorhythmView("option", "firstDay");
+        };
+
+        this.getBiorhythmViewLastDay = function () {
+            return $biorhythmViewContainer.biorhythmView("getLastDay");
+        };
+
+        this.setBioLegendBiorhythms = function (biorhythms) {
+            $bioLegend.biorhythmLegend("option", "biorhythms", biorhythms);
+        };
+
+        this.setBiorhythmViewBiorhythms = function (biorhythms) {
+            $biorhythmViewContainer.biorhythmView("option", "biorhythms", biorhythms);
+        };
+
+        this.getFirstDayTextBoxDate = function () {
+            return $firstDayTextBox.datepicker("getDate");
+        };
+
+        this.getLastDayTextBoxDate = function () {
+            return $lastDayTextBox.datepicker("getDate");
         };
 
         // --------------------------------------------------------------------------

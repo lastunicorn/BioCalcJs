@@ -80,13 +80,9 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             view.setLastDayLabelText(lastDayAsText);
         }
 
-        function setChartsFirstDay(date) {
-            view.$biorhythmViewContainer.biorhythmView("option", "firstDay", date);
-        }
-
         function setBiorhythms(biorhythms) {
-            view.$biorhythmViewContainer.biorhythmView("option", "biorhythms", biorhythms);
-            view.$bioLegend.biorhythmLegend("option", "biorhythms", biorhythms);
+            view.setBiorhythmViewBiorhythms(biorhythms);
+            view.setBioLegendBiorhythms(biorhythms);
         }
 
         function setBirthday(newBirthday) {
@@ -109,7 +105,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 var firstDay = dateUtil.addDays(Date.now(), -7);
 
                 setFirstDayLabel(firstDay);
-                setChartsFirstDay(firstDay);
+                view.setBiorhythmViewFirstDay(firstDay);
                 setBiorhythms(bioCalcPageData.biorhythms);
                 setBirthday(bioCalcPageData.birthday);
                 publishCurrentXDay();
@@ -130,10 +126,10 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
         function onBiorhythmViewFirstDayChanged() {
 
-            var firstDay = view.$biorhythmViewContainer.biorhythmView("option", "firstDay");
+            var firstDay = view.getBiorhythmViewFirstDay();
             setFirstDayLabel(firstDay);
 
-            var lastDay = view.$biorhythmViewContainer.biorhythmView("getLastDay");
+            var lastDay = view.getBiorhythmViewLastDay();
             setLastDayLabel(lastDay);
 
             publishCurrentXDay();
@@ -146,8 +142,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function onFirstDayDatePickerSelect() {
-            var firstDay = view.$firstDayTextBox.datepicker("getDate");
-            setChartsFirstDay(firstDay);
+            var firstDay = view.getFirstDayTextBoxDate();
+            view.setBiorhythmViewFirstDay(firstDay);
         }
 
         function onBeforeFirstDayDatePickerShow(input, inst) {
@@ -175,12 +171,12 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function onLastDayDatePickerSelect() {
-            var lastDay = view.$lastDayTextBox.datepicker("getDate");
+            var lastDay = view.getLastDayTextBoxDate();
 
             var displayedDayCount = view.$biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
             var firstDay = dateUtil.addDays(lastDay, -displayedDayCount);
 
-            setChartsFirstDay(firstDay);
+            view.setBiorhythmViewFirstDay(firstDay);
         }
 
         function onBeforeLastDayDatePickerShow(input, inst) {

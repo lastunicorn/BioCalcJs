@@ -94,7 +94,8 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/mainPage">
-				<file name="BioCalcPageData.js" />
+				<file name="BiorhythmShapesModule.js" />
+                <file name="BioCalcPageData.js" />
 				<file name="BioCalc.js" />
 			</sources>
 

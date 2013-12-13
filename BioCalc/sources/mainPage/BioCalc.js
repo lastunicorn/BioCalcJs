@@ -30,6 +30,9 @@
         loadConfiguration();
         initializeBioCalcPageData();
 
+//        var biorhythmShapesModule = new lu.bioCalc.mainPage.BiorhythmShapesModule(bioCalcPageData);
+//        biorhythmShapesModule.start();
+
         $(function () {
             initializeDialogsAutoCloseModule();
             createPageSections();

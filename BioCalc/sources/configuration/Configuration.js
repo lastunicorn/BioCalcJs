@@ -44,11 +44,17 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
         }
 
         // --------------------------------------------------------------------------
-        // Saving event
+        // Events
         // --------------------------------------------------------------------------
 
         var savingEvent = new Event();
         this.saving = savingEvent.client;
+
+        var savedEvent = new Event();
+        this.saved = savedEvent.client;
+
+        var loadedEvent = new Event();
+        this.loaded = loadedEvent.client;
 
         // --------------------------------------------------------------------------
         // Functions
@@ -64,6 +70,8 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
             }
 
             $.cookie(cookieName, config);
+
+            savedEvent.raise();
         };
 
         this.loadFromCookies = function () {
@@ -77,6 +85,8 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
             ensureDefaultValues(newConfig);
 
             config = newConfig;
+
+            loadedEvent.raise();
         };
 
         function ensureDefaultValues(c) {

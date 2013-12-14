@@ -21,6 +21,13 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
 (function () {
 
+    lu.bioCalc.mainPage.pageSections.saveCommand = function (configuration, bioCalcPageData) {
+
+        this.execute = function () {
+            configuration.save();
+        };
+    }
+
     /**
      * Contains the logic of the main tool bar.
      */
@@ -86,6 +93,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function start() {
+            configuration.saved.subscribe(onConfigurationSaved);
+            configuration.loaded.subscribe(onConfigurationLoaded);
             bioCalcPageData.birthdayChanged.subscribe(onBirthdayChanged);
 
             updateSaveBirthdayButtonVisibility();
@@ -93,6 +102,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function stop() {
+            configuration.saved.unsubscribe(onConfigurationSaved);
+            configuration.loaded.unsubscribe(onConfigurationLoaded);
             bioCalcPageData.birthdayChanged.unsubscribe(onBirthdayChanged);
         }
 
@@ -114,12 +125,18 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
         function onSaveButtonClick() {
             configuration.save();
+        }
 
+        function onLoadButtonClick() {
+            configuration.loadFromCookies();
+        }
+
+        function onConfigurationSaved() {
             updateSaveBirthdayButtonVisibility();
             updateResetBirthdayButtonVisibility();
         }
 
-        function onLoadButtonClick() {
+        function onConfigurationLoaded() {
             bioCalcPageData.birthday = configuration.config.birthday;
 
             updateSaveBirthdayButtonVisibility();

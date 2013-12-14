@@ -19,6 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
 (function(BiorhythmLegendItemView, BiorhythmShape) {
+
     /**
      * Creates and interacts with an item displayed by the biorhythmLegend
      * widget.
@@ -120,4 +121,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
             biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged);
         }());
     };
-}(lu.bioControls.biorhythmLegend.BiorhythmLegendItemView, lu.bioControls.biorhythmModel.BiorhythmShape));
+}(
+        lu.bioControls.biorhythmLegend.BiorhythmLegendItemView,
+        lu.bioControls.biorhythmModel.BiorhythmShape
+    ));

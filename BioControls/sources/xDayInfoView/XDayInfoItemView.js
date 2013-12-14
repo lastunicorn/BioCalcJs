@@ -19,6 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
 (function ($) {
+
     /**
      * Represents an item in the XDayInfoView. It contains the value of one
      * biorhythm for a specific day named X day.
@@ -137,4 +138,5 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             generate();
         }());
     };
+
 }(jQuery));

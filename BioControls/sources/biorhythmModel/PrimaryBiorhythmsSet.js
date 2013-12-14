@@ -18,8 +18,9 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-(function(BiorhythmShapeSet, biorhythmShapesCreator) {
-    lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet = function() {
+(function (BiorhythmShapeSet, biorhythmShapesCreator) {
+
+    lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet = function () {
 
         // --------------------------------------------------------------------------
         // physicalShape property
@@ -42,7 +43,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         // --------------------------------------------------------------------------
 
         var emotionalShape = null;
-        
+
         Object.defineProperty(this, "emotionalShape", {
             enumerable: true,
             configurable: false,
@@ -56,7 +57,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         // --------------------------------------------------------------------------
         // intellectualShape property
         // --------------------------------------------------------------------------
-        
+
         var intellectualShape = null;
 
         Object.defineProperty(this, "intellectualShape", {
@@ -72,7 +73,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         // --------------------------------------------------------------------------
         // intuitiveShape property
         // --------------------------------------------------------------------------
-        
+
         var intuitiveShape = null;
 
         Object.defineProperty(this, "intuitiveShape", {
@@ -84,6 +85,26 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         function getIntuitiveShape() {
             return intuitiveShape;
         }
+
+        // --------------------------------------------------------------------------
+        // Functions
+        // --------------------------------------------------------------------------
+
+        this.getByName = function (name) {
+            if (physicalShape.name == name)
+                return physicalShape;
+
+            if (emotionalShape.name == name)
+                return emotionalShape;
+
+            if (intellectualShape.name == name)
+                return intellectualShape;
+
+            if (intuitiveShape.name == name)
+                return intuitiveShape;
+
+            return null;
+        };
 
         // --------------------------------------------------------------------------
         // Initialization
@@ -101,4 +122,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
     lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet.inherit(BiorhythmShapeSet);
 
-}(lu.bioControls.biorhythmModel.BiorhythmShapeSet, lu.bioControls.biorhythmModel.BiorhythmShapesCreator));
+}(
+        lu.bioControls.biorhythmModel.BiorhythmShapeSet,
+        lu.bioControls.biorhythmModel.BiorhythmShapesCreator
+    ));

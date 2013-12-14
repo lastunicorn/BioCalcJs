@@ -89,16 +89,16 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         function createBiorhythmsAdapter(biorhythms) {
             return new BiorhythmsAdapter({
                 biorhythms: biorhythms,
-                onBiorhithmAdded: $.proxy(onBiorhithmAdded, this),
-                onBiorhithmRemoved: $.proxy(onBiorhithmRemoved, this)
+                onBiorhythmAdded: $.proxy(onBiorhythmAdded, this),
+                onBiorhythmRemoved: $.proxy(onBiorhythmRemoved, this)
             });
         }
 
-        function onBiorhithmAdded(biorhythmShape) {
+        function onBiorhythmAdded(biorhythmShape) {
             createNewItem(biorhythmShape);
         }
 
-        function onBiorhithmRemoved(biorhythmShape) {
+        function onBiorhythmRemoved(biorhythmShape) {
             removeItem(biorhythmShape);
         }
 

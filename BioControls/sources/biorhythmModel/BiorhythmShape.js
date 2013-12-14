@@ -19,6 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
 (function(Event, LineStyle) {
+
     /**
      * Represents a biorhythm curve with all its display related properties.
      * 
@@ -197,4 +198,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             lineStyleChangedEvent.raise(obj, value);
         }
     };
-}(lu.Event, lu.LineStyle));
+}(
+        lu.Event,
+        lu.LineStyle
+    ));

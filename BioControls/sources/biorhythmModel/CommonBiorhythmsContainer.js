@@ -18,14 +18,15 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-(function(PrimaryBiorhythmsSet, SecondaryBiorhythmsSet, ExtraBiorhythmsSet, IChingBiorhythmsSet) {
+(function (PrimaryBiorhythmsSet, SecondaryBiorhythmsSet, ExtraBiorhythmsSet, IChingBiorhythmsSet) {
+
     /**
      * It is a repository containing a list of BiorhythmShape objects; one for
      * each known biorhythm.
-     * 
+     *
      * @returns {lu.bioControls.biorhythmModel.CommonBiorhythmsContainer}
      */
-    lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function() {
+    lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function () {
 
         // --------------------------------------------------------------------------
         // primaryBiorhythmShapes property
@@ -36,7 +37,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         Object.defineProperty(this, "primaryBiorhythmShapes", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return primaryBiorhythmsSet;
             }
         });
@@ -50,7 +51,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         Object.defineProperty(this, "secondaryBiorhythmShapes", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return secondaryBiorhythmsSet;
             }
         });
@@ -64,7 +65,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         Object.defineProperty(this, "extraBiorhythmShapes", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return extraBiorhythmsSet;
             }
         });
@@ -78,7 +79,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         Object.defineProperty(this, "iChingBiorhythmShapes", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return iChingBiorhythmsSet;
             }
         });
@@ -87,14 +88,14 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         // Functions
         // --------------------------------------------------------------------------
 
-        this.setBirthdayOnAll = function(birthday) {
+        this.setBirthdayOnAll = function (birthday) {
             primaryBiorhythmsSet.setBirthdayOnAll(birthday);
             secondaryBiorhythmsSet.setBirthdayOnAll(birthday);
             extraBiorhythmsSet.setBirthdayOnAll(birthday);
             iChingBiorhythmsSet.setBirthdayOnAll(birthday);
         };
 
-        this.toArray = function() {
+        this.toArray = function () {
             var list = [];
 
             addRange(primaryBiorhythmsSet.items, list);
@@ -106,10 +107,17 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         };
 
         function addRange(source, destination) {
-            for ( var i = 0; i < source.length; i++) {
+            for (var i = 0; i < source.length; i++) {
                 destination.push(source[i]);
             }
         }
+
+        this.getByName = function (name) {
+            return primaryBiorhythmsSet.getByName(name) ||
+                secondaryBiorhythmsSet.getByName(name) ||
+                extraBiorhythmsSet.getByName(name) ||
+                iChingBiorhythmsSet.getByName(name);
+        };
 
         // --------------------------------------------------------------------------
         // Initialization
@@ -132,4 +140,9 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             iChingBiorhythmsSet.hideAll();
         }
     };
-}(lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet, lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet, lu.bioControls.biorhythmModel.ExtraBiorhythmsSet, lu.bioControls.biorhythmModel.IChingBiorhythmsSet));
+}(
+        lu.bioControls.biorhythmModel.PrimaryBiorhythmsSet,
+        lu.bioControls.biorhythmModel.SecondaryBiorhythmsSet,
+        lu.bioControls.biorhythmModel.ExtraBiorhythmsSet,
+        lu.bioControls.biorhythmModel.IChingBiorhythmsSet
+    ));

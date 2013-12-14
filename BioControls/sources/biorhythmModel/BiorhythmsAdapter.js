@@ -31,12 +31,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
  *            type of object and it has the toArray method, this method is used
  *            to obtain an array that is provided further.
  * 
- * @param configuration.onBiorhithmAdded
+ * @param configuration.onBiorhythmAdded
  *            {Function} If the object received has itemAdded property and it
  *            represents an event (have the subscribe method), this function is
  *            used to hook up to the event.
  * 
- * @param configuration.onBiorhithmRemoved
+ * @param configuration.onBiorhythmRemoved
  *            {Function} If the object received has itemRemoved property and it
  *            represents an event (have the unsubscribe method), this function
  *            is used to hook up to the event.
@@ -96,14 +96,14 @@ lu.bioControls.biorhythmModel.BiorhythmsAdapter = function(configuration) {
     }
 
     function onBiorhythmAdded(biorhythmShape) {
-        if ($.isFunction(configuration.onBiorhithmAdded)) {
-            configuration.onBiorhithmAdded.call(this, biorhythmShape);
+        if ($.isFunction(configuration.onBiorhythmAdded)) {
+            configuration.onBiorhythmAdded.call(this, biorhythmShape);
         }
     }
 
     function onBiorhythmRemoved(biorhythmShape) {
-        if ($.isFunction(configuration.onBiorhithmRemoved)) {
-            configuration.onBiorhithmRemoved.call(this, biorhythmShape);
+        if ($.isFunction(configuration.onBiorhythmRemoved)) {
+            configuration.onBiorhythmRemoved.call(this, biorhythmShape);
         }
     }
 

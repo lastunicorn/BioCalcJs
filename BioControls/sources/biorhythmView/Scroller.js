@@ -19,6 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 
 (function(mouseButton) {
+
     /**
      * Implements the functionality of horizontal scrolling for an html element.
      * It raises an event when the user drags the content horizontally or uses
@@ -194,4 +195,5 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
             document.addEventListener('selectstart', onSelectStart, false);
         }());
     };
+
 }(lu.MouseButton));

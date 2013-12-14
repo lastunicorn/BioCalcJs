@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 (function($, BiorhythmsAdapter, BiorhythmLegendItem) {
+
     $.widget("lastunicorn.biorhythmLegend", {
         options: {
             biorhythms: []
@@ -51,8 +52,8 @@
         _createBiorhythmsAdapter: function(biorhythms) {
             return new BiorhythmsAdapter({
                 biorhythms: biorhythms,
-                onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
-                onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
+                onBiorhythmAdded: $.proxy(this._onBiorhythmAdded, this),
+                onBiorhythmRemoved: $.proxy(this._onBiorhythmRemoved, this)
             });
         },
 
@@ -67,11 +68,11 @@
             }
         },
 
-        _onBiorhithmAdded: function(biorhythmShape) {
+        _onBiorhythmAdded: function(biorhythmShape) {
             this._createNewItem(biorhythmShape);
         },
 
-        _onBiorhithmRemoved: function(biorhythmShape) {
+        _onBiorhythmRemoved: function(biorhythmShape) {
             this._removeItem(biorhythmShape);
         },
 
@@ -92,4 +93,8 @@
             }
         }
     });
-}(jQuery, lu.bioControls.biorhythmModel.BiorhythmsAdapter, lu.bioControls.biorhythmLegend.BiorhythmLegendItem));
+
+}(
+        jQuery, lu.bioControls.biorhythmModel.BiorhythmsAdapter,
+        lu.bioControls.biorhythmLegend.BiorhythmLegendItem
+    ));

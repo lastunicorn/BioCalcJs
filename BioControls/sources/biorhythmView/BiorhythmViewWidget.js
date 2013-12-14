@@ -15,6 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 (function($, dateUtil, DayLabelPosition, Scroller, BiorhythmsAdapter, Rectangle, Painter) {
+
     $.widget("lastunicorn.biorhythmView", {
         options: {
             width: 800,
@@ -52,8 +53,8 @@
 
             this._biorhythms = new BiorhythmsAdapter({
                 biorhythms: this.options.biorhythms,
-                onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
-                onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
+                onBiorhythmAdded: $.proxy(this._onBiorhythmAdded, this),
+                onBiorhythmRemoved: $.proxy(this._onBiorhythmRemoved, this)
             });
 
             this._paint();
@@ -69,8 +70,8 @@
 
                     this._biorhythms = new BiorhythmsAdapter({
                         biorhythms: this.options.biorhythms,
-                        onBiorhithmAdded: $.proxy(this._onBiorhithmAdded, this),
-                        onBiorhithmRemoved: $.proxy(this._onBiorhithmRemoved, this)
+                        onBiorhythmAdded: $.proxy(this._onBiorhythmAdded, this),
+                        onBiorhythmRemoved: $.proxy(this._onBiorhythmRemoved, this)
                     });
                 }
 
@@ -357,7 +358,7 @@
         // Biorhythms
         // --------------------------------------------------------------------------
 
-        _onBiorhithmAdded: function(biorhythmShape) {
+        _onBiorhythmAdded: function(biorhythmShape) {
             this._subscribeToBiorhythmEvents(biorhythmShape);
 
             this._trigger("biorhythmAdded", this, {
@@ -377,7 +378,7 @@
             biorhythmShape.lineStyleChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
         },
 
-        _onBiorhithmRemoved: function(biorhythmShape) {
+        _onBiorhythmRemoved: function(biorhythmShape) {
             this._unsubscribeFromBiorhythmEvents(biorhythmShape);
 
             this._trigger("biorhythmRemoved", this, {
@@ -486,6 +487,7 @@
             evt.stepLength = this._$canvas[0].width / this.options.totalDays;
         }
     });
+
 }(
         jQuery,
         lu.DateUtil,

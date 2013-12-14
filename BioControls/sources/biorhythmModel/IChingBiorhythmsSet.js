@@ -19,6 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
 (function(BiorhythmShapeSet, biorhythmShapesCreator) {
+
     lu.bioControls.biorhythmModel.IChingBiorhythmsSet = function() {
 
         // --------------------------------------------------------------------------
@@ -70,6 +71,23 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
+        // Functions
+        // --------------------------------------------------------------------------
+
+        this.getByName = function (name) {
+            if (estheticShape.name == name)
+                return estheticShape;
+
+            if (selfAwarenessShape.name == name)
+                return selfAwarenessShape;
+
+            if (spiritualShape.name == name)
+                return spiritualShape;
+
+            return null;
+        };
+
+        // --------------------------------------------------------------------------
         // Initialization
         // --------------------------------------------------------------------------
 
@@ -84,4 +102,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
     lu.bioControls.biorhythmModel.IChingBiorhythmsSet.inherit(BiorhythmShapeSet);
 
-}(lu.bioControls.biorhythmModel.BiorhythmShapeSet, lu.bioControls.biorhythmModel.BiorhythmShapesCreator));
+}(
+        lu.bioControls.biorhythmModel.BiorhythmShapeSet,
+        lu.bioControls.biorhythmModel.BiorhythmShapesCreator
+    ));

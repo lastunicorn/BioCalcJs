@@ -18,8 +18,9 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
-(function(BiorhythmShape) {
-    lu.bioControls.biorhythmLegend.BiorhythmLegendItemView = function() {
+(function ($) {
+
+    lu.bioControls.biorhythmLegend.BiorhythmLegendItemView = function () {
 
         // --------------------------------------------------------------------------
         // element property
@@ -30,7 +31,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         Object.defineProperty(this, "$element", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $element;
             }
         });
@@ -44,7 +45,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         Object.defineProperty(this, "$legendColorTag", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $legendColorTag;
             }
         });
@@ -58,7 +59,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         Object.defineProperty(this, "$legendLabelTag", {
             enumerable: true,
             configurable: false,
-            get: function() {
+            get: function () {
                 return $legendLabelTag;
             }
         });
@@ -106,4 +107,5 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
             generate();
         }());
     };
-}(lu.bioControls.biorhythmModel.BiorhythmShape));
+
+}(jQuery));

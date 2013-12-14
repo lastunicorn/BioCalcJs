@@ -71,23 +71,6 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
-        // Functions
-        // --------------------------------------------------------------------------
-
-        this.getByName = function (name) {
-            if (estheticShape.name == name)
-                return estheticShape;
-
-            if (selfAwarenessShape.name == name)
-                return selfAwarenessShape;
-
-            if (spiritualShape.name == name)
-                return spiritualShape;
-
-            return null;
-        };
-
-        // --------------------------------------------------------------------------
         // Initialization
         // --------------------------------------------------------------------------
 

@@ -99,7 +99,7 @@ lu.bioControls.biorhythmModel.BiorhythmShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#1e90ff"; // DodgerBlue
-        shape.lineStyle = lu.LineStyle.dashDot;
+        shape.lineStyle = lu.LineStyle.dash;
 
         return shape;
     },
@@ -112,7 +112,7 @@ lu.bioControls.biorhythmModel.BiorhythmShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#32cd32"; // LimeGreen
-        shape.lineStyle = lu.LineStyle.dashDotDot;
+        shape.lineStyle = lu.LineStyle.dash;
 
         return shape;
     },
@@ -129,7 +129,7 @@ lu.bioControls.biorhythmModel.BiorhythmShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#ff0000"; // Red
-        shape.lineStyle = lu.LineStyle.dash;
+        shape.lineStyle = lu.LineStyle.dashDot;
 
         return shape;
     },
@@ -155,7 +155,7 @@ lu.bioControls.biorhythmModel.BiorhythmShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#1e90ff"; // DodgerBlue
-        shape.lineStyle = lu.LineStyle.dashDotDot;
+        shape.lineStyle = lu.LineStyle.dashDot;
 
         return shape;
     },
@@ -172,6 +172,7 @@ lu.bioControls.biorhythmModel.BiorhythmShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#ff0000"; // Red
+        shape.lineStyle = lu.LineStyle.dashDotDot;
 
         return shape;
     },
@@ -184,6 +185,7 @@ lu.bioControls.biorhythmModel.BiorhythmShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#1e90ff"; // DodgerBlue
+        shape.lineStyle = lu.LineStyle.dashDotDot;
 
         return shape;
     },
@@ -196,6 +198,7 @@ lu.bioControls.biorhythmModel.BiorhythmShapesCreator = {
         shape.name = biorhythm.name + " Shape";
         shape.biorhythm = biorhythm;
         shape.color = "#ffa500"; // Orange
+        shape.lineStyle = lu.LineStyle.dashDotDot;
 
         return shape;
     }

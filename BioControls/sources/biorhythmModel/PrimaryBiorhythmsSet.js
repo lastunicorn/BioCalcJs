@@ -87,26 +87,6 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
-        // Functions
-        // --------------------------------------------------------------------------
-
-        this.getByName = function (name) {
-            if (physicalShape.name == name)
-                return physicalShape;
-
-            if (emotionalShape.name == name)
-                return emotionalShape;
-
-            if (intellectualShape.name == name)
-                return intellectualShape;
-
-            if (intuitiveShape.name == name)
-                return intuitiveShape;
-
-            return null;
-        };
-
-        // --------------------------------------------------------------------------
         // Initialization
         // --------------------------------------------------------------------------
 

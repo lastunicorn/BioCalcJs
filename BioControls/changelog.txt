@@ -1,6 +1,12 @@
 BioControls
 ===========
 
+var 2.1.0
+---------
+[Change] I changed the default type of lines for the biorhythms created by BiorhythmShapesCreator.
+[Change] I fixed some typo in the name of the event handlers from BiorhythmsAdapter.
+[Feature] I added the getByName method in CommonBiorhythmsContainer and BiorhythmShapeSet constructors.
+
 var 2.0.0
 ---------
 [Change] I removed the deprecated methods.

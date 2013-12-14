@@ -20,13 +20,13 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
 /**
  * Represents a set of BiorhythmShape objects that are managed together.
- * 
+ *
  * @param items
  *            An array containing the BiorhythmShape objects.
- * 
+ *
  * @returns {lu.bioControls.biorhythmModel.BiorhythmShapeSet}
  */
-lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
+lu.bioControls.biorhythmModel.BiorhythmShapeSet = function (items) {
 
     Object.defineProperty(this, "items", {
         value: items,
@@ -35,8 +35,8 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
         writable: false
     });
 
-    this.isAnyVisible = function() {
-        for ( var i = 0; i < items.length; i++) {
+    this.isAnyVisible = function () {
+        for (var i = 0; i < items.length; i++) {
             if (items[i].isVisible) {
                 return true;
             }
@@ -45,8 +45,8 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
         return false;
     };
 
-    this.isAnyHidden = function() {
-        for ( var i = 0; i < items.length; i++) {
+    this.isAnyHidden = function () {
+        for (var i = 0; i < items.length; i++) {
             if (!items[i].isVisible) {
                 return true;
             }
@@ -55,8 +55,8 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
         return false;
     };
 
-    this.areAllVisible = function() {
-        for ( var i = 0; i < items.length; i++) {
+    this.areAllVisible = function () {
+        for (var i = 0; i < items.length; i++) {
             if (!items[i].isVisible) {
                 return false;
             }
@@ -65,8 +65,8 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
         return true;
     };
 
-    this.areAllHidden = function() {
-        for ( var i = 0; i < items.length; i++) {
+    this.areAllHidden = function () {
+        for (var i = 0; i < items.length; i++) {
             if (items[i].isVisible) {
                 return false;
             }
@@ -75,9 +75,9 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
         return true;
     };
 
-    this.showAll = function(value) {
+    this.showAll = function (value) {
         if (value === undefined || value) {
-            for ( var i = 0; i < items.length; i++) {
+            for (var i = 0; i < items.length; i++) {
                 items[i].isVisible = true;
             }
         } else {
@@ -85,21 +85,32 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function(items) {
         }
     };
 
-    this.hideAll = function() {
-        for ( var i = 0; i < items.length; i++) {
+    this.hideAll = function () {
+        for (var i = 0; i < items.length; i++) {
             items[i].isVisible = false;
         }
     };
-    
-    this.setBirthdayOnAll = function(birthday) {
-        for ( var i = 0; i < items.length; i++) {
+
+    this.setBirthdayOnAll = function (birthday) {
+        for (var i = 0; i < items.length; i++) {
             items[i].biorhythm.birthday = birthday;
         }
     };
 
-    (function initialize() {
-        if (typeof items !== "object" || !(items instanceof Array)) {
-            throw "items must be an array of BiorhythmShape objects.";
+    this.getByName = function (name) {
+        if (items.length == 0)
+            return null;
+
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].name === name)
+                return items[i];
         }
+
+        return null;
+    };
+
+    (function initialize() {
+        if (typeof items !== "object" || !(items instanceof Array))
+            throw "items must be an array of BiorhythmShape objects.";
     }());
 };

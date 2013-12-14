@@ -24,7 +24,7 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
      * The service that provides data and communication between different modules of
      * the page.
      */
-    lu.bioCalc.mainPage.BioCalcPageData = function () {
+    lu.bioCalc.mainPage.BioCalcPageData = function (configuration) {
 
         // --------------------------------------------------------------------------
         // birthday property
@@ -119,8 +119,82 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 
         function setBiorhythms(value) {
             biorhythms = value;
+
+            if (biorhythms)
+                loadBiorhythmsConfigurationFromConfig();
+
             biorhythmsChangedEvent.raise(this, value);
         }
+
+        // --------------------------------------------------------------------------
+        // Functions
+        // --------------------------------------------------------------------------
+
+        function loadFromConfig() {
+            setBirthday(configuration.config.birthday);
+            setSecondBirthday(configuration.config.secondBirthday);
+
+            loadBiorhythmsConfigurationFromConfig();
+        }
+
+        function loadBiorhythmsConfigurationFromConfig() {
+            var biorhythmsConfig = configuration.config.biorhythms;
+
+            if (!biorhythmsConfig || !biorhythms)
+                return;
+
+            var biorhythmShapes = biorhythms.toArray();
+
+            for (var i = 0; i < biorhythmShapes.length; i++) {
+                var biorhythmConfig = getBiorhythmConfigByName(biorhythmShapes[i].name);
+
+                if (biorhythmConfig) {
+                    biorhythmShapes[i].isVisible = true;
+                    biorhythmShapes[i].color = biorhythmConfig.color;
+                }
+                else {
+                    biorhythmShapes[i].isVisible = false;
+                }
+            }
+        }
+
+        function getBiorhythmConfigByName(name) {
+            var biorhythmsConfig = configuration.config.biorhythms;
+
+            if (!biorhythmsConfig)
+                return null;
+
+            for (var i = 0; i < biorhythmsConfig.length; i++) {
+                if (biorhythmsConfig[i].name == name)
+                    return biorhythmsConfig[i];
+            }
+
+            return null;
+        }
+
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
+
+        function onConfigurationSaving() {
+            configuration.config.birthday = birthday;
+            configuration.config.secondBirthday = secondBirthday;
+        }
+
+        function onConfigurationLoaded() {
+            loadFromConfig();
+        }
+
+        // --------------------------------------------------------------------------
+        // Initializer
+        // --------------------------------------------------------------------------
+
+        (function initialize() {
+            configuration.saving.subscribe(onConfigurationSaving);
+            configuration.loaded.subscribe(onConfigurationLoaded);
+
+            loadFromConfig();
+        }());
     };
 
 }(lu.Event));

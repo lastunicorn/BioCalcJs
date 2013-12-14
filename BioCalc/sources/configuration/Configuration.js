@@ -97,6 +97,14 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
             if ($.type(c.birthday) !== "date") {
                 c.birthday = getDefaultBirthday();
             }
+
+            if ($.type(c.secondBirthday) === "string") {
+                c.secondBirthday = new Date(c.secondBirthday);
+            }
+
+            if ($.type(c.secondBirthday) !== "date") {
+                c.secondBirthday = getDefaultBirthday();
+            }
         }
 
         function getDefaultBirthday() {

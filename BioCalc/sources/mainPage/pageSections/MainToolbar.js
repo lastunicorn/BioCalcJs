@@ -70,41 +70,59 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // Functions
         // --------------------------------------------------------------------------
 
-        function updateSaveBirthdayButtonVisibility() {
-            var config = configuration.config;
-            var birthday = bioCalcPageData.birthday;
+        function isBirthdayChanged() {
+            if (!bioCalcPageData.birthday && !configuration.config.birthday)
+                return false;
 
-            if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
-                view.disableSaveButton();
-            } else {
-                view.enableSaveButton();
-            }
+            if (!configuration.config.birthday || !configuration.config.birthday)
+                return true;
+
+            return configuration.config.birthday.getTime() != bioCalcPageData.birthday.getTime();
         }
 
-        function updateResetBirthdayButtonVisibility() {
-            var config = configuration.config;
-            var birthday = bioCalcPageData.birthday;
+        function isSecondBirthdayChanged() {
+            if (!bioCalcPageData.secondBirthday && !configuration.config.secondBirthday)
+                return false;
 
-            if (birthday.getTime() == config.birthday.getTime()) {
-                view.disableLoadButton();
-            } else {
+            if (!bioCalcPageData.secondBirthday || !configuration.config.secondBirthday)
+                return true;
+
+            return configuration.config.secondBirthday.getTime() != bioCalcPageData.secondBirthday.getTime();
+        }
+
+        function updateSaveButtonVisibility() {
+            var isSomethingChanged = isBirthdayChanged() ||
+                isSecondBirthdayChanged();
+
+            if (isSomethingChanged)
+                view.enableSaveButton();
+            else
+                view.disableSaveButton();
+        }
+
+        function updateLoadButtonVisibility() {
+            var isSomethingChanged = isBirthdayChanged() ||
+                isSecondBirthdayChanged();
+
+            if (isSomethingChanged)
                 view.enableLoadButton();
-            }
+            else
+                view.disableLoadButton();
         }
 
         function start() {
             configuration.saved.subscribe(onConfigurationSaved);
-            configuration.loaded.subscribe(onConfigurationLoaded);
             bioCalcPageData.birthdayChanged.subscribe(onBirthdayChanged);
+            bioCalcPageData.secondBirthdayChanged.subscribe(onSecondBirthdayChanged);
 
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
         }
 
         function stop() {
             configuration.saved.unsubscribe(onConfigurationSaved);
-            configuration.loaded.unsubscribe(onConfigurationLoaded);
             bioCalcPageData.birthdayChanged.unsubscribe(onBirthdayChanged);
+            bioCalcPageData.secondBirthdayChanged.unsubscribe(onSecondBirthdayChanged);
         }
 
         // --------------------------------------------------------------------------
@@ -132,20 +150,18 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function onConfigurationSaved() {
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
-        }
-
-        function onConfigurationLoaded() {
-            bioCalcPageData.birthday = configuration.config.birthday;
-
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
         }
 
         function onBirthdayChanged() {
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
+        }
+
+        function onSecondBirthdayChanged() {
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
         }
 
         // --------------------------------------------------------------------------

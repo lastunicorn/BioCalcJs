@@ -25,10 +25,11 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
      * Contains the logic of the page section where the user can select
      * the birthday and the second birthday.
      */
-    lu.bioCalc.mainPage.pageSections.BirthdaySection = function (configuration, bioCalcPageData) {
+    lu.bioCalc.mainPage.pageSections.BirthdaySection = function (bioCalcPageData) {
 
         var presenter;
         var suppressBirthdayChanged = false;
+        var suppressSecondBirthdayChanged = false;
 
         // --------------------------------------------------------------------------
         // view property
@@ -65,63 +66,73 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // Functions
         // --------------------------------------------------------------------------
 
-        function updateBirthdayTextBox() {
+        function refreshBirthdayTextBox() {
             var dateAsString = dateFormatter.formatDate(bioCalcPageData.birthday);
             view.setBirthdayText(dateAsString);
         }
 
-        function updateSecondBirthdayTextBox() {
+        function refreshSecondBirthdayTextBox() {
             var dateAsString = dateFormatter.formatDate(bioCalcPageData.secondBirthday);
             view.setSecondBirthdayText(dateAsString);
         }
 
-        function publishBirthday(birthday) {
+        function publishBirthday() {
             suppressBirthdayChanged = true;
             try {
-                bioCalcPageData.birthday = birthday;
+                bioCalcPageData.birthday = view.getBirthday();
             }
             finally {
                 suppressBirthdayChanged = false;
             }
         }
 
+        function publishSecondBirthday() {
+            suppressSecondBirthdayChanged = true;
+            try {
+                bioCalcPageData.secondBirthday = view.getSecondBirthday();
+            }
+            finally {
+                suppressSecondBirthdayChanged = false;
+            }
+        }
+
         function start() {
-            updateBirthdayTextBox();
-            updateSecondBirthdayTextBox();
+            refreshBirthdayTextBox();
+            refreshSecondBirthdayTextBox();
 
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
-            configuration.saving.subscribe(onSaving);
+            bioCalcPageData.secondBirthdayChanged.subscribe(onExternalSecondBirthdayChanged);
         }
 
         function stop() {
             bioCalcPageData.birthdayChanged.unsubscribe(onExternalBirthdayChanged);
-            configuration.saving.unsubscribe(onSaving);
+            bioCalcPageData.secondBirthdayChanged.unsubscribe(onExternalSecondBirthdayChanged);
         }
 
         // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
 
-        function onSaving() {
-            configuration.config.birthday = bioCalcPageData.birthday;
-        }
-
         function onBirthdayDatePickerSelect() {
-            var birthday = view.getBirthday();
-
-            publishBirthday(birthday);
+            publishBirthday();
         }
 
         function onSecondBirthdayDatePickerSelect() {
-            bioCalcPageData.secondBirthday = view.getSecondBirthday();
+            publishSecondBirthday();
         }
 
         function onExternalBirthdayChanged() {
-            if (suppressBirthdayChanged) {
+            if (suppressBirthdayChanged)
                 return;
-            }
 
-            updateBirthdayTextBox();
+            refreshBirthdayTextBox();
+        }
+
+        function onExternalSecondBirthdayChanged() {
+            if (suppressSecondBirthdayChanged)
+                return;
+
+            refreshSecondBirthdayTextBox();
         }
 
         // --------------------------------------------------------------------------

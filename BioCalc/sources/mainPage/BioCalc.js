@@ -45,14 +45,12 @@
     }
 
     function initializeBioCalcPageData() {
-        bioCalcPageData = new BioCalcPageData();
+        bioCalcPageData = new BioCalcPageData(configuration);
 
         var biorhythmShapes = new CommonBiorhythmsContainer();
         biorhythmShapes.setBirthdayOnAll(configuration.config.birthday);
 
         bioCalcPageData.biorhythms = biorhythmShapes;
-        bioCalcPageData.birthday = configuration.config.birthday;
-        bioCalcPageData.secondBirthday = new Date(1980, 05, 13);
     }
 
     function initializeDialogsAutoCloseModule() {
@@ -76,7 +74,7 @@
         var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(configuration, bioCalcPageData);
         chartsSection.view = new lu.bioCalc.mainPage.pageSections.ChartsSectionView();
 
-        var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(configuration, bioCalcPageData);
+        var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(bioCalcPageData);
         birthdaySection.view = new lu.bioCalc.mainPage.pageSections.BirthdaySectionView();
 
         var xDaySection = new lu.bioCalc.mainPage.pageSections.XDaySection(bioCalcPageData);

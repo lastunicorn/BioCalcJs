@@ -102,41 +102,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             }
         }
 
-        function displayInitialBiorhythms() {
-            var biorhythmsConfig = configuration.config.biorhythms;
-
-            if (!biorhythmsConfig)
-                return;
-
-            var biorhythmShapes = bioCalcPageData.biorhythms.toArray();
-
-            for (var i = 0; i < biorhythmShapes.length; i++) {
-                var biorhythmConfig = getBiorhythmConfigByName(biorhythmShapes[i].name);
-
-                if (biorhythmConfig) {
-                    biorhythmShapes[i].isVisible = true;
-                    biorhythmShapes[i].color = biorhythmConfig.color;
-                }
-                else {
-                    biorhythmShapes[i].isVisible = false;
-                }
-            }
-        }
-
-        function getBiorhythmConfigByName(name) {
-            var biorhythmsConfig = configuration.config.biorhythms;
-
-            if (!biorhythmsConfig)
-                return null;
-
-            for (var i = 0; i < biorhythmsConfig.length; i++) {
-                if (biorhythmsConfig[i].name == name)
-                    return biorhythmsConfig[i];
-            }
-
-            return null;
-        }
-
         function start() {
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
@@ -152,8 +117,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 displayBiorhythms();
                 displayBirthday();
                 publishCurrentXDay();
-
-                displayInitialBiorhythms();
             }
             finally {
                 view.$biorhythmViewContainer.biorhythmView("resumePaint");

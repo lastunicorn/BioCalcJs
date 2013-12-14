@@ -18,67 +18,80 @@ window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 
-/**
- * Keeps the configuration object.
- */
-lu.bioCalc.configuration.Configuration = function () {
+(function (Event) {
 
-    var cookieName = "config";
+    /**
+     * Keeps the configuration object.
+     */
+    lu.bioCalc.configuration.Configuration = function () {
 
-    // --------------------------------------------------------------------------
-    // Property - config
-    // --------------------------------------------------------------------------
+        var cookieName = "config";
 
-    var config = null;
+        // --------------------------------------------------------------------------
+        // config property
+        // --------------------------------------------------------------------------
 
-    Object.defineProperty(this, "config", {
-        enumerable: true,
-        configurable: false,
-        get: getConfig
-    });
+        var config = null;
 
-    function getConfig() {
-        return config;
-    }
+        Object.defineProperty(this, "config", {
+            enumerable: true,
+            configurable: false,
+            get: getConfig
+        });
 
-    // --------------------------------------------------------------------------
-    // Functions
-    // --------------------------------------------------------------------------
-
-    this.save = function () {
-        $.cookie.json = true;
-
-        if (config == null) {
-            return;
+        function getConfig() {
+            return config;
         }
 
-        $.cookie(cookieName, config);
+        // --------------------------------------------------------------------------
+        // Saving event
+        // --------------------------------------------------------------------------
+
+        var savingEvent = new Event();
+        this.saving = savingEvent.client;
+
+        // --------------------------------------------------------------------------
+        // Functions
+        // --------------------------------------------------------------------------
+
+        this.save = function () {
+            savingEvent.raise();
+
+            $.cookie.json = true;
+
+            if (config == null) {
+                return;
+            }
+
+            $.cookie(cookieName, config);
+        };
+
+        this.loadFromCookies = function () {
+            $.cookie.json = true;
+            var newConfig = $.cookie(cookieName);
+
+            if (newConfig == null) {
+                newConfig = {};
+            }
+
+            ensureDefaultValues(newConfig);
+
+            config = newConfig;
+        };
+
+        function ensureDefaultValues(c) {
+            if ($.type(c.birthday) === "string") {
+                c.birthday = new Date(c.birthday);
+            }
+
+            if ($.type(c.birthday) !== "date") {
+                c.birthday = getDefaultBirthday();
+            }
+        }
+
+        function getDefaultBirthday() {
+            return new Date(1980, 05, 13);
+        }
     };
 
-    this.loadFromCookies = function () {
-        $.cookie.json = true;
-        var newConfig = $.cookie(cookieName);
-
-        if (newConfig == null) {
-            newConfig = {};
-        }
-
-        ensureDefaultValues(newConfig);
-
-        config = newConfig;
-    };
-
-    function ensureDefaultValues(c) {
-        if ($.type(c.birthday) === "string") {
-            c.birthday = new Date(c.birthday);
-        }
-
-        if ($.type(c.birthday) !== "date") {
-            c.birthday = getDefaultBirthday();
-        }
-    }
-
-    function getDefaultBirthday() {
-        return new Date(1980, 05, 13);
-    }
-};
+}(lu.Event));

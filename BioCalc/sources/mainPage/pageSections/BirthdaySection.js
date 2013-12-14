@@ -23,7 +23,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
     /**
      * Contains the logic of the page section where the user can select
-     * the birthday.
+     * the birthday and the second birthday.
      */
     lu.bioCalc.mainPage.pageSections.BirthdaySection = function (configuration, bioCalcPageData) {
 
@@ -48,14 +48,16 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function setView(value) {
-            if (view)
+            if (view) {
                 view.presenter = null;
+                stop();
+            }
 
             view = value;
 
             if (view) {
                 view.presenter = presenter;
-                initializeView();
+                start();
             }
         }
 
@@ -105,16 +107,28 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             }
         }
 
-        function initializeView() {
+        function start() {
             updateBirthdayTextBox();
             updateSecondBirthdayTextBox();
             updateResetBirthdayButtonVisibility();
             updateSaveBirthdayButtonVisibility();
+
+            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
+            configuration.saving.subscribe(onSaving);
+        }
+
+        function stop() {
+            bioCalcPageData.birthdayChanged.unsubscribe(onExternalBirthdayChanged);
+            configuration.saving.unsubscribe(onSaving);
         }
 
         // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
+
+        function onSaving() {
+            configuration.config.birthday = bioCalcPageData.birthday;
+        }
 
         function onBirthdayDatePickerSelect() {
             var birthday = view.getBirthday();
@@ -146,7 +160,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             e.preventDefault();
             e.stopPropagation();
 
-            configuration.config.birthday = bioCalcPageData.birthday;
             configuration.save();
 
             updateSaveBirthdayButtonVisibility();
@@ -174,8 +187,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 onResetBirthdayButtonClick: onResetBirthdayButtonClick,
                 onSaveBirthdayButtonClick: onSaveBirthdayButtonClick
             };
-
-            bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
         }());
     };
 

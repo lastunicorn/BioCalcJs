@@ -73,7 +73,7 @@
         var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(helpDialog, aboutDialog, optionsDialog);
         mainToolbar.view = new lu.bioCalc.mainPage.pageSections.MainToolbarView();
 
-        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(bioCalcPageData);
+        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(configuration, bioCalcPageData);
         chartsSection.view = new lu.bioCalc.mainPage.pageSections.ChartsSectionView();
 
         var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(configuration, bioCalcPageData);

@@ -22,7 +22,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 (function ($, bioControlsVersion, bioCalcVersion) {
 
     /**
-     * Contains the logic of the About dialog.
+     * Contains the UI logic of the About dialog.
      */
     lu.bioCalc.mainPage.pageSections.AboutDialog = function () {
 

@@ -17,20 +17,11 @@
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
 
-lu.bioCalc.mainPage.BiorhythmShapesModule = function (bioCalcPageData) {
+lu.bioCalc.mainPage.commands.DialogCommand = function (dialog) {
 
-    function synchronizeBirthday() {
-        var biorhythmShapes = bioCalcPageData.biorhythms;
-        biorhythmShapes.setBirthdayOnAll(bioCalcPageData.birthday);
-    }
-
-    function onBirthdayChanged() {
-        synchronizeBirthday();
-    }
-
-    this.start = function () {
-        bioCalcPageData.birthdayChanged.subscribe(onBirthdayChanged);
-        synchronizeBirthday();
+    this.execute = function () {
+        dialog.show();
     };
 };

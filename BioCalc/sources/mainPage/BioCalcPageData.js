@@ -47,6 +47,10 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 
         function setBirthday(value) {
             birthday = value;
+
+//            if (biorhythms)
+//                biorhythms.setBirthdayOnAll(birthday);
+
             birthdayChangedEvent.raise(this, value);
         }
 
@@ -120,8 +124,10 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
         function setBiorhythms(value) {
             biorhythms = value;
 
-            if (biorhythms)
+            if (biorhythms) {
+                biorhythms.setBirthdayOnAll(birthday);
                 loadBiorhythmsConfigurationFromConfig();
+            }
 
             biorhythmsChangedEvent.raise(this, value);
         }
@@ -172,6 +178,31 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
             return null;
         }
 
+        this.isDataChanged = function () {
+            return isBirthdayChanged() ||
+                isSecondBirthdayChanged();
+        };
+
+        function isBirthdayChanged() {
+            if (!birthday && !configuration.config.birthday)
+                return false;
+
+            if (!birthday || !configuration.config.birthday)
+                return true;
+
+            return birthday.getTime() != configuration.config.birthday.getTime();
+        }
+
+        function isSecondBirthdayChanged() {
+            if (!secondBirthday && !configuration.config.secondBirthday)
+                return false;
+
+            if (!secondBirthday || !configuration.config.secondBirthday)
+                return true;
+
+            return secondBirthday.getTime() != configuration.config.secondBirthday.getTime();
+        }
+
         // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
@@ -179,6 +210,21 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
         function onConfigurationSaving() {
             configuration.config.birthday = birthday;
             configuration.config.secondBirthday = secondBirthday;
+
+            var biorhythms = [];
+
+            var biorhythmShapes = biorhythms.toArray();
+            for (var i = 0; i < biorhythmShapes.length; i++) {
+                if (!biorhythmShapes[i].isVisible)
+                    continue;
+
+                biorhythms.push({
+                    name: biorhythmShapes[i].name,
+                    color: biorhythmShapes[i].color
+                });
+            }
+
+            configuration.config.biorhythms = biorhythms;
         }
 
         function onConfigurationLoaded() {

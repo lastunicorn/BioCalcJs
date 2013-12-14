@@ -25,7 +25,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
      * Contains the logic of the page section that displays the
      * biorhythm charts, the legend and also the first day and last day labels.
      */
-    lu.bioCalc.mainPage.pageSections.ChartsSection = function (configuration, bioCalcPageData) {
+    lu.bioCalc.mainPage.pageSections.ChartsSection = function (bioCalcPageData) {
 
         var presenter;
 
@@ -105,7 +105,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         function start() {
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
-            configuration.saving.subscribe(onSaving);
 
             view.$biorhythmViewContainer.biorhythmView("suspendPaint");
             try {
@@ -126,29 +125,11 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         function stop() {
             bioCalcPageData.birthdayChanged.unsubscribe(onExternalBirthdayChanged);
             bioCalcPageData.biorhythmsChanged.unsubscribe(onExternalBiorhythmsChanged);
-            configuration.saving.unsubscribe(onSaving);
         }
 
         // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
-
-        function onSaving() {
-            var biorhythms = [];
-
-            var biorhythmShapes = bioCalcPageData.biorhythms.toArray();
-            for (var i = 0; i < biorhythmShapes.length; i++) {
-                if (!biorhythmShapes[i].isVisible)
-                    continue;
-
-                biorhythms.push({
-                    name: biorhythmShapes[i].name,
-                    color: biorhythmShapes[i].color
-                });
-            }
-
-            configuration.config.biorhythms = biorhythms;
-        }
 
         function onBiorhythmViewFirstDayChanged() {
 

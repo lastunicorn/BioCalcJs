@@ -93,8 +93,13 @@
 				<file name="Configuration.js" />
 			</sources>
 
+            <sources dir="${basedir}/sources/mainPage/commands">
+                <file name="DialogCommand.js" />
+                <file name="SaveCommand.js" />
+                <file name="LoadCommand.js" />
+            </sources>
+
 			<sources dir="${basedir}/sources/mainPage">
-				<file name="BiorhythmShapesModule.js" />
                 <file name="BioCalcPageData.js" />
 				<file name="BioCalc.js" />
 			</sources>

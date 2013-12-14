@@ -30,9 +30,6 @@
         loadConfiguration();
         initializeBioCalcPageData();
 
-//        var biorhythmShapesModule = new lu.bioCalc.mainPage.BiorhythmShapesModule(bioCalcPageData);
-//        biorhythmShapesModule.start();
-
         $(function () {
             initializeDialogsAutoCloseModule();
             createPageSections();
@@ -46,11 +43,7 @@
 
     function initializeBioCalcPageData() {
         bioCalcPageData = new BioCalcPageData(configuration);
-
-        var biorhythmShapes = new CommonBiorhythmsContainer();
-        biorhythmShapes.setBirthdayOnAll(configuration.config.birthday);
-
-        bioCalcPageData.biorhythms = biorhythmShapes;
+        bioCalcPageData.biorhythms = new CommonBiorhythmsContainer();
     }
 
     function initializeDialogsAutoCloseModule() {
@@ -68,10 +61,18 @@
         var optionsDialog = new lu.bioCalc.mainPage.pageSections.OptionsDialog(bioCalcPageData);
         optionsDialog.view = new lu.bioCalc.mainPage.pageSections.OptionsDialogView();
 
-        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(configuration, bioCalcPageData, helpDialog, aboutDialog, optionsDialog);
+        var mainToolbarCommands = {
+            saveCommand: new lu.bioCalc.mainPage.commands.SaveCommand(configuration),
+            loadCommand: new lu.bioCalc.mainPage.commands.LoadCommand(configuration),
+            helpDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(helpDialog),
+            aboutDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(aboutDialog),
+            optionsDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(optionsDialog)
+        };
+
+        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(configuration, bioCalcPageData, mainToolbarCommands);
         mainToolbar.view = new lu.bioCalc.mainPage.pageSections.MainToolbarView();
 
-        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(configuration, bioCalcPageData);
+        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(bioCalcPageData);
         chartsSection.view = new lu.bioCalc.mainPage.pageSections.ChartsSectionView();
 
         var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(bioCalcPageData);

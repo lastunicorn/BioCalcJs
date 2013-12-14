@@ -16,22 +16,12 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
 
-/**
- * Creates the version string and attaches it to the base namespace of the
- * BioCalc application.
- */
-(function Version() {
+lu.bioCalc.mainPage.commands.SaveCommand = function (configuration) {
 
-    // --------------------------------------------------------------------------
-    // Property - version
-    // --------------------------------------------------------------------------
-
-    Object.defineProperty(lu.bioCalc, "version", {
-        value: "1.5.0",
-        writable: false,
-        enumerable: true,
-        configurable: false
-    });
-
-}());
+    this.execute = function () {
+        configuration.save();
+    };
+};

@@ -1,6 +1,11 @@
 BioCalc
 =======
 
+var 1.5.0
+---------
+[Feature] I added a second birthday field. It is used to calculate birhythm's compatibility with the first one.
+[Feature] I implemented global save and load buttons that saves/loads the birthday, second birthday, the list of displayed biorhythms and theirs colors, the first day displayed by the chart and the X day.
+
 var 1.4.0
 ---------
 [Feature] I added an Options panel.

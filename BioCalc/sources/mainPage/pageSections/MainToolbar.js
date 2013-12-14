@@ -21,17 +21,10 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
 (function () {
 
-    lu.bioCalc.mainPage.pageSections.saveCommand = function (configuration, bioCalcPageData) {
-
-        this.execute = function () {
-            configuration.save();
-        };
-    }
-
     /**
      * Contains the logic of the main tool bar.
      */
-    lu.bioCalc.mainPage.pageSections.MainToolbar = function (configuration, bioCalcPageData, helpDialog, aboutDialog, optionsDialog) {
+    lu.bioCalc.mainPage.pageSections.MainToolbar = function (configuration, bioCalcPageData, commands) {
 
         var presenter;
 
@@ -70,41 +63,19 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // Functions
         // --------------------------------------------------------------------------
 
-        function isBirthdayChanged() {
-            if (!bioCalcPageData.birthday && !configuration.config.birthday)
-                return false;
-
-            if (!configuration.config.birthday || !configuration.config.birthday)
-                return true;
-
-            return configuration.config.birthday.getTime() != bioCalcPageData.birthday.getTime();
-        }
-
-        function isSecondBirthdayChanged() {
-            if (!bioCalcPageData.secondBirthday && !configuration.config.secondBirthday)
-                return false;
-
-            if (!bioCalcPageData.secondBirthday || !configuration.config.secondBirthday)
-                return true;
-
-            return configuration.config.secondBirthday.getTime() != bioCalcPageData.secondBirthday.getTime();
-        }
-
         function updateSaveButtonVisibility() {
-            var isSomethingChanged = isBirthdayChanged() ||
-                isSecondBirthdayChanged();
+            var isDataChanged = bioCalcPageData.isDataChanged();
 
-            if (isSomethingChanged)
+            if (isDataChanged)
                 view.enableSaveButton();
             else
                 view.disableSaveButton();
         }
 
         function updateLoadButtonVisibility() {
-            var isSomethingChanged = isBirthdayChanged() ||
-                isSecondBirthdayChanged();
+            var isDataChanged = bioCalcPageData.isDataChanged();
 
-            if (isSomethingChanged)
+            if (isDataChanged)
                 view.enableLoadButton();
             else
                 view.disableLoadButton();
@@ -130,23 +101,23 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         function onHelpButtonClick() {
-            helpDialog.show();
+            commands.helpDialogCommand.execute();
         }
 
         function onAboutButtonClick() {
-            aboutDialog.show();
+            commands.aboutDialogCommand.execute();
         }
 
         function onOptionsButtonClick() {
-            optionsDialog.show();
+            commands.optionsDialogCommand.execute();
         }
 
         function onSaveButtonClick() {
-            configuration.save();
+            commands.saveCommand.execute();
         }
 
         function onLoadButtonClick() {
-            configuration.loadFromCookies();
+            commands.loadCommand.execute();
         }
 
         function onConfigurationSaved() {

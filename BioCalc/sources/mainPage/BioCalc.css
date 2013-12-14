@@ -116,6 +116,13 @@ a[target="_blank"] {
     cursor: move;
 }
 
+/* Birthday Section
+----------------------------------------------------------------------------- */
+
+#birthdayContainer {
+    margin-top: 10px;
+}
+
 /* Biorhythm Legend
 ----------------------------------------------------------------------------- */
 
@@ -161,6 +168,11 @@ header h1 {
 
 #mainToolbar .ui-button {
     font-size: 12px;
+}
+
+#saveMenu {
+    position: absolute;
+    width: 100px;
 }
 
 /* Tabs

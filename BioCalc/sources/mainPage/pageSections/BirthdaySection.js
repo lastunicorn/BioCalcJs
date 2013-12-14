@@ -65,28 +65,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // Functions
         // --------------------------------------------------------------------------
 
-        function updateSaveBirthdayButtonVisibility() {
-            var config = configuration.config;
-            var birthday = bioCalcPageData.birthday;
-
-            if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
-                view.disableSaveBirthdayButton();
-            } else {
-                view.enableSaveBirthdayButton();
-            }
-        }
-
-        function updateResetBirthdayButtonVisibility() {
-            var config = configuration.config;
-            var birthday = bioCalcPageData.birthday;
-
-            if (birthday.getTime() == config.birthday.getTime()) {
-                view.disableResetBirthdayButton();
-            } else {
-                view.enableResetBirthdayButton();
-            }
-        }
-
         function updateBirthdayTextBox() {
             var dateAsString = dateFormatter.formatDate(bioCalcPageData.birthday);
             view.setBirthdayText(dateAsString);
@@ -110,8 +88,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         function start() {
             updateBirthdayTextBox();
             updateSecondBirthdayTextBox();
-            updateResetBirthdayButtonVisibility();
-            updateSaveBirthdayButtonVisibility();
 
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
             configuration.saving.subscribe(onSaving);
@@ -134,36 +110,10 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             var birthday = view.getBirthday();
 
             publishBirthday(birthday);
-
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
         }
 
         function onSecondBirthdayDatePickerSelect() {
             bioCalcPageData.secondBirthday = view.getSecondBirthday();
-        }
-
-        function onResetBirthdayButtonClick(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            var birthday = configuration.config.birthday;
-
-            publishBirthday(birthday);
-
-            updateBirthdayTextBox();
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
-        }
-
-        function onSaveBirthdayButtonClick(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            configuration.save();
-
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
         }
 
         function onExternalBirthdayChanged() {
@@ -172,8 +122,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             }
 
             updateBirthdayTextBox();
-            updateSaveBirthdayButtonVisibility();
-            updateResetBirthdayButtonVisibility();
         }
 
         // --------------------------------------------------------------------------
@@ -183,9 +131,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         (function initialize() {
             presenter = {
                 onBirthdayDatePickerSelect: onBirthdayDatePickerSelect,
-                onSecondBirthdayDatePickerSelect: onSecondBirthdayDatePickerSelect,
-                onResetBirthdayButtonClick: onResetBirthdayButtonClick,
-                onSaveBirthdayButtonClick: onSaveBirthdayButtonClick
+                onSecondBirthdayDatePickerSelect: onSecondBirthdayDatePickerSelect
             };
         }());
     };

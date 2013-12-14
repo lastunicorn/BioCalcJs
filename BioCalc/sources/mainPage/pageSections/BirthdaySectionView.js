@@ -25,9 +25,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
         var $birthdayTextBox = null;
         var $secondBirthdayTextBox = null;
-        var $saveBirthdayButton = null;
-        var $resetBirthdayButton = null;
-        var $birthdayButtons = null;
 
         // --------------------------------------------------------------------------
         // presenter property
@@ -53,22 +50,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
         // GUI helpers
         // --------------------------------------------------------------------------
-
-        this.enableSaveBirthdayButton = function () {
-            $saveBirthdayButton.button("option", "disabled", false);
-        };
-
-        this.disableSaveBirthdayButton = function () {
-            $saveBirthdayButton.button("option", "disabled", true);
-        };
-
-        this.enableResetBirthdayButton = function () {
-            $resetBirthdayButton.button("option", "disabled", false);
-        };
-
-        this.disableResetBirthdayButton = function () {
-            $resetBirthdayButton.button("option", "disabled", true);
-        };
 
         this.setBirthdayText = function (value) {
             $birthdayTextBox.val(value);
@@ -99,18 +80,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         function onSecondBirthdayDatePickerSelect() {
             if ($.isFunction(presenter.onSecondBirthdayDatePickerSelect)) {
                 presenter.onSecondBirthdayDatePickerSelect();
-            }
-        }
-
-        function onResetBirthdayButtonClick(e) {
-            if ($.isFunction(presenter.onResetBirthdayButtonClick)) {
-                presenter.onResetBirthdayButtonClick(e);
-            }
-        }
-
-        function onSaveBirthdayButtonClick(e) {
-            if ($.isFunction(presenter.onSaveBirthdayButtonClick)) {
-                presenter.onSaveBirthdayButtonClick(e);
             }
         }
 
@@ -147,26 +116,6 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 onSelect: onSecondBirthdayDatePickerSelect,
                 showButtonPanel: true
             });
-
-            $saveBirthdayButton.button({
-                text: false,
-                icons: {
-                    primary: "ui-icon-disk"
-                },
-                disabled: true
-            });
-            $saveBirthdayButton.click(onSaveBirthdayButtonClick);
-
-            $resetBirthdayButton.button({
-                text: false,
-                icons: {
-                    primary: "ui-icon-close"
-                },
-                disabled: true
-            });
-            $resetBirthdayButton.click(onResetBirthdayButtonClick);
-
-            $birthdayButtons.buttonset();
         }
     };
 

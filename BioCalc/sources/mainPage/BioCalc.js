@@ -70,7 +70,7 @@
         var optionsDialog = new lu.bioCalc.mainPage.pageSections.OptionsDialog(bioCalcPageData);
         optionsDialog.view = new lu.bioCalc.mainPage.pageSections.OptionsDialogView();
 
-        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(helpDialog, aboutDialog, optionsDialog);
+        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(configuration, bioCalcPageData, helpDialog, aboutDialog, optionsDialog);
         mainToolbar.view = new lu.bioCalc.mainPage.pageSections.MainToolbarView();
 
         var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(configuration, bioCalcPageData);

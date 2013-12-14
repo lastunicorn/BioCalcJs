@@ -19,14 +19,18 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-(function($) {
+(function ($) {
 
-    lu.bioCalc.mainPage.pageSections.MainToolbarView = function() {
+    lu.bioCalc.mainPage.pageSections.MainToolbarView = function () {
 
         var $mainToolbar = null;
         var $helpButton = null;
         var $aboutButton = null;
         var $optionsButton = null;
+        var $saveButton = null;
+        var $loadButton = null;
+        var $saveMenuButton = null;
+        var $saveMenu = null;
 
         // --------------------------------------------------------------------------
         // presenter property
@@ -50,6 +54,26 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         // --------------------------------------------------------------------------
+        // GUI helpers
+        // --------------------------------------------------------------------------
+
+        this.enableSaveButton = function () {
+            $saveButton.button("option", "disabled", false);
+        };
+
+        this.disableSaveButton = function () {
+            $saveButton.button("option", "disabled", true);
+        };
+
+        this.enableLoadButton = function () {
+            $loadButton.button("option", "disabled", false);
+        };
+
+        this.disableLoadButton = function () {
+            $loadButton.button("option", "disabled", true);
+        };
+
+        // --------------------------------------------------------------------------
         // Event handlers
         // --------------------------------------------------------------------------
 
@@ -71,6 +95,30 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             }
         }
 
+        function onSaveButtonClick(e) {
+            if ($.isFunction(presenter.onSaveButtonClick)) {
+                presenter.onSaveButtonClick(e);
+            }
+        }
+
+        function onLoadButtonClick(e) {
+            if ($.isFunction(presenter.onLoadButtonClick)) {
+                presenter.onLoadButtonClick(e);
+            }
+        }
+
+        function onSaveMenuButtonClick(e) {
+            $saveMenu.show().position({
+                my: "right top",
+                at: "right bottom",
+                of: $saveMenuButton
+            });
+
+            $(document).one("click", function () {
+                $saveMenu.hide();
+            });
+        }
+
         // --------------------------------------------------------------------------
         // Initialization
         // --------------------------------------------------------------------------
@@ -85,6 +133,10 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             $helpButton = $("#helpButton");
             $aboutButton = $("#aboutButton");
             $optionsButton = $("#optionsButton");
+            $saveButton = $("#saveButton");
+            $loadButton = $("#loadButton");
+            $saveMenuButton = $("#saveMenuButton");
+            $saveMenu = $("#saveMenu");
         }
 
         function initializeControls() {
@@ -112,6 +164,32 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 }
             });
             $optionsButton.click(onOptionsButtonClick);
+
+            $saveButton.button({
+                icons: {
+                    primary: "ui-icon-disk"
+                }
+            });
+            $saveButton.click(onSaveButtonClick);
+
+            $loadButton.button({
+                icons: {
+                    primary: "ui-icon-disk"
+                }
+            });
+            $loadButton.click(onLoadButtonClick);
+
+            $saveMenuButton.button({
+                text: false,
+                icons: {
+                    primary: "ui-icon-triangle-1-s"
+                }
+            })
+            $saveMenuButton.hide();
+            $saveMenuButton.click(onSaveMenuButtonClick);
+
+            $saveMenu.menu()
+                .hide();
         }
     };
 

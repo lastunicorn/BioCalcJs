@@ -24,7 +24,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
     /**
      * Contains the logic of the main tool bar.
      */
-    lu.bioCalc.mainPage.pageSections.MainToolbar = function (helpDialog, aboutDialog, optionsDialog) {
+    lu.bioCalc.mainPage.pageSections.MainToolbar = function (configuration, bioCalcPageData, helpDialog, aboutDialog, optionsDialog) {
 
         var presenter;
 
@@ -46,13 +46,54 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function setView(value) {
-            if (view)
+            if (view) {
                 view.presenter = null;
+                stop();
+            }
 
             view = value;
 
-            if (view)
+            if (view) {
                 view.presenter = presenter;
+                start();
+            }
+        }
+
+        // --------------------------------------------------------------------------
+        // Functions
+        // --------------------------------------------------------------------------
+
+        function updateSaveBirthdayButtonVisibility() {
+            var config = configuration.config;
+            var birthday = bioCalcPageData.birthday;
+
+            if (birthday != null && config.birthday.getTime() == birthday.getTime()) {
+                view.disableSaveButton();
+            } else {
+                view.enableSaveButton();
+            }
+        }
+
+        function updateResetBirthdayButtonVisibility() {
+            var config = configuration.config;
+            var birthday = bioCalcPageData.birthday;
+
+            if (birthday.getTime() == config.birthday.getTime()) {
+                view.disableLoadButton();
+            } else {
+                view.enableLoadButton();
+            }
+        }
+
+        function start() {
+            bioCalcPageData.birthdayChanged.subscribe(onBirthdayChanged);
+
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+        }
+
+        function stop() {
+            bioCalcPageData.birthdayChanged.unsubscribe(onBirthdayChanged);
         }
 
         // --------------------------------------------------------------------------
@@ -71,6 +112,25 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             optionsDialog.show();
         }
 
+        function onSaveButtonClick() {
+            configuration.save();
+
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+        }
+
+        function onLoadButtonClick() {
+            bioCalcPageData.birthday = configuration.config.birthday;
+
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+        }
+
+        function onBirthdayChanged() {
+            updateSaveBirthdayButtonVisibility();
+            updateResetBirthdayButtonVisibility();
+        }
+
         // --------------------------------------------------------------------------
         // Initialization
         // --------------------------------------------------------------------------
@@ -79,7 +139,9 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             presenter = {
                 onHelpButtonClick: onHelpButtonClick,
                 onAboutButtonClick: onAboutButtonClick,
-                onOptionsButtonClick: onOptionsButtonClick
+                onOptionsButtonClick: onOptionsButtonClick,
+                onSaveButtonClick: onSaveButtonClick,
+                onLoadButtonClick: onLoadButtonClick
             };
         }());
     };

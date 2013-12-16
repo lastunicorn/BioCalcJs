@@ -299,11 +299,9 @@
             }
         },
 
-        destroy: function() {
+        _destroy: function() {
             this._$element.remove();
             this._biorhythms.destroy();
-
-            $.Widget.prototype.destroy.call(this);
         },
 
         // --------------------------------------------------------------------------

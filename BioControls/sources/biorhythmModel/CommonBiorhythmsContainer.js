@@ -23,8 +23,6 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
     /**
      * It is a repository containing a list of BiorhythmShape objects; one for
      * each known biorhythm.
-     *
-     * @returns {lu.bioControls.biorhythmModel.CommonBiorhythmsContainer}
      */
     lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function () {
 

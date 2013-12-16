@@ -42,11 +42,9 @@
             }
         },
 
-        destroy: function() {
+        _destroy: function() {
             this.element.empty();
             this._biorhythms.destroy();
-
-            $.Widget.prototype.destroy.call(this);
         },
 
         _createBiorhythmsAdapter: function(biorhythms) {

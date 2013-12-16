@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
-(function ($, BiorhythmsAdapter, XDayInfoItem, XDayInfoItemView) {
+(function ($) {
 
     $.widget("lastunicorn.xDayInfoView", {
         options: {
@@ -29,7 +29,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             this.element.empty();
 
             var xDayInfoViewerView = new lu.bioControls.xDayInfoView.XDayInfoViewerView();
-            xDayInfoViewerView.$element.appendTo(this.element);
+            this.element.append(xDayInfoViewerView.$element);
 
             this._xDayInfoViewer = new lu.bioControls.xDayInfoView.XDayInfoViewer({
                 view: xDayInfoViewerView,
@@ -45,12 +45,9 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             }
         },
 
-        destroy: function () {
+        _destroy: function () {
             this.element.empty();
-
             this._xDayInfoViewer.destroy();
-
-            $.Widget.prototype.destroy.call(this);
         },
 
         updateXDay: function (xDay) {
@@ -62,9 +59,4 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         }
     });
 
-}(
-        jQuery,
-        lu.bioControls.biorhythmModel.BiorhythmsAdapter,
-        lu.bioControls.xDayInfoView.XDayInfoItem,
-        lu.bioControls.xDayInfoView.XDayInfoItemView
-    ));
+}(jQuery));

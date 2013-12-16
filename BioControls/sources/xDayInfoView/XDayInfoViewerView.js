@@ -67,13 +67,15 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         }
 
         function generateHeader() {
-            $tr = $("<tr/>").appendTo($tbody);
+            var $tr = $("<tr/>");
 
             $("<th>").text("").appendTo($tr);
-            $("<th>").text("Biorhithm").appendTo($tr);
+            $("<th>").text("Biorhythm").appendTo($tr);
             $("<th>").text("").appendTo($tr);
             $("<th>").text("Value").appendTo($tr);
             $("<th>").text("Compatibility").appendTo($tr);
+
+            $tbody.append($tr);
         }
 
         // --------------------------------------------------------------------------

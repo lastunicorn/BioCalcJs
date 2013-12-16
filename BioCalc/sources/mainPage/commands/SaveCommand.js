@@ -19,6 +19,11 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
 
+/**
+ * Saves the configuration as cookies.
+ *
+ * @constructor
+ */
 lu.bioCalc.mainPage.commands.SaveCommand = function (configuration) {
 
     this.execute = function () {

@@ -211,20 +211,23 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
             configuration.config.birthday = birthday;
             configuration.config.secondBirthday = secondBirthday;
 
-            var biorhythms = [];
+            var biorhythmsConfig = [];
 
-            var biorhythmShapes = biorhythms.toArray();
-            for (var i = 0; i < biorhythmShapes.length; i++) {
-                if (!biorhythmShapes[i].isVisible)
-                    continue;
+            if (biorhythms && typeof(biorhythms.toArray) === "function") {
+                var biorhythmShapes = biorhythms.toArray();
 
-                biorhythms.push({
-                    name: biorhythmShapes[i].name,
-                    color: biorhythmShapes[i].color
-                });
+                for (var i = 0; i < biorhythmShapes.length; i++) {
+                    if (!biorhythmShapes[i].isVisible)
+                        continue;
+
+                    biorhythmsConfig.push({
+                        name: biorhythmShapes[i].name,
+                        color: biorhythmShapes[i].color
+                    });
+                }
             }
 
-            configuration.config.biorhythms = biorhythms;
+            configuration.config.biorhythms = biorhythmsConfig;
         }
 
         function onConfigurationLoaded() {

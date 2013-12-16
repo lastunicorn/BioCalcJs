@@ -19,6 +19,11 @@ lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
 
+/**
+ * Opens a dialog.
+ *
+ * @constructor
+ */
 lu.bioCalc.mainPage.commands.DialogCommand = function (dialog) {
 
     this.execute = function () {

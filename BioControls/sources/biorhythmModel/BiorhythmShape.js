@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-(function(Event, LineStyle) {
+(function(Event, lineStyle) {
 
     /**
      * Represents a biorhythm curve with all its display related properties.
@@ -174,7 +174,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         // lineStyle property
         // --------------------------------------------------------------------------
 
-        var lineStyle = LineStyle.solid;
+        var lineStyle = lineStyle.solid;
         var lineStyleChangedEvent = new Event();
         this.lineStyleChanged = lineStyleChangedEvent.client;
 

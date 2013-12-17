@@ -19,7 +19,7 @@ lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
 /**
- * An adapter that takes an object and provides an array of BiorhythShapes.
+ * An adapter that takes an object and provides an array of BiorhythmShapes.
  *
  * @param options
  *            {Object} Configuration object containing different options needed

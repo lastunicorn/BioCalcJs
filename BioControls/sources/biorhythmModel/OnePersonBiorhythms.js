@@ -1,4 +1,4 @@
-﻿// BioControls
+// BioControls
 // Copyright (C) 2013 Last Unicorn
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -23,12 +23,28 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
     /**
      * It is a repository containing a list of BiorhythmShape objects; one for
      * each known biorhythm.
-     *
-     * @deprecated
      */
-    lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function () {
+    lu.bioControls.biorhythmModel.OnePersonBiorhythms = function () {
+        var proto = this.constructor.prototype;
+
+        // --------------------------------------------------------------------------
+        // name property
+        // --------------------------------------------------------------------------
+
+        var name = null;
+
+        Object.defineProperty(this, "name", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return name;
+            },
+            set: function (value) {
+                name = value;
+            }
+        });
     };
 
-    lu.bioControls.biorhythmModel.CommonBiorhythmsContainer.inherit(lu.bioControls.biorhythmModel.CommonBiorhythmsCollection);
+    lu.bioControls.biorhythmModel.OnePersonBiorhythms.inherit(lu.bioControls.biorhythmModel.CommonBiorhythmsCollection);
 
 }());

@@ -64,11 +64,11 @@
 				<file name="List.js" />
 				<file name="MouseButton.js" />
 				<file name="TextUtil.js" />
-                <file name="BioControlsError.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources">
 				<file name="Version.js" />
+                <file name="BioControlsError.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythms">

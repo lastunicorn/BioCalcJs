@@ -18,14 +18,14 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-(function(Event, lineStyle) {
+(function (Event, lineStyle) {
 
     /**
      * Represents a biorhythm curve with all its display related properties.
-     * 
+     *
      * @returns {lu.bioControls.biorhythmModel.BiorhythmShape}
      */
-    lu.bioControls.biorhythmModel.BiorhythmShape = function() {
+    lu.bioControls.biorhythmModel.BiorhythmShape = function () {
 
         var obj = this;
 
@@ -49,9 +49,8 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         function setName(value) {
-            if (value === name) {
+            if (value === name)
                 return;
-            }
 
             name = value;
             nameChangedEvent.raise(obj, value);
@@ -77,9 +76,8 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         function setBiorhythm(value) {
-            if (value === biorhythm) {
+            if (value === biorhythm)
                 return;
-            }
 
             biorhythm = value;
 
@@ -106,9 +104,8 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         function setColor(value) {
-            if (value === color) {
+            if (value === color)
                 return;
-            }
 
             color = value;
             colorChangedEvent.raise(obj, value);
@@ -134,9 +131,8 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         function setIsVisible(value) {
-            if (value === isVisible) {
+            if (value === isVisible)
                 return;
-            }
 
             isVisible = value;
             isVisibleChangedEvent.raise(obj, value);
@@ -162,23 +158,22 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         function setLineWidth(value) {
-            if (value === lineWidth) {
+            if (value === lineWidth)
                 return;
-            }
 
             lineWidth = value;
             lineWidthChangedEvent.raise(obj, value);
         }
 
         // --------------------------------------------------------------------------
-        // lineStyle property
+        // _lineStyle property
         // --------------------------------------------------------------------------
 
-        var lineStyle = lineStyle.solid;
+        var _lineStyle = lineStyle.solid;
         var lineStyleChangedEvent = new Event();
         this.lineStyleChanged = lineStyleChangedEvent.client;
 
-        Object.defineProperty(this, "lineStyle", {
+        Object.defineProperty(this, "_lineStyle", {
             enumerable: true,
             configurable: false,
             get: getLineStyle,
@@ -186,15 +181,14 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         });
 
         function getLineStyle() {
-            return lineStyle;
+            return _lineStyle;
         }
 
         function setLineStyle(value) {
-            if (value === lineStyle) {
+            if (value === _lineStyle)
                 return;
-            }
 
-            lineStyle = value;
+            _lineStyle = value;
             lineStyleChangedEvent.raise(obj, value);
         }
     };

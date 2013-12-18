@@ -15,9 +15,9 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /// <reference path="../../../libraries/qUnit/qunit-1.12.0.js" />
-/// <reference path="../../../sources/common/Event.js" />
-/// <reference path="../../../sources/common/DateUtil.js" />
-/// <reference path="../../../sources/common/BioControlsError.js" />
+/// <reference path="../../../sources/helpers/Event.js" />
+/// <reference path="../../../sources/helpers/DateUtil.js" />
+/// <reference path="../../../sources/BioControlsError.js" />
 /// <reference path="../../../sources/biorhythms/SinusoidalBiorhythm.js" />
 /// <reference path="../../../sources/biorhythms/EmotionalBiorhythm.js" />
 /// <reference path="../../../sources/compatibility/ArgumentIsNotDateError.js" />

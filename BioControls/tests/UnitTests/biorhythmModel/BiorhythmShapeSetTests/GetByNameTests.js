@@ -15,8 +15,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /// <reference path="../../../../libraries/qUnit/qunit-1.12.0.js" />
-/// <reference path="../../../../sources/common/Event.js" />
-/// <reference path="../../../../sources/common/LineStyle.js" />
+/// <reference path="../../../../sources/helpers/Event.js" />
+/// <reference path="../../../../sources/helpers/LineStyle.js" />
 /// <reference path="../../../../sources/biorhythmModel/BiorhythmShape.js" />
 /// <reference path="../../../../sources/biorhythmModel/BiorhythmShapeSet.js" />
 

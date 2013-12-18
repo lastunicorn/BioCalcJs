@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-(function () {
+(function (OnePersonBiorhythms) {
 
     lu.bioControls.biorhythmModel.MultiplePersonsBiorhythms = function () {
 
@@ -33,7 +33,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             if (existsPerson)
                 return;
 
-            var onePersonBiorhythms = new lu.bioControls.biorhythmModel.OnePersonBiorhythms();
+            var onePersonBiorhythms = new OnePersonBiorhythms();
             onePersonBiorhythms.name = personName;
 
             list[personName] = onePersonBiorhythms;
@@ -83,4 +83,4 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
     };
 
-}());
+}(lu.bioControls.biorhythmModel.OnePersonBiorhythms));

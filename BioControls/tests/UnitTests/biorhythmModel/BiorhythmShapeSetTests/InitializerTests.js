@@ -17,7 +17,7 @@
 /// <reference path="../../../../libraries/qUnit/qunit-1.12.0.js" />
 /// <reference path="../../../../sources/biorhythmModel/BiorhythmShapeSet.js" />
 
-QUnit.module("BiorhythmShapeSet.constructor Tests");
+QUnit.module("BiorhythmShapeSet.initializer Tests");
 
 QUnit.test("Throws if items is undefined.", function () {
     function toBeTested() {

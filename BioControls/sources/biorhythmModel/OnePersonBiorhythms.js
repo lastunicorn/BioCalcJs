@@ -25,7 +25,6 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
      * each known biorhythm.
      */
     lu.bioControls.biorhythmModel.OnePersonBiorhythms = function () {
-        var proto = this.constructor.prototype;
 
         // --------------------------------------------------------------------------
         // name property

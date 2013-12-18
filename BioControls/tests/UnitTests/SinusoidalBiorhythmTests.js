@@ -16,7 +16,7 @@
 
 /// <reference path="../../libraries/qUnit/qunit-1.12.0.js" />
 /// <reference path="QUnitExtensions.js" />
-/// <reference path="../../sources/common/Event.js" />
+/// <reference path="../../sources/helpers/Event.js" />
 /// <reference path="../../sources/biorhythms/SinusoidalBiorhythm.js" />
 
 // -------------------------------------------------------------------------

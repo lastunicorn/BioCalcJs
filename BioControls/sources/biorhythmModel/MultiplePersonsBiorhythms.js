@@ -39,8 +39,12 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             list[personName] = onePersonBiorhythms;
         };
 
-        this.getPersonBiorhythms = function (personName) {
-            return list[personName];
+        this.getByPersonName = function (personName) {
+            var personBiorhythms = list[personName];
+            if (personBiorhythms === undefined)
+                return null;
+
+            return personBiorhythms;
         };
 
         this.setBirthdayOnAll = function (personName, birthday) {

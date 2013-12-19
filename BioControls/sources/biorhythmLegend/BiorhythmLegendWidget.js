@@ -22,77 +22,30 @@
         },
 
         _create: function() {
-            this.element.empty();
-            this._items = [];
+            var biorhythmLegendView = new lu.bioControls.biorhythmLegend.BiorhythmLegendView(this.element);
 
-            this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
-
-            this._repopulate();
+            this._biorhythmLegend = new lu.bioControls.biorhythmLegend.BiorhythmLegend({
+                view: biorhythmLegendView,
+                biorhythms: this.options.biorhythms
+            });
         },
 
         _setOption: function(key, value) {
             if (key === "biorhythms") {
-                this._biorhythms.destroy();
-
                 this._super(key, value);
 
-                this._biorhythms = this._createBiorhythmsAdapter(this.options.biorhythms);
-
-                this._repopulate();
+                this._biorhythmLegend.setBiorhythms(this.options.biorhythms);
             }
         },
 
         _destroy: function() {
             this.element.empty();
-            this._biorhythms.destroy();
-        },
-
-        _createBiorhythmsAdapter: function(biorhythms) {
-            return new BiorhythmsAdapter({
-                biorhythms: biorhythms,
-                onBiorhythmAdded: $.proxy(this._onBiorhythmAdded, this),
-                onBiorhythmRemoved: $.proxy(this._onBiorhythmRemoved, this)
-            });
-        },
-
-        _repopulate: function() {
-            this.element.empty();
-            this._items.length = 0;
-
-            var biorhythmsArray = this._biorhythms.toArray();
-
-            for ( var i = 0; i < biorhythmsArray.length; i++) {
-                this._createNewItem(biorhythmsArray[i]);
-            }
-        },
-
-        _onBiorhythmAdded: function(biorhythmShape) {
-            this._createNewItem(biorhythmShape);
-        },
-
-        _onBiorhythmRemoved: function(biorhythmShape) {
-            this._removeItem(biorhythmShape);
-        },
-
-        _createNewItem: function(biorhythm) {
-            var biorhythmLegendItem = new BiorhythmLegendItem(biorhythm);
-            this._items.push(biorhythmLegendItem);
-
-            var $legendItemTag = biorhythmLegendItem.element;
-            this.element.prepend($legendItemTag);
-        },
-
-        _removeItem: function(biorhythm) {
-            for ( var i = 0; i < this._items.length; i++) {
-                if (this._items[i].biorhythmShape === biorhythm) {
-                    this._items.splice(i, 1);
-                    this._items[i].element.remove();
-                }
-            }
+            this._biorhythmLegend.destroy();
         }
     });
 
 }(
-        jQuery, lu.bioControls.biorhythmModel.BiorhythmsAdapter,
+        jQuery,
+        lu.bioControls.biorhythmModel.BiorhythmsAdapter,
         lu.bioControls.biorhythmLegend.BiorhythmLegendItem
     ));

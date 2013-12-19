@@ -134,6 +134,8 @@
 			<sources dir="${basedir}/sources/biorhythmLegend">
 				<file name="BiorhythmLegendItemView.js" />
 				<file name="BiorhythmLegendItem.js" />
+                <file name="BiorhythmLegendView.js" />
+                <file name="BiorhythmLegend.js" />
 				<file name="BiorhythmLegendWidget.js" />
 			</sources>
 
@@ -142,7 +144,7 @@
 				<file name="XDayInfoItem.js" />
 				<file name="XDayInfoViewerView.js" />
 				<file name="XDayInfoViewer.js" />
-				<file name="XDayInfoViewWidget.js" />
+				<file name="XDayInfoViewerWidget.js" />
 			</sources>
 
 		</jscomp>

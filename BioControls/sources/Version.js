@@ -20,21 +20,18 @@ lu.bioControls = lu.bioControls || {};
 /**
  * Creates the version string and attaches it to the base namespace of the
  * BioControls library.
- * 
- * @param bioControls
- *            The base namespace of BioCalc application.
  */
-(function Version(bioControls) {
+(function Version() {
 
     // --------------------------------------------------------------------------
     // Property - version
     // --------------------------------------------------------------------------
 
-    Object.defineProperty(bioControls, "version", {
+    Object.defineProperty(lu.bioControls, "version", {
         value: "2.1.0",
         writable: false,
         enumerable: true,
         configurable: false
     });
 
-}(lu.bioControls));
+}());

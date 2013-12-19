@@ -50,7 +50,7 @@
 
 		<jscomp compilationLevel="whitespace" prettyPrint="true" warning="verbose" debug="false" output="${file.output}">
 
-			<sources dir="${basedir}/sources/common">
+			<sources dir="${basedir}/sources/helpers">
 				<!-- These have to be compiled first -->
 				<file name="Namespacing.js" />
 				<file name="DateUtil.js" />
@@ -107,7 +107,9 @@
 				<file name="SecondaryBiorhythmsSet.js" />
 				<file name="ExtraBiorhythmsSet.js" />
 				<file name="IChingBiorhythmsSet.js" />
-				<file name="CommonBiorhythmsContainer.js" />
+                <file name="OnePersonBiorhythms.js" />
+                <file name="MultiplePersonsBiorhythms.js" />
+                <file name="CommonBiorhythmsContainer.js" />
 			</sources>
 
 			<sources dir="${basedir}/sources/biorhythmView">

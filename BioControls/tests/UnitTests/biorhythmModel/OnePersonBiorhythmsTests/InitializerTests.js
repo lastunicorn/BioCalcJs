@@ -20,7 +20,6 @@
 ///// <reference path="../../../../sources/biorhythmModel/SecondaryBiorhythmsSet.js" />
 ///// <reference path="../../../../sources/biorhythmModel/ExtraBiorhythmsSet.js" />
 ///// <reference path="../../../../sources/biorhythmModel/IChingBiorhythmsSet.js" />
-///// <reference path="../../../../sources/biorhythmModel/CommonBiorhythmsCollection.js" />
 ///// <reference path="../../../../sources/biorhythmModel/OnePersonBiorhythms.js" />
 //
 //QUnit.module("OnePersonBiorhythms.initializer Tests");

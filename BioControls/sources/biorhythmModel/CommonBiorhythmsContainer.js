@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-(function () {
+(function (OnePersonBiorhythms) {
 
     /**
      * It is a repository containing a list of BiorhythmShape objects; one for
@@ -27,8 +27,11 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
      * @deprecated
      */
     lu.bioControls.biorhythmModel.CommonBiorhythmsContainer = function () {
+        (function initialize(){
+            OnePersonBiorhythms.call(this);
+        }).call(this);
     };
 
-    lu.bioControls.biorhythmModel.CommonBiorhythmsContainer.inherit(lu.bioControls.biorhythmModel.CommonBiorhythmsCollection);
+    lu.bioControls.biorhythmModel.CommonBiorhythmsContainer.inherit(OnePersonBiorhythms);
 
-}());
+}(lu.bioControls.biorhythmModel.OnePersonBiorhythms));

@@ -180,7 +180,8 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 
         this.isDataChanged = function () {
             return isBirthdayChanged() ||
-                isSecondBirthdayChanged();
+                isSecondBirthdayChanged() ||
+                isAnyBiorhythmChanged();
         };
 
         function isBirthdayChanged() {
@@ -201,6 +202,49 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
                 return true;
 
             return secondBirthday.getTime() != configuration.config.secondBirthday.getTime();
+        }
+
+        function isAnyBiorhythmChanged() {
+            if (!biorhythms && !configuration.config.biorhythms)
+                return false;
+
+            if (!biorhythms || !configuration.config.biorhythms)
+                return true;
+
+            if (!biorhythms || typeof(biorhythms.toArray) !== "function")
+                return false;
+
+            var biorhythmShapes = biorhythms.toArray();
+
+            var unchangedCount = 0;
+
+            for (var i = 0; i < biorhythmShapes.length; i++) {
+                if (!biorhythmShapes[i].isVisible)
+                    continue;
+
+                var biorhythmWasFoundInConfig = false;
+
+                // Get biorhythm from config.
+                for (var j = 0; j < configuration.config.biorhythms.length; j++) {
+                    var isTheOne = configuration.config.biorhythms[j].name === biorhythmShapes[i].name;
+                    if (isTheOne) {
+                        biorhythmWasFoundInConfig = true;
+
+                        var isChanged = configuration.config.biorhythms[j].color !== biorhythmShapes[i].color;
+                        if (isChanged)
+                            return true;
+                        else
+                            unchangedCount++;
+
+                        break;
+                    }
+                }
+
+                if (!biorhythmWasFoundInConfig)
+                    return true;
+            }
+
+            return unchangedCount !== configuration.config.biorhythms.length;
         }
 
         // --------------------------------------------------------------------------

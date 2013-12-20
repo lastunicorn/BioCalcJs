@@ -86,6 +86,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             bioCalcPageData.birthdayChanged.subscribe(onBirthdayChanged);
             bioCalcPageData.secondBirthdayChanged.subscribe(onSecondBirthdayChanged);
 
+            subscribeToBiorhythmsEvents();
+
             updateSaveButtonVisibility();
             updateLoadButtonVisibility();
         }
@@ -94,6 +96,51 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             configuration.saved.unsubscribe(onConfigurationSaved);
             bioCalcPageData.birthdayChanged.unsubscribe(onBirthdayChanged);
             bioCalcPageData.secondBirthdayChanged.unsubscribe(onSecondBirthdayChanged);
+
+            unsubscribeFromBiorhythmsEvents();
+        }
+
+        function subscribeToBiorhythmsEvents() {
+            if (typeof bioCalcPageData.biorhythms.itemAdded === "object" && typeof bioCalcPageData.biorhythms.itemAdded.subscribe === "function")
+                bioCalcPageData.biorhythms.itemAdded.subscribe(onBiorhythmAdded);
+
+            if (typeof bioCalcPageData.biorhythms.itemRemoved === "object" && typeof bioCalcPageData.biorhythms.itemRemoved.subscribe === "function")
+                bioCalcPageData.biorhythms.itemRemoved.subscribe(onBiorhythmRemoved);
+
+            if (typeof bioCalcPageData.biorhythms !== "object")
+                return;
+
+            var biorhythmShapes = bioCalcPageData.biorhythms.toArray();
+
+            for (var i = 0; i < biorhythmShapes.length; i++) {
+                subscribeToBiorhythmEvents(biorhythmShapes[i]);
+            }
+        }
+
+        function subscribeToBiorhythmEvents(biorhythmShape) {
+            biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged);
+            biorhythmShape.colorChanged.subscribe(onBiorhythmColorChanged);
+        }
+
+        function unsubscribeFromBiorhythmsEvents() {
+            if (typeof bioCalcPageData.biorhythms.itemAdded === "object" && typeof bioCalcPageData.biorhythms.itemAdded.unsubscribe === "function")
+                bioCalcPageData.biorhythms.itemAdded.unsubscribe(onBiorhythmAdded);
+
+            if (typeof bioCalcPageData.biorhythms.itemRemoved === "object" && typeof bioCalcPageData.biorhythms.itemRemoved.unsubscribe === "function")
+                bioCalcPageData.biorhythms.itemRemoved.unsubscribe(onBiorhythmRemoved);
+
+            if (typeof bioCalcPageData.biorhythms !== "object")
+                return;
+
+            var biorhythmShapes = bioCalcPageData.biorhythms.toArray();
+            for (var i = 0; i < biorhythmShapes.length; i++) {
+                unsubscribeFromBiorhythmEvents(biorhythmShapes[i]);
+            }
+        }
+
+        function unsubscribeFromBiorhythmEvents(biorhythmShape) {
+            biorhythmShape.isVisibleChanged.unsubscribe(onBiorhythmVisibilityChanged);
+            biorhythmShape.colorChanged.unsubscribe(onBiorhythmColorChanged);
         }
 
         // --------------------------------------------------------------------------
@@ -131,6 +178,30 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function onSecondBirthdayChanged() {
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
+        }
+
+        function onBiorhythmAdded(arg) {
+            subscribeToBiorhythmEvents(arg);
+
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
+        }
+
+        function onBiorhythmRemoved(arg) {
+            unsubscribeFromBiorhythmEvents(arg);
+
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
+        }
+
+        function onBiorhythmVisibilityChanged() {
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
+        }
+
+        function onBiorhythmColorChanged() {
             updateSaveButtonVisibility();
             updateLoadButtonVisibility();
         }

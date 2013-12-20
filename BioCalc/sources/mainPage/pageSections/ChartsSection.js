@@ -132,11 +132,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // --------------------------------------------------------------------------
 
         function onBiorhythmViewFirstDayChanged() {
-
             displayFirstDayLabel();
-
             displayLastDayLabel();
-
             publishCurrentXDay();
         }
 

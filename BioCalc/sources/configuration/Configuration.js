@@ -18,6 +18,17 @@ window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 
+//var config = {
+//    "birthday": "1980-06-12T21:00:00.000Z",
+//    "secondBirthday": "1980-06-12T21:00:00.000Z",
+//    "biorhythms": [
+//        { "name": "Physical Shape", "color": "#ff0000" },
+//        { "name": "Emotional Shape", "color": "#32cd32" },
+//        { "name": "Intellectual Shape", "color": "#1e90ff" },
+//        { "name": "Intuitive Shape", "color": "#ffa500" }
+//    ]
+//};
+
 (function (Event) {
 
     /**

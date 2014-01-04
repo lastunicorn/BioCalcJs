@@ -21,8 +21,8 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 (function (Event) {
 
     /**
-     * The service that provides data and communication between different modules of
-     * the page.
+     * The data model of the BioCalc page.
+     * It also provides communication between different modules of the page.
      */
     lu.bioCalc.mainPage.BioCalcPageData = function (configuration) {
 
@@ -133,18 +133,77 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
         }
 
         // --------------------------------------------------------------------------
+        // Events
+        // --------------------------------------------------------------------------
+
+        var savedEvent = new Event();
+        this.saved = savedEvent.client;
+
+        var loadedEvent = new Event();
+        this.loaded = loadedEvent.client;
+
+        // --------------------------------------------------------------------------
         // Functions
         // --------------------------------------------------------------------------
 
-        function loadFromConfig() {
-            setBirthday(configuration.config.birthday);
-            setSecondBirthday(configuration.config.secondBirthday);
+        this.saveIntoCookies = function () {
+            var newConfig = toConfigObject();
+            configuration.save(newConfig);
 
-            loadBiorhythmsConfigurationFromConfig();
+            savedEvent.raise();
+        };
+
+        this.loadFromCookies = function () {
+            loadFromConfig();
+
+            loadedEvent.raise();
+        };
+
+        this.clear = function () {
+            var newConfig = configuration.getDefaultConfig();
+            loadFromConfig(newConfig);
+
+            loadedEvent.raise();
+        };
+
+        this.toJson = function () {
+//            var serializer = new JsonSerializer();
+//            return serializer.serialize(config);
+        };
+
+        this.fromJson = function (json) {
+//            var serializer = new JsonSerializer();
+//            config = serializer.deserialize(json);
+//
+//            loadedEvent.raise();
+        };
+
+        this.toUrl = function () {
+//            var serializer = new UrlSerializer();
+//            return serializer.serialize(config);
+        };
+
+        this.fromUrl = function (url) {
+//            var serializer = new UrlSerializer();
+//            config = serializer.deserialize(url);
+//
+//            loadedEvent.raise();
         }
 
-        function loadBiorhythmsConfigurationFromConfig() {
-            var biorhythmsConfig = configuration.config.biorhythms;
+        function loadFromConfig(config) {
+            if (config === undefined)
+                config = configuration.config;
+
+            setBirthday(config.birthday);
+            setSecondBirthday(config.secondBirthday);
+
+            loadBiorhythmsConfigurationFromConfig(config);
+        }
+
+        function loadBiorhythmsConfigurationFromConfig(config) {
+            var biorhythmsConfig = config === undefined
+                ? configuration.config.biorhythms
+                : config.biorhythms;
 
             if (!biorhythmsConfig || !biorhythms)
                 return;
@@ -178,84 +237,28 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
             return null;
         }
 
-        this.isDataChanged = function () {
-            return isBirthdayChanged() ||
-                isSecondBirthdayChanged() ||
-                isAnyBiorhythmChanged();
+        this.isDataDefault = function () {
+            var newConfig = this.toConfigObject();
+            var defaultConfig = configuration.getDefaultConfig();
+
+            var comparer = new lu.bioCalc.configuration.ConfigurationEqualityComparer();
+            return comparer.areEqual(newConfig, defaultConfig);
         };
 
-        function isBirthdayChanged() {
-            if (!birthday && !configuration.config.birthday)
-                return false;
+        this.isDataChanged = function () {
+            var newConfig = this.toConfigObject();
 
-            if (!birthday || !configuration.config.birthday)
-                return true;
+            var comparer = new lu.bioCalc.configuration.ConfigurationEqualityComparer();
+            return !comparer.areEqual(newConfig, configuration.config);
+        };
 
-            return birthday.getTime() != configuration.config.birthday.getTime();
-        }
+        this.toConfigObject = toConfigObject;
+        function toConfigObject() {
+            var config = {};
 
-        function isSecondBirthdayChanged() {
-            if (!secondBirthday && !configuration.config.secondBirthday)
-                return false;
-
-            if (!secondBirthday || !configuration.config.secondBirthday)
-                return true;
-
-            return secondBirthday.getTime() != configuration.config.secondBirthday.getTime();
-        }
-
-        function isAnyBiorhythmChanged() {
-            if (!biorhythms && !configuration.config.biorhythms)
-                return false;
-
-            if (!biorhythms || !configuration.config.biorhythms)
-                return true;
-
-            if (!biorhythms || typeof(biorhythms.toArray) !== "function")
-                return false;
-
-            var biorhythmShapes = biorhythms.toArray();
-
-            var unchangedCount = 0;
-
-            for (var i = 0; i < biorhythmShapes.length; i++) {
-                if (!biorhythmShapes[i].isVisible)
-                    continue;
-
-                var biorhythmWasFoundInConfig = false;
-
-                // Get biorhythm from config.
-                for (var j = 0; j < configuration.config.biorhythms.length; j++) {
-                    var isTheOne = configuration.config.biorhythms[j].name === biorhythmShapes[i].name;
-                    if (isTheOne) {
-                        biorhythmWasFoundInConfig = true;
-
-                        var isChanged = configuration.config.biorhythms[j].color !== biorhythmShapes[i].color;
-                        if (isChanged)
-                            return true;
-                        else
-                            unchangedCount++;
-
-                        break;
-                    }
-                }
-
-                if (!biorhythmWasFoundInConfig)
-                    return true;
-            }
-
-            return unchangedCount !== configuration.config.biorhythms.length;
-        }
-
-        // --------------------------------------------------------------------------
-        // Event Handlers
-        // --------------------------------------------------------------------------
-
-        function onConfigurationSaving() {
-            configuration.config.birthday = birthday;
-            configuration.config.secondBirthday = secondBirthday;
-
-            var biorhythmsConfig = [];
+            config.birthday = birthday;
+            config.secondBirthday = secondBirthday;
+            config.biorhythms = [];
 
             if (biorhythms && typeof(biorhythms.toArray) === "function") {
                 var biorhythmShapes = biorhythms.toArray();
@@ -264,18 +267,14 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
                     if (!biorhythmShapes[i].isVisible)
                         continue;
 
-                    biorhythmsConfig.push({
+                    config.biorhythms.push({
                         name: biorhythmShapes[i].name,
                         color: biorhythmShapes[i].color
                     });
                 }
             }
 
-            configuration.config.biorhythms = biorhythmsConfig;
-        }
-
-        function onConfigurationLoaded() {
-            loadFromConfig();
+            return config;
         }
 
         // --------------------------------------------------------------------------
@@ -283,11 +282,10 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            configuration.saving.subscribe(onConfigurationSaving);
-            configuration.loaded.subscribe(onConfigurationLoaded);
-
             loadFromConfig();
         }());
     };
 
-}(lu.Event));
+}(
+        lu.Event
+    ));

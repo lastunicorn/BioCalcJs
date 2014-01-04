@@ -90,16 +90,17 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/configuration">
-                <file name="CookieSaver.js" />
+                <file name="ConfigurationEqualityComparer.js" />
                 <file name="JsonSerializer.js" />
                 <file name="UrlSerializer.js" />
-				<file name="Configuration.js" />
+				<file name="CookieConfiguration.js" />
 			</sources>
 
             <sources dir="${basedir}/sources/mainPage/commands">
                 <file name="DialogCommand.js" />
                 <file name="SaveCommand.js" />
                 <file name="LoadCommand.js" />
+                <file name="ClearCommand.js" />
             </sources>
 
 			<sources dir="${basedir}/sources/mainPage">

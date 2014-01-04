@@ -1,30 +1,32 @@
 // BioCalc
 // Copyright (C) 2013 Last Unicorn
-//
+// 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-//
+// 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
-//
+// 
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/// <reference path="../../../libraries/qUnit/qunit-1.12.0.js" />
-/// <reference path="ConfigurationMocks.js" />
-/// <reference path="../../../sources/configuration/CookieConfiguration.js" />
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
+lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
 
-QUnit.module("CookieConfiguration Tests");
+/**
+ * Clears the configuration to the default values.
+ *
+ * @constructor
+ */
+lu.bioCalc.mainPage.commands.ClearCommand = function (bioCalcPageData) {
 
-QUnit.test("first", function () {
-    var configuration = new lu.bioCalc.configuration.CookieConfiguration();
-    $.cookie.objToReturn = 3;
-
-    configuration.loadFromCookies();
-
-    QUnit.strictEqual(configuration.config, 3, "Test something");
-});
+    this.execute = function () {
+        bioCalcPageData.clear();
+    };
+};

@@ -24,7 +24,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
     /**
      * Contains the logic of the main tool bar.
      */
-    lu.bioCalc.mainPage.pageSections.MainToolbar = function (configuration, bioCalcPageData, commands) {
+    lu.bioCalc.mainPage.pageSections.MainToolbar = function (bioCalcPageData, commands) {
 
         var presenter;
 
@@ -63,6 +63,12 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         // Functions
         // --------------------------------------------------------------------------
 
+        function updateAllButtonsVisibility() {
+            updateSaveButtonVisibility();
+            updateLoadButtonVisibility();
+            updateClearButtonVisibility();
+        }
+
         function updateSaveButtonVisibility() {
             var isDataChanged = bioCalcPageData.isDataChanged();
 
@@ -81,19 +87,27 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 view.disableLoadButton();
         }
 
+        function updateClearButtonVisibility() {
+            var isDataDefault = bioCalcPageData.isDataDefault();
+
+            if (isDataDefault)
+                view.disableClearButton();
+            else
+                view.enableClearButton();
+        }
+
         function start() {
-            configuration.saved.subscribe(onConfigurationSaved);
+            bioCalcPageData.saved.subscribe(onPageDataSaved);
             bioCalcPageData.birthdayChanged.subscribe(onBirthdayChanged);
             bioCalcPageData.secondBirthdayChanged.subscribe(onSecondBirthdayChanged);
 
             subscribeToBiorhythmsEvents();
 
-            updateSaveButtonVisibility();
-            updateLoadButtonVisibility();
+            updateAllButtonsVisibility();
         }
 
         function stop() {
-            configuration.saved.unsubscribe(onConfigurationSaved);
+            bioCalcPageData.saved.unsubscribe(onPageDataSaved);
             bioCalcPageData.birthdayChanged.unsubscribe(onBirthdayChanged);
             bioCalcPageData.secondBirthdayChanged.unsubscribe(onSecondBirthdayChanged);
 
@@ -167,43 +181,40 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             commands.loadCommand.execute();
         }
 
-        function onConfigurationSaved() {
-            updateSaveButtonVisibility();
-            updateLoadButtonVisibility();
+        function onClearButtonClick() {
+            commands.clearCommand.execute();
+        }
+
+        function onPageDataSaved() {
+            updateAllButtonsVisibility();
         }
 
         function onBirthdayChanged() {
-            updateSaveButtonVisibility();
-            updateLoadButtonVisibility();
+            updateAllButtonsVisibility();
         }
 
         function onSecondBirthdayChanged() {
-            updateSaveButtonVisibility();
-            updateLoadButtonVisibility();
+            updateAllButtonsVisibility();
         }
 
         function onBiorhythmAdded(arg) {
             subscribeToBiorhythmEvents(arg);
 
-            updateSaveButtonVisibility();
-            updateLoadButtonVisibility();
+            updateAllButtonsVisibility();
         }
 
         function onBiorhythmRemoved(arg) {
             unsubscribeFromBiorhythmEvents(arg);
 
-            updateSaveButtonVisibility();
-            updateLoadButtonVisibility();
+            updateAllButtonsVisibility();
         }
 
         function onBiorhythmVisibilityChanged() {
-            updateSaveButtonVisibility();
-            updateLoadButtonVisibility();
+            updateAllButtonsVisibility();
         }
 
         function onBiorhythmColorChanged() {
-            updateSaveButtonVisibility();
-            updateLoadButtonVisibility();
+            updateAllButtonsVisibility();
         }
 
         // --------------------------------------------------------------------------
@@ -216,7 +227,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 onAboutButtonClick: onAboutButtonClick,
                 onOptionsButtonClick: onOptionsButtonClick,
                 onSaveButtonClick: onSaveButtonClick,
-                onLoadButtonClick: onLoadButtonClick
+                onLoadButtonClick: onLoadButtonClick,
+                onClearButtonClick: onClearButtonClick
             };
         }());
     };

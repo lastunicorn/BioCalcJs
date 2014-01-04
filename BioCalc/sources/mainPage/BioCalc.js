@@ -15,7 +15,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The main module of the BioCalc home page. It initializes all the parts of the page.
+ * The main module of the BioCalc home page. It initializes all the other parts of the page.
  */
 (function BioCalc($, BioCalcPageData, Configuration, OnePersonBiorhythms, ModalDialogsAutoCloseModule) {
 
@@ -38,7 +38,7 @@
 
     function loadConfiguration() {
         configuration = new Configuration();
-        configuration.loadFromCookies();
+        configuration.reset();
     }
 
     function initializeBioCalcPageData() {
@@ -63,14 +63,15 @@
         optionsDialog.view = new lu.bioCalc.mainPage.pageSections.OptionsDialogView();
 
         var mainToolbarCommands = {
-            saveCommand: new lu.bioCalc.mainPage.commands.SaveCommand(configuration),
-            loadCommand: new lu.bioCalc.mainPage.commands.LoadCommand(configuration),
+            saveCommand: new lu.bioCalc.mainPage.commands.SaveCommand(bioCalcPageData),
+            loadCommand: new lu.bioCalc.mainPage.commands.LoadCommand(bioCalcPageData),
+            clearCommand: new lu.bioCalc.mainPage.commands.ClearCommand(bioCalcPageData),
             helpDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(helpDialog),
             aboutDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(aboutDialog),
             optionsDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(optionsDialog)
         };
 
-        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(configuration, bioCalcPageData, mainToolbarCommands);
+        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(bioCalcPageData, mainToolbarCommands);
         mainToolbar.view = new lu.bioCalc.mainPage.pageSections.MainToolbarView();
 
         var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(bioCalcPageData);
@@ -85,7 +86,7 @@
 }(
         jQuery,
         lu.bioCalc.mainPage.BioCalcPageData,
-        lu.bioCalc.configuration.Configuration,
+        lu.bioCalc.configuration.CookieConfiguration,
         lu.bioControls.biorhythmModel.OnePersonBiorhythms,
         lu.bioCalc.helpers.ModalDialogsAutoCloseModule
     ));

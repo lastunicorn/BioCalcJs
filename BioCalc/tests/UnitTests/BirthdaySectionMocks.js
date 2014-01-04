@@ -47,7 +47,7 @@
         };
     };
 
-    lu.bioCalc.configuration.Configuration = {
+    lu.bioCalc.configuration.CookieConfiguration = {
     };
 
     lu.bioCalc.mainPage.BioCalcPageData = {

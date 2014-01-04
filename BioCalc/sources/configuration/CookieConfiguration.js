@@ -29,12 +29,14 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 //    ]
 //};
 
-(function (Event, CookieSaver, JsonSerializer, UrlSerializer) {
+(function () {
 
     /**
      * Keeps the configuration object.
      */
-    lu.bioCalc.configuration.Configuration = function () {
+    lu.bioCalc.configuration.CookieConfiguration = function () {
+
+        var cookieName = "config";
 
         // --------------------------------------------------------------------------
         // config property
@@ -51,68 +53,74 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
         });
 
         // --------------------------------------------------------------------------
-        // Events
-        // --------------------------------------------------------------------------
-
-        var savingEvent = new Event();
-        this.saving = savingEvent.client;
-
-        var savedEvent = new Event();
-        this.saved = savedEvent.client;
-
-        var loadedEvent = new Event();
-        this.loaded = loadedEvent.client;
-
-        // --------------------------------------------------------------------------
         // Functions
         // --------------------------------------------------------------------------
 
-        this.saveIntoCookies = function () {
-            savingEvent.raise();
+        this.save = function (newConfig) {
+            config = newConfig;
 
-            var saver = new CookieSaver();
-            saver.save(config);
-
-            savedEvent.raise();
-        };
-
-        this.loadFromCookies = function () {
             $.cookie.json = true;
 
-            var saver = new CookieSaver();
-            config = saver.load();
+            if (config == null)
+                return;
 
-            loadedEvent.raise();
+            $.cookie(cookieName, config);
         };
 
-        this.toJson = function () {
-            var serializer = new JsonSerializer();
-            return serializer.serialize(config);
+        this.reset = function () {
+            $.cookie.json = true;
+
+            config = $.cookie(cookieName);
+
+            ensureDefaultValues();
+
+            return config;
         };
 
-        this.fromJson = function (json) {
-            var serializer = new JsonSerializer();
-            config = serializer.deserialize(json);
-
-            loadedEvent.raise();
+        this.getDefaultConfig = function () {
+            return createDefaultConfig();
         };
 
-        this.toUrl = function () {
-            var serializer = new UrlSerializer();
-            return serializer.serialize(config);
-        };
+        function ensureDefaultValues() {
+            if (!config)
+                config = {};
 
-        this.fromUrl = function (url) {
-            var serializer = new UrlSerializer();
-            config = serializer.deserialize(url);
+            if ($.type(config.birthday) === "string")
+                config.birthday = new Date(config.birthday);
 
-            loadedEvent.raise();
+            if ($.type(config.birthday) !== "date")
+                config.birthday = getDefaultBirthday();
+
+            if ($.type(config.secondBirthday) === "string")
+                config.secondBirthday = new Date(config.secondBirthday);
+
+            if ($.type(config.secondBirthday) !== "date")
+                config.secondBirthday = getDefaultBirthday();
+
+            if ($.type(config.biorhythms) !== "array")
+                config.biorhythms = getDefaultBiorhythms();
+        }
+
+        function createDefaultConfig() {
+            return {
+                birthday: getDefaultBirthday(),
+                secondBirthday: getDefaultBirthday(),
+                biorhythms: getDefaultBiorhythms()
+            };
+        }
+
+        function getDefaultBirthday() {
+            return new Date(1980, 5, 13);
+        }
+
+        function getDefaultBiorhythms() {
+            return [
+                { "name": "Physical Shape", "color": "#ff0000" },
+                { "name": "Emotional Shape", "color": "#32cd32" },
+                { "name": "Intellectual Shape", "color": "#1e90ff" },
+                { "name": "Intuitive Shape", "color": "#ffa500" }
+            ];
         }
     };
 
-}(
-        lu.Event,
-        lu.bioCalc.configuration.CookieSaver,
-        lu.bioCalc.configuration.JsonSerializer,
-        lu.bioCalc.configuration.UrlSerializer
-    ));
+}());

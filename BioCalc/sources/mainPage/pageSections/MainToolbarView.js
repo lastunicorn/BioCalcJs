@@ -29,6 +29,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         var $optionsButton = null;
         var $saveButton = null;
         var $loadButton = null;
+        var $clearButton = null;
         var $saveMenuButton = null;
         var $saveMenu = null;
 
@@ -73,38 +74,46 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             $loadButton.button("option", "disabled", true);
         };
 
+        this.enableClearButton = function () {
+            $clearButton.button("option", "disabled", false);
+        };
+
+        this.disableClearButton = function () {
+            $clearButton.button("option", "disabled", true);
+        };
+
         // --------------------------------------------------------------------------
         // Event handlers
         // --------------------------------------------------------------------------
 
         function onHelpButtonClick(e) {
-            if ($.isFunction(presenter.onHelpButtonClick)) {
+            if ($.isFunction(presenter.onHelpButtonClick))
                 presenter.onHelpButtonClick(e);
-            }
         }
 
         function onAboutButtonClick(e) {
-            if ($.isFunction(presenter.onAboutButtonClick)) {
+            if ($.isFunction(presenter.onAboutButtonClick))
                 presenter.onAboutButtonClick(e);
-            }
         }
 
         function onOptionsButtonClick(e) {
-            if ($.isFunction(presenter.onOptionsButtonClick)) {
+            if ($.isFunction(presenter.onOptionsButtonClick))
                 presenter.onOptionsButtonClick(e);
-            }
         }
 
         function onSaveButtonClick(e) {
-            if ($.isFunction(presenter.onSaveButtonClick)) {
+            if ($.isFunction(presenter.onSaveButtonClick))
                 presenter.onSaveButtonClick(e);
-            }
         }
 
         function onLoadButtonClick(e) {
-            if ($.isFunction(presenter.onLoadButtonClick)) {
+            if ($.isFunction(presenter.onLoadButtonClick))
                 presenter.onLoadButtonClick(e);
-            }
+        }
+
+        function onClearButtonClick(e) {
+            if ($.isFunction(presenter.onClearButtonClick))
+                presenter.onClearButtonClick(e);
         }
 
         function onSaveMenuButtonClick(e) {
@@ -135,6 +144,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             $optionsButton = $("#optionsButton");
             $saveButton = $("#saveButton");
             $loadButton = $("#loadButton");
+            $clearButton = $("#clearButton");
             $saveMenuButton = $("#saveMenuButton");
             $saveMenu = $("#saveMenu");
         }
@@ -178,6 +188,13 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 }
             });
             $loadButton.click(onLoadButtonClick);
+
+            $clearButton.button({
+                icons: {
+                    primary: "ui-icon-document"
+                }
+            });
+            $clearButton.click(onClearButtonClick);
 
             $saveMenuButton.button({
                 text: false,

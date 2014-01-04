@@ -24,9 +24,9 @@ lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
  *
  * @constructor
  */
-lu.bioCalc.mainPage.commands.SaveCommand = function (configuration) {
+lu.bioCalc.mainPage.commands.SaveCommand = function (bioCalcPageData) {
 
     this.execute = function () {
-        configuration.saveIntoCookies();
+        bioCalcPageData.saveIntoCookies();
     };
 };

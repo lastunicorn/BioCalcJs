@@ -14,13 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/// <reference path="../../libraries/qUnit/qunit-1.12.0.js" />
-/// <reference path="BirthdaySectionMocks.js" />
-/// <reference path="../../sources/mainPage/pageSections/BirthdaySection.js" />
+window.lu = window.lu || {};
+lu.bioCalc = lu.bioCalc || {};
+lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 
-QUnit.module("BirthdaySection Tests");
+(function () {
 
-QUnit.test("first", function () {
-    //var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection();
-    //QUnit.ok(lu.bioCalc.mainPage.pageSections.BirthdaySection !== undefined, "Test something");
-});
+    lu.bioCalc.configuration.JsonSerializer = function () {
+
+        this.serialize = function (config) {
+            return JSON.stringify(config);
+        };
+
+        this.deserialize = function (json) {
+            return JSON.parse(json);
+        };
+    };
+}());

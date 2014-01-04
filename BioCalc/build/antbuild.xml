@@ -90,6 +90,9 @@
 			</sources>
 
 			<sources dir="${basedir}/sources/configuration">
+                <file name="CookieSaver.js" />
+                <file name="JsonSerializer.js" />
+                <file name="UrlSerializer.js" />
 				<file name="Configuration.js" />
 			</sources>
 

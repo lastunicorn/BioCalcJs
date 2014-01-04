@@ -47,7 +47,7 @@
         };
     };
 
-    lu.bioCalc.configuration.ConfigurationService = {
+    lu.bioCalc.configuration.Configuration = {
     };
 
     lu.bioCalc.mainPage.BioCalcPageData = {

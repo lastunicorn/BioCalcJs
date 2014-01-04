@@ -29,14 +29,12 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 //    ]
 //};
 
-(function (Event) {
+(function (Event, CookieSaver, JsonSerializer, UrlSerializer) {
 
     /**
      * Keeps the configuration object.
      */
     lu.bioCalc.configuration.Configuration = function () {
-
-        var cookieName = "config";
 
         // --------------------------------------------------------------------------
         // config property
@@ -47,12 +45,10 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
         Object.defineProperty(this, "config", {
             enumerable: true,
             configurable: false,
-            get: getConfig
+            get: function () {
+                return config;
+            }
         });
-
-        function getConfig() {
-            return config;
-        }
 
         // --------------------------------------------------------------------------
         // Events
@@ -71,56 +67,52 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
         // Functions
         // --------------------------------------------------------------------------
 
-        this.save = function () {
+        this.saveIntoCookies = function () {
             savingEvent.raise();
 
-            $.cookie.json = true;
-
-            if (config == null) {
-                return;
-            }
-
-            $.cookie(cookieName, config);
+            var saver = new CookieSaver();
+            saver.save(config);
 
             savedEvent.raise();
         };
 
         this.loadFromCookies = function () {
             $.cookie.json = true;
-            var newConfig = $.cookie(cookieName);
 
-            if (newConfig == null) {
-                newConfig = {};
-            }
-
-            ensureDefaultValues(newConfig);
-
-            config = newConfig;
+            var saver = new CookieSaver();
+            config = saver.load();
 
             loadedEvent.raise();
         };
 
-        function ensureDefaultValues(c) {
-            if ($.type(c.birthday) === "string") {
-                c.birthday = new Date(c.birthday);
-            }
+        this.toJson = function () {
+            var serializer = new JsonSerializer();
+            return serializer.serialize(config);
+        };
 
-            if ($.type(c.birthday) !== "date") {
-                c.birthday = getDefaultBirthday();
-            }
+        this.fromJson = function (json) {
+            var serializer = new JsonSerializer();
+            config = serializer.deserialize(json);
 
-            if ($.type(c.secondBirthday) === "string") {
-                c.secondBirthday = new Date(c.secondBirthday);
-            }
+            loadedEvent.raise();
+        };
 
-            if ($.type(c.secondBirthday) !== "date") {
-                c.secondBirthday = getDefaultBirthday();
-            }
-        }
+        this.toUrl = function () {
+            var serializer = new UrlSerializer();
+            return serializer.serialize(config);
+        };
 
-        function getDefaultBirthday() {
-            return new Date(1980, 05, 13);
+        this.fromUrl = function (url) {
+            var serializer = new UrlSerializer();
+            config = serializer.deserialize(url);
+
+            loadedEvent.raise();
         }
     };
 
-}(lu.Event));
+}(
+        lu.Event,
+        lu.bioControls.configuration.CookieSaver,
+        lu.bioControls.configuration.JsonSerializer,
+        lu.bioControls.configuration.UrlSerializer
+    ));

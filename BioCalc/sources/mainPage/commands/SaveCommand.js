@@ -27,6 +27,6 @@ lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
 lu.bioCalc.mainPage.commands.SaveCommand = function (configuration) {
 
     this.execute = function () {
-        configuration.save();
+        configuration.saveIntoCookies();
     };
 };

@@ -112,7 +112,7 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 
 }(
         lu.Event,
-        lu.bioControls.configuration.CookieSaver,
-        lu.bioControls.configuration.JsonSerializer,
-        lu.bioControls.configuration.UrlSerializer
+        lu.bioCalc.configuration.CookieSaver,
+        lu.bioCalc.configuration.JsonSerializer,
+        lu.bioCalc.configuration.UrlSerializer
     ));

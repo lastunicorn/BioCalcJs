@@ -23,7 +23,7 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
     lu.bioCalc.configuration.CookieSaver = function () {
         var cookieName = "config";
 
-        this.save = function(config){
+        this.save = function (config) {
             $.cookie.json = true;
 
             if (config == null)
@@ -56,6 +56,14 @@ lu.bioCalc.configuration = lu.bioCalc.configuration || {};
 
             if ($.type(c.secondBirthday) !== "date")
                 c.secondBirthday = getDefaultBirthday();
+
+            if ($.type(c.biorhythms) !== "array")
+                c.biorhythms = [
+                    { "name": "Physical Shape", "color": "#ff0000" },
+                    { "name": "Emotional Shape", "color": "#32cd32" },
+                    { "name": "Intellectual Shape", "color": "#1e90ff" },
+                    { "name": "Intuitive Shape", "color": "#ffa500" }
+                ];
         }
 
         function getDefaultBirthday() {

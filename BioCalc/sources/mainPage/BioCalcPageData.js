@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
 lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 
-(function (Event) {
+(function (Event, ConfigurationEqualityComparer, JsonSerializer, UrlSerializer) {
 
     /**
      * The data model of the BioCalc page.
@@ -126,7 +126,9 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 
             if (biorhythms) {
                 biorhythms.setBirthdayOnAll(birthday);
-                loadBiorhythmsConfigurationFromConfig();
+
+                // todo: needs rethinking this
+                loadBiorhythmsConfigurationFromConfig(configuration.config.biorhythms);
             }
 
             biorhythmsChangedEvent.raise(this, value);
@@ -154,78 +156,81 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
         };
 
         this.loadFromCookies = function () {
-            loadFromConfig();
+            var config = configuration.config;
+            loadFromConfig(config);
 
             loadedEvent.raise();
         };
 
         this.clear = function () {
-            var newConfig = configuration.getDefaultConfig();
-            loadFromConfig(newConfig);
+            var config = configuration.getDefaultConfig();
+            loadFromConfig(config);
 
             loadedEvent.raise();
         };
 
         this.toJson = function () {
-//            var serializer = new JsonSerializer();
-//            return serializer.serialize(config);
+            var config = toConfigObject();
+
+            var serializer = new JsonSerializer();
+            return serializer.serialize(config);
         };
 
         this.fromJson = function (json) {
-//            var serializer = new JsonSerializer();
-//            config = serializer.deserialize(json);
-//
-//            loadedEvent.raise();
+            var serializer = new JsonSerializer();
+            var config = serializer.deserialize(json);
+            loadFromConfig(config);
+
+            loadedEvent.raise();
         };
 
         this.toUrl = function () {
-//            var serializer = new UrlSerializer();
-//            return serializer.serialize(config);
+            var config = toConfigObject();
+
+            var serializer = new UrlSerializer();
+            return serializer.serialize(config);
         };
 
         this.fromUrl = function (url) {
-//            var serializer = new UrlSerializer();
-//            config = serializer.deserialize(url);
-//
-//            loadedEvent.raise();
+            var serializer = new UrlSerializer();
+            var config = serializer.deserialize(url);
+            loadFromConfig(config);
+
+            loadedEvent.raise();
         }
 
         function loadFromConfig(config) {
-            if (config === undefined)
-                config = configuration.config;
-
             setBirthday(config.birthday);
             setSecondBirthday(config.secondBirthday);
 
-            loadBiorhythmsConfigurationFromConfig(config);
+            loadBiorhythmsConfigurationFromConfig(config.biorhythms);
         }
 
-        function loadBiorhythmsConfigurationFromConfig(config) {
-            var biorhythmsConfig = config === undefined
-                ? configuration.config.biorhythms
-                : config.biorhythms;
-
-            if (!biorhythmsConfig || !biorhythms)
+        function loadBiorhythmsConfigurationFromConfig(biorhythmsConfig) {
+            if (!biorhythms)
                 return;
 
             var biorhythmShapes = biorhythms.toArray();
 
             for (var i = 0; i < biorhythmShapes.length; i++) {
-                var biorhythmConfig = getBiorhythmConfigByName(biorhythmShapes[i].name);
+                var biorhythmShape = biorhythmShapes[i];
+                var biorhythmConfig = getBiorhythmConfigByName(biorhythmsConfig, biorhythmShape.name);
 
-                if (biorhythmConfig) {
-                    biorhythmShapes[i].isVisible = true;
-                    biorhythmShapes[i].color = biorhythmConfig.color;
-                }
-                else {
-                    biorhythmShapes[i].isVisible = false;
-                }
+                configureBiorhythmShape(biorhythmShape, biorhythmConfig);
             }
         }
 
-        function getBiorhythmConfigByName(name) {
-            var biorhythmsConfig = configuration.config.biorhythms;
+        function configureBiorhythmShape(biorhythmShape, biorhythmConfig) {
+            if (!biorhythmConfig) {
+                biorhythmShape.isVisible = false;
+                return;
+            }
 
+            biorhythmShape.isVisible = true;
+            biorhythmShape.color = biorhythmConfig.color;
+        }
+
+        function getBiorhythmConfigByName(biorhythmsConfig, name) {
             if (!biorhythmsConfig)
                 return null;
 
@@ -238,21 +243,20 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
         }
 
         this.isDataDefault = function () {
-            var newConfig = this.toConfigObject();
+            var currentConfig = toConfigObject();
             var defaultConfig = configuration.getDefaultConfig();
 
-            var comparer = new lu.bioCalc.configuration.ConfigurationEqualityComparer();
-            return comparer.areEqual(newConfig, defaultConfig);
+            var comparer = new ConfigurationEqualityComparer();
+            return comparer.areEqual(currentConfig, defaultConfig);
         };
 
         this.isDataChanged = function () {
-            var newConfig = this.toConfigObject();
+            var currentConfig = toConfigObject();
 
-            var comparer = new lu.bioCalc.configuration.ConfigurationEqualityComparer();
-            return !comparer.areEqual(newConfig, configuration.config);
+            var comparer = new ConfigurationEqualityComparer();
+            return !comparer.areEqual(currentConfig, configuration.config);
         };
 
-        this.toConfigObject = toConfigObject;
         function toConfigObject() {
             var config = {};
 
@@ -282,10 +286,14 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            loadFromConfig();
+            var config = configuration.config;
+            loadFromConfig(config);
         }());
     };
 
 }(
-        lu.Event
+        lu.Event,
+        lu.bioCalc.configuration.ConfigurationEqualityComparer,
+        lu.bioCalc.configuration.JsonSerializer,
+        lu.bioCalc.configuration.UrlSerializer
     ));

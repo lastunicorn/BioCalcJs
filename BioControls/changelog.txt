@@ -6,6 +6,7 @@ var 2.1.0
 [Change] I changed the default type of lines for the biorhythms created by BiorhythmShapesCreator.
 [Change] I fixed some typo in the name of the event handlers from BiorhythmsAdapter.
 [Feature] I added the getByName method in CommonBiorhythmsContainer and BiorhythmShapeSet constructors.
+[Feature] The X day can be changed by clicking and dragging it with normal left mouse button.
 
 var 2.0.0
 ---------

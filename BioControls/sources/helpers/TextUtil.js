@@ -23,7 +23,7 @@ lu.TextUtil = (function() {
      * using the specified font.
      * 
      * @param obj
-     *            {Object} Congfiguration object.
+     *            {Object} Configuration object.
      * 
      * @param obj.text
      *            {String} The text to be measured.

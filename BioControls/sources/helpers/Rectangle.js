@@ -32,8 +32,8 @@ window.lu = window.lu || {};
  * @param height
  *            {Number} The distance between the top and the bottom margins of
  *            the rectangle.
- * 
- * @returns {lu.Rectangle}
+ *
+ * @constructor
  */
 lu.Rectangle = function(left, top, width, height) {
 

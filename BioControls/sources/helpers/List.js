@@ -20,7 +20,7 @@ window.lu = window.lu || {};
     /**
      * A list of objects. It raises events when items are added or removed.
      * 
-     * @returns {lu.List}
+     * @constructor
      */
     lu.List = function() {
 

@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 
-(function(mouseButton) {
+(function (mouseButton) {
 
     /**
      * Implements the functionality of horizontal scrolling for an html element.
@@ -26,28 +26,29 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
      * the mouse wheel. It also supports an alternate scrolling that means the
      * user holds the ctrl key while scrolling or he scrolls using the right
      * mouse button.
-     * 
+     *
      * @param configuration
      *            Contains the configuration data for the Scroller module to be
      *            properly initiated.
-     * 
+     *
      * @param configuration.element
      *            The element on which to implement scrolling mechanism.
-     * 
+     *
      * @param configuration.onDragStart
      *            Method called when the user clicks the element. The method
      *            receives an object as parameter and the caller has to fill the
      *            e.stepLength value with the width in pixels of a step for the
      *            scrolling.
-     * 
+     *
      * @param configuration.onDrag
      *            Method called when the user drags the mouse left or right the
      *            number of pixels specified when the drag process was started.
      */
-    lu.bioControls.biorhythmView.Scroller = function(configuration) {
+    lu.bioControls.biorhythmView.Scroller = function (configuration) {
 
         var defaultStepLength = 1;
         var stepLength = 1;
+        var isInitialXDay = false;
         var isCtrlPressed = false;
         var buttonPressed = mouseButton.none;
         var currentDayIndex = 0;
@@ -65,17 +66,6 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
             }
         }
 
-        function calculateStepLength() {
-            var arg = {};
-            raiseOnDragStart(arg);
-
-            if (typeof (arg.stepLength) !== "number") {
-                return defaultStepLength;
-            }
-
-            return arg.stepLength;
-        }
-
         function onMouseDown(evt) {
 
             var isLeftOrRightButton = evt.which === mouseButton.left || evt.which === mouseButton.right;
@@ -90,8 +80,17 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
             var rect = configuration.element.getBoundingClientRect();
             var clickX = evt.clientX - rect.left;
 
-            stepLength = calculateStepLength();
+            var arg = {};
+            raiseOnDragStart(arg);
+
+            stepLength = typeof (arg.stepLength) !== "number"
+                ? defaultStepLength
+                : arg.stepLength;
+
             currentDayIndex = Math.floor(clickX / stepLength);
+
+            isInitialXDay = arg.xDayIndex === currentDayIndex;
+
             buttonPressed = evt.which;
             isDragging = true;
         }
@@ -116,7 +115,7 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
 
             currentDayIndex = index;
 
-            var isAlternative = isCtrlPressed || buttonPressed === mouseButton.right;
+            var isAlternative = isInitialXDay || isCtrlPressed || buttonPressed === mouseButton.right;
 
             raiseOnDrag({
                 steps: steps,

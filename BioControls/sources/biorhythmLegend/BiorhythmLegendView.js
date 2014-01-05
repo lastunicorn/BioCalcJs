@@ -20,14 +20,14 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
 (function($) {
 
-    lu.bioControls.biorhythmLegend.BiorhythmLegendView = function($element) {
+    lu.bioControls.biorhythmLegend.BiorhythmLegendView = function($parent) {
 
         this.empty = function(){
-            $element.empty();
+            $parent.empty();
         };
 
         this.addItem = function($item){
-            $element.prepend($item);
+            $parent.prepend($item);
         };
     };
 

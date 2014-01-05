@@ -18,6 +18,8 @@ window.lu = window.lu || {};
 
 /**
  * Keeps a list of functions and calls them one by one when the event is raised.
+ *
+ * @constructor
  */
 lu.Event = function() {
 

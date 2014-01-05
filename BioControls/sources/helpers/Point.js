@@ -25,8 +25,8 @@ window.lu = window.lu || {};
  * 
  * @param y
  *            The y coordinate of the point.
- * 
- * @returns {lu.Point}
+ *
+ * @constructor
  */
 lu.Point = function(x, y) {
 

@@ -483,6 +483,7 @@
 
         _onDragStart: function(evt) {
             evt.stepLength = this._$canvas[0].width / this.options.totalDays;
+            evt.xDayIndex = this.options.xDayIndex;
         }
     });
 

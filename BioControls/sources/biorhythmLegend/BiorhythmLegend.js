@@ -21,12 +21,13 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 (function (BiorhythmsAdapter, BiorhythmLegendItem) {
 
     /**
+     * The logic of the user control that displays the legend for the biorhythm charts.
      *
-     * @param configuration.view
+     * @param view
      *
-     * @param configuration.biorhythms
+     * @constructor
      */
-    lu.bioControls.biorhythmLegend.BiorhythmLegend = function (configuration) {
+    lu.bioControls.biorhythmLegend.BiorhythmLegend = function (view) {
 
         var items = [];
         var biorhythms = null;
@@ -36,10 +37,14 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         // --------------------------------------------------------------------------
 
         this.setBiorhythms = function (value) {
-            biorhythms.destroy();
+            removeAllItems();
+
+            if (biorhythms !== null)
+                biorhythms.destroy();
+
             biorhythms = createBiorhythmsAdapter(value);
 
-            repopulate();
+            createAllItems();
         };
 
         function createBiorhythmsAdapter(biorhythms) {
@@ -50,10 +55,7 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
             });
         }
 
-        function repopulate() {
-            configuration.view.empty();
-            items.length = 0;
-
+        function createAllItems() {
             var biorhythmsArray = biorhythms.toArray();
 
             for (var i = 0; i < biorhythmsArray.length; i++) {
@@ -65,22 +67,33 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
             var biorhythmLegendItem = new BiorhythmLegendItem(biorhythm);
             items.push(biorhythmLegendItem);
 
-            var $legendItemTag = biorhythmLegendItem.element;
-            configuration.view.addItem($legendItemTag);
+            view.addItem(biorhythmLegendItem.element);
+        }
+
+        function removeAllItems() {
+            for (var i = 0; i < items.length; i++) {
+                items[i].destroy();
+            }
+
+            items.length = 0;
         }
 
         function removeItem(biorhythm) {
             for (var i = 0; i < items.length; i++) {
                 if (items[i].biorhythmShape === biorhythm) {
+                    items[i].destroy();
                     items.splice(i, 1);
-                    items[i].element.remove();
                 }
             }
         }
 
-        this.destroy = function() {
-            // biorhythms.destroy();
-            // configuration.view.destroy();
+        this.destroy = function () {
+            removeAllItems();
+
+            if (biorhythms !== null)
+                biorhythms.destroy();
+
+            view.destroy();
         };
 
         function onBiorhythmAdded(biorhythmShape) {
@@ -90,15 +103,6 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         function onBiorhythmRemoved(biorhythmShape) {
             removeItem(biorhythmShape);
         }
-
-        // --------------------------------------------------------------------------
-        // Initializer
-        // --------------------------------------------------------------------------
-
-        (function initialize() {
-            biorhythms = createBiorhythmsAdapter(configuration.biorhythms);
-            repopulate();
-        }());
     };
 
 }(

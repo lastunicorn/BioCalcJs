@@ -18,17 +18,20 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
-(function($) {
+(function () {
 
-    lu.bioControls.biorhythmLegend.BiorhythmLegendView = function($parent) {
+    lu.bioControls.biorhythmLegend.BiorhythmLegendView = function ($parent) {
 
-        this.empty = function(){
+        this.empty = function () {
             $parent.empty();
         };
 
-        this.addItem = function($item){
+        this.addItem = function ($item) {
             $parent.prepend($item);
+        };
+
+        this.destroy = function () {
         };
     };
 
-}(jQuery));
+}());

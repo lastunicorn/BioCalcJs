@@ -22,6 +22,26 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
     lu.bioControls.biorhythmLegend.BiorhythmLegendItemView = function () {
 
+        var $legendColorTag = null;
+        var $legendLabelTag = null;
+
+        // --------------------------------------------------------------------------
+        // presenter property
+        // --------------------------------------------------------------------------
+
+        var presenter = null;
+
+        Object.defineProperty(this, "presenter", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return presenter;
+            },
+            set: function (value) {
+                presenter = value;
+            }
+        });
+
         // --------------------------------------------------------------------------
         // element property
         // --------------------------------------------------------------------------
@@ -37,38 +57,49 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         });
 
         // --------------------------------------------------------------------------
-        // legendColorTag property
+        // Functions - "public"
         // --------------------------------------------------------------------------
 
-        var $legendColorTag = null;
+        this.setColor = function (value) {
+            $legendColorTag.css("background-color", value);
+        };
 
-        Object.defineProperty(this, "$legendColorTag", {
-            enumerable: true,
-            configurable: false,
-            get: function () {
-                return $legendColorTag;
-            }
-        });
+        this.setLabelText = function (value) {
+            $legendLabelTag.text(value);
+        };
 
-        // --------------------------------------------------------------------------
-        // legendLabelTag property
-        // --------------------------------------------------------------------------
+        this.setColorpickerTitle = function (value) {
+            $legendLabelTag.colorpicker("option", "title", value);
+        };
 
-        var $legendLabelTag = null;
+        this.setColorpickerParts = function (value) {
+            $legendLabelTag.colorpicker("option", "parts", value);
+        };
 
-        Object.defineProperty(this, "$legendLabelTag", {
-            enumerable: true,
-            configurable: false,
-            get: function () {
-                return $legendLabelTag;
-            }
-        });
+        this.setColorpickerColor = function (value) {
+            $legendLabelTag.colorpicker("option", "color", value);
+        };
+
+        this.show = function(){
+            $element.show();
+        };
+
+        this.hide = function(){
+            $element.hide();
+        };
+
+        this.destroy = function () {
+            $element.remove();
+            $element = undefined;
+            $legendColorTag = undefined;
+            $legendLabelTag = undefined;
+        };
 
         // --------------------------------------------------------------------------
         // functions
         // --------------------------------------------------------------------------
 
-        function generate() {
+        function generateElements() {
             $element = $("<div/>");
 
             $element.addClass("bio-legend-item");
@@ -88,15 +119,20 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         function generateLegendLabelTag() {
             $legendLabelTag = $("<div/>");
             $legendLabelTag.addClass("bio-legend-label");
+        }
 
-            $legendLabelTag.colorpicker({
-                inline: false,
-                altField: $legendColorTag,
-                altProperties: "background-color",
-                buttonColorize: true,
-                colorFormat: "#HEX",
-                showOn: "click alt"
-            });
+        // --------------------------------------------------------------------------
+        // Event Handlers
+        // --------------------------------------------------------------------------
+
+        function onColorPickerClosed(event, color) {
+            if ($.isFunction(presenter.onColorPickerClosed))
+                presenter.onColorPickerClosed(event, color);
+        }
+
+        function onColorPickerOpened(event, color) {
+            if ($.isFunction(presenter.onColorPickerOpened))
+                presenter.onColorPickerOpened(event, color);
         }
 
         // --------------------------------------------------------------------------
@@ -104,8 +140,23 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            generate();
+            generateElements();
+            initializeElements();
         }());
+
+        function initializeElements() {
+
+            $legendLabelTag.colorpicker({
+                inline: false,
+                altField: $legendColorTag,
+                altProperties: "background-color",
+                buttonColorize: true,
+                colorFormat: "#HEX",
+                showOn: "click alt",
+                close: onColorPickerClosed,
+                open: onColorPickerOpened
+            });
+        }
     };
 
 }(jQuery));

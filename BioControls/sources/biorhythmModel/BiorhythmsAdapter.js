@@ -118,10 +118,5 @@ lu.bioControls.biorhythmModel.BiorhythmsAdapter = function (options) {
 
     (function initialize() {
         subscribeToBiorhythmsEvents();
-
-        var biorhythmsArray = biorhythmsToArray();
-        for (var i = 0; i < biorhythmsArray.length; i++) {
-            onBiorhythmAdded(biorhythmsArray[i]);
-        }
     }());
 };

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function($, dateUtil, DayLabelPosition, Scroller, BiorhythmsAdapter, Rectangle, Painter) {
+(function ($, dateUtil, DayLabelPosition, Scroller, BiorhythmsAdapter, Rectangle, Painter) {
 
     $.widget("lastunicorn.biorhythmView", {
         options: {
@@ -41,7 +41,7 @@
             xDayBorderWidth: 2
         },
 
-        _create: function() {
+        _create: function () {
             this._$canvas = this._createCanvasElement();
             this.element.append(this._$canvas);
 
@@ -57,10 +57,15 @@
                 onBiorhythmRemoved: $.proxy(this._onBiorhythmRemoved, this)
             });
 
+            var biorhythms = this._biorhythms.toArray();
+            for (var i = 0; i < biorhythms.length; i++) {
+                this._subscribeToBiorhythmEvents(biorhythms[i]);
+            }
+
             this._paint();
         },
 
-        _setOption: function(key, value) {
+        _setOption: function (key, value) {
             this.suspendPaint();
             try {
                 if (key === "biorhythms") {
@@ -73,6 +78,11 @@
                         onBiorhythmAdded: $.proxy(this._onBiorhythmAdded, this),
                         onBiorhythmRemoved: $.proxy(this._onBiorhythmRemoved, this)
                     });
+
+                    var biorhythms = this._biorhythms.toArray();
+                    for (var i = 0; i < biorhythms.length; i++) {
+                        this._subscribeToBiorhythmEvents(biorhythms[i]);
+                    }
                 }
 
                 if (key === "firstDayChanged") {
@@ -299,7 +309,7 @@
             }
         },
 
-        _destroy: function() {
+        _destroy: function () {
             this._$element.remove();
             this._biorhythms.destroy();
         },
@@ -308,7 +318,7 @@
         // Html element
         // --------------------------------------------------------------------------
 
-        _createCanvasElement: function() {
+        _createCanvasElement: function () {
             var $canvas = $("<canvas/>");
             $canvas.attr({
                 "tabindex": "1",
@@ -323,7 +333,7 @@
         // FirstDay
         // --------------------------------------------------------------------------
 
-        _incrementFirstDay: function(value) {
+        _incrementFirstDay: function (value) {
             var date = new Date(this.options.firstDay.getTime());
             date.setDate(date.getDate() + value);
             this.option("firstDay", date);
@@ -337,7 +347,7 @@
          * Calculates and returns the date of the last day displayed by the
          * control.
          */
-        getLastDay: function() {
+        getLastDay: function () {
             return dateUtil.addDays(this.options.firstDay, this.options.totalDays - 1);
         },
 
@@ -348,7 +358,7 @@
         /**
          * Calculates and returns the date of the X day.
          */
-        getXDay: function() {
+        getXDay: function () {
             return dateUtil.addDays(this.options.firstDay, this.options.xDayIndex);
         },
 
@@ -356,7 +366,7 @@
         // Biorhythms
         // --------------------------------------------------------------------------
 
-        _onBiorhythmAdded: function(biorhythmShape) {
+        _onBiorhythmAdded: function (biorhythmShape) {
             this._subscribeToBiorhythmEvents(biorhythmShape);
 
             this._trigger("biorhythmAdded", this, {
@@ -366,7 +376,7 @@
             this._paint();
         },
 
-        _subscribeToBiorhythmEvents: function(biorhythmShape) {
+        _subscribeToBiorhythmEvents: function (biorhythmShape) {
             biorhythmShape.nameChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.biorhythm.birthdayChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.biorhythmChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
@@ -376,7 +386,7 @@
             biorhythmShape.lineStyleChanged.subscribe($.proxy(this._onBiorhithmShapeChanged, this));
         },
 
-        _onBiorhythmRemoved: function(biorhythmShape) {
+        _onBiorhythmRemoved: function (biorhythmShape) {
             this._unsubscribeFromBiorhythmEvents(biorhythmShape);
 
             this._trigger("biorhythmRemoved", this, {
@@ -386,7 +396,7 @@
             this._paint();
         },
 
-        _unsubscribeFromBiorhythmEvents: function(biorhythmShape) {
+        _unsubscribeFromBiorhythmEvents: function (biorhythmShape) {
             biorhythmShape.nameChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.biorhythm.birthdayChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
             biorhythmShape.biorhythmChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
@@ -396,7 +406,7 @@
             biorhythmShape.lineStyleChanged.unsubscribe($.proxy(this._onBiorhithmShapeChanged, this));
         },
 
-        _onBiorhithmShapeChanged: function() {
+        _onBiorhithmShapeChanged: function () {
             this._paint();
         },
 
@@ -411,14 +421,14 @@
          * called. If this method is called multiple times, {resumePaint} has to
          * be called the same amount of times for the paint to be resumed.
          */
-        suspendPaint: function() {
+        suspendPaint: function () {
             this._paintSuspendCount++;
         },
 
         /**
          * Cancels the effect of a single call of the {suspendPaint} method.
          */
-        resumePaint: function() {
+        resumePaint: function () {
             if (this._paintSuspendCount > 0) {
                 this._paintSuspendCount--;
             }
@@ -428,7 +438,7 @@
             }
         },
 
-        _paint: function() {
+        _paint: function () {
             if (this._paintSuspendCount > 0) {
                 return;
             }
@@ -473,7 +483,7 @@
         // Drag/Scroll
         // --------------------------------------------------------------------------
 
-        _onDrag: function(evt) {
+        _onDrag: function (evt) {
             if (evt.isAlternative) {
                 this.option("xDayIndex", this.options.xDayIndex + evt.steps);
             } else {
@@ -481,7 +491,7 @@
             }
         },
 
-        _onDragStart: function(evt) {
+        _onDragStart: function (evt) {
             evt.stepLength = this._$canvas[0].width / this.options.totalDays;
             evt.xDayIndex = this.options.xDayIndex;
         }

@@ -18,16 +18,16 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
-(function(BiorhythmLegendItemView, BiorhythmShape) {
+(function (BiorhythmLegendItemView, BiorhythmShape) {
 
     /**
      * Creates and interacts with an item displayed by the biorhythmLegend
      * widget.
-     * 
+     *
      * @param biorhythmShape
      *            The biorhythmShape object represented by the current item.
      */
-    lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function(biorhythmShape) {
+    lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function (biorhythmShape) {
 
         var view = null;
 
@@ -60,6 +60,14 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         }
 
         // --------------------------------------------------------------------------
+        // Functions
+        // --------------------------------------------------------------------------
+
+        this.destroy = function () {
+            view.destroy();
+        };
+
+        // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
 
@@ -68,22 +76,22 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
         }
 
         function onColorPickerOpened(event, color) {
-            view.$legendLabelTag.colorpicker("setColor", biorhythmShape.color);
+            view.setColorpickerColor(biorhythmShape.color);
         }
 
         function onBiorhythmNameChanged(arg) {
-            view.$legendLabelTag.html(arg);
+            view.setLabelText(arg);
         }
 
         function onBiorhythmColorChanged(arg) {
-            view.$legendColorTag.css("background-color", arg);
+            view.setColor(arg);
         }
 
         function onBiorhythmVisibilityChanged(arg) {
             if (arg) {
-                view.$element.show();
+                view.show();
             } else {
-                view.$element.hide();
+                view.hide();
             }
         }
 
@@ -93,29 +101,28 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
 
         (function initialize() {
             view = new BiorhythmLegendItemView();
+            view.presenter = {
+                onColorPickerClosed: onColorPickerClosed,
+                onColorPickerOpened: onColorPickerOpened
+            };
 
-            if (!(biorhythmShape instanceof BiorhythmShape)) {
+            if (!(biorhythmShape instanceof BiorhythmShape))
                 return;
-            }
 
-            view.$legendLabelTag.colorpicker("option", "close", onColorPickerClosed);
-            view.$legendLabelTag.colorpicker("option", "open", onColorPickerOpened);
-
-            view.$legendColorTag.css("background-color", biorhythmShape.color);
-            view.$legendLabelTag.text(biorhythmShape.biorhythm.name);
+            view.setColor(biorhythmShape.color);
+            view.setLabelText(biorhythmShape.biorhythm.name);
 
             var biorhythmName = biorhythmShape.biorhythm.name;
             var title = biorhythmName ? biorhythmName + " Biorhythm" : null;
             var parts = title ? "draggable" : "popup";
 
-            view.$legendLabelTag.colorpicker("option", "title", title);
-            view.$legendLabelTag.colorpicker("option", "parts", parts);
-            view.$legendLabelTag.colorpicker("option", "color", biorhythmShape.color);
-            
-            if (!biorhythmShape.isVisible) {
-                view.$element.hide();
-            }
-            
+            view.setColorpickerTitle(title);
+            view.setColorpickerParts(parts);
+            view.setColorpickerColor(biorhythmShape.color);
+
+            if (!biorhythmShape.isVisible)
+                view.hide();
+
             biorhythmShape.nameChanged.subscribe(onBiorhythmNameChanged);
             biorhythmShape.colorChanged.subscribe(onBiorhythmColorChanged);
             biorhythmShape.isVisibleChanged.subscribe(onBiorhythmVisibilityChanged);

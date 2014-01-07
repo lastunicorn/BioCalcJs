@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-(function($, BiorhythmsAdapter, BiorhythmLegendItem) {
+(function($, BiorhythmLegendView, BiorhythmLegend) {
 
     $.widget("lastunicorn.biorhythmLegend", {
         options: {
@@ -22,12 +22,10 @@
         },
 
         _create: function() {
-            var biorhythmLegendView = new lu.bioControls.biorhythmLegend.BiorhythmLegendView(this.element);
+            var biorhythmLegendView = new BiorhythmLegendView(this.element);
 
-            this._biorhythmLegend = new lu.bioControls.biorhythmLegend.BiorhythmLegend({
-                view: biorhythmLegendView,
-                biorhythms: this.options.biorhythms
-            });
+            this._biorhythmLegend = new BiorhythmLegend(biorhythmLegendView);
+            this._biorhythmLegend.setBiorhythms(this.options.biorhythms);
         },
 
         _setOption: function(key, value) {
@@ -39,13 +37,12 @@
         },
 
         _destroy: function() {
-            this.element.empty();
             this._biorhythmLegend.destroy();
         }
     });
 
 }(
         jQuery,
-        lu.bioControls.biorhythmModel.BiorhythmsAdapter,
-        lu.bioControls.biorhythmLegend.BiorhythmLegendItem
+        lu.bioControls.biorhythmLegend.BiorhythmLegendView,
+        lu.bioControls.biorhythmLegend.BiorhythmLegend
     ));

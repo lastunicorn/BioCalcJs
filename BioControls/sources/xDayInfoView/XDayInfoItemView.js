@@ -27,7 +27,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
      * @param biorhythmShape
      *            The BiorhythmShape for which to display the X day information.
      *
-     * @returns {lu.bioControls.xDayInfoView.XDayInfoItem}
+     * @constructor
      */
     lu.bioControls.xDayInfoView.XDayInfoItemView = function () {
 

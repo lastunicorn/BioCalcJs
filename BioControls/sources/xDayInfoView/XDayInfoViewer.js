@@ -18,46 +18,48 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
 
-(function(XDayInfoItem, XDayInfoItemView, BiorhythmsAdapter) {
+(function (XDayInfoItem, XDayInfoItemView, BiorhythmsAdapter) {
 
     /**
-     * 
-     * @param configuration.view
-     * 
-     * @param configuration.biorhythms
+     *
+     * @param view
+     *
+     * @constructor
      */
-    lu.bioControls.xDayInfoView.XDayInfoViewer = function(configuration) {
+    lu.bioControls.xDayInfoView.XDayInfoViewer = function (view) {
 
         var items = [];
         var biorhythms = null;
         var compatibilityCalculator = null;
 
-        this.updateXDay = function(xDay) {
+        this.updateXDay = function (xDay) {
             for (var i = 0; i < items.length; i++) {
                 items[i].updateXDay(xDay);
             }
         };
 
-        this.updateSecondBirthday = function(secondBirthday) {
+        this.updateSecondBirthday = function (secondBirthday) {
             for (var i = 0; i < items.length; i++) {
                 items[i].updateSecondBirthday(secondBirthday);
             }
         };
 
-        this.destroy = function() {
+        this.destroy = function () {
             // biorhythms.destroy();
             // configuration.view.destroy();
         };
 
-        this.setBiorhythms = function(value) {
-            biorhythms.destroy();
+        this.setBiorhythms = function (value) {
+            if (biorhythms !== null)
+                biorhythms.destroy();
+
             biorhythms = createBiorhythmsAdapter(value);
 
             repopulate();
         };
 
         function repopulate() {
-            configuration.view.empty();
+            view.empty();
             items.length = 0;
 
             var biorhythmsArray = biorhythms.toArray();
@@ -73,7 +75,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             var xDayInfoItemView = new XDayInfoItemView();
             var xDayInfoItem = new XDayInfoItem(xDayInfoItemView, biorhythm, compatibilityCalculator);
 
-            configuration.view.addItem(xDayInfoItemView.$element);
+            view.addItem(xDayInfoItemView.$element);
             items.push(xDayInfoItem);
         }
 
@@ -107,12 +109,8 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         // --------------------------------------------------------------------------
 
         (function initialize() {
-            biorhythms = createBiorhythmsAdapter(configuration.biorhythms);
-
             compatibilityCalculator = new lu.bioControls.compatibility.CompatibilityCalculator();
             compatibilityCalculator.displacementCalculator = new lu.bioControls.compatibility.DisplacementCosPercentCalculator();
-
-            repopulate();
         }());
     };
 

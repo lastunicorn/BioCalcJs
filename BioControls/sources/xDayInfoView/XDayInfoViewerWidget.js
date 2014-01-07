@@ -31,10 +31,8 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
             var xDayInfoViewerView = new lu.bioControls.xDayInfoView.XDayInfoViewerView();
             this.element.append(xDayInfoViewerView.$element);
 
-            this._xDayInfoViewer = new lu.bioControls.xDayInfoView.XDayInfoViewer({
-                view: xDayInfoViewerView,
-                biorhythms: this.options.biorhythms
-            });
+            this._xDayInfoViewer = new lu.bioControls.xDayInfoView.XDayInfoViewer(xDayInfoViewerView);
+            this._xDayInfoViewer.setBiorhythms(this.options.biorhythms);
         },
 
         _setOption: function (key, value) {

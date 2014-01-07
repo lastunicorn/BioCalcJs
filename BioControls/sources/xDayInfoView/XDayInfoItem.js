@@ -30,7 +30,7 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
      * @param biorhythmShape
      *            The BiorhythmShape for which to display the X day information.
      *
-     * @returns {lu.bioControls.xDayInfoView.XDayInfoItem}
+     * @constructor
      */
     lu.bioControls.xDayInfoView.XDayInfoItem = function (view, biorhythmShape, compatibilityCalculator) {
 
@@ -74,8 +74,8 @@ lu.bioControls.xDayInfoView = lu.bioControls.xDayInfoView || {};
         function calculatePercentageFor(xDay) {
             var biorhythm = biorhythmShape.biorhythm;
 
-            var milisecondsLived = xDay - biorhythmShape.biorhythm.birthday;
-            var daysLived = dateUtil.milisecondsToWholeDays(milisecondsLived);
+            var millisecondsLived = xDay - biorhythmShape.biorhythm.birthday;
+            var daysLived = dateUtil.milisecondsToWholeDays(millisecondsLived);
             var value = biorhythm.getValue(daysLived);
             var percentage = value * 100;
 

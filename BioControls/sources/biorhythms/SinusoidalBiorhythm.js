@@ -103,7 +103,7 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
         function getValueByDate(date) {
             var milisecondsLived = date - birthday;
-            var daysLived = dateUtil.milisecondsToWholeDays(milisecondsLived);
+            var daysLived = dateUtil.millisecondsToWholeDays(milisecondsLived);
 
             return getValueByIndex(daysLived);
         }

@@ -23,7 +23,7 @@ lu.DateUtil = {
      * 
      * @returns {Number} The number of milliseconds.
      */
-    daysToMiliseconds: function(days) {
+    daysToMilliseconds: function(days) {
         return days * 24 * 60 * 60 * 1000;
     },
 
@@ -33,7 +33,7 @@ lu.DateUtil = {
      * 
      * @returns {Number} A float representing the number of days.
      */
-    milisecondsToDays: function(miliseconds) {
+    millisecondsToDays: function(miliseconds) {
         return miliseconds / 1000 / 60 / 60 / 24;
     },
 
@@ -44,18 +44,18 @@ lu.DateUtil = {
      * 
      * @returns {Number} An int representing the number of whole days.
      */
-    milisecondsToWholeDays: function(miliseconds) {
-        return Math.floor(this.milisecondsToDays(miliseconds));
+    millisecondsToWholeDays: function(miliseconds) {
+        return Math.floor(this.millisecondsToDays(miliseconds));
     },
 
     /**
-     * Gets a {Date}, adds the specifide number of days to it and returns
+     * Gets a {Date}, adds the specified number of days to it and returns
      * another instance of {Date}.
      * 
      * @returns {Date} A new instance of {Date}.
      */
     addDays: function(date, daysToAdd) {
-        var miliseconds = daysToAdd * 24 * 60 * 60 * 1000;
+        var milliseconds = daysToAdd * 24 * 60 * 60 * 1000;
 
         if (date instanceof Date) {
             date = date.getTime();
@@ -69,7 +69,7 @@ lu.DateUtil = {
             throw "daysToAdd should be a number.";
         }
 
-        return new Date(date + miliseconds);
+        return new Date(date + milliseconds);
     },
 
     /**

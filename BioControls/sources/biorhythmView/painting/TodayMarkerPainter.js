@@ -64,7 +64,7 @@ lu.bioControls.biorhythmView.painting = lu.bioControls.biorhythmView.painting ||
             var today = dateUtil.getDateComponent(new Date());
             var firstDay = dateUtil.getDateComponent(paintData.firstDay);
             var todayIndexInMiliseconds = today - firstDay;
-            return dateUtil.milisecondsToWholeDays(todayIndexInMiliseconds);
+            return dateUtil.millisecondsToWholeDays(todayIndexInMiliseconds);
         }
 
         function paintTodayMarker(rectangle, color) {

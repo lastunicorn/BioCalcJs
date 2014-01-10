@@ -23,7 +23,7 @@
     QUnit.module("DateUtil tests - addDays method");
 
     QUnit.test("returns a Date object.", function() {
-        var date = new Date(1980, 05, 13);
+        var date = new Date(1980, 5, 13);
 
         var actual = lu.DateUtil.addDays(date, 1);
 
@@ -31,23 +31,23 @@
     });
 
     QUnit.test("add 5 days to a Date.", function() {
-        var date = new Date(1980, 05, 13);
-        var expectedMiliseconds = new Date(1980, 05, 18).getTime();
+        var date = new Date(1980, 5, 13);
+        var expectedMilliseconds = new Date(1980, 5, 18).getTime();
 
         var actual = lu.DateUtil.addDays(date, 5);
-        var actualMiliseconds = actual.getTime();
+        var actualMilliseconds = actual.getTime();
 
-        QUnit.strictEqual(actualMiliseconds, expectedMiliseconds, "Tests that the value returned has 5 days more.");
+        QUnit.strictEqual(actualMilliseconds, expectedMilliseconds, "Tests that the value returned has 5 days more.");
     });
 
     QUnit.test("add 5 days to a number.", function() {
-        var dateInMiliseconds = new Date(1980, 05, 10).getTime();
-        var expectedMiliseconds = new Date(1980, 05, 20).getTime();
+        var dateInMilliseconds = new Date(1980, 5, 10).getTime();
+        var expectedMilliseconds = new Date(1980, 5, 20).getTime();
 
-        var actual = lu.DateUtil.addDays(dateInMiliseconds, 10);
-        var actualMiliseconds = actual.getTime();
+        var actual = lu.DateUtil.addDays(dateInMilliseconds, 10);
+        var actualMilliseconds = actual.getTime();
 
-        QUnit.strictEqual(actualMiliseconds, expectedMiliseconds, "Tests that the value returned has 10 days more.");
+        QUnit.strictEqual(actualMilliseconds, expectedMilliseconds, "Tests that the value returned has 10 days more.");
     });
 
     QUnit.test("throws if date is not a Date.", function() {
@@ -75,34 +75,34 @@
 
 (function() {
 
-    QUnit.module("DateUtil tests - daysToMiliseconds method");
+    QUnit.module("DateUtil tests - daysToMilliseconds method");
 
     QUnit.test("returns 0 for 0 days.", function() {
-        var actual = lu.DateUtil.daysToMiliseconds(0);
+        var actual = lu.DateUtil.daysToMilliseconds(0);
 
         QUnit.strictEqual(actual, 0, "Tests the returned value is 0.");
     });
 
     QUnit.test("returns 86.400.000 for 1 day.", function() {
-        var actual = lu.DateUtil.daysToMiliseconds(1);
+        var actual = lu.DateUtil.daysToMilliseconds(1);
 
         QUnit.strictEqual(actual, 86400000, "Tests the returned value is 86.400.000.");
     });
 
     QUnit.test("returns -86.400.000 for -1 day.", function() {
-        var actual = lu.DateUtil.daysToMiliseconds(-1);
+        var actual = lu.DateUtil.daysToMilliseconds(-1);
 
         QUnit.strictEqual(actual, -86400000, "Tests the returned value is -86.400.000.");
     });
 
     QUnit.test("returns 172.800.000 for 2 day.", function() {
-        var actual = lu.DateUtil.daysToMiliseconds(2);
+        var actual = lu.DateUtil.daysToMilliseconds(2);
 
         QUnit.strictEqual(actual, 172800000, "Tests the returned value is 172.800.000.");
     });
 
     QUnit.test("returns 864.000.000 for 10 day.", function() {
-        var actual = lu.DateUtil.daysToMiliseconds(10);
+        var actual = lu.DateUtil.daysToMilliseconds(10);
 
         QUnit.strictEqual(actual, 864000000, "Tests the returned value is 864.000.000.");
     });

@@ -25,7 +25,7 @@ window.lu = window.lu || {};
      * 
      * @param endPoint
      *            The point of end of the line's segment.
-     *
+     * 
      * @constructor
      */
     lu.Line = function(startPoint, endPoint) {

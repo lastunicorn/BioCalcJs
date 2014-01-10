@@ -63,7 +63,7 @@ lu.bioControls.compatibility = lu.bioControls.compatibility || {};
                 throw new DisplacementCalculatorNotSetError();
 
             var birthdaysIntervalMilliseconds = birthday1 - birthday2;
-            var birthdaysIntervalDays = dateUtil.milisecondsToWholeDays(birthdaysIntervalMilliseconds);
+            var birthdaysIntervalDays = dateUtil.millisecondsToWholeDays(birthdaysIntervalMilliseconds);
             var biorhythmsIntervalDays = Math.abs(birthdaysIntervalDays % period);
 
             return displacementCalculator.calculate(biorhythmsIntervalDays, period);

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$/sources" libraries="{jQuery}" />
+    <file url="file://$PROJECT_DIR$/tests" libraries="{qUnit}" />
     <file url="PROJECT" libraries="{jQuery, qUnit}" />
   </component>
 </project>

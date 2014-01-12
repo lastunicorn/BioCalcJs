@@ -23,7 +23,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
     /**
      * Represents a biorhythm curve with all its display related properties.
      *
-     * @returns {lu.bioControls.biorhythmModel.BiorhythmShape}
+     * @constructor
      */
     lu.bioControls.biorhythmModel.BiorhythmShape = function () {
 

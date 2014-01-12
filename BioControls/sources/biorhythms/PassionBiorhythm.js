@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the passion biorhythm. It is a biorhythm obtained by
      * calculating the average between physical and emotional biorhythms.
-     * 
-     * @returns {lu.bioControls.biorhythms.PassionBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.PassionBiorhythm = function() {
 

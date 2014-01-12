@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the physical biorhythm. It is a sinusoidal biorhythm with the
      * period of 23 days.
-     * 
-     * @returns {lu.bioControls.biorhythms.PhysicalBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.PhysicalBiorhythm = function() {
 

@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the mastery biorhythm. It is a biorhythm obtained by
      * calculating the average between physical and intellectual biorhythms.
-     * 
-     * @returns {lu.bioControls.biorhythms.MasteryBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.MasteryBiorhythm = function() {
 

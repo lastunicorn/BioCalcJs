@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the perception biorhythm. It is a biorhythm obtained by
      * calculating the average between physical and intuitive biorhythms.
-     * 
-     * @returns {lu.bioControls.biorhythms.PerceptionBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.PerceptionBiorhythm = function() {
 

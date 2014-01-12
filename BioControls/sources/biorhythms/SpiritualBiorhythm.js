@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the spiritual biorhythm. It is a sinusoidal biorhythm with the
      * period of 53 days.
-     * 
-     * @returns {lu.bioControls.biorhythms.SpiritualBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.SpiritualBiorhythm = function() {
 

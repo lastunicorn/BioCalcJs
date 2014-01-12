@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the self awareness biorhythm. It is a sinusoidal biorhythm
      * with the period of 48 days.
-     * 
-     * @returns {lu.bioControls.biorhythms.SelfAwarenessBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.SelfAwarenessBiorhythm = function() {
 

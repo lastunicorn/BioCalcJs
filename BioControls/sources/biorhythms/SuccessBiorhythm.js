@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the success biorhythm. It is a biorhythm obtained by
      * calculating the average between intellectual and intuitive biorhythms.
-     * 
-     * @returns {lu.bioControls.biorhythms.SuccessBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.SuccessBiorhythm = function() {
 

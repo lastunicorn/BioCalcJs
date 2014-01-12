@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the emotional biorhythm. It is a sinusoidal biorhythm with the
      * period of 28 days.
-     * 
-     * @returns {lu.bioControls.biorhythms.EmotionalBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.EmotionalBiorhythm = function() {
 

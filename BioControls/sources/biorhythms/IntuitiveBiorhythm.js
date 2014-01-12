@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the intuitive biorhythm. It is a sinusoidal biorhythm with the
      * period of 38 days.
-     * 
-     * @returns {lu.bioControls.biorhythms.IntuitiveBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.IntuitiveBiorhythm = function() {
 

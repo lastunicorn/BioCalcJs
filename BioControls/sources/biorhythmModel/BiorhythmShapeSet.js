@@ -24,7 +24,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
  * @param items
  *            An array containing the BiorhythmShape objects.
  *
- * @returns {lu.bioControls.biorhythmModel.BiorhythmShapeSet}
+ * @constructor
  */
 lu.bioControls.biorhythmModel.BiorhythmShapeSet = function (items) {
 

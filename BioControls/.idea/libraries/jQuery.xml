@@ -4,13 +4,17 @@
       <option name="frameworkName" value="jQuery" />
       <option name="frameworkVersion" value="2.0.3" />
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/../BioCalc/libraries/jQuery/jquery-2.0.3.js" />
         <item url="file://$PROJECT_DIR$/libraries/jQuery" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/../BioCalc/libraries/jQuery/jquery-2.0.3.js" />
+      <root url="file://$PROJECT_DIR$/../BioCalc/libraries/jQuery/jquery-2.0.3.min.js" />
       <root url="file://$PROJECT_DIR$/libraries/jQuery" />
     </CLASSES>
     <DOCUMENTATION>
+      <root url="file://$USER_HOME$/.WebStorm7/system/extLibs/http_api.jquery.com_resources_api.xml.xml" />
       <root url="http://api.jquery.com" />
     </DOCUMENTATION>
     <SOURCES />

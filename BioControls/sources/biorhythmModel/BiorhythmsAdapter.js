@@ -41,7 +41,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
  *            represents an event (have the unsubscribe method), this function
  *            is used to hook up to the event.
  *
- * @returns {lu.bioControls.biorhythmModel.BiorhythmsAdapter}
+ * @constructor
  */
 lu.bioControls.biorhythmModel.BiorhythmsAdapter = function (options) {
 

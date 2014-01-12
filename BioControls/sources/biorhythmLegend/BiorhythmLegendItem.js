@@ -26,6 +26,8 @@ lu.bioControls.biorhythmLegend = lu.bioControls.biorhythmLegend || {};
      *
      * @param biorhythmShape
      *            The biorhythmShape object represented by the current item.
+     *
+     * @constructor
      */
     lu.bioControls.biorhythmLegend.BiorhythmLegendItem = function (biorhythmShape) {
 

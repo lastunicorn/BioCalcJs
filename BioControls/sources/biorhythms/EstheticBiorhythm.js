@@ -22,8 +22,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
     /**
      * Represents the esthetic biorhythm. It is a sinusoidal biorhythm with the
      * period of 43 days.
-     * 
-     * @returns {lu.bioControls.biorhythms.EstheticBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.EstheticBiorhythm = function() {
 

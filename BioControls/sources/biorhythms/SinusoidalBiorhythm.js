@@ -25,8 +25,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
      * @param period
      *            An integer (number of days) that represents the period of the
      *            sinusoid function.
-     * 
-     * @returns {lu.bioControls.biorhythms.SinusoidalBiorhythm}
+     *
+     * @constructor
      */
     lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
 

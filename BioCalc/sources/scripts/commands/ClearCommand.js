@@ -16,15 +16,14 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
+lu.bioCalc.commands = lu.bioCalc.commands || {};
 
 /**
  * Clears the configuration to the default values.
  *
  * @constructor
  */
-lu.bioCalc.mainPage.commands.ClearCommand = function (bioCalcPageData) {
+lu.bioCalc.commands.ClearCommand = function (bioCalcPageData) {
 
     this.execute = function () {
         bioCalcPageData.clear();

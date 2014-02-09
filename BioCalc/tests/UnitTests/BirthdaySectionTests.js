@@ -21,6 +21,6 @@
 QUnit.module("BirthdaySection Tests");
 
 QUnit.test("first", function () {
-    //var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection();
-    //QUnit.ok(lu.bioCalc.mainPage.pageSections.BirthdaySection !== undefined, "Test something");
+    //var birthdaySection = new lu.bioCalc.presenters.BirthdaySection();
+    //QUnit.ok(lu.bioCalc.presenters.BirthdaySection !== undefined, "Test something");
 });

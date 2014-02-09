@@ -16,15 +16,14 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.dialogs = lu.bioCalc.mainPage.dialogs || {};
+lu.bioCalc.presenters = lu.bioCalc.presenters || {};
 
 (function () {
 
     /**
      * Contains the logic of the Options dialog.
      */
-    lu.bioCalc.mainPage.pageSections.OptionsDialog = function (bioCalcPageData) {
+    lu.bioCalc.presenters.OptionsDialog = function (bioCalcPageData) {
 
         var presenter;
         var biorhythmShapes = null;

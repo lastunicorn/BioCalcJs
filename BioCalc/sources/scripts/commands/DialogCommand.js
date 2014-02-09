@@ -16,15 +16,14 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
+lu.bioCalc.commands = lu.bioCalc.commands || {};
 
 /**
  * Opens a dialog.
  *
  * @constructor
  */
-lu.bioCalc.mainPage.commands.DialogCommand = function (dialog) {
+lu.bioCalc.commands.DialogCommand = function (dialog) {
 
     this.execute = function () {
         dialog.show();

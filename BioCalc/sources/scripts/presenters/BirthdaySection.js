@@ -16,8 +16,7 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
+lu.bioCalc.presenters = lu.bioCalc.presenters || {};
 
 (function (dateFormatter) {
 
@@ -25,7 +24,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
      * Contains the logic of the page section where the user can select
      * the birthday and the second birthday.
      */
-    lu.bioCalc.mainPage.pageSections.BirthdaySection = function (bioCalcPageData) {
+    lu.bioCalc.presenters.BirthdaySection = function (bioCalcPageData) {
 
         var presenter;
         var suppressBirthdayChanged = false;

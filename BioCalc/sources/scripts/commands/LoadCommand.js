@@ -16,15 +16,14 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
+lu.bioCalc.commands = lu.bioCalc.commands || {};
 
 /**
  * Loads the configuration from cookies.
  *
  * @constructor
  */
-lu.bioCalc.mainPage.commands.LoadCommand = function (bioCalcPageData) {
+lu.bioCalc.commands.LoadCommand = function (bioCalcPageData) {
 
     this.execute = function () {
         bioCalcPageData.loadFromCookies();

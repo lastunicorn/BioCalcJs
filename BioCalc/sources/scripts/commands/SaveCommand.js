@@ -16,15 +16,14 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.commands = lu.bioCalc.mainPage.commands || {};
+lu.bioCalc.commands = lu.bioCalc.commands || {};
 
 /**
  * Saves the configuration as cookies.
  *
  * @constructor
  */
-lu.bioCalc.mainPage.commands.SaveCommand = function (bioCalcPageData) {
+lu.bioCalc.commands.SaveCommand = function (bioCalcPageData) {
 
     this.execute = function () {
         bioCalcPageData.saveIntoCookies();

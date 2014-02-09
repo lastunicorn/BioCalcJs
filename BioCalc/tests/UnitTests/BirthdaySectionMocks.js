@@ -32,7 +32,7 @@
         }
     };
 
-    lu.bioCalc.mainPage.pageSections.XDaySectionView = function () {
+    lu.bioCalc.views.XDaySectionView = function () {
         this.title = null;
         this.setTitle = function (value) {
             this.title = value;
@@ -50,7 +50,7 @@
     lu.bioCalc.configuration.CookieConfiguration = {
     };
 
-    lu.bioCalc.mainPage.BioCalcPageData = {
+    lu.bioCalc.BioCalcPageData = {
         xDayChanged: {
             subscribe: function () {
             }

@@ -16,12 +16,11 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
+lu.bioCalc.views = lu.bioCalc.views || {};
 
 (function($) {
 
-    lu.bioCalc.mainPage.pageSections.OptionsDialogView = function() {
+    lu.bioCalc.views.OptionsDialogView = function() {
 
         var $optionsDialog = null;
         var $primaryBiorhythmsCheckbox = null;

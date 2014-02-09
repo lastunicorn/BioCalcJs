@@ -16,15 +16,14 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
+lu.bioCalc.presenters = lu.bioCalc.presenters || {};
 
 (function ($, bioControlsVersion, bioCalcVersion) {
 
     /**
      * Contains the UI logic of the About dialog.
      */
-    lu.bioCalc.mainPage.pageSections.AboutDialog = function () {
+    lu.bioCalc.presenters.AboutDialog = function () {
 
         var presenter;
 

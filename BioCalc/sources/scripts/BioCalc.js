@@ -53,39 +53,39 @@
     }
 
     function createPageSections() {
-        var helpDialog = new lu.bioCalc.mainPage.pageSections.HelpDialog();
-        helpDialog.view = new lu.bioCalc.mainPage.pageSections.HelpDialogView();
+        var helpDialog = new lu.bioCalc.presenters.HelpDialog();
+        helpDialog.view = new lu.bioCalc.views.HelpDialogView();
 
-        var aboutDialog = new lu.bioCalc.mainPage.pageSections.AboutDialog();
-        aboutDialog.view = new lu.bioCalc.mainPage.pageSections.AboutDialogView();
+        var aboutDialog = new lu.bioCalc.presenters.AboutDialog();
+        aboutDialog.view = new lu.bioCalc.views.AboutDialogView();
 
-        var optionsDialog = new lu.bioCalc.mainPage.pageSections.OptionsDialog(bioCalcPageData);
-        optionsDialog.view = new lu.bioCalc.mainPage.pageSections.OptionsDialogView();
+        var optionsDialog = new lu.bioCalc.presenters.OptionsDialog(bioCalcPageData);
+        optionsDialog.view = new lu.bioCalc.views.OptionsDialogView();
 
         var mainToolbarCommands = {
-            saveCommand: new lu.bioCalc.mainPage.commands.SaveCommand(bioCalcPageData),
-            loadCommand: new lu.bioCalc.mainPage.commands.LoadCommand(bioCalcPageData),
-            clearCommand: new lu.bioCalc.mainPage.commands.ClearCommand(bioCalcPageData),
-            helpDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(helpDialog),
-            aboutDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(aboutDialog),
-            optionsDialogCommand: new lu.bioCalc.mainPage.commands.DialogCommand(optionsDialog)
+            saveCommand: new lu.bioCalc.commands.SaveCommand(bioCalcPageData),
+            loadCommand: new lu.bioCalc.commands.LoadCommand(bioCalcPageData),
+            clearCommand: new lu.bioCalc.commands.ClearCommand(bioCalcPageData),
+            helpDialogCommand: new lu.bioCalc.commands.DialogCommand(helpDialog),
+            aboutDialogCommand: new lu.bioCalc.commands.DialogCommand(aboutDialog),
+            optionsDialogCommand: new lu.bioCalc.commands.DialogCommand(optionsDialog)
         };
 
-        var mainToolbar = new lu.bioCalc.mainPage.pageSections.MainToolbar(bioCalcPageData, mainToolbarCommands);
-        mainToolbar.view = new lu.bioCalc.mainPage.pageSections.MainToolbarView();
+        var mainToolbar = new lu.bioCalc.presenters.MainToolbar(bioCalcPageData, mainToolbarCommands);
+        mainToolbar.view = new lu.bioCalc.views.MainToolbarView();
 
-        var chartsSection = new lu.bioCalc.mainPage.pageSections.ChartsSection(bioCalcPageData);
-        chartsSection.view = new lu.bioCalc.mainPage.pageSections.ChartsSectionView();
+        var chartsSection = new lu.bioCalc.presenters.ChartsSection(bioCalcPageData);
+        chartsSection.view = new lu.bioCalc.views.ChartsSectionView();
 
-        var birthdaySection = new lu.bioCalc.mainPage.pageSections.BirthdaySection(bioCalcPageData);
-        birthdaySection.view = new lu.bioCalc.mainPage.pageSections.BirthdaySectionView();
+        var birthdaySection = new lu.bioCalc.presenters.BirthdaySection(bioCalcPageData);
+        birthdaySection.view = new lu.bioCalc.views.BirthdaySectionView();
 
-        var xDaySection = new lu.bioCalc.mainPage.pageSections.XDaySection(bioCalcPageData);
-        xDaySection.view = new lu.bioCalc.mainPage.pageSections.XDaySectionView();
+        var xDaySection = new lu.bioCalc.presenters.XDaySection(bioCalcPageData);
+        xDaySection.view = new lu.bioCalc.views.XDaySectionView();
     }
 }(
         jQuery,
-        lu.bioCalc.mainPage.BioCalcPageData,
+        lu.bioCalc.BioCalcPageData,
         lu.bioCalc.configuration.CookieConfiguration,
         lu.bioControls.biorhythmModel.OnePersonBiorhythms,
         lu.bioCalc.helpers.ModalDialogsAutoCloseModule

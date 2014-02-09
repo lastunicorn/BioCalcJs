@@ -16,12 +16,11 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
+lu.bioCalc.views = lu.bioCalc.views || {};
 
 (function ($) {
 
-    lu.bioCalc.mainPage.pageSections.ChartsSectionView = function () {
+    lu.bioCalc.views.ChartsSectionView = function () {
 
         var $biorhythmViewContainer = null;
         var $firstDayTextBox = null;

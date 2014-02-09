@@ -16,7 +16,6 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
 
 (function (Event, ConfigurationEqualityComparer, JsonSerializer, UrlSerializer) {
 
@@ -24,7 +23,7 @@ lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
      * The data model of the BioCalc page.
      * It also provides communication between different modules of the page.
      */
-    lu.bioCalc.mainPage.BioCalcPageData = function (configuration) {
+    lu.bioCalc.BioCalcPageData = function (configuration) {
 
         // --------------------------------------------------------------------------
         // birthday property

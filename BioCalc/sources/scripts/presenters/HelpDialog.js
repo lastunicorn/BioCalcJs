@@ -16,15 +16,14 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
+lu.bioCalc.presenters = lu.bioCalc.presenters || {};
 
 (function () {
 
     /**
      * Contains the logic of the Help dialog.
      */
-    lu.bioCalc.mainPage.pageSections.HelpDialog = function () {
+    lu.bioCalc.presenters.HelpDialog = function () {
 
         var presenter;
 

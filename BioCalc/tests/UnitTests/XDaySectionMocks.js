@@ -22,7 +22,7 @@
     lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
     lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
 
-    lu.bioCalc.mainPage.pageSections.XDaySectionView = function() {
+    lu.bioCalc.views.XDaySectionView = function() {
         this.title = null;
         this.setTitle = function(value) {
             this.title = value;
@@ -37,7 +37,7 @@
         };
     };
 
-    lu.bioCalc.mainPage.BioCalcPageData = {
+    lu.bioCalc.BioCalcPageData = {
         xDayChanged: {
             subscribe: function() {
             }

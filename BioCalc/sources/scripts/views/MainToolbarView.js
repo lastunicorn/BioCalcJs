@@ -16,12 +16,11 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
+lu.bioCalc.views = lu.bioCalc.views || {};
 
 (function ($) {
 
-    lu.bioCalc.mainPage.pageSections.MainToolbarView = function () {
+    lu.bioCalc.views.MainToolbarView = function () {
 
         var $mainToolbar = null;
         var $helpButton = null;

@@ -16,8 +16,7 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
+lu.bioCalc.presenters = lu.bioCalc.presenters || {};
 
 (function (dateFormatter, dateUtil) {
 
@@ -25,7 +24,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
      * Contains the logic of the page section that displays the
      * biorhythm charts, the legend and also the first day and last day labels.
      */
-    lu.bioCalc.mainPage.pageSections.ChartsSection = function (bioCalcPageData) {
+    lu.bioCalc.presenters.ChartsSection = function (bioCalcPageData) {
 
         var presenter;
 

@@ -28,7 +28,7 @@
 
     QUnit.module("XDaySection Tests", {
         setup: function() {
-            lu.bioCalc.mainPage.BioCalcPageData.biorhythms = b;
+            lu.bioCalc.BioCalcPageData.biorhythms = b;
         }
     });
 
@@ -39,9 +39,9 @@
         QUnit.ok(typeof lu.bioCalc === "object", "lu.bioCalc is object.");
         QUnit.ok(typeof lu.bioCalc.mainPage === "object", "lu.bioCalc.mainPage is object.");
         QUnit.ok(typeof lu.bioCalc.mainPage.pageSections === "object", "lu.bioCalc.mainPage.pageSections is object.");
-        QUnit.ok(typeof lu.bioCalc.mainPage.pageSections.XDaySectionView === "object", "lu.bioCalc.mainPage.pageSections.XDaySectionView is object.: " + (typeof lu.bioCalc.mainPage.pageSections.XDaySectionView));
+        QUnit.ok(typeof lu.bioCalc.views.XDaySectionView === "object", "lu.bioCalc.views.XDaySectionView is object.: " + (typeof lu.bioCalc.views.XDaySectionView));
         
-//        var actual = lu.bioCalc.mainPage.pageSections.XDaySectionView.getBiorhythms();
+//        var actual = lu.bioCalc.views.XDaySectionView.getBiorhythms();
 //
 //        QUnit.ok(true);
 //        QUnit.ok(actual === expected, "Test");

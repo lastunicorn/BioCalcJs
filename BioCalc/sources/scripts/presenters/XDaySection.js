@@ -16,8 +16,7 @@
 
 window.lu = window.lu || {};
 lu.bioCalc = lu.bioCalc || {};
-lu.bioCalc.mainPage = lu.bioCalc.mainPage || {};
-lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
+lu.bioCalc.presenters = lu.bioCalc.presenters || {};
 
 (function (dateFormatter) {
 
@@ -25,7 +24,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
      * Contains the logic of the page section where the user can see
      * details about the X day.
      */
-    lu.bioCalc.mainPage.pageSections.XDaySection = function (bioCalcPageData) {
+    lu.bioCalc.presenters.XDaySection = function (bioCalcPageData) {
 
         // --------------------------------------------------------------------------
         // view property

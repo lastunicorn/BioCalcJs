@@ -62,7 +62,7 @@ lu.bioCalc.views = lu.bioCalc.views || {};
             return $birthdayTextBox.datepicker("getDate");
         };
 
-        this.getSecondBirthday = function() {
+        this.getSecondBirthday = function () {
             return $secondBirthdayTextBox.datepicker("getDate");
         };
 
@@ -71,15 +71,13 @@ lu.bioCalc.views = lu.bioCalc.views || {};
         // --------------------------------------------------------------------------
 
         function onBirthdayDatePickerSelect() {
-            if ($.isFunction(presenter.onBirthdayDatePickerSelect)) {
+            if ($.isFunction(presenter.onBirthdayDatePickerSelect))
                 presenter.onBirthdayDatePickerSelect();
-            }
         }
 
         function onSecondBirthdayDatePickerSelect() {
-            if ($.isFunction(presenter.onSecondBirthdayDatePickerSelect)) {
+            if ($.isFunction(presenter.onSecondBirthdayDatePickerSelect))
                 presenter.onSecondBirthdayDatePickerSelect();
-            }
         }
 
         // --------------------------------------------------------------------------
@@ -94,9 +92,6 @@ lu.bioCalc.views = lu.bioCalc.views || {};
         function create$() {
             $birthdayTextBox = $("#birthdayTextBox");
             $secondBirthdayTextBox = $("#secondBirthdayTextBox");
-            $saveBirthdayButton = $("#saveBirthdayButton");
-            $resetBirthdayButton = $("#resetBirthdayButton");
-            $birthdayButtons = $("#birthdayButtons");
         }
 
         function initialize$() {

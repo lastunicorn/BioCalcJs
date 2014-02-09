@@ -112,13 +112,13 @@
                 <file name="CommonBiorhythmsContainer.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/biorhythmView">
+			<sources dir="${basedir}/sources/biorhythmViewControl">
 				<file name="DayLabelPosition.js" />
 				<file name="WeekDayNameProvider.js" />
 				<file name="Scroller.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/biorhythmView/painting">
+			<sources dir="${basedir}/sources/biorhythmViewControl/painting">
 				<file name="BiorhythmCurvesPainter.js" />
 				<file name="DayLabelsPainter.js" />
 				<file name="GridLinesPainter.js" />
@@ -127,11 +127,11 @@
 				<file name="Painter.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/biorhythmView">
+			<sources dir="${basedir}/sources/biorhythmViewControl">
 				<file name="BiorhythmViewWidget.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/biorhythmLegend">
+			<sources dir="${basedir}/sources/biorhythmLegendControl">
 				<file name="BiorhythmLegendItemView.js" />
 				<file name="BiorhythmLegendItem.js" />
                 <file name="BiorhythmLegendView.js" />
@@ -139,7 +139,7 @@
 				<file name="BiorhythmLegendWidget.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/xDayInfoView">
+			<sources dir="${basedir}/sources/xDayInfoControl">
 				<file name="XDayInfoItemView.js" />
 				<file name="XDayInfoItem.js" />
 				<file name="XDayInfoViewerView.js" />

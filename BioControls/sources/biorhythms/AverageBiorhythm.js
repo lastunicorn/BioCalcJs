@@ -18,14 +18,6 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-/**
- *
- * @constructor
- */
-lu.Event = function(){
-
-};
-
 (function(Event) {
     /**
      * Represents a biorhythm calculated as an average of two other biorhythms.

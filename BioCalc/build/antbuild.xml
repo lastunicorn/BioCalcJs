@@ -66,8 +66,8 @@
 			<fileset dir="sources/images" />
 		</copy>
 
-		<copy file="sources/mainPage/BioCalc.css" todir="${dir.compiled}" />
-		<copy file="sources/mainPage/BioCalc.html" todir="${dir.compiled}" />
+		<copy file="sources/BioCalc.css" todir="${dir.compiled}" />
+		<copy file="sources/BioCalc.html" todir="${dir.compiled}" />
 
 		<copy file="changelog.txt" todir="${dir.compiled}" />
 		<copy file="license.txt" todir="${dir.compiled}" />
@@ -80,35 +80,35 @@
 
 			<!-- The order of files is important -->
 
-			<sources dir="${basedir}/sources">
+			<sources dir="${basedir}/sources/scripts">
 				<file name="Version.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/helpers">
+			<sources dir="${basedir}/sources/scripts/helpers">
 				<file name="DateFormatter.js" />
                 <file name="ModalDialogsAutoCloseModule.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/configuration">
+			<sources dir="${basedir}/sources/scripts/configuration">
                 <file name="ConfigurationEqualityComparer.js" />
                 <file name="JsonSerializer.js" />
                 <file name="UrlSerializer.js" />
 				<file name="CookieConfiguration.js" />
 			</sources>
 
-            <sources dir="${basedir}/sources/mainPage/commands">
+            <sources dir="${basedir}/sources/scripts/commands">
                 <file name="DialogCommand.js" />
                 <file name="SaveCommand.js" />
                 <file name="LoadCommand.js" />
                 <file name="ClearCommand.js" />
             </sources>
 
-			<sources dir="${basedir}/sources/mainPage">
+			<sources dir="${basedir}/sources/scripts">
                 <file name="BioCalcPageData.js" />
 				<file name="BioCalc.js" />
 			</sources>
 
-			<sources dir="${basedir}/sources/mainPage/pageSections">
+			<sources dir="${basedir}/sources/scripts/views">
                 <file name="AboutDialogView.js" />
                 <file name="HelpDialogView.js" />
                 <file name="OptionsDialogView.js" />
@@ -116,6 +116,9 @@
 				<file name="MainToolbarView.js" />
 				<file name="XDaySectionView.js" />
 				<file name="ChartsSectionView.js" />
+            </sources>
+
+            <sources dir="${basedir}/sources/scripts/presenters">
                 <file name="AboutDialog.js" />
                 <file name="HelpDialog.js" />
                 <file name="OptionsDialog.js" />

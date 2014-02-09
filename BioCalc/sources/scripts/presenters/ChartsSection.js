@@ -92,13 +92,13 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function displayBirthday() {
-            view.$biorhythmViewContainer.biorhythmView("suspendPaint");
+            view.suspendPaint();
             try {
                 var newBirthday = bioCalcPageData.birthday;
                 bioCalcPageData.biorhythms.setBirthdayOnAll(newBirthday);
             }
             finally {
-                view.$biorhythmViewContainer.biorhythmView("resumePaint");
+                view.resumePaint();
             }
         }
 
@@ -106,7 +106,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             bioCalcPageData.birthdayChanged.subscribe(onExternalBirthdayChanged);
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
 
-            view.$biorhythmViewContainer.biorhythmView("suspendPaint");
+            view.suspendPaint();
             try {
                 var firstDay = dateUtil.addDays(Date.now(), -7);
 
@@ -118,7 +118,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
                 publishCurrentXDay();
             }
             finally {
-                view.$biorhythmViewContainer.biorhythmView("resumePaint");
+                view.resumePaint();
             }
         }
 
@@ -138,9 +138,7 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         }
 
         function onFirstDayLabelClick() {
-            setTimeout(function () {
-                view.$firstDayTextBox.datepicker('show');
-            }, 0);
+            view.displayFirstDayDatePicker();
         }
 
         function onFirstDayDatePickerSelect() {
@@ -148,55 +146,17 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             view.setBiorhythmViewFirstDay(firstDay);
         }
 
-        function onBeforeFirstDayDatePickerShow(input, inst) {
-            // Handle calendar position before showing it.
-            // It's not supported by Datepicker itself (for now) so I need
-            // to use its internal variables.
-            var calendar = inst.dpDiv;
-
-            // Dirty hack, but we can't do anything without it (for now, in
-            // jQuery UI 1.8.20)
-            setTimeout(function () {
-                calendar.position({
-                    my: 'left top',
-                    at: 'left bottom',
-                    collision: 'none',
-                    of: view.$firstDayLabel
-                });
-            }, 0);
-        }
-
         function onLastDayLabelClick() {
-            setTimeout(function () {
-                view.$lastDayTextBox.datepicker('show');
-            }, 0);
+            view.displayLastDayDatePicker();
         }
 
         function onLastDayDatePickerSelect() {
             var lastDay = view.getLastDayTextBoxDate();
 
-            var displayedDayCount = view.$biorhythmViewContainer.biorhythmView("option", "totalDays") - 1;
-            var firstDay = dateUtil.addDays(lastDay, -displayedDayCount);
+            var displayedDayCount = view.getDisplayedDayCount();
+            var firstDay = dateUtil.addDays(lastDay, -displayedDayCount + 1);
 
             view.setBiorhythmViewFirstDay(firstDay);
-        }
-
-        function onBeforeLastDayDatePickerShow(input, inst) {
-            // Handle calendar position before showing it.
-            // It's not supported by Datepicker itself (for now) so I need
-            // to use its internal variables.
-            var calendar = inst.dpDiv;
-
-            // Dirty hack, but we can't do anything without it (for now, in
-            // jQuery UI 1.8.20)
-            setTimeout(function () {
-                calendar.position({
-                    my: 'right top',
-                    at: 'right bottom',
-                    collision: 'none',
-                    of: view.$lastDayLabel
-                });
-            }, 0);
         }
 
         function onBiorhythmViewXDayIndexChanged(sender, arg) {
@@ -219,10 +179,8 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
         (function initialize() {
             presenter = {
                 onFirstDayLabelClick: onFirstDayLabelClick,
-                onBeforeFirstDayDatePickerShow: onBeforeFirstDayDatePickerShow,
                 onFirstDayDatePickerSelect: onFirstDayDatePickerSelect,
                 onLastDayLabelClick: onLastDayLabelClick,
-                onBeforeLastDayDatePickerShow: onBeforeLastDayDatePickerShow,
                 onLastDayDatePickerSelect: onLastDayDatePickerSelect,
                 onBiorhythmViewFirstDayChanged: onBiorhythmViewFirstDayChanged,
                 onBiorhythmViewXDayIndexChanged: onBiorhythmViewXDayIndexChanged

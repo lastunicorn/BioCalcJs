@@ -24,55 +24,10 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
     lu.bioCalc.mainPage.pageSections.ChartsSectionView = function () {
 
         var $biorhythmViewContainer = null;
-
-        Object.defineProperty(this, "$biorhythmViewContainer", {
-            enumerable: true,
-            configurable: false,
-            get: function () {
-                return $biorhythmViewContainer;
-            }
-        });
-
         var $firstDayTextBox = null;
-
-        Object.defineProperty(this, "$firstDayTextBox", {
-            enumerable: true,
-            configurable: false,
-            get: function () {
-                return $firstDayTextBox;
-            }
-        });
-
         var $firstDayLabel = null;
-
-        Object.defineProperty(this, "$firstDayLabel", {
-            enumerable: true,
-            configurable: false,
-            get: function () {
-                return $firstDayLabel;
-            }
-        });
-
         var $lastDayTextBox = null;
-
-        Object.defineProperty(this, "$lastDayTextBox", {
-            enumerable: true,
-            configurable: false,
-            get: function () {
-                return $lastDayTextBox;
-            }
-        });
-
         var $lastDayLabel = null;
-
-        Object.defineProperty(this, "$lastDayLabel", {
-            enumerable: true,
-            configurable: false,
-            get: function () {
-                return $lastDayLabel;
-            }
-        });
-
         var $bioLegend = null;
 
         // --------------------------------------------------------------------------
@@ -148,6 +103,30 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             return $lastDayTextBox.datepicker("getDate");
         };
 
+        this.suspendPaint = function () {
+            $biorhythmViewContainer.biorhythmView("suspendPaint");
+        };
+
+        this.resumePaint = function () {
+            $biorhythmViewContainer.biorhythmView("resumePaint");
+        };
+
+        this.getDisplayedDayCount = function () {
+            return $biorhythmViewContainer.biorhythmView("option", "totalDays");
+        };
+
+        this.displayFirstDayDatePicker = function () {
+            setTimeout(function () {
+                $firstDayTextBox.datepicker('show');
+            }, 0);
+        };
+
+        this.displayLastDayDatePicker = function () {
+            setTimeout(function () {
+                $lastDayTextBox.datepicker('show');
+            }, 0);
+        };
+
         // --------------------------------------------------------------------------
         // Events
         // --------------------------------------------------------------------------
@@ -156,8 +135,22 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             presenter.onFirstDayLabelClick.apply(this, arguments);
         }
 
-        function onBeforeFirstDayDatePickerShow() {
-            presenter.onBeforeFirstDayDatePickerShow.apply(this, arguments);
+        function onBeforeFirstDayDatePickerShow(input, inst) {
+            // Handle calendar position before showing it.
+            // It's not supported by Datepicker itself (for now) so I need
+            // to use its internal variables.
+            var calendar = inst.dpDiv;
+
+            // Dirty hack, but we can't do anything without it (for now, in
+            // jQuery UI 1.8.20)
+            setTimeout(function () {
+                calendar.position({
+                    my: 'left top',
+                    at: 'left bottom',
+                    collision: 'none',
+                    of: $firstDayLabel
+                });
+            }, 0);
         }
 
         function onFirstDayDatePickerSelect() {
@@ -168,8 +161,22 @@ lu.bioCalc.mainPage.pageSections = lu.bioCalc.mainPage.pageSections || {};
             presenter.onLastDayLabelClick.apply(this, arguments);
         }
 
-        function onBeforeLastDayDatePickerShow() {
-            presenter.onBeforeLastDayDatePickerShow.apply(this, arguments);
+        function onBeforeLastDayDatePickerShow(input, inst) {
+            // Handle calendar position before showing it.
+            // It's not supported by Datepicker itself (for now) so I need
+            // to use its internal variables.
+            var calendar = inst.dpDiv;
+
+            // Dirty hack, but we can't do anything without it (for now, in
+            // jQuery UI 1.8.20)
+            setTimeout(function () {
+                calendar.position({
+                    my: 'right top',
+                    at: 'right bottom',
+                    collision: 'none',
+                    of: $lastDayLabel
+                });
+            }, 0);
         }
 
         function onLastDayDatePickerSelect() {

@@ -241,6 +241,168 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
             }
         });
 
+        // --------------------------------------------------------------------------
+        // areSundaysEmphasized property
+        // --------------------------------------------------------------------------
+
+        var areSundaysEmphasized = true;
+
+        Object.defineProperty(this, "areSundaysEmphasized", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return areSundaysEmphasized;
+            },
+            set: function (value) {
+                areSundaysEmphasized = value;
+                propertyChangedEvent.raise(this, "areSundaysEmphasized");
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // foreColor property
+        // --------------------------------------------------------------------------
+
+        var foreColor = "#b0b0b0";
+
+        Object.defineProperty(this, "foreColor", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return foreColor;
+            },
+            set: function (value) {
+                foreColor = value;
+                propertyChangedEvent.raise(this, "foreColor");
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // sundaysColor property
+        // --------------------------------------------------------------------------
+
+        var sundaysColor = "#ff0000";
+
+        Object.defineProperty(this, "sundaysColor", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return sundaysColor;
+            },
+            set: function (value) {
+                sundaysColor = value;
+                propertyChangedEvent.raise(this, "sundaysColor");
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // font property
+        // --------------------------------------------------------------------------
+
+        var font = "12px Arial";
+
+        Object.defineProperty(this, "font", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return font;
+            },
+            set: function (value) {
+                font = value;
+                propertyChangedEvent.raise(this, "font");
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // sundaysFont property
+        // --------------------------------------------------------------------------
+
+        var sundaysFont = "italic 12px Arial";
+
+        Object.defineProperty(this, "sundaysFont", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return sundaysFont;
+            },
+            set: function (value) {
+                sundaysFont = value;
+                propertyChangedEvent.raise(this, "sundaysFont");
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // todayBackColor property
+        // --------------------------------------------------------------------------
+
+        var todayBackColor = "#ffe4b5";
+
+        Object.defineProperty(this, "todayBackColor", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return todayBackColor;
+            },
+            set: function (value) {
+                todayBackColor = value;
+                propertyChangedEvent.raise(this, "todayBackColor");
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // isXDayVisible property
+        // --------------------------------------------------------------------------
+
+        var isXDayVisible = true;
+
+        Object.defineProperty(this, "isXDayVisible", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return isXDayVisible;
+            },
+            set: function (value) {
+                isXDayVisible = value;
+                propertyChangedEvent.raise(this, "isXDayVisible");
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // xDayBorderColor property
+        // --------------------------------------------------------------------------
+
+        var xDayBorderColor = "#000000";
+
+        Object.defineProperty(this, "xDayBorderColor", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return xDayBorderColor;
+            },
+            set: function (value) {
+                xDayBorderColor = value;
+                propertyChangedEvent.raise(this, "xDayBorderColor");
+            }
+        });
+
+        // --------------------------------------------------------------------------
+        // xDayBorderWidth property
+        // --------------------------------------------------------------------------
+
+        var xDayBorderWidth = 2;
+
+        Object.defineProperty(this, "xDayBorderWidth", {
+            enumerable: true,
+            configurable: false,
+            get: function () {
+                return xDayBorderWidth;
+            },
+            set: function (value) {
+                xDayBorderWidth = value;
+                propertyChangedEvent.raise(this, "xDayBorderWidth");
+            }
+        });
+
     };
 
 }(

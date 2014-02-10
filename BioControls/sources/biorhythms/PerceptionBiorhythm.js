@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-(function(AverageBiorhythm) {
+(function(AverageBiorhythm, PhysicalBiorhythm, IntuitiveBiorhythm) {
     /**
      * Represents the perception biorhythm. It is a biorhythm obtained by
      * calculating the average between physical and intuitive biorhythms.
@@ -35,8 +35,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
         });
 
         (function initialize() {
-            var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm();
-            var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm();
+            var physicalBiorhythm = new PhysicalBiorhythm();
+            var intuitiveBiorhythm = new IntuitiveBiorhythm();
 
             AverageBiorhythm.call(this, physicalBiorhythm, intuitiveBiorhythm);
         }).call(this);
@@ -44,4 +44,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
     lu.bioControls.biorhythms.PerceptionBiorhythm.inherit(AverageBiorhythm);
 
-}(lu.bioControls.biorhythms.AverageBiorhythm));
+}(
+        lu.bioControls.biorhythms.AverageBiorhythm,
+        lu.bioControls.biorhythms.PhysicalBiorhythm,
+        lu.bioControls.biorhythms.IntuitiveBiorhythm
+    ));

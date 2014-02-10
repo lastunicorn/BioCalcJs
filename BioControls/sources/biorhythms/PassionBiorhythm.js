@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-(function(AverageBiorhythm) {
+(function(AverageBiorhythm, PhysicalBiorhythm, EmotionalBiorhythm) {
     /**
      * Represents the passion biorhythm. It is a biorhythm obtained by
      * calculating the average between physical and emotional biorhythms.
@@ -35,8 +35,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
         });
 
         (function initialize() {
-            var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm();
-            var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm();
+            var physicalBiorhythm = new PhysicalBiorhythm();
+            var emotionalBiorhythm = new EmotionalBiorhythm();
 
             AverageBiorhythm.call(this, physicalBiorhythm, emotionalBiorhythm);
         }).call(this);
@@ -44,4 +44,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
     lu.bioControls.biorhythms.PassionBiorhythm.inherit(AverageBiorhythm);
 
-}(lu.bioControls.biorhythms.AverageBiorhythm));
+}(
+        lu.bioControls.biorhythms.AverageBiorhythm,
+        lu.bioControls.biorhythms.PhysicalBiorhythm,
+        lu.bioControls.biorhythms.EmotionalBiorhythm
+    ));

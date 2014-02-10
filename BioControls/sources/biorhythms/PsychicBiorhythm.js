@@ -18,14 +18,15 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-(function(AverageBiorhythm) {
+(function (AverageBiorhythm, EmotionalBiorhythm, IntuitiveBiorhythm) {
+
     /**
      * Represents the psychic biorhythm. It is a biorhythm obtained by
      * calculating the average between emotional and intuitive biorhythms.
      *
      * @constructor
      */
-    lu.bioControls.biorhythms.PsychicBiorhythm = function() {
+    lu.bioControls.biorhythms.PsychicBiorhythm = function () {
 
         Object.defineProperty(this, "name", {
             value: "Psychic",
@@ -35,8 +36,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
         });
 
         (function initialize() {
-            var emotionalBiorhythm = new lu.bioControls.biorhythms.EmotionalBiorhythm();
-            var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm();
+            var emotionalBiorhythm = new EmotionalBiorhythm();
+            var intuitiveBiorhythm = new IntuitiveBiorhythm();
 
             AverageBiorhythm.call(this, emotionalBiorhythm, intuitiveBiorhythm);
         }).call(this);
@@ -44,4 +45,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
     lu.bioControls.biorhythms.PsychicBiorhythm.inherit(AverageBiorhythm);
 
-}(lu.bioControls.biorhythms.AverageBiorhythm));
+}(
+        lu.bioControls.biorhythms.AverageBiorhythm,
+        lu.bioControls.biorhythms.EmotionalBiorhythm,
+        lu.bioControls.biorhythms.IntuitiveBiorhythm
+    ));

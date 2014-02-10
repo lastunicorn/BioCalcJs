@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-(function(AverageBiorhythm) {
+(function(AverageBiorhythm, PhysicalBiorhythm, IntellectualBiorhythm) {
     /**
      * Represents the mastery biorhythm. It is a biorhythm obtained by
      * calculating the average between physical and intellectual biorhythms.
@@ -35,8 +35,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
         });
 
         (function initialize() {
-            var physicalBiorhythm = new lu.bioControls.biorhythms.PhysicalBiorhythm();
-            var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm();
+            var physicalBiorhythm = new PhysicalBiorhythm();
+            var intellectualBiorhythm = new IntellectualBiorhythm();
 
             AverageBiorhythm.call(this, physicalBiorhythm, intellectualBiorhythm);
         }).call(this);
@@ -44,4 +44,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
     lu.bioControls.biorhythms.MasteryBiorhythm.inherit(AverageBiorhythm);
 
-}(lu.bioControls.biorhythms.AverageBiorhythm));
+}(
+        lu.bioControls.biorhythms.AverageBiorhythm,
+        lu.bioControls.biorhythms.PhysicalBiorhythm,
+        lu.bioControls.biorhythms.IntellectualBiorhythm
+    ));

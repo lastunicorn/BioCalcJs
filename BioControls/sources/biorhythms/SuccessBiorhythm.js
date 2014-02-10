@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-(function(AverageBiorhythm) {
+(function(AverageBiorhythm, IntellectualBiorhythm, IntuitiveBiorhythm) {
     /**
      * Represents the success biorhythm. It is a biorhythm obtained by
      * calculating the average between intellectual and intuitive biorhythms.
@@ -35,8 +35,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
         });
 
         (function initialize() {
-            var intellectualBiorhythm = new lu.bioControls.biorhythms.IntellectualBiorhythm();
-            var intuitiveBiorhythm = new lu.bioControls.biorhythms.IntuitiveBiorhythm();
+            var intellectualBiorhythm = new IntellectualBiorhythm();
+            var intuitiveBiorhythm = new IntuitiveBiorhythm();
 
             AverageBiorhythm.call(this, intellectualBiorhythm, intuitiveBiorhythm);
         }).call(this);
@@ -44,4 +44,8 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
     lu.bioControls.biorhythms.SuccessBiorhythm.inherit(AverageBiorhythm);
 
-}(lu.bioControls.biorhythms.AverageBiorhythm));
+}(
+        lu.bioControls.biorhythms.AverageBiorhythm,
+        lu.bioControls.biorhythms.IntellectualBiorhythm,
+        lu.bioControls.biorhythms.IntuitiveBiorhythm
+    ));

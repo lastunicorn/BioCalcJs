@@ -73,20 +73,25 @@
 
 			<sources dir="${basedir}/sources/biorhythms">
 				<file name="SinusoidalBiorhythm.js" />
-				<file name="AverageBiorhythm.js" />
-				<file name="EmotionalBiorhythm.js" />
-				<file name="EstheticBiorhythm.js" />
-				<file name="IntellectualBiorhythm.js" />
-				<file name="IntuitiveBiorhythm.js" />
-				<file name="MasteryBiorhythm.js" />
-				<file name="PassionBiorhythm.js" />
-				<file name="PerceptionBiorhythm.js" />
-				<file name="PhysicalBiorhythm.js" />
-				<file name="PsychicBiorhythm.js" />
-				<file name="SelfAwarenessBiorhythm.js" />
-				<file name="SpiritualBiorhythm.js" />
-				<file name="SuccessBiorhythm.js" />
-				<file name="WisdomBiorhythm.js" />
+
+                <file name="PhysicalBiorhythm.js" />
+                <file name="EmotionalBiorhythm.js" />
+                <file name="IntellectualBiorhythm.js" />
+                <file name="IntuitiveBiorhythm.js" />
+
+                <file name="EstheticBiorhythm.js" />
+                <file name="SelfAwarenessBiorhythm.js" />
+                <file name="SpiritualBiorhythm.js" />
+
+                <file name="AverageBiorhythm.js" />
+
+                <file name="PassionBiorhythm.js" />
+                <file name="MasteryBiorhythm.js" />
+                <file name="WisdomBiorhythm.js" />
+
+                <file name="PerceptionBiorhythm.js" />
+                <file name="PsychicBiorhythm.js" />
+                <file name="SuccessBiorhythm.js" />
 			</sources>
 
             <sources dir="${basedir}/sources/compatibility">

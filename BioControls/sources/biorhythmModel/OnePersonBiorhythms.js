@@ -112,6 +112,13 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             iChingBiorhythmsSet.setBirthdayOnAll(birthday);
         };
 
+        this.setLineStyle = function (lineStyle){
+            primaryBiorhythmsSet.setLineStyle(lineStyle);
+            secondaryBiorhythmsSet.setLineStyle(lineStyle);
+            extraBiorhythmsSet.setLineStyle(lineStyle);
+            iChingBiorhythmsSet.setLineStyle(lineStyle);
+        };
+
         this.toArray = function () {
             var list = [];
 

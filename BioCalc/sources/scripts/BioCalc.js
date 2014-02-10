@@ -17,7 +17,7 @@
 /**
  * The main module of the BioCalc home page. It initializes all the other parts of the page.
  */
-(function BioCalc($, BioCalcPageData, Configuration, OnePersonBiorhythms, ModalDialogsAutoCloseModule) {
+(function BioCalc($, BioCalcPageData, Configuration, MultiplePersonsBiorhythms, ModalDialogsAutoCloseModule, LineStyle) {
 
     var configuration;
     var bioCalcPageData;
@@ -43,7 +43,12 @@
 
     function initializeBioCalcPageData() {
         bioCalcPageData = new BioCalcPageData(configuration);
-        var biorhythms = new OnePersonBiorhythms();
+
+        var biorhythms = new MultiplePersonsBiorhythms();
+        biorhythms.addPerson("Person1");
+        biorhythms.addPerson("Person2")
+            .setLineStyle(LineStyle.dash);
+
         bioCalcPageData.biorhythms = biorhythms;
     }
 
@@ -87,6 +92,7 @@
         jQuery,
         lu.bioCalc.BioCalcPageData,
         lu.bioCalc.configuration.CookieConfiguration,
-        lu.bioControls.biorhythmModel.OnePersonBiorhythms,
-        lu.bioCalc.helpers.ModalDialogsAutoCloseModule
+        lu.bioControls.biorhythmModel.MultiplePersonsBiorhythms,
+        lu.bioCalc.helpers.ModalDialogsAutoCloseModule,
+        lu.LineStyle
     ));

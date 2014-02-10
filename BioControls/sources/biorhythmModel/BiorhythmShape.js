@@ -18,7 +18,7 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
-(function (Event, lineStyle) {
+(function (Event, LineStyle) {
 
     /**
      * Represents a biorhythm curve with all its display related properties.
@@ -166,14 +166,14 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         }
 
         // --------------------------------------------------------------------------
-        // _lineStyle property
+        // lineStyle property
         // --------------------------------------------------------------------------
 
-        var _lineStyle = lineStyle.solid;
+        var lineStyle = LineStyle.solid;
         var lineStyleChangedEvent = new Event();
         this.lineStyleChanged = lineStyleChangedEvent.client;
 
-        Object.defineProperty(this, "_lineStyle", {
+        Object.defineProperty(this, "lineStyle", {
             enumerable: true,
             configurable: false,
             get: getLineStyle,
@@ -181,14 +181,14 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         });
 
         function getLineStyle() {
-            return _lineStyle;
+            return lineStyle;
         }
 
         function setLineStyle(value) {
-            if (value === _lineStyle)
+            if (value === lineStyle)
                 return;
 
-            _lineStyle = value;
+            lineStyle = value;
             lineStyleChangedEvent.raise(obj, value);
         }
     };

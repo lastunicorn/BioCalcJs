@@ -37,6 +37,8 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             onePersonBiorhythms.name = personName;
 
             list[personName] = onePersonBiorhythms;
+
+            return onePersonBiorhythms;
         };
 
         this.getByPersonName = function (personName) {
@@ -62,7 +64,7 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
         };
 
         this.toArray = function (personName) {
-            var list = [];
+            var listToReturn = [];
 
             if (personName !== undefined) {
                 if (list[personName] != undefined)
@@ -70,11 +72,11 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
             }
             else {
                 for (var itemName in list) {
-                    addRange(list[itemName].toArray(), list);
+                    addRange(list[itemName].toArray(), listToReturn);
                 }
             }
 
-            return list;
+            return listToReturn;
         };
 
         function addRange(source, destination) {

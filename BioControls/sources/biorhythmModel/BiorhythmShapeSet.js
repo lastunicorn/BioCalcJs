@@ -97,6 +97,12 @@ lu.bioControls.biorhythmModel.BiorhythmShapeSet = function (items) {
         }
     };
 
+    this.setLineStyle = function(lineStyle){
+        for (var i = 0; i < items.length; i++) {
+            items[i].lineStyle = lineStyle;
+        }
+    };
+
     this.getByName = function (name) {
         if (items.length == 0)
             return null;

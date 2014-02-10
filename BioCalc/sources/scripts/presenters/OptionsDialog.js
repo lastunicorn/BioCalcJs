@@ -67,20 +67,28 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
             bioCalcPageData.biorhythmsChanged.subscribe(onExternalBiorhythmsChanged);
             biorhythmShapes = bioCalcPageData.biorhythms;
 
-            var isAnyPrimaryVisible = biorhythmShapes.primaryBiorhythmShapes.isAnyVisible();
+            var isAnyPrimaryVisible =
+                biorhythmShapes.getByPersonName("Person1").primaryBiorhythmShapes.isAnyVisible() ||
+                    biorhythmShapes.getByPersonName("Person2").primaryBiorhythmShapes.isAnyVisible();
             view.checkPrimaryBiorhythmsCheckbox(isAnyPrimaryVisible);
 
-            var isAnySecondaryVisible = biorhythmShapes.secondaryBiorhythmShapes.isAnyVisible();
+            var isAnySecondaryVisible =
+                biorhythmShapes.getByPersonName("Person1").secondaryBiorhythmShapes.isAnyVisible() ||
+                    biorhythmShapes.getByPersonName("Person2").secondaryBiorhythmShapes.isAnyVisible();
             view.checkSecondaryBiorhythmsCheckbox(isAnySecondaryVisible);
 
-            var isAnyExtraVisible = biorhythmShapes.extraBiorhythmShapes.isAnyVisible();
+            var isAnyExtraVisible =
+                biorhythmShapes.getByPersonName("Person1").extraBiorhythmShapes.isAnyVisible() ||
+                    biorhythmShapes.getByPersonName("Person2").extraBiorhythmShapes.isAnyVisible();
             view.checkExtraBiorhythmsCheckbox(isAnyExtraVisible);
 
-            var isAnyIChingVisible = biorhythmShapes.iChingBiorhythmShapes.isAnyVisible();
+            var isAnyIChingVisible =
+                biorhythmShapes.getByPersonName("Person1").iChingBiorhythmShapes.isAnyVisible() ||
+                    biorhythmShapes.getByPersonName("Person2").iChingBiorhythmShapes.isAnyVisible();
             view.checkIChingBiorhythmsCheckbox(isAnyIChingVisible);
         }
 
-        function stop(){
+        function stop() {
             bioCalcPageData.biorhythmsChanged.unsubscribe(onExternalBiorhythmsChanged);
         }
 
@@ -102,22 +110,26 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
 
         function onPrimaryCheckboxChange() {
             var isChecked = view.isCheckedPrimaryBiorhythmsCheckbox();
-            biorhythmShapes.primaryBiorhythmShapes.showAll(isChecked);
+            biorhythmShapes.getByPersonName("Person1").primaryBiorhythmShapes.showAll(isChecked);
+            biorhythmShapes.getByPersonName("Person2").primaryBiorhythmShapes.showAll(isChecked);
         }
 
         function onSecondaryCheckboxChange() {
             var isChecked = view.isCheckedSecondaryBiorhythmsCheckbox();
-            biorhythmShapes.secondaryBiorhythmShapes.showAll(isChecked);
+            biorhythmShapes.getByPersonName("Person1").secondaryBiorhythmShapes.showAll(isChecked);
+            biorhythmShapes.getByPersonName("Person2").secondaryBiorhythmShapes.showAll(isChecked);
         }
 
         function onExtraCheckboxChange() {
             var isChecked = view.isCheckedExtraBiorhythmsCheckbox();
-            biorhythmShapes.extraBiorhythmShapes.showAll(isChecked);
+            biorhythmShapes.getByPersonName("Person1").extraBiorhythmShapes.showAll(isChecked);
+            biorhythmShapes.getByPersonName("Person2").extraBiorhythmShapes.showAll(isChecked);
         }
 
         function onIChingCheckboxChange() {
             var isChecked = view.isCheckedIChingBiorhythmsCheckbox();
-            biorhythmShapes.iChingBiorhythmShapes.showAll(isChecked);
+            biorhythmShapes.getByPersonName("Person1").iChingBiorhythmShapes.showAll(isChecked);
+            biorhythmShapes.getByPersonName("Person2").iChingBiorhythmShapes.showAll(isChecked);
         }
 
         function onExternalBiorhythmsChanged(arg) {

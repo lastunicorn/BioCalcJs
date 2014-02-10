@@ -18,20 +18,24 @@ window.lu = window.lu || {};
 lu.bioControls = lu.bioControls || {};
 lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
 
-(function(Event, dateUtil) {
+(function (Event, dateUtil) {
     /**
      * Represents a biorhythm that has a sinusoidal form.
-     * 
+     *
      * @param period
      *            An integer (number of days) that represents the period of the
      *            sinusoid function.
      *
      * @constructor
      */
-    lu.bioControls.biorhythms.SinusoidalBiorhythm = function(period) {
+    lu.bioControls.biorhythms.SinusoidalBiorhythm = function (period) {
 
         var birthday = Date(80, 05, 13);
         var values = [];
+
+        // --------------------------------------------------------------------------
+        // period property
+        // --------------------------------------------------------------------------
 
         Object.defineProperty(this, "period", {
             enumerable: true,
@@ -43,10 +47,9 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
             return period;
         }
 
-        function setPeriod(value) {
-            period = value;
-            generateValues();
-        }
+        // --------------------------------------------------------------------------
+        // birthday property
+        // --------------------------------------------------------------------------
 
         var birthdayChangedEvent = new Event();
         this.birthdayChanged = birthdayChangedEvent.client;
@@ -63,47 +66,45 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
         }
 
         function setBirthday(value) {
-            if (typeof value !== "object" || !(value instanceof Date)) {
+            if (typeof value !== "object" || !(value instanceof Date))
                 throw "birthday should be a Date.";
-            }
 
-            if (value === birthday) {
+            if (value === birthday)
                 return;
-            }
 
             birthday = value;
             birthdayChangedEvent.raise(this, value);
         }
 
-        this.getValue = function(day) {
-            if (typeof day === "number") {
-                return getValueByIndex(day);
-            }
+        // --------------------------------------------------------------------------
+        // Methods
+        // --------------------------------------------------------------------------
 
-            if (typeof day === "object" && day instanceof Date) {
+        this.getValue = function (day) {
+            if (typeof day === "number")
+                return getValueByIndex(day);
+
+            if (typeof day === "object" && day instanceof Date)
                 return getValueByDate(day);
-            }
 
             return 0;
         };
 
         function getValueByIndex(dayIndex) {
-            if (period == 0) {
+            if (period == 0)
                 return 0;
-            }
 
             var index = dayIndex % period;
 
-            if (index < 0) {
+            if (index < 0)
                 index += period;
-            }
 
             return values[index];
         }
 
         function getValueByDate(date) {
-            var milisecondsLived = date - birthday;
-            var daysLived = dateUtil.millisecondsToWholeDays(milisecondsLived);
+            var millisecondsLived = date - birthday;
+            var daysLived = dateUtil.millisecondsToWholeDays(millisecondsLived);
 
             return getValueByIndex(daysLived);
         }
@@ -111,21 +112,26 @@ lu.bioControls.biorhythms = lu.bioControls.biorhythms || {};
         function generateValues() {
             values.length = 0;
 
-            for ( var i = 0; i < period; i++) {
+            for (var i = 0; i < period; i++) {
                 values[i] = Math.sin(i * 2 * Math.PI / period);
             }
         }
 
-        (function initialize() {
-            if (typeof period === "undefined") {
-                period = 0;
-            }
+        // --------------------------------------------------------------------------
+        // Initialize
+        // --------------------------------------------------------------------------
 
-            if (typeof period !== "number") {
+        (function initialize() {
+            if (typeof period === "undefined")
+                period = 0;
+
+            if (typeof period !== "number")
                 throw "period should be a number.";
-            }
 
             generateValues();
         }());
     };
-}(lu.Event, lu.DateUtil));
+}(
+        lu.Event,
+        lu.DateUtil
+    ));

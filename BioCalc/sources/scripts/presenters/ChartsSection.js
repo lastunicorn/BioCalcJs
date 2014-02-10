@@ -94,7 +94,7 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
             view.suspendPaint();
             try {
                 var newBirthday = bioCalcPageData.birthday;
-                bioCalcPageData.biorhythms.setBirthdayOnAll(newBirthday);
+                bioCalcPageData.biorhythms.setBirthdayOnAll(newBirthday, "Person1");
             }
             finally {
                 view.resumePaint();

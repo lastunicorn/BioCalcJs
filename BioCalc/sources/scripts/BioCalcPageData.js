@@ -126,7 +126,7 @@ lu.bioCalc = lu.bioCalc || {};
             if (biorhythms) {
                 biorhythms.setBirthdayOnAll(birthday);
 
-                // todo: needs rethinking this
+                // todo: i need to rethink this
                 loadBiorhythmsConfigurationFromConfig(configuration.config.biorhythms);
             }
 

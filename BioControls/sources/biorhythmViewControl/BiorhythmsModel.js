@@ -155,7 +155,7 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
         // gridColor property
         // --------------------------------------------------------------------------
 
-        var gridColor = "#d3d3d3";
+        var gridColor = "#d3d3d3"; // LightGray
 
         Object.defineProperty(this, "gridColor", {
             enumerable: true,
@@ -281,7 +281,7 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
         // sundaysColor property
         // --------------------------------------------------------------------------
 
-        var sundaysColor = "#ff0000";
+        var sundaysColor = "#ff0000"; // Red
 
         Object.defineProperty(this, "sundaysColor", {
             enumerable: true,
@@ -335,7 +335,7 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
         // todayBackColor property
         // --------------------------------------------------------------------------
 
-        var todayBackColor = "#ffe4b5";
+        var todayBackColor = "#ffe4b5"; // Moccasin
 
         Object.defineProperty(this, "todayBackColor", {
             enumerable: true,
@@ -371,7 +371,7 @@ lu.bioControls.biorhythmView = lu.bioControls.biorhythmView || {};
         // xDayBorderColor property
         // --------------------------------------------------------------------------
 
-        var xDayBorderColor = "#000000";
+        var xDayBorderColor = "#000000"; // Black
 
         Object.defineProperty(this, "xDayBorderColor", {
             enumerable: true,

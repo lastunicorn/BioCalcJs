@@ -22,58 +22,79 @@ lu.bioControls.biorhythmModel = lu.bioControls.biorhythmModel || {};
 
     lu.bioControls.biorhythmModel.MultiplePersonsBiorhythms = function () {
 
-        var list = {};
+        var list = [];
+        var listByName = {};
+
+
 
         // --------------------------------------------------------------------------
         // Functions
         // --------------------------------------------------------------------------
 
         this.addPerson = function (personName) {
-            var existsPerson = list[personName] !== undefined;
+            var existsPerson = listByName[personName] !== undefined;
             if (existsPerson)
                 return;
 
             var onePersonBiorhythms = new OnePersonBiorhythms();
             onePersonBiorhythms.name = personName;
 
-            list[personName] = onePersonBiorhythms;
+            list.push(onePersonBiorhythms);
+            listByName[personName] = onePersonBiorhythms;
 
             return onePersonBiorhythms;
         };
 
-        this.getByPersonName = function (personName) {
-            if (list[personName] === undefined)
-                return null;
+        this.getByPerson = function (person) {
+            var personType = typeof person;
 
-            return list[personName];
+            switch (personType) {
+                case "string":
+                    if (listByName[person] === undefined)
+                        throw "There is no person with the name '" + person + "'.";
+
+                    return listByName[person];
+
+                case "number":
+                    return list[person];
+
+                default :
+                    throw "Invalid argument 'person'.";
+            }
         };
 
-        this.setBirthdayOnAll = function (birthday, personName) {
+        this.setBirthdayOnAll = function (birthday, person) {
             if (!(birthday instanceof Date))
-                return;
+                throw "Invalid argument 'birthday'.";
 
-            if (personName !== undefined) {
-                if (list[personName] != undefined)
-                    list[personName].setBirthdayOnAll(birthday);
-            }
-            else {
-                for (var itemName in list) {
-                    list[itemName].setBirthdayOnAll(birthday);
+            if (person === undefined) {
+                for (var itemName in listByName) {
+                    listByName[itemName].setBirthdayOnAll(birthday);
                 }
+            } else if (typeof person === "string") {
+                if (listByName[person] != undefined)
+                    listByName[person].setBirthdayOnAll(birthday);
+            } else if (typeof person === "number") {
+                if (list[person] != undefined)
+                    list[person].setBirthdayOnAll(birthday);
+            } else {
+                throw "Invalid argument 'person'.";
             }
         };
 
-        this.toArray = function (personName) {
+        this.toArray = function (person) {
             var listToReturn = [];
 
-            if (personName !== undefined) {
-                if (list[personName] != undefined)
-                    list = list[personName].toArray();
-            }
-            else {
-                for (var itemName in list) {
-                    addRange(list[itemName].toArray(), listToReturn);
+            if (person === undefined) {
+                for (var itemName in listByName) {
+                    addRange(listByName[itemName].toArray(), listToReturn);
                 }
+            } else if (typeof person === "string"){
+                if (listByName[person] != undefined)
+                    listToReturn = listByName[person].toArray();
+            } else if (typeof person === "number") {
+                if (list[person] != undefined)
+                    listToReturn = list[person].toArray();
             }
 
             return listToReturn;

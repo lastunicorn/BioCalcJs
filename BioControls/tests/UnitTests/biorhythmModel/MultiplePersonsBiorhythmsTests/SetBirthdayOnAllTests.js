@@ -27,20 +27,6 @@
         }
     });
 
-    QUnit.test("setBirthdayOnAll is called on all persons if person name is not specified.", function () {
-        this.multiplePersonsBiorhythm.addPerson("person1");
-        this.multiplePersonsBiorhythm.addPerson("person2");
-        var birthday = new Date();
-        resetAllMocks();
-
-        this.multiplePersonsBiorhythm.setBirthdayOnAll(birthday);
-
-        for (var mockIndex in lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances) {
-            var instance = lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances[mockIndex];
-            QUnit.strictEqual(instance.setBirthdayOnAllCalls.length, 1, "Tests that one call is performed.");
-        }
-    });
-
     QUnit.test("The birthday is passed to all persons if person name is not specified.", function () {
         this.multiplePersonsBiorhythm.addPerson("person1");
         this.multiplePersonsBiorhythm.addPerson("person2");
@@ -51,6 +37,8 @@
 
         for (var mockIndex in lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances) {
             var instance = lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances[mockIndex];
+            QUnit.strictEqual(instance.setBirthdayOnAllCalls.length, 1, "Tests that one call is performed.");
+
             var firstCall = instance.setBirthdayOnAllCalls[0];
             QUnit.strictEqual(firstCall[0], birthday, "Tests that birthday is passed as parameter. " + firstCall);
         }
@@ -73,18 +61,43 @@
         QUnit.strictEqual(thirdMock.setBirthdayOnAllCalls.length, 0, "Tests that birthday is NOT set on the third mock.");
     });
 
-    QUnit.test("Does nothing if birthday is not a Date.", function () {
+    QUnit.test("Throws if birthday is not a Date.", function () {
         this.multiplePersonsBiorhythm.addPerson("person1");
         var birthday = {};
         resetAllMocks();
 
-        this.multiplePersonsBiorhythm.setBirthdayOnAll(birthday);
-
-        for (var mockIndex in lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances) {
-            var instance = lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances[mockIndex];
-            var callCount = instance.setBirthdayOnAllCalls.length;
-            QUnit.strictEqual(callCount, 0, "setBirthdayOnAll was called on mock '" + mockIndex + "' " + callCount + " times. No call was expected.");
+        function toBeTested() {
+            this.multiplePersonsBiorhythm.setBirthdayOnAll(birthday);
         }
+
+        QUnit.throws(toBeTested, "Test");
+    });
+
+    QUnit.test("Throws if person is any object.", function () {
+        this.multiplePersonsBiorhythm.addPerson("person1");
+        var birthday = new Date();
+
+        function toBeTested() {
+            this.multiplePersonsBiorhythm.setBirthdayOnAll(birthday, {});
+        }
+
+        QUnit.throws(toBeTested, "Test");
+    });
+
+    QUnit.test("Sets birthday on second person when person argument is equal to 1.", function(){
+        this.multiplePersonsBiorhythm.addPerson("person1");
+        this.multiplePersonsBiorhythm.addPerson("person2");
+        this.multiplePersonsBiorhythm.addPerson("person3");
+        var birthday = new Date();
+
+        this.multiplePersonsBiorhythm.setBirthdayOnAll(birthday, 1);
+
+        var firstMock = lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances[0];
+        QUnit.strictEqual(firstMock.setBirthdayOnAllCalls.length, 0, "Tests that birthday is NOT set on the first mock.");
+        var secondMock = lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances[1];
+        QUnit.strictEqual(secondMock.setBirthdayOnAllCalls.length, 1, "Tests that birthday is set on the second mock.");
+        var thirdMock = lu.bioControls.biorhythmModel.OnePersonBiorhythms.instances[2];
+        QUnit.strictEqual(thirdMock.setBirthdayOnAllCalls.length, 0, "Tests that birthday is NOT set on the third mock.");
     });
 
     function resetAllMocks() {

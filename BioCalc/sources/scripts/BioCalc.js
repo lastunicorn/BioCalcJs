@@ -45,6 +45,7 @@
         bioCalcPageData = new BioCalcPageData(configuration);
 
         var biorhythms = new MultiplePersonsBiorhythms();
+
         biorhythms.addPerson("Person1");
         biorhythms.addPerson("Person2")
             .setLineStyle(LineStyle.dash);

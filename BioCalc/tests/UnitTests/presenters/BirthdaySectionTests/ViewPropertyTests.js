@@ -24,7 +24,10 @@ describe("BirthdaySection.view property", function () {
     var birthdaySection;
 
     beforeEach(function () {
-        view = jasmine.createSpyObj("BirthdaySectionView", [ "setBirthdayText", "setSecondBirthdayText" ]);
+        view = jasmine.createSpyObj("BirthdaySectionView", [
+            "setBirthdayText",
+            "setSecondBirthdayText"
+        ]);
 
         bioCalcPageData = {};
         bioCalcPageData.birthdayChanged = jasmine.createSpyObj("Event", [ "subscribe" ]);
@@ -68,59 +71,5 @@ describe("BirthdaySection.view property", function () {
         birthdaySection.view = view;
 
         expect(bioCalcPageData.secondBirthdayChanged.subscribe).toHaveBeenCalledWith(jasmine.any(Function));
-    });
-});
-
-describe("BirthdaySection onBirthdayDatePickerSelect() event handler", function () {
-    var view;
-    var bioCalcPageData;
-    var birthdaySection;
-
-    beforeEach(function () {
-        view = jasmine.createSpyObj("BirthdaySectionView", [ "setBirthdayText", "setSecondBirthdayText", "getBirthday" ]);
-
-        bioCalcPageData = {};
-        bioCalcPageData.birthdayChanged = jasmine.createSpyObj("Event", [ "subscribe" ]);
-        bioCalcPageData.secondBirthdayChanged = jasmine.createSpyObj("Event", [ "subscribe" ]);
-
-        birthdaySection = new lu.bioCalc.presenters.BirthdaySection(bioCalcPageData);
-
-        birthdaySection.view = view;
-    });
-
-    it("publishes the birthday from view to the page-data object.", function () {
-        var birthday = new Date();
-        view.getBirthday.andReturn(birthday);
-
-        view.presenter.onBirthdayDatePickerSelect();
-
-        expect(bioCalcPageData.birthday).toBe(birthday);
-    });
-});
-
-describe("BirthdaySection onSecondBirthdayDatePickerSelect() event handler", function () {
-    var view;
-    var bioCalcPageData;
-    var birthdaySection;
-
-    beforeEach(function () {
-        view = jasmine.createSpyObj("BirthdaySectionView", [ "setBirthdayText", "setSecondBirthdayText", "getSecondBirthday" ]);
-
-        bioCalcPageData = {};
-        bioCalcPageData.birthdayChanged = jasmine.createSpyObj("Event", [ "subscribe" ]);
-        bioCalcPageData.secondBirthdayChanged = jasmine.createSpyObj("Event", [ "subscribe" ]);
-
-        birthdaySection = new lu.bioCalc.presenters.BirthdaySection(bioCalcPageData);
-
-        birthdaySection.view = view;
-    });
-
-    it("publishes the birthday from view to the page-data object.", function () {
-        var birthday = new Date();
-        view.getSecondBirthday.andReturn(birthday);
-
-        view.presenter.onSecondBirthdayDatePickerSelect();
-
-        expect(bioCalcPageData.secondBirthday).toBe(birthday);
     });
 });

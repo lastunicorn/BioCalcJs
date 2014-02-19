@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-/// <reference path="../../libraries/jasmine/jasmine.js" />
-/// <reference path="../../sources/scripts/helpers/DateFormatter.js" />
-/// <reference path="../../sources/scripts/presenters/BirthdaySection.js" />
+/// <reference path="../../../../libraries/jasmine/jasmine.js" />
+/// <reference path="../../../../sources/scripts/helpers/DateFormatter.js" />
+/// <reference path="../../../../sources/scripts/presenters/BirthdaySection.js" />
 
 describe("BirthdaySection onSecondBirthdayDatePickerSelect() event handler", function () {
     var view;
@@ -31,8 +31,12 @@ describe("BirthdaySection onSecondBirthdayDatePickerSelect() event handler", fun
         ]);
 
         bioCalcPageData = {};
-        bioCalcPageData.birthdayChanged = jasmine.createSpyObj("Event", [ "subscribe" ]);
-        bioCalcPageData.secondBirthdayChanged = jasmine.createSpyObj("Event", [ "subscribe" ]);
+        bioCalcPageData.birthdayChanged = jasmine.createSpyObj("Event", [
+            "subscribe"
+        ]);
+        bioCalcPageData.secondBirthdayChanged = jasmine.createSpyObj("Event", [
+            "subscribe"
+        ]);
 
         birthdaySection = new lu.bioCalc.presenters.BirthdaySection(bioCalcPageData);
 

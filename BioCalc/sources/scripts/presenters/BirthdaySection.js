@@ -27,8 +27,8 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
     lu.bioCalc.presenters.BirthdaySection = function (bioCalcPageData) {
 
         var presenter;
-        var suppressBirthdayChanged = false;
-        var suppressSecondBirthdayChanged = false;
+        var suppressBirthdayChanged;
+        var suppressSecondBirthdayChanged;
 
         // --------------------------------------------------------------------------
         // view property
@@ -48,17 +48,18 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
         }
 
         function setView(value) {
-            if (view) {
-                view.presenter = null;
-                stop();
-            }
+            if (value === undefined)
+                throw "value argument is undefined.";
+
+            if (value === null)
+                throw "value argument is null.";
+
+            if (view)
+                throw "view is already set.";
 
             view = value;
-
-            if (view) {
-                view.presenter = presenter;
-                start();
-            }
+            view.presenter = presenter;
+            start();
         }
 
         // --------------------------------------------------------------------------
@@ -103,11 +104,6 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
             bioCalcPageData.secondBirthdayChanged.subscribe(onExternalSecondBirthdayChanged);
         }
 
-        function stop() {
-            bioCalcPageData.birthdayChanged.unsubscribe(onExternalBirthdayChanged);
-            bioCalcPageData.secondBirthdayChanged.unsubscribe(onExternalSecondBirthdayChanged);
-        }
-
         // --------------------------------------------------------------------------
         // Event Handlers
         // --------------------------------------------------------------------------
@@ -143,6 +139,9 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
                 onBirthdayDatePickerSelect: onBirthdayDatePickerSelect,
                 onSecondBirthdayDatePickerSelect: onSecondBirthdayDatePickerSelect
             };
+
+            suppressBirthdayChanged = false;
+            suppressSecondBirthdayChanged = false;
         }());
     };
 

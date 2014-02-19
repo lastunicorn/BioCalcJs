@@ -45,9 +45,36 @@ describe("BirthdaySection.view property", function () {
 
         expect(view.presenter).not.toBeUndefined();
         expect(view.presenter).not.toBeNull();
+        expect(typeof view.presenter).toBe("object");
     });
 
-    it("initializes birthday value in view.", function () {
+    it("throws if view already associated.", function () {
+        birthdaySection.view = view;
+
+        function toBeTested() {
+            birthdaySection.view = {};
+        }
+
+        expect(toBeTested).toThrow();
+    });
+
+    it("throws if view is undefined.", function(){
+        function toBeTested(){
+            birthdaySection.view = undefined;
+        }
+
+        expect(toBeTested).toThrow();
+    });
+
+    it("throws if view is null.", function(){
+        function toBeTested(){
+            birthdaySection.view = null;
+        }
+
+        expect(toBeTested).toThrow();
+    });
+
+    it("sets initial birthday value in view.", function () {
         var birthday = new Date()
         bioCalcPageData.birthday = birthday;
 
@@ -56,7 +83,7 @@ describe("BirthdaySection.view property", function () {
         expect(view.setBirthdayText).toHaveBeenCalled();
     });
 
-    it("initializes second birthday value in view.", function () {
+    it("sets initial second birthday value in view.", function () {
         var birthday = new Date()
         bioCalcPageData.secondBirthday = birthday;
 

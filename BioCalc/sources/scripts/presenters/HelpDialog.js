@@ -45,13 +45,17 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
         }
 
         function setView(value) {
+            if (value === undefined)
+                throw "value argument is undefined.";
+
+            if (value === null)
+                throw "value argument is null.";
+
             if (view)
-                view.presenter = null;
+                throw "view is already set.";
 
             view = value;
-
-            if (view)
-                view.presenter = presenter;
+            view.presenter = presenter;
         }
 
         // --------------------------------------------------------------------------

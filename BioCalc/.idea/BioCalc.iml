@@ -11,6 +11,7 @@
     <orderEntry type="library" name="jQueryCookie" level="project" />
     <orderEntry type="library" name="jQuery ColorPicker" level="project" />
     <orderEntry type="library" name="qUnit" level="project" />
+    <orderEntry type="library" name="jasmine" level="project" />
   </component>
 </module>
 

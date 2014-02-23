@@ -44,13 +44,17 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
         }
 
         function setView(value) {
-            if (view)
-                stop();
+            if (value === undefined)
+                throw "value argument is undefined.";
+
+            if (value === null)
+                throw "value argument is null.";
+
+            if (view !== null)
+                throw "view is already set";
 
             view = value;
-
-            if (view)
-                start();
+            start();
         }
 
         // --------------------------------------------------------------------------
@@ -65,12 +69,6 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
             refreshBiorhythms();
             refreshXDay();
             refreshSecondBirthday();
-        }
-
-        function stop() {
-            bioCalcPageData.xDayChanged.unsubscribe(onExternalXDayChanged);
-            bioCalcPageData.biorhythmsChanged.unsubscribe(onExternalBiorhythmsChanged);
-            bioCalcPageData.secondBirthdayChanged.unsubscribe(onSecondBirthdayChanged);
         }
 
         function refreshXDay() {
@@ -94,15 +92,15 @@ lu.bioCalc.presenters = lu.bioCalc.presenters || {};
         // Event Handlers
         // --------------------------------------------------------------------------
 
-        function onExternalXDayChanged(arg) {
+        function onExternalXDayChanged() {
             refreshXDay();
         }
 
-        function onExternalBiorhythmsChanged(arg) {
+        function onExternalBiorhythmsChanged() {
             refreshBiorhythms();
         }
 
-        function onSecondBirthdayChanged(arg) {
+        function onSecondBirthdayChanged() {
             refreshSecondBirthday();
         }
     };

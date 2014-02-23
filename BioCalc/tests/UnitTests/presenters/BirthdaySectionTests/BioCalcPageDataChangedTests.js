@@ -54,7 +54,7 @@ describe("BirthdaySection", function () {
             onExternalBirthdayChangedSubscriber = subscriber;
         });
         birthdaySection.view = view;
-        view.setBirthdayText.callCount = 0;
+        view.setBirthdayText.reset();
 
         onExternalBirthdayChangedSubscriber();
 
@@ -67,7 +67,7 @@ describe("BirthdaySection", function () {
             onExternalSecondBirthdayChangedSubscriber = subscriber;
         });
         birthdaySection.view = view;
-        view.setSecondBirthdayText.callCount = 0;
+        view.setSecondBirthdayText.reset();
 
         onExternalSecondBirthdayChangedSubscriber();
 
